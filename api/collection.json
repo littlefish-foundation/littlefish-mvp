@@ -1,0 +1,34 @@
+{
+  "name": "Littlefish Collection",
+  "description": "This collection is for the Littlefish Colony MVP",
+  "url": "https://linktr.ee/littlefish.foundation",
+  "payout_address": "addr_test1qrtksxwmucwqljyjxyy9sm3ew0pvuw2zqmsj0jqm9lqr2a2ujl99smltucuf7j00alm0wfyw98kx3ehv39f5lfvft37sk389rw",
+  "policy": {
+    "lock": false,
+  },
+  "metadata": {
+    "name": "<name>",
+    "asset_name": "<asset_name>",
+    "media_type": "<mime_type>",
+    "description": "<description>",
+    "files": [
+      {
+        "name": "<asset_name>",
+        "media_type": "<mime_type>",
+        "src": "<file_link_1>"
+      }
+    ],
+    "attributes": {
+      "color": "<color>",
+      "body": "<body>",
+      "eyes": "<eyes>",
+      "face": "<face>",
+      "accessory": "<accessory>",
+      "collection": "Tangocrypto Collection",
+      "artist": "Tangocrypto",
+      "twitter": "https://twitter.com/tango_crypto",
+      "copyright": "Tangocrypto 2021"
+    },
+    "version": "1.0"
+  }
+}

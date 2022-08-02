@@ -1,0 +1,129 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "This API is for Littlefish NFT marketplace MVP for Author: Burak SEN <buraksenb@gmail.com>",
+    "version": "1.0.0",
+    "title": "Littlefish MVP API"
+  },
+  "schemes": [
+    "https"
+  ],
+  "tags": [],
+  "definitions": {
+    "nftFromDatabaseQuery": {
+      "properties": {
+        "page": {
+          "type": "number",
+          "format": "integer",
+          "example": "1"
+        },
+        "limit": {
+          "type": "number",
+          "format": "integer",
+          "example": "10"
+        }
+      }
+    },
+    "nftFromChainQuery": {
+      "properties": {
+        "cursor": {
+          "type": "string",
+          "format": "ObjectId",
+          "description": "Object Id"
+        },
+        "size": {
+          "type": "number",
+          "format": "integer",
+          "example": "10"
+        }
+      }
+    },
+    "mintNftQuery" : {
+      "properties": {
+        "asset_name": {
+          "type": "string",
+          "format": "Asset Name",
+          "description": "Asset name",
+          "example": "LittlefishJohnDoeAction1"
+        },
+        "name": {
+          "type": "string",
+          "format": "Name",
+          "description": "Name",
+          "example": "Littlefish John Doe Action 1"
+        },
+        "description": {
+          "type": "string",
+          "format": "string",
+          "description": "NFT description text",
+          "example": "This is my action."
+        },
+        "image": {
+          "type": "string",
+          "format": "base64 string",
+          "description": "Base64 representation of image",
+          "example": "iVBORw0KGgoAAAANSU.....hEUgAADQYAAA0HCAYAAACB0xAqAAAACXBIWXMA"
+        },
+        "media_type": {
+          "type": "string",
+          "format": "media format",
+          "description": "Format of media",
+          "example": "image/png"
+        },
+      }
+    }
+  },
+  "paths": {
+    "/nft/": {
+      "get": {
+        "tags": [
+          "Records"
+        ],
+        "summary": "Get nfts from server database",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Get filtered records",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/nftFromDatabaseQuery"
+            }
+          }
+        ],
+        "responses": {}
+      },
+      "post": {
+        "tags": [
+          "Records"
+        ],
+        "summary": "Create an nft",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Get filtered records",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/queryFilter"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully returns filtered records.",
+            "schema": {
+              "$ref": "#/definitions/successfulResponse"
+            }
+          },
+          "400": {
+            "description": "Bad request(Example is for Validation Error).",
+            "schema": {
+              "$ref": "#/definitions/badRequestResponse"
+            }
+          }
+        }
+      }
+    }
+  }
+}

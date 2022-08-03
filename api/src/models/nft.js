@@ -10,7 +10,7 @@ const Nft = new mongoose.Schema({
   image: { type: String, required: true },
   status: { type: String, required: true },
   files: { type: Array, required: true },
-  price: { type: Number, required: true },
+  price: { type: Number },
   metadata: { type: Object, required: true },
   custom_attributes: { type: Object },
   createdAt: { type: Date, default: Date.now },

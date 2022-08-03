@@ -19,7 +19,7 @@ async function getNfts(cursor = undefined, size = 10) {
     if (response.status !== 200) throw new ApiError();
   }
 
-  return response.data;
+  return response;
 }
 async function mintNft(nft) {
   const options = {
@@ -36,7 +36,7 @@ async function mintNft(nft) {
 
   if (response && response.status !== 201) throw new ApiError();
 
-  return response.data;
+  return response;
 }
 
 module.exports = {

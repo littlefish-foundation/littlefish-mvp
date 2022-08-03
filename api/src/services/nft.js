@@ -4,7 +4,12 @@ const { prepareAllImageURLsInFile, prepareImageURL } = require('../logics/nft');
 const ApiError = require('../errors/api-error');
 
 async function getNftsFromBlokchain(cursor, size) {
-  return nftServiceClient.getNfts(cursor, size);
+  const response = await nftServiceClient.getNfts(cursor, size);
+
+  if (response?.status !== 200) {
+    throw new ApiError(response.message, response.status);
+  }
+  return response.data;
 }
 
 async function getNftsFromDatabase(page = 0, limit = 10) {
@@ -14,17 +19,11 @@ async function getNftsFromDatabase(page = 0, limit = 10) {
 
 async function mintNft(nft) {
   const toMint = {
-    tokens: [],
+    tokens: nft.tokens,
   };
-  toMint.tokens.push(nft);
 
   const response = await nftServiceClient.mintNft(toMint);
-
-  const createdNft = response?.data[0];
-
-  if (!createdNft) {
-    throw new ApiError();
-  }
+  const createdNft = response?.data?.data[0];
   const preparedFiles = prepareAllImageURLsInFile(createdNft.files);
 
   await NftModel.create({

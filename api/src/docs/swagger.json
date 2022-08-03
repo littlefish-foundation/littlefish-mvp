@@ -73,6 +73,12 @@
               "description": "Format of media",
               "example": "image/png"
             },
+            "files": {
+              "type": "array",
+              "format": "array of objects",
+              "description": "additional files",
+              "example": ""
+            },
             "metadata_attributes": {
               "type": "array",
               "format": "array of objects",
@@ -83,7 +89,7 @@
               "type": "object",
               "format": "object",
               "description": "Custom attributes of the nft",
-              "example": "{\"serial_no\": 12345545,\n        \"md5checksum\": \"bc527343c7ffc103111f3a694b004e2f\"}"
+              "example": "{ 'links': [ 'youtube.com/littlefish', 'twitter.com/littlefishdao] }"
             }
           }
         }

@@ -29,19 +29,16 @@ app.use('/documentation', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
+app.use('/', routes);
+app.use((req, res, next) => {
+  const error = new NotFoundError();
+  next(error);
+});
+
+app.use(errorHandler);
+
 const server = app.listen(process.env.PORT || 8080, () => {
   console.log(`Server is listening on ${process.env.PORT || 8080} port.`);
-
-  app.use('/', routes);
-
-  app.use((req, res, next) => {
-    const error = new NotFoundError();
-    next(error);
-  });
-  app.use(errorHandler);
 });
 
-process.on('unhandledRejection', (error) => {
-  console.error('unhandledRejection', error);
-});
 module.exports = server;

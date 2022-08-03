@@ -8,7 +8,7 @@ const loaders = require('./loaders');
 const routes = require('./routes');
 const NotFoundError = require('./errors/not-found');
 const errorHandler = require('./middlewares/error-handler');
-// const swaggerDocument = require('./docs/swagger.json');
+const swaggerDocument = require('./docs/swagger.json');
 
 const app = express();
 dotenv.config();
@@ -24,7 +24,7 @@ const options = {
 };
 app.use(cors(options));
 
-// app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+app.use('/documentation', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));

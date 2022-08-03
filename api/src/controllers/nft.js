@@ -24,7 +24,7 @@ async function mintNft(req, res) {
 
   const result = await nftService.mintNft(nft);
 
-  res.status(200).send(result);
+  res.status(201).send(result);
 }
 
 module.exports = {

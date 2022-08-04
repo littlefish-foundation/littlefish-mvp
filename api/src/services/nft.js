@@ -12,6 +12,7 @@ async function getNftsFromBlokchain(cursor, size) {
   let id = 0;
   return response.data.data.map((token) => ({
     ...token,
+    image: prepareImageURL(token.image),
     // eslint-disable-next-line no-plusplus
     token_id: id++,
   }));

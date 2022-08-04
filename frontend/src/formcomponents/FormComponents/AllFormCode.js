@@ -47,6 +47,8 @@ const AllFormCode = () => {
   const onSubmit = (data, form) => {
     setFormData(data);
     setShowMessage(true);
+    console.log(data);
+    console.log(formData);
 
     form.restart();
   };

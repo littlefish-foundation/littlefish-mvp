@@ -15,14 +15,11 @@ function App() {
 
   useEffect(() => {
     const getMyNfts = async () => {
-      // const openseaData = await axios.get(
-      //   "https://testnets-api.opensea.io/assets?asset_contract_address=0x646B56b7775e357DA5c35Cd2f8441Bb6aC0EDce1&format=json"
-      // );
+  
       const openseaData = await axios.get(
         "http://localhost:8000/nft/chain"
       )
       console.log({openseaData})
-      //setListData(openseaData.data.assets.reverse());
       setListData(openseaData.data);
     };
     getMyNfts();

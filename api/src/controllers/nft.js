@@ -3,7 +3,7 @@ const nftService = require('../services/nft');
 async function getNftsFromDatabase(req, res, next) {
   const {
     page, limit,
-  } = req.body;
+  } = req.query;
 
   try {
     const data = await nftService.getNftsFromDatabase(page, limit);
@@ -15,7 +15,7 @@ async function getNftsFromDatabase(req, res, next) {
 async function getNftsFromBlokchain(req, res, next) {
   const {
     cursor, size,
-  } = req.body;
+  } = req.query;
 
   try {
     const data = await nftService.getNftsFromBlokchain(cursor, size);

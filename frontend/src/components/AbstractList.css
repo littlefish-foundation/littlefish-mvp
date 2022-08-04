@@ -1,0 +1,16 @@
+.list {
+  cursor: pointer;
+  display: grid;
+  grid-template-columns: auto auto auto auto;
+  align-content: space-around;
+  row-gap: 30px;
+  justify-content: space-evenly;
+  overflow: scroll;
+  margin-top: 20px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid white;
+}
+.list::-webkit-scrollbar {
+  display: none;
+  
+}

@@ -1,0 +1,67 @@
+.main {
+  max-height:max-content;
+  flex: auto;
+}
+.mainContent {
+  display: flex;
+  padding-bottom: 20px;
+  border-bottom: 1px solid white;
+  
+}
+.highlight {
+  flex: 0.25;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.nftContainer {
+  border-radius: 22px;
+  overflow: hidden;
+  display: flex;
+  margin-right: 20px;
+}
+.selectedNft {
+  object-fit: contain;
+  width: min(30vw, 80vh);
+  height: min(30vw, 80vh);
+}
+.nftDetails {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  flex: 0.75;
+}
+.title {
+  font-size: 30px;
+  font-weight: 500;
+}
+.itemNumber {
+  color: #ffffff;
+  font-size: 30px;
+  align-self: center;
+}
+.owner {
+  display: flex;
+  margin: 10px 0;
+  height: 50px;
+}
+.owner > div {
+  margin: 0 5px;
+}
+
+.ownerDetails {
+  display: flex;
+  align-items: center;
+  flex: 1;
+}
+.ownerNameAndHandle {
+  flex: 1;
+}
+
+.ownerHandle {
+  color: #00ebfe;
+}
+
+.container {
+  background-image: url(../assets/litteflish_BG.png);
+}

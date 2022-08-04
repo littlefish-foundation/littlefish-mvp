@@ -1,3 +1,6 @@
+import "primereact/resources/themes/bootstrap4-light-blue/theme.css"; //theme
+import "primereact/resources/primereact.min.css"; //core css
+import "primeicons/primeicons.css"; //icons
 import React, { useState } from "react";
 import { Form, Field } from "react-final-form";
 import { InputText } from "primereact/inputtext";
@@ -8,13 +11,11 @@ import { classNames } from "primereact/utils";
 import CoverImage from "./CoverImage";
 import "../index.css";
 import "./FormDemo.css";
-import "primeicons/primeicons.css"; //icons
 
 const AllFormCode = () => {
   const [nameValue, setNameValue] = useState("");
   const [discordValue, setDiscordValue] = useState("");
   const [actionTypeValue, setActionTypeValue] = useState("");
-
 
   const [descriptionValue, setDescriptionValue] = useState("");
 
@@ -57,16 +58,6 @@ const AllFormCode = () => {
     );
   };
 
-  const dialogFooter = (
-    <div className="flex justify-content-center">
-      <Button
-        label="OK"
-        className="p-button-text"
-        autoFocus
-        onClick={() => setShowMessage(false)}
-      />
-    </div>
-  );
   const [url, setURL] = useState("");
   const isInputTextChanged = (e) => {
     console.log(e.target.value);
@@ -80,20 +71,19 @@ const AllFormCode = () => {
     <div className="form-demo">
       <Dialog
         visible={showMessage}
+        
         onHide={() => setShowMessage(false)}
         position="top"
-        footer={dialogFooter}
         showHeader={false}
         breakpoints={{ "960px": "80vw" }}
         style={{ width: "30vw" }}
       >
         <div className="flex align-items-center flex-column pt-6 px-3">
           <i
-            className="pi pi-check-circle"
+            className="pi pi-spinner"
             style={{ fontSize: "5rem", color: "var(--green-500)" }}
           ></i>
-          <h5>Registration Successful!</h5>
-          
+          <h5>Your NFT is being Minted...!</h5>
         </div>
       </Dialog>
 

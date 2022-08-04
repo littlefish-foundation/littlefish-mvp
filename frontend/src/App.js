@@ -1,8 +1,6 @@
 import "./App.css";
 import Header from "./components/Header";
-import "primereact/resources/themes/bootstrap4-light-blue/theme.css"; //theme
-import "primereact/resources/primereact.min.css"; //core css
-import "primeicons/primeicons.css"; //icons
+
 import "./components/Header.css";
 import React, { useState, useEffect } from "react";
 import axios from "axios";

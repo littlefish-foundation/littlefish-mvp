@@ -9,7 +9,13 @@ async function getNftsFromBlokchain(cursor, size) {
   if (response?.status !== 200) {
     throw new ApiError(response.message, response.status);
   }
-  return response.data;
+  let id = 0;
+  return response.data.data.map((token) => ({
+    ...token,
+    // eslint-disable-next-line no-plusplus
+    image: prepareImageURL(token.image),
+    token_id: id++,
+  }));
 }
 
 async function getNftsFromDatabase(page = 0, limit = 10) {

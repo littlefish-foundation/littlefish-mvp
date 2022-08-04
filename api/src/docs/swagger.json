@@ -105,13 +105,12 @@
         "summary": "Get nfts from server database",
         "parameters": [
           {
-            "in": "body",
-            "name": "body",
-            "description": "Get filtered records",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/nftFromChainQuery"
-            }
+            "in": "path",
+            "name": "limit",
+            "description"	: "Limit the count of nfts",
+            "type"	:	"integer",
+            "format"	:	"int64",
+            "required": true
           }
         ],
         "responses": {
@@ -130,7 +129,7 @@
         "parameters": [
           {
             "in": "body",
-            "name": "body",
+            "name": "query",
             "description": "Get filtered records",
             "required": true,
             "schema": {

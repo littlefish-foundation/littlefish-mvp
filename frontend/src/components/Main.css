@@ -1,12 +1,11 @@
 .main {
-  max-height:max-content;
+  max-height: max-content;
   flex: auto;
 }
 .mainContent {
   display: flex;
   padding-bottom: 20px;
   border-bottom: 1px solid white;
-  
 }
 .highlight {
   flex: 0.25;
@@ -40,6 +39,11 @@
   font-size: 30px;
   align-self: center;
 }
+.description {
+  font-size: 15px;
+  font-weight: 350;
+}
+
 .owner {
   display: flex;
   margin: 10px 0;

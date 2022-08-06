@@ -10,13 +10,18 @@ async function getNftsFromBlokchain(cursor, size) {
     throw new ApiError(response.message, response.status);
   }
   let id = 0;
+  const attributes = token.metadata['721']?.
+  ['43d0fdf3a1fbda50b3db584d14e6a6b63d0781cf0666ad289be0cb70']?.[token.asset_name];
+
   return response.data.data.map((token) => ({
     ...token,
     image: prepareImageURL(token.image),
     // eslint-disable-next-line no-plusplus
     token_id: id++,
-    description: token.metadata['721']?.
-      ['43d0fdf3a1fbda50b3db584d14e6a6b63d0781cf0666ad289be0cb70']?.[token.asset_name]?.description,
+    description: attributes?.description,
+    link_1: attributes?.link_1,
+    link_2: attributes?.link_2,
+    owner_name: attributes?.owner_name,
   }));
 }
 

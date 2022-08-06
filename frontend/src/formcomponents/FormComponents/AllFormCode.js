@@ -1,19 +1,19 @@
 import "primereact/resources/themes/bootstrap4-dark-blue/theme.css"; //theme
 import "primereact/resources/primereact.min.css"; //core css
 import "primeicons/primeicons.css"; //icons
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import { Form, Field } from "react-final-form";
+import { Toast } from "primereact/toast";
+import { FileUpload } from "primereact/fileupload";
 import { InputText } from "primereact/inputtext";
 import { Button } from "primereact/button";
 import { InputTextarea } from "primereact/inputtextarea";
 import { Dialog } from "primereact/dialog";
-import CoverImage from "./CoverImage";
 import { classNames } from "primereact/utils";
 import "../index.css";
 import "./FormDemo.css";
 
 const AllFormCode = (props) => {
-
   const [nameValue, setNameValue] = useState("");
   const [discordValue, setDiscordValue] = useState("");
   const [actionTypeValue, setActionTypeValue] = useState("");
@@ -21,6 +21,19 @@ const AllFormCode = (props) => {
   const [descriptionValue, setDescriptionValue] = useState("");
   const [showMessage, setShowMessage] = useState(false);
   const [formData, setFormData] = useState({});
+
+  const toast = useRef(null);
+  const customBase64Uploader = async (event) => {
+    // convert file to base64 encoded
+    const file = event.files[0];
+    const reader = new FileReader();
+    let blob = await fetch(file.objectURL).then((r) => r.blob()); //blob:url
+    reader.readAsDataURL(blob);
+    reader.onloadend = function () {
+      const base64data = reader.result;
+      console.log(base64data);
+    };
+  };
 
   const validate = (data) => {
     let errors = {};
@@ -242,8 +255,20 @@ const AllFormCode = (props) => {
                 <br />
                 <br />
 
-                <CoverImage/>
-
+                <div>
+                  <Toast ref={toast}></Toast>
+                  <h5 style={{ color: "white" }}>
+                    Upload a Cover Image for your Action
+                  </h5>
+                  <FileUpload
+                    name="image"
+                    //url="http://localhost:8000/nft"
+                    accept="image/*"
+                    customUpload
+                    uploadHandler={customBase64Uploader}
+                    auto
+                  />
+                </div>
 
                 <br />
                 <br />

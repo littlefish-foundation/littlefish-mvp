@@ -2,6 +2,7 @@ import "primereact/resources/themes/bootstrap4-dark-blue/theme.css"; //theme
 import "primereact/resources/primereact.min.css"; //core css
 import "primeicons/primeicons.css"; //icons
 import React, { useState, useRef } from "react";
+import axios from "axios";
 import { Form, Field } from "react-final-form";
 import { Toast } from "primereact/toast";
 import { FileUpload } from "primereact/fileupload";
@@ -30,10 +31,15 @@ const AllFormCode = (props) => {
     let blob = await fetch(file.objectURL).then((r) => r.blob()); //blob:url
     reader.readAsDataURL(blob);
     reader.onloadend = function () {
-      const base64data = reader.result;
-      console.log(base64data);
+      
+      const uploadType = reader.result.split(',')[0];
+      const base64data = reader.result.split(',')[1];
+      window.basedata = base64data;
+      window.uploadType = uploadType
+      console.log(uploadType);
     };
   };
+  //console.log(window.basedata);
 
   const validate = (data) => {
     let errors = {};
@@ -59,8 +65,12 @@ const AllFormCode = (props) => {
   const onSubmit = (data, form) => {
     setFormData(data);
     setShowMessage(true);
-    console.log(data);
+    //console.log(data);
     //console.log(formData);
+    window.name = data.name;
+    window.discordServer = data.discordServer;
+    window.actionType = data.actionType;
+    window.description = data.description;
 
     form.restart();
   };
@@ -80,6 +90,32 @@ const AllFormCode = (props) => {
 
     setURL(urlVal);
   };
+
+  const options = {
+    method: "POST",
+    url: "http://localhost:8000/nft",
+    data: {
+      nft: {
+        tokens: [
+          {
+            asset_name: window.name,
+            name: window.discordServer,
+            description: window.description,
+            media_type: "image/png",
+            image: window.basedata,
+          },
+        ],
+      },
+    },
+  };
+  axios
+    .request(options)
+    .then(function (response) {
+      console.log(response.data);
+    })
+    .catch(function (error) {
+      console.error(error);
+    });
 
   return (
     <div className="form-demo">

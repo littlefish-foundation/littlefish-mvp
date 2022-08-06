@@ -1,4 +1,4 @@
-import "primereact/resources/themes/bootstrap4-light-blue/theme.css"; //theme
+import "primereact/resources/themes/bootstrap4-dark-blue/theme.css"; //theme
 import "primereact/resources/primereact.min.css"; //core css
 import "primeicons/primeicons.css"; //icons
 import React, { useState } from "react";
@@ -7,18 +7,18 @@ import { InputText } from "primereact/inputtext";
 import { Button } from "primereact/button";
 import { InputTextarea } from "primereact/inputtextarea";
 import { Dialog } from "primereact/dialog";
-import { classNames } from "primereact/utils";
 import CoverImage from "./CoverImage";
+import { classNames } from "primereact/utils";
 import "../index.css";
 import "./FormDemo.css";
 
-const AllFormCode = () => {
+const AllFormCode = (props) => {
+
   const [nameValue, setNameValue] = useState("");
   const [discordValue, setDiscordValue] = useState("");
   const [actionTypeValue, setActionTypeValue] = useState("");
 
   const [descriptionValue, setDescriptionValue] = useState("");
-
   const [showMessage, setShowMessage] = useState(false);
   const [formData, setFormData] = useState({});
 
@@ -40,7 +40,6 @@ const AllFormCode = () => {
     if (!data.description) {
       errors.description = "You need to desribe your action.";
     }
-
     return errors;
   };
 
@@ -48,7 +47,7 @@ const AllFormCode = () => {
     setFormData(data);
     setShowMessage(true);
     console.log(data);
-    console.log(formData);
+    //console.log(formData);
 
     form.restart();
   };
@@ -73,7 +72,6 @@ const AllFormCode = () => {
     <div className="form-demo">
       <Dialog
         visible={showMessage}
-        
         onHide={() => setShowMessage(false)}
         position="top"
         showHeader={false}
@@ -91,7 +89,9 @@ const AllFormCode = () => {
 
       <div className="flex justify-content-center">
         <div className="card">
-          <h5 className="text-center">Create a New Action</h5>
+          <h5 className="text-center" style={{ color: "white" }}>
+            Create a New Action
+          </h5>
           <Form
             onSubmit={onSubmit}
             initialValues={{
@@ -124,7 +124,7 @@ const AllFormCode = () => {
                             "p-error": isFormFieldValid(meta),
                           })}
                         >
-                          Name or Nickname*
+                          Owner's Name or Nickname*
                         </label>
                       </span>
                       {getFormErrorMessage(meta)}
@@ -151,7 +151,7 @@ const AllFormCode = () => {
                             "p-error": isFormFieldValid(meta),
                           })}
                         >
-                          Discord server name*
+                          Action name*
                         </label>
                       </span>
                       {getFormErrorMessage(meta)}
@@ -242,7 +242,11 @@ const AllFormCode = () => {
                 <br />
                 <br />
 
-                <CoverImage />
+                <CoverImage/>
+
+
+                <br />
+                <br />
 
                 <Button type="submit" label="Submit" className="mt-2" />
               </form>

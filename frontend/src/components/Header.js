@@ -3,7 +3,7 @@ import Abstract from "../assets/Header/Abstract.png";
 import searchIcon from "../assets/Header/search.png";
 import themeSwitchIcon from "../assets/Header/theme-switch.png";
 import "primeicons/primeicons.css"; //icons
-import "primereact/resources/themes/bootstrap4-light-blue/theme.css"; //theme
+
 import "primereact/resources/primereact.min.css"; //core css
 import '../formcomponents/modal/index.css';
 import '../formcomponents/modal/App.css';

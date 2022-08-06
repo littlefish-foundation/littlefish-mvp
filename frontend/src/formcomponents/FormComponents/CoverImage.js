@@ -1,31 +1,33 @@
-import React, { useRef } from 'react';
-import { Toast } from 'primereact/toast';
-import { FileUpload } from 'primereact/fileupload';
-import { Tooltip } from 'primereact/tooltip';
-import '../index.css';
-
-const CoverImage = () => {
-    const toast = useRef(null);
-
-    const onUpload = () => {
-        toast.current.show({severity: 'info', summary: 'Success', detail: 'File Uploaded'});
-    }
-
-    return (
-        <div>
-            <Toast ref={toast}></Toast>
-
-            <Tooltip target=".custom-choose-btn" content="Choose" position="bottom" />
-            <Tooltip target=".custom-upload-btn" content="Upload" position="bottom" />
-            <Tooltip target=".custom-cancel-btn" content="Clear" position="bottom" />
-
-            <div className="card">
-                <h5>Upload a Cover Image*</h5>
-                <FileUpload name="demo[]" url="https://primefaces.org/primereact/showcase/upload.php" onUpload={onUpload} multiple accept="image/*" maxFileSize={1000000}
-                    emptyTemplate={<p className="m-0">Drag and drop files to here to upload.</p>} />
-            </div>
-        </div>
-    )
+import React, { useRef } from "react";
+import { Toast } from "primereact/toast";
+import { FileUpload } from "primereact/fileupload";
+export const CoverImage = () => {
+  
+  const toast = useRef(null);
+  const customBase64Uploader = async (event) => {
+    // convert file to base64 encoded
+    const file = event.files[0];
+    const reader = new FileReader();
+    let blob = await fetch(file.objectURL).then((r) => r.blob()); //blob:url
+    reader.readAsDataURL(blob);
+    reader.onloadend = function () {
+      const base64data = reader.result;
+      console.log(base64data);
+    };
+  };
+  return (
+    <div>
+      <Toast ref={toast}></Toast>
+      <h5 style={{color: "white"}}>Upload a Cover Image for your Action</h5>
+      <FileUpload
+        name="image"
+        //url="http://localhost:8000/nft"
+        accept="image/*"
+        customUpload
+        uploadHandler={customBase64Uploader}
+        auto
+      />
+    </div>
+  );
 };
-
 export default CoverImage;

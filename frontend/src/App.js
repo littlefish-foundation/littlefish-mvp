@@ -9,6 +9,7 @@ import Main from "./components/Main";
 import "./formcomponents/modal/index.css";
 import "./formcomponents/modal/App.css";
 
+
 function App() {
   const [listData, setListData] = useState([]);
   const [selectedNft, setSelectedNft] = useState(0);

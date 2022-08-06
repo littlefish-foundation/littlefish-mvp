@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import AllFormCode from '../FormComponents/AllFormCode';
 import FocusTrap from 'focus-trap-react';
+import './index.css';
 
 
 export const Modal = ({

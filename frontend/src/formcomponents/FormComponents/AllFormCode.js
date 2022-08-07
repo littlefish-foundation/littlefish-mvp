@@ -82,13 +82,22 @@ const AllFormCode = (props) => {
     );
   };
 
-  const [url, setURL] = useState("");
-  const isInputTextChanged = (e) => {
+  const [url1, setURL1] = useState("");
+  const isInputTextChanged1 = (e) => {
     console.log(e.target.value);
-    let urlVal = e.target.value;
-    if (urlVal.includes("https://")) urlVal = urlVal.split("https://")[1];
+    let urlVal1 = e.target.value;
+    if (urlVal1.includes("https://")) urlVal1 = urlVal1.split("https://")[1];
 
-    setURL(urlVal);
+    setURL1(urlVal1);
+  };
+
+  const [url2, setURL2] = useState("");
+  const isInputTextChanged2 = (e) => {
+    console.log(e.target.value);
+    let urlVal2 = e.target.value;
+    if (urlVal2.includes("https://")) urlVal2 = urlVal2.split("https://")[1];
+
+    setURL2(urlVal2);
   };
 
   const options = {
@@ -101,7 +110,7 @@ const AllFormCode = (props) => {
             asset_name: window.name,
             name: window.discordServer,
             description: window.description,
-            media_type: "image/png",
+            media_type: "image/jpeg",
             image: window.basedata,
           },
         ],
@@ -269,9 +278,9 @@ const AllFormCode = (props) => {
                   <span className="p-inputgroup-addon">https://</span>
                   <InputText
                     id="YoutubeLink"
-                    value={url}
+                    value={url1}
                     placeholder="Enter YouTube link if any."
-                    onChange={isInputTextChanged}
+                    onChange={isInputTextChanged1}
                   />
                 </div>
 
@@ -282,9 +291,9 @@ const AllFormCode = (props) => {
                   <span className="p-inputgroup-addon">https://</span>
                   <InputText
                     id="OtherLinks"
-                    value={url}
+                    value={url2}
                     placeholder="Enter other relevant links."
-                    onChange={isInputTextChanged}
+                    onChange={isInputTextChanged2}
                   />
                 </div>
 

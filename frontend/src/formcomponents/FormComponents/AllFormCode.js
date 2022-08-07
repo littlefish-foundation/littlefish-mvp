@@ -31,11 +31,10 @@ const AllFormCode = (props) => {
     let blob = await fetch(file.objectURL).then((r) => r.blob()); //blob:url
     reader.readAsDataURL(blob);
     reader.onloadend = function () {
-      
-      const uploadType = reader.result.split(',')[0];
-      const base64data = reader.result.split(',')[1];
+      const uploadType = reader.result.split(",")[0];
+      const base64data = reader.result.split(",")[1];
       window.basedata = base64data;
-      window.uploadType = uploadType
+      window.uploadType = uploadType.split(':').pop().split(';')[0];
       console.log(uploadType);
     };
   };
@@ -74,9 +73,10 @@ const AllFormCode = (props) => {
     console.log(e.target.value);
     let urlVal1 = e.target.value;
     if (urlVal1.includes("https://")) urlVal1 = urlVal1.split("https://")[1];
-    window.url1 = urlVal1;
+    
 
     setURL1(urlVal1);
+    window.url1 = urlVal1;
   };
 
   const [url2, setURL2] = useState("");
@@ -84,9 +84,10 @@ const AllFormCode = (props) => {
     console.log(e.target.value);
     let urlVal2 = e.target.value;
     if (urlVal2.includes("https://")) urlVal2 = urlVal2.split("https://")[1];
-    window.url2 = urlVal2;
+    
 
     setURL2(urlVal2);
+    window.url2 = urlVal2;
   };
 
   const onSubmit = (data, form) => {
@@ -107,17 +108,16 @@ const AllFormCode = (props) => {
     url: "http://localhost:8000/nft",
     data: {
       nft: {
-        tokens: [
-          {
-            owner_name: window.name,
-            asset_name: window.discordServer,
-            desc: window.description,
-            //media_type: "image/jpeg",
-            image: window.basedata,
-            link_1: window.url1,
-            link_2: window.url2,
-          },
-        ],
+        asset_name: "test", //window.discordServer,
+        owner_name:"test", //window.name,
+        name:"test", //window.discordServer,
+        link_1:"test", //window.url1,
+        link_2:"test", //window.url2,
+        image:"test", //window.basedata,
+        description:"test", //window.description,
+        media_type:"test", //window.uploadType,
+        
+
       },
     },
   };

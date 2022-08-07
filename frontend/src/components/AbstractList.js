@@ -10,7 +10,7 @@ const AbstractList = ({ listData, setSelectedNft }) => {
           <CollectionCard
             
             id={nft.token_id}
-            name={nft.asset_name}
+            asset_name={nft.asset_name}
             description={nft.description}
             image={nft.image}
             link_1={nft.link_1}

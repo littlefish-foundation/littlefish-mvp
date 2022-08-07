@@ -18,7 +18,7 @@ const Main = ({ selectedNft, listData }) => {
         <div className="nftDetails" style={{ color: "#fff" }}>
           <div className="title">
             {activeNft.name}
-            <span className="itemNumber">.#{activeNft.token_id}</span>
+            
             <br />
             <span className="description">{activeNft.description}</span>
             <br />

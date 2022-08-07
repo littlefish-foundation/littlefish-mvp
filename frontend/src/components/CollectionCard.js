@@ -6,6 +6,7 @@ const CollectionCard = ({ id, name, description, image }) => {
     <div className="collectionCard">
       <img src={image} alt="" />
       <div className="details">
+      
         <div className="name">
           {name} <div className="id">.#{id}</div>
         </div>

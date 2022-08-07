@@ -19,13 +19,19 @@ const Main = ({ selectedNft, listData }) => {
           <div className="title">
             {activeNft.name}
             <span className="itemNumber">.#{activeNft.token_id}</span>
-            <br/>
+            <br />
             <span className="description">{activeNft.description}</span>
+            <br />
+            <span className="owner"></span>
           </div>
-          
-          <div className="description">{activeNft.OwnerName}
-            <div className="ownerDetails"> {activeNft.YouTubeLink} 
-              <div className="ownerNameAndHandle"></div>{activeNft.OtherLink}
+
+          <div className="description">
+            <a href={activeNft.link_1}>YouTube</a>
+            <br />
+            <a href={activeNft.link_2}>Source</a>
+
+            <div className="ownerDetails"> Action Owner: {activeNft.owner_name}
+              <div className="ownerNameAndHandle"></div>
             </div>
           </div>
         </div>

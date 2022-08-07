@@ -13,9 +13,9 @@ const AbstractList = ({ listData, setSelectedNft }) => {
             name={nft.asset_name}
             description={nft.description}
             image={nft.image}
-            YouTubeLink={nft.link_1}
-            OtherLink={nft.link_2}
-            OwnerName={nft.owner_name}
+            link_1={nft.link_1}
+            link_2={nft.link_2}
+            owner_name={nft.owner_name}
           />
         </div>
       ))}

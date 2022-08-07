@@ -62,19 +62,6 @@ const AllFormCode = (props) => {
     return errors;
   };
 
-  const onSubmit = (data, form) => {
-    setFormData(data);
-    setShowMessage(true);
-    //console.log(data);
-    //console.log(formData);
-    window.name = data.name;
-    window.discordServer = data.discordServer;
-    window.actionType = data.actionType;
-    window.description = data.description;
-
-    form.restart();
-  };
-
   const isFormFieldValid = (meta) => !!(meta.touched && meta.error);
   const getFormErrorMessage = (meta) => {
     return (
@@ -87,6 +74,7 @@ const AllFormCode = (props) => {
     console.log(e.target.value);
     let urlVal1 = e.target.value;
     if (urlVal1.includes("https://")) urlVal1 = urlVal1.split("https://")[1];
+    window.url1 = urlVal1;
 
     setURL1(urlVal1);
   };
@@ -96,8 +84,22 @@ const AllFormCode = (props) => {
     console.log(e.target.value);
     let urlVal2 = e.target.value;
     if (urlVal2.includes("https://")) urlVal2 = urlVal2.split("https://")[1];
+    window.url2 = urlVal2;
 
     setURL2(urlVal2);
+  };
+
+  const onSubmit = (data, form) => {
+    setFormData(data);
+    setShowMessage(true);
+    console.log(data);
+    //console.log(formData);
+    window.name = data.name;
+    window.discordServer = data.discordServer;
+    window.actionType = data.actionType;
+    window.description = data.description;
+
+    form.restart();
   };
 
   const options = {
@@ -107,16 +109,19 @@ const AllFormCode = (props) => {
       nft: {
         tokens: [
           {
-            asset_name: window.name,
-            name: window.discordServer,
-            description: window.description,
-            media_type: "image/jpeg",
+            owner_name: window.name,
+            asset_name: window.discordServer,
+            desc: window.description,
+            //media_type: "image/jpeg",
             image: window.basedata,
+            link_1: window.url1,
+            link_2: window.url2,
           },
         ],
       },
     },
   };
+  console.log(options.data);
   axios
     .request(options)
     .then(function (response) {

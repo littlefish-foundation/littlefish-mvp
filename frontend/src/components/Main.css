@@ -42,12 +42,14 @@
 .description {
   font-size: 15px;
   font-weight: 350;
+  color:#ffffff;
 }
 
 .owner {
-  display: flex;
-  margin: 10px 0;
-  height: 50px;
+  color:#ffffff;
+  font-size: 15px;
+  font-weight: 350;
+  align-self: center;
 }
 .owner > div {
   margin: 0 5px;
@@ -56,7 +58,9 @@
 .ownerDetails {
   display: flex;
   align-items: center;
+  font-weight: 350;
   flex: 1;
+  color: #ffffff;
 }
 .ownerNameAndHandle {
   flex: 1;

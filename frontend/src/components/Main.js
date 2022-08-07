@@ -23,9 +23,9 @@ const Main = ({ selectedNft, listData }) => {
             <span className="description">{activeNft.description}</span>
           </div>
           
-          <div className="description">  
-            <div className="ownerDetails">
-              <div className="ownerNameAndHandle"></div>
+          <div className="description">{activeNft.OwnerName}
+            <div className="ownerDetails"> {activeNft.YouTubeLink} 
+              <div className="ownerNameAndHandle"></div>{activeNft.OtherLink}
             </div>
           </div>
         </div>

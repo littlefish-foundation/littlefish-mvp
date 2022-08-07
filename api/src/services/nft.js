@@ -35,8 +35,34 @@ async function getNftsFromDatabase(page = 0, limit = 10) {
 
 async function mintNft(nft) {
   const toMint = {
-    tokens: nft.tokens,
+    tokens: [
+      {
+        asset_name: nft.asset_name,
+        name: nft.name,
+        media_type: nft.media_type,
+        image: nft.image,
+        metadata_attributes: [
+          {
+            tag: "<link_1>",
+            value: nft.link_1,
+          },
+          {
+            tag: "<link_2>",
+            value: nft.link_2,
+          },
+          {
+            tag: "<desc>",
+            value: nft.description,
+          },
+          {
+            tag: "<owner_name>",
+            value: nft.owner_name,
+          }
+        ]
+      }
+    ]
   };
+
 
   const response = await nftServiceClient.mintNft(toMint);
   const createdNft = response?.data?.data[0];

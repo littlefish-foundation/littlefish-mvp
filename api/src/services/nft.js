@@ -13,19 +13,19 @@ async function getNftsFromBlokchain(cursor, size) {
   let attributes;
   return response.data.data.map((token) => {
     attributes = token.metadata['721']?.
-    ['43d0fdf3a1fbda50b3db584d14e6a6b63d0781cf0666ad289be0cb70']?.[token.asset_name];
-    
+      ['43d0fdf3a1fbda50b3db584d14e6a6b63d0781cf0666ad289be0cb70']?.[token.asset_name];
+
     return {
       ...token,
-     image: prepareImageURL(token.image),
-     // eslint-disable-next-line no-plusplus
-     token_id: id++,
-     description: attributes?.desc,
-     link_1: attributes?.link_1,
-     link_2: attributes?.link_2,
-     owner_name: attributes?.owner_name,
-  }
-  })
+      image: prepareImageURL(token.image),
+      // eslint-disable-next-line no-plusplus
+      token_id: id++,
+      description: (attributes?.desc1 || '') + (attributes?.desc2 || '') + (attributes?.desc3 || ''),
+      link_1: (attributes?.link_1 || '') + (attributes?.link_11 || ''),
+      link_2: (attributes?.link_2 || '') + (attributes?.link_22 || ''),
+      owner_name: attributes?.owner_name,
+    };
+  });
 }
 
 async function getNftsFromDatabase(page = 0, limit = 10) {
@@ -34,7 +34,7 @@ async function getNftsFromDatabase(page = 0, limit = 10) {
 }
 
 async function mintNft(nftwithtokens) {
-  const nft = nftwithtokens.tokens?.[0]
+  const nft = nftwithtokens.tokens?.[0];
   const toMint = {
     tokens: [
       {

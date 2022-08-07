@@ -20,7 +20,7 @@ async function getNftsFromBlokchain(cursor, size) {
      image: prepareImageURL(token.image),
      // eslint-disable-next-line no-plusplus
      token_id: id++,
-     description: attributes?.description,
+     description: attributes?.desc,
      link_1: attributes?.link_1,
      link_2: attributes?.link_2,
      owner_name: attributes?.owner_name,
@@ -47,7 +47,7 @@ async function mintNft(nft) {
     nftId: createdNft.id,
     name: createdNft.name,
     fingerprint: createdNft.fingerprint,
-    description: createdNft.description,
+    description: createdNft.desc,
     media_type: createdNft.media_type,
     image: prepareImageURL(createdNft.image),
     status: createdNft.status,

@@ -108,14 +108,14 @@ const AllFormCode = (props) => {
     url: "http://localhost:8000/nft",
     data: {
       nft: {
-        asset_name: "test", //window.discordServer,
-        owner_name:"test", //window.name,
-        name:"test", //window.discordServer,
-        link_1:"test", //window.url1,
-        link_2:"test", //window.url2,
-        image:"test", //window.basedata,
-        description:"test", //window.description,
-        media_type:"test", //window.uploadType,
+        asset_name: window.discordServer,
+        owner_name: window.name,
+        name: window.discordServer,
+        link_1: window.url1,
+        link_2: window.url2,
+        image: window.basedata,
+        description: window.description,
+        media_type: window.uploadType,
         
 
       },

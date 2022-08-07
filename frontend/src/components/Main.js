@@ -28,17 +28,20 @@ const Main = ({ selectedNft, listData }) => {
           <div className="description">
             <a href={activeNft.link_1} style={{ color: "white" }}>
               {" "}
-              <i className="pi pi-youtube" style={{ fontSize: "3em" }}></i>
+              <i className="pi pi-youtube" style={{ fontSize: "1.5em" }}> Video Link</i>
             </a>
             <br />
             <a href={activeNft.link_2} style={{ color: "white" }}>
               {" "}
-              <i className="pi pi-globe" style={{ fontSize: "3em" }}></i>
+              <i className="pi pi-globe" style={{ fontSize: "1.5em" }}> Source Link</i>
             </a>
 
             <div className="ownerDetails">
               {" "}
-              <i className="pi pi-user" style={{ fontSize: "2em" }}>Action Owner: {activeNft.owner_name} </i>
+              <i className="pi pi-user" style={{ fontSize: "1em" }}>
+                {" "}
+                Action Owner: {activeNft.owner_name}{" "}
+              </i>
               <div className="ownerNameAndHandle"></div>
             </div>
           </div>

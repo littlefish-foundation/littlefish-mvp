@@ -16,15 +16,16 @@ async function getNftsFromBlokchain(cursor, size) {
     ['43d0fdf3a1fbda50b3db584d14e6a6b63d0781cf0666ad289be0cb70']?.[token.asset_name];
     
     return {
-    ...token,
-    image: prepareImageURL(token.image),
-    // eslint-disable-next-line no-plusplus
-    token_id: id++,
-    description: attributes?.description,
-    link_1: attributes?.link_1,
-    link_2: attributes?.link_2,
-    owner_name: attributes?.owner_name,
+      ...token,
+     image: prepareImageURL(token.image),
+     // eslint-disable-next-line no-plusplus
+     token_id: id++,
+     description: attributes?.description,
+     link_1: attributes?.link_1,
+     link_2: attributes?.link_2,
+     owner_name: attributes?.owner_name,
   }
+  })
 }
 
 async function getNftsFromDatabase(page = 0, limit = 10) {

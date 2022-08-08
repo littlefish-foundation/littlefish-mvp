@@ -7,6 +7,7 @@ function formatNftsFromChain(nfts) {
   return (nfts || []).map((nft) => {
     attributes = nft.metadata[NFT_METADATA_STANDARD]?.
       [NFT_ASSET_OBJECT_PROPERTY_NAME]?.[nft.asset_name];
+
     id += 1;
 
     return {

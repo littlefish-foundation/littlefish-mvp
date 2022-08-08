@@ -15,8 +15,39 @@ function prepareAllImageURLsInFile(files) {
     return fileToMap;
   });
 }
+function prepareNftToMint(nft) {
+  return {
+    tokens: [
+      {
+        asset_name: nft.assetName,
+        name: nft.name,
+        media_type: nft.mediaType,
+        image: nft.image,
+        metadata_attributes: [
+          {
+            tag: '<link_1>',
+            value: nft.youtubeLink,
+          },
+          {
+            tag: '<link_2>',
+            value: nft.otherLink,
+          },
+          {
+            tag: '<desc>',
+            value: nft.description,
+          },
+          {
+            tag: '<owner_name>',
+            value: nft.ownerName,
+          },
+        ],
+      },
+    ],
+  };
+}
 
 module.exports = {
   prepareImageURL,
   prepareAllImageURLsInFile,
+  prepareNftToMint,
 };

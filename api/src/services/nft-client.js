@@ -16,7 +16,7 @@ async function getNfts(cursor = undefined, size = 10) {
   try {
     response = await axios.request(options);
   } catch {
-    if (response.status !== 200) throw new ApiError();
+    if (response.status !== 200) throw new ApiError('Blockchain Server Error', 500);
   }
 
   return response;

@@ -1,43 +1,24 @@
 const nftService = require('../services/nft');
+const catchAsync = require('../utils/catchAsync');
 
-async function getNftsFromDatabase(req, res, next) {
-  const {
-    page, limit,
-  } = req.query;
+const getNftsFromDatabase = catchAsync(async (req, res) => {
+  const { page, limit } = req.query;
 
-  try {
-    const data = await nftService.getNftsFromDatabase(page, limit);
-    res.status(200).send(data);
-  } catch (e) {
-    next(e);
-  }
-}
-async function getNftsFromBlokchain(req, res, next) {
-  const {
-    cursor, size,
-  } = req.query;
+  const data = await nftService.getNftsFromDatabase(page, limit);
+  res.status(200).send(data);
+});
 
-  try {
-    const data = await nftService.getNftsFromBlokchain(cursor, size);
-    res.status(200).send(data);
-  } catch (e) {
-    next(e);
-  }
-}
+const getNftsFromBlokchain = catchAsync(async (req, res) => {
+  const { cursor, size } = req.query;
 
-async function mintNft(req, res, next) {
-  const {
-    nft,
-  } = req.body;
-  let result;
+  const data = await nftService.getNftsFromBlokchain(cursor, size);
+  res.status(200).send(data);
+});
 
-  try {
-    result = await nftService.mintNft(nft);
-    res.status(201).send(result);
-  } catch (e) {
-    next(e);
-  }
-}
+const mintNft = catchAsync(async (req, res) => {
+  const result = await nftService.mintNft(req.body);
+  res.status(201).send(result);
+});
 
 module.exports = {
   getNftsFromDatabase,

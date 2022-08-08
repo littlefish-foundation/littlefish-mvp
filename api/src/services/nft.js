@@ -1,6 +1,7 @@
 const nftServiceClient = require('./nft-client');
 const NftModel = require('../models/nft');
-const { prepareAllImageURLsInFile, prepareImageURL } = require('../logics/nft');
+const { prepareAllImageURLsInFile, prepareImageURL, prepareNftToMint } = require('../logics/nft');
+const { formatNftsFromChain } = require('../formatters/nft');
 const ApiError = require('../errors/api-error');
 
 async function getNftsFromBlokchain(cursor, size) {
@@ -9,23 +10,8 @@ async function getNftsFromBlokchain(cursor, size) {
   if (response?.status !== 200) {
     throw new ApiError(response.message, response.status);
   }
-  let id = 0;
-  let attributes;
-  return response.data.data.map((token) => {
-    attributes = token.metadata['721']?.
-      ['43d0fdf3a1fbda50b3db584d14e6a6b63d0781cf0666ad289be0cb70']?.[token.asset_name];
 
-    return {
-      ...token,
-      image: prepareImageURL(token.image),
-      // eslint-disable-next-line no-plusplus
-      token_id: id++,
-      description: (attributes?.desc1 || '') + (attributes?.desc2 || '') + (attributes?.desc3 || ''),
-      link_1: (attributes?.link_1 || '') + (attributes?.link_11 || ''),
-      link_2: (attributes?.link_2 || '') + (attributes?.link_22 || ''),
-      owner_name: attributes?.owner_name,
-    };
-  });
+  return formatNftsFromChain(response?.data?.data);
 }
 
 async function getNftsFromDatabase(page = 0, limit = 10) {
@@ -33,36 +19,8 @@ async function getNftsFromDatabase(page = 0, limit = 10) {
     .exec();
 }
 
-async function mintNft(nftwithtokens) {
-  const nft = nftwithtokens.tokens?.[0];
-  const toMint = {
-    tokens: [
-      {
-        asset_name: nft.asset_name,
-        name: nft.name,
-        media_type: nft.media_type,
-        image: nft.image,
-        metadata_attributes: [
-          {
-            tag: '<link_1>',
-            value: nft.link_1,
-          },
-          {
-            tag: '<link_2>',
-            value: nft.link_2,
-          },
-          {
-            tag: '<desc>',
-            value: nft.description,
-          },
-          {
-            tag: '<owner_name>',
-            value: nft.owner_name,
-          },
-        ],
-      },
-    ],
-  };
+async function mintNft(nft) {
+  const toMint = prepareNftToMint(nft);
 
   const response = await nftServiceClient.mintNft(toMint);
   const createdNft = response?.data?.data[0];
@@ -81,6 +39,7 @@ async function mintNft(nftwithtokens) {
     metadata: createdNft.metadata,
     custom_attributes: createdNft.custom_attributes,
   });
+
   return {
     success: true,
   };

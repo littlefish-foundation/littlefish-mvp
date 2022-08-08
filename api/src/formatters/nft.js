@@ -1,11 +1,12 @@
+const { NFT_METADATA_STANDARD, NFT_ASSET_OBJECT_PROPERTY_NAME } = require('../constants');
 const { prepareImageURL } = require('../logics/nft');
 
 function formatNftsFromChain(nfts) {
   let attributes;
   let id = -1;
   return (nfts || []).map((nft) => {
-    attributes = nft.metadata['721']?.
-      ['43d0fdf3a1fbda50b3db584d14e6a6b63d0781cf0666ad289be0cb70']?.[nft.asset_name];
+    attributes = nft.metadata[NFT_METADATA_STANDARD]?.
+      [NFT_ASSET_OBJECT_PROPERTY_NAME]?.[nft.asset_name];
     id += 1;
 
     return {

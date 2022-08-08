@@ -9,7 +9,7 @@ async function getNfts(cursor = undefined, size = 10) {
     params: { size, cursor },
     headers: {
       'Content-Type': 'application/json',
-      'x-api-key': 'b4348a07f44e4700bcf19af0c6703016',
+      'x-api-key': process.env.API_KEY,
     },
   };
 

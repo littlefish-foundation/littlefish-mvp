@@ -1,4 +1,5 @@
 const Joi = require('joi');
+const { NFT_MAX_ALLOWED_LENGTH } = require('../constants');
 
 const getNftsFromBlokchain = Joi.object(
   {
@@ -15,13 +16,13 @@ const getNftsFromDatabase = Joi.object(
 const mintNft = Joi.object(
   {
     name: Joi.string().required(),
-    assetName: Joi.string().required(),
-    ownerName: Joi.string().required(),
-    description: Joi.string().required(),
-    mediaType: Joi.string().required(),
+    assetName: Joi.string().length(NFT_MAX_ALLOWED_LENGTH).required(),
+    ownerName: Joi.string().length(NFT_MAX_ALLOWED_LENGTH).required(),
+    description: Joi.string().length(NFT_MAX_ALLOWED_LENGTH * 4).required(),
+    mediaType: Joi.string().length(NFT_MAX_ALLOWED_LENGTH).required(),
     image: Joi.string().base64().required(),
-    youtubeLink: Joi.string().uri(),
-    otherLink: Joi.string().uri(),
+    youtubeLink: Joi.string().length(NFT_MAX_ALLOWED_LENGTH * 2).uri(),
+    otherLink: Joi.string().length(NFT_MAX_ALLOWED_LENGTH * 2).uri(),
   },
 );
 

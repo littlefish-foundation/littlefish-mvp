@@ -24,8 +24,8 @@ const mintNft = Joi.object(
     description: Joi.string().max(NFT_MAX_ALLOWED_LENGTH * 4).required(),
     mediaType: Joi.string().max(NFT_MAX_ALLOWED_LENGTH).required(),
     image: Joi.string().base64().required(),
-    youtubeLink: Joi.string().max(NFT_MAX_ALLOWED_LENGTH * 2).uri(),
-    otherLink: Joi.string().max(NFT_MAX_ALLOWED_LENGTH * 2).uri(),
+    youtubeLink: Joi.string().max(NFT_MAX_ALLOWED_LENGTH * 2).allow(null, '').uri(),
+    otherLink: Joi.string().max(NFT_MAX_ALLOWED_LENGTH * 2).allow(null, '').uri(),
   },
 );
 

@@ -88,6 +88,7 @@ const AllFormCode = () => {
         name: data.name,
         assetName: data.assetName,
         description: data.description,
+        actionType: "asdhashdass",
         ownerName: data.ownerName,
         youtubeLink: data.youtubeLink,
         otherLink: data.otherLink,

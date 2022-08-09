@@ -33,8 +33,9 @@ async function mintNft(nft) {
   };
 
   const response = await axios.request(options);
-
-  if (response && response.status !== 201) throw new ApiError();
+  if (response && response.status !== 201) {
+    throw new ApiError();
+  }
 
   return response;
 }

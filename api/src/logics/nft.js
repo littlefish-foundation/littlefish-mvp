@@ -39,35 +39,35 @@ function prepareNftToMint(nft) {
           },
           {
             tag: NFT_METADATA_ATTRIBUTES.LINK_1_FIRST64,
-            value: nft.youtubeLink.slice(0, NFT_MAX_ALLOWED_LENGTH),
+            value: nft.youtubeLink?.slice(0, NFT_MAX_ALLOWED_LENGTH),
           },
           {
             tag: NFT_METADATA_ATTRIBUTES.LINK_1_LAST64,
-            value: nft.youtubeLink.slice(NFT_MAX_ALLOWED_LENGTH, 2 * NFT_MAX_ALLOWED_LENGTH),
+            value: nft.youtubeLink?.slice(NFT_MAX_ALLOWED_LENGTH, 2 * NFT_MAX_ALLOWED_LENGTH),
           },
           {
             tag: NFT_METADATA_ATTRIBUTES.LINK_2_FIRST64,
-            value: nft.otherLink.slice(0, NFT_MAX_ALLOWED_LENGTH),
+            value: nft.otherLink?.slice(0, NFT_MAX_ALLOWED_LENGTH),
           },
           {
             tag: NFT_METADATA_ATTRIBUTES.LINK_2_LAST64,
-            value: nft.otherLink.slice(NFT_MAX_ALLOWED_LENGTH, 2 * NFT_MAX_ALLOWED_LENGTH),
+            value: nft.otherLink?.slice(NFT_MAX_ALLOWED_LENGTH, 2 * NFT_MAX_ALLOWED_LENGTH),
           },
           {
             tag: NFT_METADATA_ATTRIBUTES.DESCRIPTION_PART1,
-            value: nft.otherLink.slice(0, NFT_MAX_ALLOWED_LENGTH),
+            value: nft.otherLink?.slice(0, NFT_MAX_ALLOWED_LENGTH),
           },
           {
             tag: NFT_METADATA_ATTRIBUTES.DESCRIPTION_PART2,
-            value: nft.otherLink.slice(NFT_MAX_ALLOWED_LENGTH, 2 * NFT_MAX_ALLOWED_LENGTH),
+            value: nft.otherLink?.slice(NFT_MAX_ALLOWED_LENGTH, 2 * NFT_MAX_ALLOWED_LENGTH),
           },
           {
             tag: NFT_METADATA_ATTRIBUTES.DESCRIPTION_PART3,
-            value: nft.otherLink.slice(NFT_MAX_ALLOWED_LENGTH * 2, 3 * NFT_MAX_ALLOWED_LENGTH),
+            value: nft.otherLink?.slice(NFT_MAX_ALLOWED_LENGTH * 2, 3 * NFT_MAX_ALLOWED_LENGTH),
           },
           {
             tag: NFT_METADATA_ATTRIBUTES.DESCRIPTION_PART4,
-            value: nft.otherLink.slice(NFT_MAX_ALLOWED_LENGTH * 3, 4 * NFT_MAX_ALLOWED_LENGTH),
+            value: nft.otherLink?.slice(NFT_MAX_ALLOWED_LENGTH * 3, 4 * NFT_MAX_ALLOWED_LENGTH),
           },
         ],
       },

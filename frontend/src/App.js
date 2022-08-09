@@ -18,8 +18,9 @@ function App() {
     const getMyNfts = async () => {
   
       const openseaData = await axios.get(
-        "http://localhost:8000/nft/chain"
-      )
+        "http://localhost:8000/nft/chain", { params: { size: 20 }
+      })
+      
       console.log({openseaData})
       setListData(openseaData.data);
     };

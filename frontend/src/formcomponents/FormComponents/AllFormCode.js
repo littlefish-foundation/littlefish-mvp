@@ -88,11 +88,11 @@ const AllFormCode = () => {
         name: data.name,
         assetName: data.assetName,
         description: data.description,
-        actionType: "asdhashdass",
+        actionType: data.actionType,
         ownerName: data.ownerName,
         youtubeLink: data.youtubeLink,
         otherLink: data.otherLink,
-        mediaType: "image/png",
+        mediaType: window.uploadType,
         image: window.basedata,
       },
     };

@@ -14,12 +14,16 @@ import { classNames } from "primereact/utils";
 import "../index.css";
 import "./FormDemo.css";
 
-const AllFormCode = (props) => {
+const AllFormCode = () => {
+  const [ownerNameValue, setOwnerNameValue] = useState("");
   const [nameValue, setNameValue] = useState("");
-  const [discordValue, setDiscordValue] = useState("");
+  const [assetNameValue, setAssetNameValue] = useState("");
   const [actionTypeValue, setActionTypeValue] = useState("");
 
   const [descriptionValue, setDescriptionValue] = useState("");
+  const [url1, setURL1] = useState("");
+  const [url2, setURL2] = useState("");
+
   const [showMessage, setShowMessage] = useState(false);
   const [formData, setFormData] = useState({});
 
@@ -34,8 +38,7 @@ const AllFormCode = (props) => {
       const uploadType = reader.result.split(",")[0];
       const base64data = reader.result.split(",")[1];
       window.basedata = base64data;
-      window.uploadType = uploadType.split(':').pop().split(';')[0];
-      console.log(uploadType);
+      window.uploadType = uploadType.split(":").pop().split(";")[0];
     };
   };
   //console.log(window.basedata);
@@ -43,12 +46,16 @@ const AllFormCode = (props) => {
   const validate = (data) => {
     let errors = {};
 
-    if (!data.name) {
-      errors.name = "Name or Nickname is required.";
+    if (!data.ownerName) {
+      errors.ownerName = "Name or Nickname is required.";
     }
 
-    if (!data.discordServer) {
-      errors.discordServer = "Discord Server Name is required.";
+    if (!data.name) {
+      errors.name = "Name is required.";
+    }
+
+    if (!data.assetName) {
+      errors.assetName = "Discord Server Name is required.";
     }
 
     if (!data.actionType) {
@@ -58,6 +65,7 @@ const AllFormCode = (props) => {
     if (!data.description) {
       errors.description = "You need to desribe your action.";
     }
+
     return errors;
   };
 
@@ -68,68 +76,36 @@ const AllFormCode = (props) => {
     );
   };
 
-  const [url1, setURL1] = useState("");
-  const isInputTextChanged1 = (e) => {
-    console.log(e.target.value);
-    let urlVal1 = e.target.value;
-    if (urlVal1.includes("https://")) urlVal1 = urlVal1.split("https://")[1];
-    
-
-    setURL1(urlVal1);
-    window.url1 = urlVal1;
-  };
-
-  const [url2, setURL2] = useState("");
-  const isInputTextChanged2 = (e) => {
-    console.log(e.target.value);
-    let urlVal2 = e.target.value;
-    if (urlVal2.includes("https://")) urlVal2 = urlVal2.split("https://")[1];
-    
-
-    setURL2(urlVal2);
-    window.url2 = urlVal2;
-  };
-
   const onSubmit = (data, form) => {
     setFormData(data);
     setShowMessage(true);
     console.log(data);
-    //console.log(formData);
-    window.name = data.name;
-    window.discordServer = data.discordServer;
-    window.actionType = data.actionType;
-    window.description = data.description;
 
+    const options = {
+      method: "POST",
+      url: "http://localhost:8000/nft",
+      data: {
+        name: data.name,
+        assetName: data.assetName,
+        description: data.description,
+        ownerName: data.ownerName,
+        youtubeLink: data.youtubeLink,
+        otherLink: data.otherLink,
+        mediaType: "image/png",
+        image: window.basedata,
+      },
+    };
+
+    axios
+      .request(options)
+      .then(function (response) {
+        console.log(response.data);
+      })
+      .catch(function (error) {
+        console.error(error);
+      });
     form.restart();
   };
-
-  const options = {
-    method: "POST",
-    url: "http://localhost:8000/nft",
-    data: {
-      nft: {
-        asset_name: window.discordServer,
-        owner_name: window.name,
-        name: window.discordServer,
-        link_1: window.url1,
-        link_2: window.url2,
-        image: window.basedata,
-        description: window.description,
-        media_type: window.uploadType,
-        
-
-      },
-    },
-  };
-  console.log(options.data);
-  axios
-    .request(options)
-    .then(function (response) {
-      console.log(response.data);
-    })
-    .catch(function (error) {
-      console.error(error);
-    });
 
   return (
     <div className="form-demo">
@@ -158,23 +134,27 @@ const AllFormCode = (props) => {
           <Form
             onSubmit={onSubmit}
             initialValues={{
+              ownerName: "",
               name: "",
-              discordServer: "",
+              assetName: "",
               actionType: "",
               description: "",
+              youtubeLink: "",
+              otherLink: "",
+              image: "",
             }}
             validate={validate}
             render={({ handleSubmit }) => (
               <form onSubmit={handleSubmit} className="p-fluid">
                 <Field
-                  name="name"
+                  name="ownerName"
                   render={({ input, meta }) => (
                     <div className="field">
                       <span className="p-float-label">
                         <InputText
-                          id="name"
-                          value={nameValue}
-                          onChange={(e) => setNameValue(e.target.value)}
+                          id="ownerName"
+                          value={ownerNameValue}
+                          onChange={(e) => setOwnerNameValue(e.target.value)}
                           {...input}
                           autoFocus
                           className={classNames({
@@ -195,14 +175,41 @@ const AllFormCode = (props) => {
                   )}
                 />
                 <Field
-                  name="discordServer"
+                  name="name"
                   render={({ input, meta }) => (
                     <div className="field">
                       <span className="p-float-label p-input-icon-right">
                         <InputText
-                          id="discordServer"
-                          value={discordValue}
-                          onChange={(e) => setDiscordValue(e.target.value)}
+                          id="name"
+                          value={nameValue}
+                          onChange={(e) => setNameValue(e.target.value)}
+                          {...input}
+                          className={classNames({
+                            "p-invalid": isFormFieldValid(meta),
+                          })}
+                        />
+                        <label
+                          htmlFor="inputtext"
+                          className={classNames({
+                            "p-error": isFormFieldValid(meta),
+                          })}
+                        >
+                          Name*
+                        </label>
+                      </span>
+                      {getFormErrorMessage(meta)}
+                    </div>
+                  )}
+                />
+                <Field
+                  name="assetName"
+                  render={({ input, meta }) => (
+                    <div className="field">
+                      <span className="p-float-label p-input-icon-right">
+                        <InputText
+                          id="assetName"
+                          value={assetNameValue}
+                          onChange={(e) => setAssetNameValue(e.target.value)}
                           {...input}
                           className={classNames({
                             "p-invalid": isFormFieldValid(meta),
@@ -280,12 +287,12 @@ const AllFormCode = (props) => {
                   )}
                 />
                 <div className="p-inputgroup">
-                  <span className="p-inputgroup-addon">https://</span>
+                  <span className="p-inputgroup-addon">YouTube</span>
                   <InputText
-                    id="YoutubeLink"
+                    id="youtubeLink"
                     value={url1}
                     placeholder="Enter YouTube link if any."
-                    onChange={isInputTextChanged1}
+                    onChange={(e) => setURL1(e.target.value)}
                   />
                 </div>
 
@@ -293,12 +300,12 @@ const AllFormCode = (props) => {
                 <br />
 
                 <div className="p-inputgroup">
-                  <span className="p-inputgroup-addon">https://</span>
+                  <span className="p-inputgroup-addon">Source</span>
                   <InputText
-                    id="OtherLinks"
+                    id="otherLink"
                     value={url2}
                     placeholder="Enter other relevant links."
-                    onChange={isInputTextChanged2}
+                    onChange={(e) => setURL2(e.target.value)}
                   />
                 </div>
 
@@ -312,7 +319,7 @@ const AllFormCode = (props) => {
                   </h5>
                   <FileUpload
                     name="image"
-                    //url="http://localhost:8000/nft"
+                    url="http://localhost:8000/nft"
                     accept="image/*"
                     customUpload
                     uploadHandler={customBase64Uploader}

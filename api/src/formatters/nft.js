@@ -11,14 +11,21 @@ function formatNftsFromChain(nfts) {
     id += 1;
 
     return {
-      ...nft,
-      image: prepareImageURL(nft.image),
-      token_id: id,
+      tokenId: id,
+      nftId: nft.id,
+      name: nft.name,
+      assetName: nft.asset_name,
+      ownerName: attributes?.owner_name,
+      actionType: attributes?.actionType,
+      fingerprint: nft.fingerprint,
       description: (attributes?.desc1 || '') + (attributes?.desc2 || '')
-                 + (attributes?.desc3 || '') + (attributes?.desc4 || ''),
-      link_1: (attributes?.link_1 || '') + (attributes?.link_11 || ''),
-      link_2: (attributes?.link_2 || '') + (attributes?.link_22 || ''),
-      owner_name: attributes?.owner_name,
+      + (attributes?.desc3 || '') + (attributes?.desc4 || ''),
+      youtubeLink: (attributes?.link_1 || '') + (attributes?.link_11 || ''),
+      otherLink: (attributes?.link_2 || '') + (attributes?.link_22 || ''),
+      collection: attributes?.collection,
+      media_type: nft.media_type,
+      image: prepareImageURL(nft.image),
+      status: nft.status,
     };
   });
 }

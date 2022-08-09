@@ -6,7 +6,7 @@
     "title": "Littlefish MVP API"
   },
   "schemes": [
-    "https"
+    "http"
   ],
   "tags": [
     {
@@ -127,13 +127,19 @@
           "description": "Name of the owner of NFT",
           "example": "Burak.littlefish"
         },
+        "actionType": {
+          "type": "string",
+          "format": "Type of action",
+          "description": "Type of action of the NFT",
+          "example": "Research"
+        },
         "image": {
           "type": "string",
           "format": "base64 string",
           "description": "Base64 representation of image",
-          "example": "iVBORw0KGgoAAAANSU.....hEUgAADQYAAA0HCAYAAACB0xAqAAAACXBIWXMA"
+          "example": "VEVTVEFTRGZzZGZzZGZndmRmZ3ZkZmdkZmc="
         },
-        "media_type": {
+        "mediaType": {
           "type": "string",
           "format": "media format",
           "description": "Format of media",
@@ -150,12 +156,6 @@
           "format": "url",
           "description": "Other Relevant link",
           "example": "https://publish.obsidian.md/littlefish-foundation/Littlefish+Vault"
-        },
-        "files": {
-          "type": "array",
-          "format": "array of objects",
-          "description": "additional files",
-          "example": ""
         }
       }
     }

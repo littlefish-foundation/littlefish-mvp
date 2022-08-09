@@ -34,6 +34,10 @@ function prepareNftToMint(nft) {
             value: nft.ownerName,
           },
           {
+            tag: NFT_METADATA_ATTRIBUTES.ACTION_TYPE,
+            value: nft.actionType,
+          },
+          {
             tag: NFT_METADATA_ATTRIBUTES.LINK_1_FIRST64,
             value: nft.youtubeLink.slice(0, NFT_MAX_ALLOWED_LENGTH),
           },

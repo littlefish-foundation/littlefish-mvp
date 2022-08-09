@@ -11,6 +11,7 @@ const NFT_METADATA_ATTRIBUTES = {
   DESCRIPTION_PART3: '<desc3>',
   DESCRIPTION_PART4: '<desc4>',
   OWNER_NAME: '<owner_name>',
+  ACTION_TYPE: '<action_type',
 
 };
 const NFT_FILE_INDEXES = {

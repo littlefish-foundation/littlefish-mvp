@@ -5,7 +5,7 @@ const { formatActionsFromChain, formatActionsFromDatabase } = require('../format
 const { ApiError, NotFoundError } = require('../errors');
 
 async function getAction(assetName) {
-  const action = await ActionModel.findOne({ assetName }).select('-_id -nftFormat').lean().exec();
+  const action = await ActionModel.findOne({ assetName }).select('-_id').lean().exec();
 
   if (!action) {
     throw new NotFoundError('Action is not found.');

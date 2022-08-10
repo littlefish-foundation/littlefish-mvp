@@ -8,6 +8,7 @@ import "primereact/resources/primereact.min.css"; //core css
 import '../formcomponents/modal/index.css';
 import '../formcomponents/modal/App.css';
 import Container from "../formcomponents/modal/Container";
+import { Link } from "react-router-dom";
 
 const Header = () => {
   const triggerText = "Create a New Action";
@@ -31,6 +32,7 @@ const Header = () => {
         <input className="searchInput" placeholder="Collections, Items, User" />
       </div>
       <div className="headerItems">
+        <p><Link to={"/"}>Gallery</Link></p>
         <p><a href="https://docs.google.com/document/d/1U_RIQxkM4DW2_J8mF8_spJzs8HbJH1PusJNK4b_ix8k/edit?usp=sharing" style={{color: 'white'}}>Whitepaper</a></p>
         <p><a href="https://cardano.ideascale.com/c/idea/404668" style={{color: 'white'}}>Proposal</a></p>
         <p><a href="https://publish.obsidian.md/littlefish-foundation/Littlefish+Vault" style={{color: 'white'}}>The Vault</a></p>

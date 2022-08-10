@@ -39,6 +39,7 @@ const AllFormCode = () => {
       const base64data = reader.result.split(",")[1];
       window.basedata = base64data;
       window.uploadType = uploadType.split(":").pop().split(";")[0];
+      return base64data;
     };
   };
   //console.log(window.basedata);
@@ -93,7 +94,7 @@ const AllFormCode = () => {
         youtubeLink: data.youtubeLink,
         otherLink: data.otherLink,
         mediaType: window.uploadType,
-        image: window.basedata,
+        image: customBase64Uploader(),
       },
     };
 

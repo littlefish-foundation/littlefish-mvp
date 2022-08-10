@@ -1,17 +1,17 @@
 import React from "react";
 import "./CollectionCard.css";
 
-const CollectionCard = ({ id, asset_name, owner_name, description, image }) => {
+const CollectionCard = ({ id, assetName, ownerName, description, image }) => {
   return (
     <div className="collectionCard">
       <img src={image} alt="" />
       <div className="details">
         <div className="name">
-          {asset_name}{" "}
+          {assetName}{" "}
           <div>
             <i className="pi pi-user" style={{ fontSize: "1em" }}>
               {" "}
-              {owner_name}{" "}
+              {ownerName}{" "}
             </i>
           </div>
         </div>

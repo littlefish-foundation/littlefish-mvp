@@ -1,7 +1,7 @@
 {
   "swagger": "2.0",
   "info": {
-    "description": "This API is for Littlefish NFT marketplace MVP. For further information go to linktr.ee/littlefish",
+    "description": "This API is for Littlefish ACTION marketplace MVP. For further information go to linktr.ee/littlefish",
     "version": "1.0.0",
     "title": "Littlefish MVP API"
   },
@@ -10,8 +10,8 @@
   ],
   "tags": [
     {
-      "name": "nft",
-      "description": "Everything about Nfts",
+      "name": "action",
+      "description": "Everything about Actions",
       "externalDocs": {
         "description": "Find out more",
         "url": "https://publish.obsidian.md/littlefish-foundation/Littlefish+Vault"
@@ -19,68 +19,68 @@
     }
   ],
   "paths": {
-    "/nft/chain": {
+    "/action/chain": {
       "get": {
         "tags": [
-          "nft"
+          "action"
         ],
-        "summary": "Get nfts from chain",
+        "summary": "Get actions from chain",
         "parameters": [
           {
             "name": "cursor",
             "in": "query",
-            "description": "First nft to return",
+            "description": "First action to return",
             "required": false,
             "type": "string"
           },
           {
             "name": "size",
             "in": "query",
-            "description": "The count of nft's to return",
+            "description": "The count of action's to return",
             "required": false,
             "type": "string"
           }
         ],
         "responses": {
           "200": {
-            "description": "Successful response with NFT array from the chain"
+            "description": "Successful response with ACTION array from the chain"
           }
         }
       }
     },
-    "/nft/": {
+    "/action/": {
       "get": {
         "tags": [
-          "nft"
+          "action"
         ],
-        "summary": "Get nfts from server database",
+        "summary": "Get actions from server database",
         "parameters": [
           {
             "name": "page",
             "in": "query",
-            "description": "The current page of nft response",
+            "description": "The current page of action response",
             "required": false,
             "type": "string"
           },
           {
             "name": "limit",
             "in": "query",
-            "description": "The count of nft's to return",
+            "description": "The count of action's to return",
             "required": false,
             "type": "string"
           }
         ],
         "responses": {
           "200": {
-            "description": "Successful response with NFT array from the database"
+            "description": "Successful response with ACTION array from the database"
           }
         }
       },
       "post": {
         "tags": [
-          "nft"
+          "action"
         ],
-        "summary": "Create an nft",
+        "summary": "Create an action",
         "parameters": [
           {
             "in": "body",
@@ -88,20 +88,20 @@
             "description": "Get filtered records",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/mintNftQuery"
+              "$ref": "#/definitions/mintActionQuery"
             }
           }
         ],
         "responses": {
           "201": {
-            "description": "Nft is successfully created."
+            "description": "Action is successfully created."
           }
         }
       }
     }
   },
   "definitions": {
-    "mintNftQuery": {
+    "mintActionQuery": {
       "properties": {
         "assetName": {
           "type": "string",
@@ -118,19 +118,19 @@
         "description": {
           "type": "string",
           "format": "string",
-          "description": "NFT description text",
+          "description": "ACTION description text",
           "example": "This is my action."
         },
         "ownerName": {
           "type": "string",
           "format": "Name",
-          "description": "Name of the owner of NFT",
+          "description": "Name of the owner of ACTION",
           "example": "Burak.littlefish"
         },
         "actionType": {
           "type": "string",
           "format": "Type of action",
-          "description": "Type of action of the NFT",
+          "description": "Type of action of the ACTION",
           "example": "Research"
         },
         "image": {

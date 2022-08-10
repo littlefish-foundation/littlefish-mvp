@@ -1,8 +1,8 @@
 const mongoose = require('mongoose');
 
-const Nft = new mongoose.Schema({
+const Action = new mongoose.Schema({
   asset_name: { type: String, required: true },
-  nftId: { type: String, required: true },
+  actionId: { type: String, required: true },
   name: { type: String, required: true },
   fingerprint: { type: String, required: true },
   description: { type: String },
@@ -17,4 +17,4 @@ const Nft = new mongoose.Schema({
   updatedAt: { type: Date, default: Date.now },
 });
 
-module.exports = mongoose.model('Nft', Nft);
+module.exports = mongoose.model('Action', Action);

@@ -1,11 +1,11 @@
 const axios = require('axios');
 const ApiError = require('../errors/api-error');
 
-async function getNfts(cursor = undefined, size = 10) {
+async function getActions(cursor = undefined, size = 10) {
   let response;
   const options = {
     method: 'GET',
-    url: `${process.env.NFT_SERVICE_URL}v1/nft/collections/${process.env.NFT_BASE_COLLECTION_ID}/tokens`,
+    url: `${process.env.ACTION_SERVICE_URL}v1/action/collections/${process.env.ACTION_BASE_COLLECTION_ID}/tokens`,
     params: { size, cursor },
     headers: {
       'Content-Type': 'application/json',
@@ -21,15 +21,15 @@ async function getNfts(cursor = undefined, size = 10) {
 
   return response;
 }
-async function mintNft(nft) {
+async function mintAction(action) {
   const options = {
     method: 'POST',
-    url: `${process.env.NFT_SERVICE_URL}v1/nft/collections/${process.env.NFT_BASE_COLLECTION_ID}/tokens`,
+    url: `${process.env.ACTION_SERVICE_URL}v1/action/collections/${process.env.ACTION_BASE_COLLECTION_ID}/tokens`,
     headers: {
       'Content-Type': 'application/json',
       'x-api-key': process.env.API_KEY,
     },
-    data: nft,
+    data: action,
   };
 
   const response = await axios.request(options);
@@ -41,6 +41,6 @@ async function mintNft(nft) {
 }
 
 module.exports = {
-  getNfts,
-  mintNft,
+  getActions,
+  mintAction,
 };

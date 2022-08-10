@@ -19,31 +19,24 @@
     }
   ],
   "paths": {
-    "/action/chain": {
+    "/action/{assetName}/" : {
       "get": {
         "tags": [
           "action"
         ],
-        "summary": "Get actions from chain",
+        "summary": "Get the specified action",
         "parameters": [
           {
-            "name": "cursor",
-            "in": "query",
-            "description": "First action to return",
-            "required": false,
-            "type": "string"
-          },
-          {
-            "name": "size",
-            "in": "query",
-            "description": "The count of action's to return",
-            "required": false,
+            "name": "assetName",
+            "in": "path",
+            "description": "Asset name",
+            "required": true,
             "type": "string"
           }
         ],
         "responses": {
           "200": {
-            "description": "Successful response with ACTION array from the chain"
+            "description": "Successful response with the specified action"
           }
         }
       }
@@ -95,6 +88,36 @@
         "responses": {
           "201": {
             "description": "Action is successfully created."
+          }
+        }
+      }
+    },
+
+    "/action/chain": {
+      "get": {
+        "tags": [
+          "action"
+        ],
+        "summary": "Get actions from chain",
+        "parameters": [
+          {
+            "name": "cursor",
+            "in": "query",
+            "description": "First action to return",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "size",
+            "in": "query",
+            "description": "The count of action's to return",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response with ACTION array from the chain"
           }
         }
       }

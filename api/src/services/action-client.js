@@ -5,7 +5,7 @@ async function getActions(cursor = undefined, size = 10) {
   let response;
   const options = {
     method: 'GET',
-    url: `${process.env.ACTION_SERVICE_URL}v1/action/collections/${process.env.ACTION_BASE_COLLECTION_ID}/tokens`,
+    url: `${process.env.ACTION_SERVICE_URL}v1/nft/collections/${process.env.ACTION_BASE_COLLECTION_ID}/tokens`,
     params: { size, cursor },
     headers: {
       'Content-Type': 'application/json',
@@ -16,7 +16,7 @@ async function getActions(cursor = undefined, size = 10) {
   try {
     response = await axios.request(options);
   } catch {
-    if (response.status !== 200) throw new ApiError('Blockchain Server Error', 500);
+    if (!response || response.status !== 200) throw new ApiError('Blockchain Server Error', 500);
   }
 
   return response;
@@ -24,7 +24,7 @@ async function getActions(cursor = undefined, size = 10) {
 async function mintAction(action) {
   const options = {
     method: 'POST',
-    url: `${process.env.ACTION_SERVICE_URL}v1/action/collections/${process.env.ACTION_BASE_COLLECTION_ID}/tokens`,
+    url: `${process.env.ACTION_SERVICE_URL}v1/nft/collections/${process.env.ACTION_BASE_COLLECTION_ID}/tokens`,
     headers: {
       'Content-Type': 'application/json',
       'x-api-key': process.env.API_KEY,

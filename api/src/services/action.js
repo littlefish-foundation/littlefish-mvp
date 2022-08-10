@@ -1,8 +1,18 @@
 const actionServiceClient = require('./action-client');
 const ActionModel = require('../models/action');
 const { prepareAllImageURLsInFile, prepareImageURL, prepareActionToMint } = require('../logics/action');
-const { formatActionsFromChain } = require('../formatters/action');
-const ApiError = require('../errors/api-error');
+const { formatActionsFromChain, formatActionsFromDatabase } = require('../formatters/action');
+const { ApiError, NotFoundError } = require('../errors');
+
+async function getAction(assetName) {
+  const action = await ActionModel.findOne({ assetName }).select('-_id -nftFormat').lean().exec();
+
+  if (!action) {
+    throw new NotFoundError('Action is not found.');
+  }
+
+  return action;
+}
 
 async function getActionsFromBlokchain(cursor, size) {
   const response = await actionServiceClient.getActions(cursor, size);
@@ -14,9 +24,28 @@ async function getActionsFromBlokchain(cursor, size) {
   return formatActionsFromChain(response?.data?.data);
 }
 
-async function getActionsFromDatabase(page = 0, limit = 10) {
-  return ActionModel.find().skip(page * limit).limit(limit).lean()
+async function getActionsFromDatabase(filter = {}, sorter = {}, page = 0, limit = 10) {
+  const {
+    assetName, ownerName, minDate, maxDate,
+  } = filter;
+
+  const {
+    sortingField, sortingOrder,
+  } = sorter;
+  const actions = await ActionModel.find({
+    ...(minDate ? { createdAt: { $gte: minDate } } : undefined),
+    ...(maxDate ? { createdAt: { $lte: maxDate } } : undefined),
+    ...(ownerName ? { ownerName } : undefined),
+    ...(assetName ? { assetName: { $regex: assetName, $options: 'i' } } : undefined),
+  })
+    .select('-_id -nftFormat').skip(page * limit).limit(limit)
+    .sort({
+      ...(sortingField ? { sortingField: sortingOrder } : undefined),
+    })
+    .lean()
     .exec();
+
+  return formatActionsFromDatabase(actions);
 }
 
 async function mintAction(action) {
@@ -46,6 +75,7 @@ async function mintAction(action) {
 }
 
 module.exports = {
+  getAction,
   getActionsFromDatabase,
   getActionsFromBlokchain,
   mintAction,

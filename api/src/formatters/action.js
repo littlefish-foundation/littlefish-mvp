@@ -3,15 +3,15 @@ const { prepareImageURL } = require('../logics/action');
 
 function formatActionsFromChain(actions) {
   let attributes;
-  let id = -1;
+  let tokenId = -1;
   return (actions || []).map((action) => {
     attributes = action.metadata[ACTION_METADATA_STANDARD]?.
       [ACTION_ASSET_OBJECT_PROPERTY_NAME]?.[action.asset_name];
 
-    id += 1;
+    tokenId += 1;
 
     return {
-      tokenId: id,
+      tokenId,
       actionId: action.id,
       name: action.name,
       assetName: action.asset_name,
@@ -22,14 +22,28 @@ function formatActionsFromChain(actions) {
       + (attributes?.desc3 || '') + (attributes?.desc4 || ''),
       youtubeLink: (attributes?.link_1 || '') + (attributes?.link_11 || ''),
       otherLink: (attributes?.link_2 || '') + (attributes?.link_22 || ''),
-      collection: attributes?.collection,
-      media_type: action.media_type,
+      actionCollection: attributes?.collection,
+      mediaType: action.media_type,
       image: prepareImageURL(action.image),
       status: action.status,
+      nftFormat: action,
+    };
+  });
+}
+
+function formatActionsFromDatabase(actions) {
+  let tokenId = -1;
+
+  return (actions || []).map((action) => {
+    tokenId += 1;
+    return {
+      tokenId,
+      ...action,
     };
   });
 }
 
 module.exports = {
   formatActionsFromChain,
+  formatActionsFromDatabase,
 };

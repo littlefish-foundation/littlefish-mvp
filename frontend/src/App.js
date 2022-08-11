@@ -1,72 +1,31 @@
 import "./App.css";
-import Header from "./components/Header";
 
 import "./components/Header.css";
-import React, { useState, useEffect } from "react";
-import axios from "axios";
-import AbstractList from "./components/AbstractList";
-import Main from "./components/Main";
+import React from "react";
+
 import "./formcomponents/modal/index.css";
 import "./formcomponents/modal/App.css";
 
+import { Route, Switch } from "react-router-dom";
+import Gallery from "./pages/Gallery";
+import Layout from "./components/Layout";
+import DetailsPage from "./pages/DetailsPage";
 
 function App() {
-  const [listData, setListData] = useState([]);
-  const [selectedNft, setSelectedNft] = useState(0);
-
-  useEffect(() => {
-    const getMyNfts = async () => {
-  
-      const openseaData = await axios.get(
-        "http://localhost:8000/nft/chain", { params: { size: 20 }
-      })
-      
-      console.log({openseaData})
-      setListData(openseaData.data);
-    };
-    getMyNfts();
-  }, []);
-
   return (
     <div className="app">
-      <Header />
-
-      {listData.length > 0 && (
-        <>
-          <Main listData={listData} selectedNft={selectedNft} />
-          <AbstractList listData={listData} setSelectedNft={setSelectedNft} />
-        </>
-      )}
-
-      <footer className="footer">
-        <br />
-        <p className="text-footer">Littlefish</p>
-        <div className="social-icons-align">
-          <a
-            href="https://www.youtube.com/channel/UCqST3YotsWuc0faaqsLjdKQ/videos"
-            style={{ color: "white" }}
-          >
-            <i className="pi pi-youtube" style={{ fontSize: "3em" }}></i>
-          </a>
-          <a href="https://discord.gg/tBKZd5AGUS" style={{ color: "white" }}>
-            <span className="pi pi-discord" style={{ fontSize: "3em" }}></span>
-          </a>
-          <a
-            href="https://twitter.com/LittleFishDAO"
-            style={{ color: "white" }}
-          >
-            <i className="pi pi-twitter" style={{ fontSize: "3em" }}></i>
-          </a>
-          <a
-            href="https://github.com/littlefish-foundation"
-            style={{ color: "white" }}
-          >
-            <span className="pi pi-github" style={{ fontSize: "3em" }}></span>
-          </a>
-        </div>
-        <p className="text-footer">Copyright ©-All rights are reserved</p>
-      </footer>
+      <Layout>
+        <Switch>
+          <Route path="/" exact>
+            <Gallery />
+          </Route>
+          <Route path="/details" exact>
+            <DetailsPage />
+          </Route>
+        </Switch>
+      </Layout>
     </div>
   );
 }
+
 export default App;

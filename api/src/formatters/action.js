@@ -16,8 +16,6 @@ function formatActionsFromChain(actions) {
       name: action.name,
       assetName: action.asset_name,
       ownerName: attributes?.owner_name,
-      actionType: attributes?.actionType,
-      fingerprint: action.fingerprint,
       description: (attributes?.desc1 || '') + (attributes?.desc2 || '')
       + (attributes?.desc3 || '') + (attributes?.desc4 || ''),
       youtubeLink: (attributes?.link_1 || '') + (attributes?.link_11 || ''),
@@ -25,8 +23,6 @@ function formatActionsFromChain(actions) {
       actionCollection: attributes?.collection,
       mediaType: action.media_type,
       image: prepareImageURL(action.image),
-      status: action.status,
-      nftFormat: action,
     };
   });
 }

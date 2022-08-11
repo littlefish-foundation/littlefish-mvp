@@ -38,7 +38,8 @@ async function getActionsFromDatabase(filter = {}, sorter = {}, page = 0, limit 
     ...(ownerName ? { ownerName } : undefined),
     ...(assetName ? { assetName: { $regex: assetName, $options: 'i' } } : undefined),
   })
-    .select('-_id -nftFormat').skip(page * limit).limit(limit)
+    .select('name assetName ownerName image actionType description youtubeLink otherLink')
+    .skip(page * limit).limit(limit)
     .sort({
       ...(sortingField ? { sortingField: sortingOrder } : undefined),
     })

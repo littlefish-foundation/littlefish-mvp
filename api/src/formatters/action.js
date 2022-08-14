@@ -27,7 +27,7 @@ function formatActionsFromChain(actions) {
   });
 }
 
-function formatActionsFromDatabase(actions) {
+function formatActions(actions) {
   let tokenId = -1;
 
   return (actions || []).map((action) => {
@@ -41,5 +41,5 @@ function formatActionsFromDatabase(actions) {
 
 module.exports = {
   formatActionsFromChain,
-  formatActionsFromDatabase,
+  formatActions,
 };

@@ -1,7 +1,7 @@
 const actionServiceClient = require('./action-client');
 const ActionModel = require('../models/action');
 const { prepareAllImageURLsInFile, prepareImageURL, prepareActionToMint } = require('../logics/action');
-const { formatActionsFromChain, formatActionsFromDatabase } = require('../formatters/action');
+const { formatActionsFromChain, formatActions } = require('../formatters/action');
 const { ApiError, NotFoundError } = require('../errors');
 
 async function getAction(assetName) {
@@ -24,7 +24,7 @@ async function getActionsFromBlokchain(cursor, size) {
   return formatActionsFromChain(response?.data?.data);
 }
 
-async function getActionsFromDatabase(filter = {}, sorter = {}, page = 0, limit = 10) {
+async function getActions(colonyName = undefined, filter = {}, sorter = {}, page = 0, limit = 10) {
   const {
     assetName, ownerName, minDate, maxDate,
   } = filter;
@@ -33,6 +33,7 @@ async function getActionsFromDatabase(filter = {}, sorter = {}, page = 0, limit 
     sortingField, sortingOrder,
   } = sorter;
   const actions = await ActionModel.find({
+    ...(colonyName ? { colonyName } : undefined),
     ...(minDate ? { createdAt: { $gte: minDate } } : undefined),
     ...(maxDate ? { createdAt: { $lte: maxDate } } : undefined),
     ...(ownerName ? { ownerName } : undefined),
@@ -46,7 +47,7 @@ async function getActionsFromDatabase(filter = {}, sorter = {}, page = 0, limit 
     .lean()
     .exec();
 
-  return formatActionsFromDatabase(actions);
+  return formatActions(actions);
 }
 
 async function mintAction(action) {
@@ -77,7 +78,7 @@ async function mintAction(action) {
 
 module.exports = {
   getAction,
-  getActionsFromDatabase,
+  getActions,
   getActionsFromBlokchain,
   mintAction,
 };

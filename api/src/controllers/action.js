@@ -1,5 +1,5 @@
 const actionService = require('../services/action');
-const catchAsync = require('../utils/catchAsync');
+const catchAsync = require('../utils/catch-async');
 
 const getAction = catchAsync(async (req, res) => {
   const { assetName } = req.params;
@@ -8,12 +8,12 @@ const getAction = catchAsync(async (req, res) => {
   res.status(200).send(data);
 });
 
-const getActionsFromDatabase = catchAsync(async (req, res) => {
+const getActions = catchAsync(async (req, res) => {
   const {
     filter, sorter, page, limit,
   } = req.query;
 
-  const data = await actionService.getActionsFromDatabase(filter, sorter, page, limit);
+  const data = await actionService.getActions(undefined, filter, sorter, page, limit);
   res.status(200).send(data);
 });
 
@@ -30,7 +30,7 @@ const mintAction = catchAsync(async (req, res) => {
 
 module.exports = {
   getAction,
-  getActionsFromDatabase,
+  getActions,
   getActionsFromBlokchain,
   mintAction,
 };

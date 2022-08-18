@@ -17,9 +17,9 @@ const getActions = catchAsync(async (req, res) => {
   res.status(200).send(data);
 });
 
-const getActionsFromBlokchain = catchAsync(async (req, res) => {
+const getActionsFromBlockchain = catchAsync(async (req, res) => {
   const { cursor, size } = req.query;
-  const data = await actionService.getActionsFromBlokchain(cursor, size);
+  const data = await actionService.getActionsFromBlockchain(cursor, size);
   res.status(200).send(data);
 });
 
@@ -31,6 +31,6 @@ const mintAction = catchAsync(async (req, res) => {
 module.exports = {
   getAction,
   getActions,
-  getActionsFromBlokchain,
+  getActionsFromBlockchain,
   mintAction,
 };

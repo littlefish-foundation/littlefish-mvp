@@ -16,10 +16,137 @@
         "description": "Find out more",
         "url": "https://publish.obsidian.md/littlefish-foundation/Littlefish+Vault"
       }
+    },
+    {
+      "name": "colony",
+      "description": "Colonies of littlefishes"
     }
   ],
   "paths": {
-    "/action/{assetName}/" : {
+    "/colony/{colonyName}/": {
+      "get": {
+        "tags": [
+          "colony"
+        ],
+        "summary": "Get the specified colony",
+        "parameters": [
+          {
+            "name": "colonyName",
+            "in": "path",
+            "description": "Colony name",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response with the specified colony"
+          }
+        }
+      }
+    },
+    "/colony/": {
+      "get": {
+        "tags": [
+          "colony"
+        ],
+        "summary": "Get colonies from server database",
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "description": "The current page of colony response",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "The count of colony's to return",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response with colony array from the database"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "colony"
+        ],
+        "summary": "Create an colony",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "colony properties",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/createColony"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "A colony is successfully created."
+          }
+        }
+      }
+    },
+    "/colony/{colonyName}/actions": {
+      "get": {
+        "tags": [
+          "colony"
+        ],
+        "summary": "Get actions of the colony",
+        "parameters": [
+          {
+            "name": "colonyName",
+            "in": "path",
+            "description": "Colony name",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "cursor",
+            "in": "query",
+            "description": "First colony to return",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "size",
+            "in": "query",
+            "description": "The count of colony's to return",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "filter",
+            "in": "query",
+            "description": "filter object",
+            "required": false,
+            "type": "object"
+          },
+          {
+            "name": "sorter",
+            "in": "query",
+            "description": "sorter object",
+            "required": false,
+            "type": "object"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response with colony array from the chain"
+          }
+        }
+      }
+    },
+    "/action/{assetName}/": {
       "get": {
         "tags": [
           "action"
@@ -61,6 +188,20 @@
             "description": "The count of action's to return",
             "required": false,
             "type": "string"
+          },
+          {
+            "name": "filter",
+            "in": "query",
+            "description": "filter object",
+            "required": false,
+            "type": "object"
+          },
+          {
+            "name": "sorter",
+            "in": "query",
+            "description": "sorter object",
+            "required": false,
+            "type": "object"
           }
         ],
         "responses": {
@@ -92,7 +233,6 @@
         }
       }
     },
-
     "/action/chain": {
       "get": {
         "tags": [
@@ -124,6 +264,44 @@
     }
   },
   "definitions": {
+    "createColony": {
+      "properties": {
+        "name": {
+          "type": "string",
+          "format": "colony name",
+          "description": "asset name",
+          "example": "Littlefish"
+        },
+        "walletAddress": {
+          "type": "string",
+          "format": "Address",
+          "description": "ADA address of the colony",
+          "example": "addr1q9fjzdqkar0fm.......lumhp9znnq66zcn5"
+        },
+        "description": {
+          "type": "string",
+          "format": "string",
+          "description": "colony description text",
+          "example": "This is my colony."
+        },
+        "superColony": {
+          "type": "string",
+          "format": "Name",
+          "description": "Parent colony if it exists",
+          "example": "Bigger Littlefish"
+        },
+        "coverImage": {
+          "type": "string",
+          "format": "url",
+          "description": "link to the cover image"
+        },
+        "files": {
+          "type": "array",
+          "format": "array of objects",
+          "description": "Array of extra files with their types and sources"
+        }
+      }
+    },
     "mintActionQuery": {
       "properties": {
         "assetName": {
@@ -137,6 +315,12 @@
           "format": "Name",
           "description": "Name of the Action",
           "example": "Littlefish Whitepaper"
+        },
+        "colonyName": {
+          "type": "string",
+          "format": "Name",
+          "description": "Name of the colony this actions belongs to",
+          "example": "Littlefish"
         },
         "description": {
           "type": "string",

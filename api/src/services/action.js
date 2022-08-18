@@ -14,7 +14,7 @@ async function getAction(assetName) {
   return action;
 }
 
-async function getActionsFromBlokchain(cursor, size) {
+async function getActionsFromBlockchain(cursor, size) {
   const response = await actionServiceClient.getActions(cursor, size);
 
   if (response?.status !== 200) {
@@ -58,17 +58,22 @@ async function mintAction(action) {
   const preparedFiles = prepareAllImageURLsInFile(createdAction.files);
 
   await ActionModel.create({
-    asset_name: createdAction.asset_name,
+    assetName: createdAction.asset_name,
     actionId: createdAction.id,
     name: createdAction.name,
+    producer: action.ownerName,
+    ownerName: action.ownerName,
+    colonyName: action.colonyName,
     fingerprint: createdAction.fingerprint,
-    description: createdAction.desc,
-    media_type: createdAction.media_type,
+    description: action.description,
+    mediaType: createdAction.media_type,
     image: prepareImageURL(createdAction.image),
     status: createdAction.status,
+    actionType: action.actionType,
     files: preparedFiles,
-    metadata: createdAction.metadata,
+    nftFormat: createdAction,
     custom_attributes: createdAction.custom_attributes,
+    actionCollection: '01g99p2tr5evasrp2kyn25hqwe',
   });
 
   return {
@@ -79,6 +84,6 @@ async function mintAction(action) {
 module.exports = {
   getAction,
   getActions,
-  getActionsFromBlokchain,
+  getActionsFromBlockchain,
   mintAction,
 };

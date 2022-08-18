@@ -34,6 +34,14 @@ function prepareActionToMint(action) {
             value: action.ownerName,
           },
           {
+            tag: ACTION_METADATA_ATTRIBUTES.PRODUCER,
+            value: action.ownerName,
+          },
+          {
+            tag: ACTION_METADATA_ATTRIBUTES.COLONY_NAME,
+            value: action.colonyName,
+          },
+          {
             tag: ACTION_METADATA_ATTRIBUTES.ACTION_TYPE,
             value: action.actionType,
           },

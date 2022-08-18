@@ -5,6 +5,7 @@ const Action = new mongoose.Schema({
   name: { type: String, required: true },
   assetName: { type: String, required: true, unique: true },
   ownerName: { type: String, required: true },
+  producer: { type: String, required: true },
   fingerprint: { type: String, required: true },
   description: { type: String, required: true },
   mediaType: { type: String, required: true },

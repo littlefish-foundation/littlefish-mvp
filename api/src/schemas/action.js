@@ -4,12 +4,12 @@ const { ACTION_MAX_ALLOWED_LENGTH } = require('../constants');
 const getAction = {
   params: Joi.object(
     {
-      actionName: Joi.string().required(),
+      assetName: Joi.string().required(),
     },
   ),
 };
 
-const getActionsFromBlokchain = {
+const getActionsFromBlockchain = {
   query: Joi.object(
     {
       cursor: Joi.string(),
@@ -47,7 +47,7 @@ const mintAction = {
 };
 
 module.exports = {
-  getActionsFromBlokchain,
+  getActionsFromBlockchain,
   getActions,
   getAction,
   mintAction,

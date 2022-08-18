@@ -9,5 +9,7 @@ router.route('/:colonyName').get(validator(colonySchemas.getColony), colonyContr
 router.route('/').get(validator(colonySchemas.getColonies), colonyController.getColonies);
 router.route('/:colonyName/actions').get(validator(colonySchemas.getColonyActions), colonyController.getColonyActions);
 router.route('/').post(validator(colonySchemas.createColony), colonyController.createColony);
+router.route('/presigned-urls')
+  .post(validator(colonySchemas.createColonyPreSignedUrls), colonyController.createColonyPreSignedUrls);
 
 module.exports = router;

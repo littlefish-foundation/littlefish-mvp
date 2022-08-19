@@ -39,7 +39,7 @@ async function getActions(colonyName = undefined, filter = {}, sorter = {}, page
     ...(ownerName ? { ownerName } : undefined),
     ...(assetName ? { assetName: { $regex: assetName, $options: 'i' } } : undefined),
   })
-    .select('name assetName ownerName image actionType description youtubeLink otherLink')
+    .select('-_id')
     .skip(page * limit).limit(limit)
     .sort({
       ...(sortingField ? { sortingField: sortingOrder } : undefined),

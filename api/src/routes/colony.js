@@ -6,6 +6,7 @@ const colonySchemas = require('../schemas/colony');
 const router = express.Router();
 
 router.route('/:colonyName').get(validator(colonySchemas.getColony), colonyController.getColony);
+router.route('/:colonyName').delete(validator(colonySchemas.deleteColony), colonyController.deleteColony);
 router.route('/').get(validator(colonySchemas.getColonies), colonyController.getColonies);
 router.route('/:colonyName/actions').get(validator(colonySchemas.getColonyActions), colonyController.getColonyActions);
 router.route('/').post(validator(colonySchemas.createColony), colonyController.createColony);

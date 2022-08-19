@@ -1,11 +1,19 @@
 const Joi = require('joi');
 
-const getColony = {
+const colonyNameParams = {
   params: Joi.object(
     {
       colonyName: Joi.string().required(),
     },
   ),
+};
+
+const getColony = {
+  ...colonyNameParams,
+};
+
+const deleteColony = {
+  ...colonyNameParams,
 };
 
 const getColonies = {
@@ -54,6 +62,7 @@ const createColonyPreSignedUrls = {
 };
 module.exports = {
   getColony,
+  deleteColony,
   getColonies,
   getColonyActions,
   createColony,

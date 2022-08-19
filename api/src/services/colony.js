@@ -1,64 +1,61 @@
 const actionService = require('./action');
-const ColonyModel = require('../models/colony');
-const { NotFoundError } = require('../errors');
+const clientDataAccess = require('../data-access/client');
+const colonyDataAccess = require('../data-access/colony');
+const { ApiError } = require('../errors');
 const s3GeneratePreSignedUrl = require('../utils/s3fileuploader');
 
-async function getColony(colonyName) {
-  const colony = await ColonyModel.findOne({ colonyName }).select('-_id').lean().exec();
+module.exports = class ColonyService {
+  static async getColony(colonyName) {
+    const colony = colonyDataAccess.getColony(colonyName);
 
-  if (!colony) {
-    throw new NotFoundError('Colony is not found.');
+    // eslint-disable-next-line no-underscore-dangle
+    const colonyMembers = await clientDataAccess.getClientsByColony(colony._id);
+
+    // eslint-disable-next-line no-underscore-dangle
+    delete colony._id;
+    colony.members = colonyMembers;
+
+    return colony;
   }
 
-  return colony;
-}
+  static async deleteColony(colonyName) {
+    const success = await colonyDataAccess.deleteColony(colonyName);
 
-async function getColonies(page, limit) {
-  const colony = await ColonyModel.find().skip(page * limit).limit(limit).select('-_id')
-    .lean()
-    .exec();
-
-  if (!colony) {
-    throw new NotFoundError('Colony is not found.');
+    return {
+      success,
+    };
   }
 
-  return colony;
-}
+  static async getColonies(page, limit) {
+    const colonies = await colonyDataAccess.getColonies(page, limit);
 
-async function getColonyActions(colonyName, filter = {}, sorter = {}, page = 0, limit = 10) {
-  return actionService.getActions(colonyName, filter, sorter, page, limit);
-}
+    return colonies;
+  }
 
-async function createColony(colony) {
-  // await ColonyModel.create(colony);
-  console.log({ colony });
+  static async getColonyActions(colonyName, filter = {}, sorter = {}, page = 0, limit = 10) {
+    return actionService.getActions(colonyName, filter, sorter, page, limit);
+  }
 
-  return {
-    success: true,
-  };
-}
+  static async createColony(colony) {
+    // await ColonyModel.create(colony);
+    console.log({ colony });
+    throw new ApiError('Not authorized to create colony at this stage');
+  }
 
-async function prepareFileLinks(files) {
-  const promises = [];
+  static async prepareFileLinks(files) {
+    const promises = [];
 
-  files.forEach((file) => {
-    promises.push(s3GeneratePreSignedUrl(file));
-  });
-  return Promise.all(promises);
-}
+    files.forEach((file) => {
+      promises.push(s3GeneratePreSignedUrl(file));
+    });
+    return Promise.all(promises);
+  }
 
-async function createColonyPreSignedUrls(colony) {
-  const links = await prepareFileLinks(colony.files);
+  static async createColonyPreSignedUrls(colony) {
+    const links = await prepareFileLinks(colony.files);
 
-  return {
-    links,
-  };
-}
-
-module.exports = {
-  getColony,
-  getColonies,
-  getColonyActions,
-  createColony,
-  createColonyPreSignedUrls,
+    return {
+      links,
+    };
+  }
 };

@@ -8,6 +8,13 @@ const getAction = catchAsync(async (req, res) => {
   res.status(200).send(data);
 });
 
+const deleteAction = catchAsync(async (req, res) => {
+  const { assetName } = req.params;
+
+  const data = await actionService.deleteAction(assetName);
+  res.status(200).send(data);
+});
+
 const getActions = catchAsync(async (req, res) => {
   const {
     filter, sorter, page, limit,
@@ -29,6 +36,7 @@ const mintAction = catchAsync(async (req, res) => {
 });
 
 module.exports = {
+  deleteAction,
   getAction,
   getActions,
   getActionsFromBlockchain,

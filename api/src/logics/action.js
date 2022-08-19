@@ -63,19 +63,19 @@ function prepareActionToMint(action) {
           },
           {
             tag: ACTION_METADATA_ATTRIBUTES.DESCRIPTION_PART1,
-            value: action.otherLink?.slice(0, ACTION_MAX_ALLOWED_LENGTH),
+            value: action.description?.slice(0, ACTION_MAX_ALLOWED_LENGTH),
           },
           {
             tag: ACTION_METADATA_ATTRIBUTES.DESCRIPTION_PART2,
-            value: action.otherLink?.slice(ACTION_MAX_ALLOWED_LENGTH, 2 * ACTION_MAX_ALLOWED_LENGTH),
+            value: action.description?.slice(ACTION_MAX_ALLOWED_LENGTH, 2 * ACTION_MAX_ALLOWED_LENGTH),
           },
           {
             tag: ACTION_METADATA_ATTRIBUTES.DESCRIPTION_PART3,
-            value: action.otherLink?.slice(ACTION_MAX_ALLOWED_LENGTH * 2, 3 * ACTION_MAX_ALLOWED_LENGTH),
+            value: action.description?.slice(ACTION_MAX_ALLOWED_LENGTH * 2, 3 * ACTION_MAX_ALLOWED_LENGTH),
           },
           {
             tag: ACTION_METADATA_ATTRIBUTES.DESCRIPTION_PART4,
-            value: action.otherLink?.slice(ACTION_MAX_ALLOWED_LENGTH * 3, 4 * ACTION_MAX_ALLOWED_LENGTH),
+            value: action.description?.slice(ACTION_MAX_ALLOWED_LENGTH * 3, 4 * ACTION_MAX_ALLOWED_LENGTH),
           },
         ],
       },

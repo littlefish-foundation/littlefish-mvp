@@ -166,6 +166,26 @@
             "description": "Successful response with the specified action"
           }
         }
+      },
+      "delete": {
+        "tags": [
+          "action"
+        ],
+        "summary": "Delete the specified action",
+        "parameters": [
+          {
+            "name": "assetName",
+            "in": "path",
+            "description": "Asset name",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful deletion"
+          }
+        }
       }
     },
     "/action/": {

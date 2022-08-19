@@ -14,6 +14,22 @@ async function getAction(assetName) {
   return action;
 }
 
+async function deleteAction(assetName) {
+  const action = await getAction(assetName);
+  console.log({ action });
+  await actionServiceClient.deleteAction(action.actionId);
+
+  const { acknowledged } = await ActionModel.deleteOne({ assetName }).lean().exec();
+
+  if (!acknowledged) {
+    throw new NotFoundError('Action is not found, thus can not be deleted.');
+  }
+
+  return {
+    success: true,
+  };
+}
+
 async function getActionsFromBlockchain(cursor, size) {
   const response = await actionServiceClient.getActions(cursor, size);
 
@@ -82,6 +98,7 @@ async function mintAction(action) {
 }
 
 module.exports = {
+  deleteAction,
   getAction,
   getActions,
   getActionsFromBlockchain,

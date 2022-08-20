@@ -47,8 +47,15 @@ const createColony = {
       description: Joi.string().required(),
       walletAddress: Joi.string().required(),
       superColony: Joi.string(),
-      coverImage: Joi.string(),
-      files: Joi.array(),
+      coverImage: Joi.object({
+        type: Joi.string().required(),
+        src: Joi.string().uri().required(),
+      }),
+      files: Joi.array().items(Joi.object({
+        type: Joi.string().required(),
+        src: Joi.string().uri().required(),
+      })),
+      links: Joi.object(),
     },
   ),
 };
@@ -56,8 +63,12 @@ const createColonyPreSignedUrls = {
   body: Joi.object({
     files: Joi.array().items(Joi.object({
       type: Joi.string().required(),
-      src: Joi.string().uri().required(),
+      name: Joi.string().required(),
     })),
+    coverImage: Joi.object({
+      type: Joi.string().required(),
+      name: Joi.string().required(),
+    }),
   }),
 };
 module.exports = {

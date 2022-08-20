@@ -20,9 +20,108 @@
     {
       "name": "colony",
       "description": "Colonies of littlefishes"
+    },
+    {
+      "name": "user",
+      "description": "Users are members of the colonies and create actions"
     }
   ],
   "paths": {
+    "/user/{walletAddress}/": {
+      "get": {
+        "tags": [
+          "user"
+        ],
+        "summary": "Get the specified user",
+        "parameters": [
+          {
+            "name": "walletAddress",
+            "in": "path",
+            "description": "Wallet address of the user",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response with the specified user"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "user"
+        ],
+        "summary": "Delete the specified user",
+        "parameters": [
+          {
+            "name": "walletAddress",
+            "in": "path",
+            "description": "Wallet address of the user",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful deletion"
+          }
+        }
+      }
+    },
+    "/user/{walletAddress}/colony": {
+      "get": {
+        "tags": [
+          "user"
+        ],
+        "summary": "Update the colony of user",
+        "parameters": [
+          {
+            "name": "walletAddress",
+            "in": "path",
+            "description": "Wallet address of the user",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "colonyName",
+            "in": "query",
+            "description": "Colony name",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Colony name successfully deleted."
+          }
+        }
+      }
+    },
+    "/user/": {
+      "post": {
+        "tags": [
+          "user"
+        ],
+        "summary": "Create an user",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Get filtered records",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/createUser"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "user is successfully created."
+          }
+        }
+      }
+    },
     "/colony/{colonyName}/": {
       "get": {
         "tags": [
@@ -129,14 +228,14 @@
             "in": "query",
             "description": "filter object",
             "required": false,
-            "type": "object"
+            "type": "string"
           },
           {
             "name": "sorter",
             "in": "query",
             "description": "sorter object",
             "required": false,
-            "type": "object"
+            "type": "string"
           }
         ],
         "responses": {
@@ -214,14 +313,14 @@
             "in": "query",
             "description": "filter object",
             "required": false,
-            "type": "object"
+            "type": "string"
           },
           {
             "name": "sorter",
             "in": "query",
             "description": "sorter object",
             "required": false,
-            "type": "object"
+            "type": "string"
           }
         ],
         "responses": {
@@ -242,13 +341,42 @@
             "description": "Get filtered records",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/mintActionQuery"
+              "$ref": "#/definitions/mintAction"
             }
           }
         ],
         "responses": {
           "201": {
             "description": "Action is successfully created."
+          }
+        }
+      }
+    },
+    "/action/{assetName}/sale": {
+      "post": {
+        "tags": [
+          "action"
+        ],
+        "summary": "Create sale for action",
+        "parameters": [
+          {
+            "name": "assetName",
+            "in": "path",
+            "description": "Name of the asset",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "price",
+            "in": "query",
+            "description": "Price for the sale",
+            "required": true,
+            "type": "number"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response with ACTION array from the database"
           }
         }
       }
@@ -284,12 +412,34 @@
     }
   },
   "definitions": {
+    "createUser": {
+      "properties": {
+        "walletAddress": {
+          "type": "string",
+          "format": "wallet address",
+          "description": "wallet address of the user",
+          "example": "addr1q9fjzdqkar0fm.......lumhp9znnq66zcn5"
+        },
+        "colonyName": {
+          "type": "string",
+          "format": "name",
+          "description": "colony name which user is part of.",
+          "example": "Littlefish"
+        },
+        "name": {
+          "type": "string",
+          "format": "name",
+          "description": "user name",
+          "example": "burak.littlefish"
+        }
+      }
+    },
     "createColony": {
       "properties": {
         "name": {
           "type": "string",
-          "format": "colony name",
-          "description": "asset name",
+          "format": "name",
+          "description": "colony name",
           "example": "Littlefish"
         },
         "walletAddress": {
@@ -322,7 +472,7 @@
         }
       }
     },
-    "mintActionQuery": {
+    "mintAction": {
       "properties": {
         "assetName": {
           "type": "string",

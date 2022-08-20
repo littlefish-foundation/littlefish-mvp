@@ -39,22 +39,30 @@ module.exports = class ColonyController {
   });
 
   static createColony = catchAsync(async (req, res) => {
-    const {
-      colony,
-    } = req.body;
+    res.status(500).send({
+      message: 'Colonies will not be created at this point. Littlefish Foundation is the only colony available.',
+    });
 
-    const data = await colonyService.createColony(colony);
-
-    res.status(201).send(data);
+    // const {
+    //   colony,
+    // } = req.body;
+    //
+    // const data = await colonyService.createColony(colony);
+    //
+    // res.status(201).send(data);
   });
 
   static createColonyPreSignedUrls = catchAsync(async (req, res) => {
-    const {
-      files,
-    } = req.body;
+    res.status(500).send({
+      message: 'Colonies will not be created at this point. Littlefish Foundation is the only colony available.',
+    });
 
-    const data = await colonyService.createColonyPreSignedUrls(files);
-
-    res.status(200).send(data);
+    // const {
+    //   files,
+    // } = req.body;
+    //
+    // const data = await colonyService.createColonyPreSignedUrls(files);
+    //
+    // res.status(200).send(data);
   });
 };

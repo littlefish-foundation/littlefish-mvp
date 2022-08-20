@@ -1,6 +1,6 @@
 const aws = require('aws-sdk');
 
-async function s3GeneratePreSignedUrl({ name, contentType = 'image/png' }) {
+async function s3GeneratePreSignedUrl(name, type = 'image/png') {
   const s3 = new aws.S3({
     accessKeyId: process.env.AWS_S3_ACCESS_KEY_ID,
     secretAccessKey: process.env.AWS_S3_SECRET_ACCESS_KEY,
@@ -8,7 +8,7 @@ async function s3GeneratePreSignedUrl({ name, contentType = 'image/png' }) {
   const preSignedUrl = await s3.getSignedUrlPromise('putObject', {
     Bucket: process.env.AWS_S3_BUCKET_NAME,
     Key: name,
-    ContentType: contentType,
+    ContentType: type,
     Expires: 300,
   });
 

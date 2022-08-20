@@ -38,9 +38,14 @@ module.exports = class ActionService {
   }
 
   static async getActions(colonyName = undefined, filter = {}, sorter = {}, page = 0, limit = 10) {
-    const actions = actionDataAccess.getActions(colonyName, filter, sorter, page, limit);
+    const actions = await actionDataAccess.getActions(colonyName, filter, sorter, page, limit);
 
     return formatActions(actions);
+  }
+
+  static async createActionSale(assetName, price) {
+    const action = await actionDataAccess.getAction(assetName);
+    await actionServiceClient.createActionSale(action.actionId, price);
   }
 
   static async mintAction(action) {

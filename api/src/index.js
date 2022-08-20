@@ -8,7 +8,7 @@ const loaders = require('./loaders');
 const routes = require('./routes');
 const NotFoundError = require('./errors/not-found');
 const errorHandler = require('./middlewares/error-handler');
-const swaggerDocument = require('./docs/swagger.json');
+const swaggerDocument = require('../docs/swagger.json');
 
 const app = express();
 dotenv.config();

@@ -1,7 +1,7 @@
 const ColonyModel = require('../models/colony');
 const { NotFoundError } = require('../errors');
 
-module.exports = class ColonyService {
+module.exports = class ColonyDataAccess {
   static async getColony(colonyName) {
     const colony = await ColonyModel.findOne({ colonyName }).lean().exec();
 

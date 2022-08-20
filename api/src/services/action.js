@@ -1,5 +1,6 @@
 const actionServiceClient = require('./action-client');
 const actionDataAccess = require('../data-access/action');
+const colonyDataAccess = require('../data-access/colony');
 const { prepareAllImageURLsInFile, prepareImageURL, prepareActionToMint } = require('../logics/action');
 const { formatActionsFromChain, formatActions } = require('../formatters/action');
 const { ApiError, NotFoundError } = require('../errors');
@@ -21,7 +22,7 @@ module.exports = class ActionService {
 
     await actionServiceClient.deleteAction(actionId);
 
-    const success = actionDataAccess.deleteAction(assetName);
+    const success = await actionDataAccess.deleteAction(assetName);
 
     return {
       success,
@@ -35,11 +36,13 @@ module.exports = class ActionService {
       throw new ApiError(response.message, response.status);
     }
 
-    return formatActionsFromChain(response?.data?.data);
+    return { actions: formatActionsFromChain(response?.data?.data) };
   }
 
   static async getActions(colonyName = undefined, filter = {}, sorter = {}, page = 0, limit = 10) {
-    const actions = await actionDataAccess.getActions(colonyName, filter, sorter, page, limit);
+    const colony = await colonyDataAccess.getColony(colonyName);
+
+    const actions = await actionDataAccess.getActions(colony._id, filter, sorter, page, limit);
 
     return formatActions(actions);
   }
@@ -48,10 +51,10 @@ module.exports = class ActionService {
     const action = await actionDataAccess.getAction(assetName);
 
     const priceInLovelace = ADA_TO_LOVELACE_CONVERSION * price;
-    await actionServiceClient.createActionSale(action.actionId, priceInLovelace);
+    const response = await actionServiceClient.createActionSale(action.actionId, priceInLovelace);
 
     return {
-      success: true,
+      link: response?.payment_link,
     };
   }
 

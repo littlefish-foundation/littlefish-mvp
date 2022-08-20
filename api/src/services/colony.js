@@ -5,7 +5,7 @@ const s3GeneratePreSignedUrl = require('../utils/s3fileuploader');
 
 module.exports = class ColonyService {
   static async getColony(colonyName) {
-    const colony = colonyDataAccess.getColony(colonyName);
+    const colony = await colonyDataAccess.getColony(colonyName);
 
     const colonyMembers = await userDataAccess.getUsersByColony(colony._id);
     const actions = await this.getColonyActions(colonyName);
@@ -17,8 +17,8 @@ module.exports = class ColonyService {
     return colony;
   }
 
-  static async deleteColony(colonyName) {
-    const success = await colonyDataAccess.deleteColony(colonyName);
+  static async deleteColony(name) {
+    const success = await colonyDataAccess.deleteColony(name);
 
     return {
       success,

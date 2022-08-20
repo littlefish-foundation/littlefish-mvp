@@ -1,15 +1,16 @@
 const axios = require('axios');
 const ApiError = require('../errors/api-error');
+const config = require('../config');
 
 module.exports = class ActionServiceClient {
   static async deleteAction(actionId) {
     let response;
     const options = {
       method: 'DELETE',
-      url: `${process.env.ACTION_SERVICE_URL}v1/nft/collections/${process.env.ACTION_BASE_COLLECTION_ID}/tokens/${actionId}`,
+      url: `${config.actionServiceClient.url}v1/nft/collections/${config.actionServiceClient.baseCollectionId}/tokens/${actionId}`,
       headers: {
         'Content-Type': 'application/json',
-        'x-api-key': process.env.API_KEY,
+        'x-api-key': config.actionServiceClient.apiKey,
       },
     };
 
@@ -26,11 +27,11 @@ module.exports = class ActionServiceClient {
     let response;
     const options = {
       method: 'GET',
-      url: `${process.env.ACTION_SERVICE_URL}v1/nft/collections/${process.env.ACTION_BASE_COLLECTION_ID}/tokens`,
+      url: `${config.actionServiceClient.url}v1/nft/collections/${config.actionServiceClient.baseCollectionId}/tokens`,
       params: { size, cursor },
       headers: {
         'Content-Type': 'application/json',
-        'x-api-key': process.env.API_KEY,
+        'x-api-key': config.actionServiceClient.apiKey,
       },
     };
 
@@ -46,11 +47,11 @@ module.exports = class ActionServiceClient {
   static async getSales(size) {
     const options = {
       method: 'GET',
-      url: `${process.env.ACTION_SERVICE_URL}v1/nft/collections/${process.env.ACTION_BASE_COLLECTION_ID}/sales`,
+      url: `${config.actionServiceClient.url}v1/nft/collections/${config.actionServiceClient.baseCollectionId}/sales`,
       params: { size },
       headers: {
         'Content-Type': 'application/json',
-        'x-api-key': process.env.API_KEY,
+        'x-api-key': config.actionServiceClient.apiKey,
       },
     };
 
@@ -66,10 +67,10 @@ module.exports = class ActionServiceClient {
   static async mintAction(action) {
     const options = {
       method: 'POST',
-      url: `${process.env.ACTION_SERVICE_URL}v1/nft/collections/${process.env.ACTION_BASE_COLLECTION_ID}/tokens`,
+      url: `${config.actionServiceClient.url}v1/nft/collections/${config.actionServiceClient.baseCollectionId}/tokens`,
       headers: {
         'Content-Type': 'application/json',
-        'x-api-key': process.env.API_KEY,
+        'x-api-key': config.actionServiceClient.apiKey,
       },
       data: action,
     };
@@ -85,10 +86,10 @@ module.exports = class ActionServiceClient {
   static async createActionSale(actionId, price) {
     const options = {
       method: 'POST',
-      url: `${process.env.ACTION_SERVICE_URL}v1/nft/collections/${process.env.ACTION_BASE_COLLECTION_ID}/sales`,
+      url: `${config.actionServiceClient.url}v1/nft/collections/${config.actionServiceClient.baseCollectionId}/sales`,
       headers: {
         'Content-Type': 'application/json',
-        'x-api-key': process.env.API_KEY,
+        'x-api-key': config.actionServiceClient.apiKey,
       },
       data: {
         type: 'fixed',

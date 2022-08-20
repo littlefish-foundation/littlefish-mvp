@@ -24,7 +24,7 @@ module.exports = class ActionDataAccess {
     throw new NotFoundError('Action is not found.');
   }
 
-  static async getActions(colonyName, filter, sorter, page, limit) {
+  static async getActions(colony, filter, sorter, page, limit) {
     const {
       assetName, ownerName, minDate, maxDate,
     } = filter;
@@ -34,7 +34,7 @@ module.exports = class ActionDataAccess {
     } = sorter;
 
     return ActionModel.find({
-      ...(colonyName ? { colonyName } : undefined),
+      ...(colony ? { colony } : undefined),
       ...(minDate ? { createdAt: { $gte: minDate } } : undefined),
       ...(maxDate ? { createdAt: { $lte: maxDate } } : undefined),
       ...(ownerName ? { ownerName } : undefined),

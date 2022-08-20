@@ -2,7 +2,9 @@ const express = require('express');
 const helmet = require('helmet');
 const cors = require('cors');
 const swaggerUi = require('swagger-ui-express');
-const dotenv = require('dotenv');
+
+// has to be first for env variables
+const config = require('./config');
 
 const loaders = require('./loaders');
 const routes = require('./routes');
@@ -11,7 +13,7 @@ const errorHandler = require('./middlewares/error-handler');
 const swaggerDocument = require('../docs/swagger.json');
 
 const app = express();
-dotenv.config();
+
 loaders();
 
 app.use(helmet());
@@ -37,8 +39,8 @@ app.use((req, res, next) => {
 
 app.use(errorHandler);
 
-const server = app.listen(process.env.PORT || 8080, () => {
-  console.log(`Server is listening on ${process.env.PORT || 8080} port.`);
+const server = app.listen(config.port || 8080, () => {
+  console.log(`Server is listening on ${config.port || 8080} port.`);
 });
 
 module.exports = server;

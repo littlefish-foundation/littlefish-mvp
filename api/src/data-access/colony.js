@@ -2,8 +2,8 @@ const ColonyModel = require('../models/colony');
 const { NotFoundError } = require('../errors');
 
 module.exports = class ColonyDataAccess {
-  static async getColony(colonyName) {
-    const colony = await ColonyModel.findOne({ colonyName }).lean().exec();
+  static async getColony(name) {
+    const colony = await ColonyModel.findOne({ name }).lean().exec();
 
     if (!colony) {
       throw new NotFoundError('Colony is not found.');
@@ -16,15 +16,15 @@ module.exports = class ColonyDataAccess {
     await ColonyModel.create(colony);
   }
 
-  static async deleteColony(colonyName) {
-    const { ok } = await ColonyModel.deleteOne({ colonyName });
+  static async deleteColony(name) {
+    const { ok } = await ColonyModel.deleteOne({ name });
     if (ok === 1) {
       return true;
     }
     throw new NotFoundError('Colony is not found.');
   }
 
-  static async getColonies(colonyName, filter, sorter, page, limit) {
+  static async getColonies(page, limit) {
     return ColonyModel.find().skip(page * limit).limit(limit).select('-_id')
       .lean()
       .exec();

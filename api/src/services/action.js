@@ -39,10 +39,12 @@ module.exports = class ActionService {
     return { actions: formatActionsFromChain(response?.data?.data) };
   }
 
-  static async getActions(colonyName = undefined, filter = {}, sorter = {}, page = 0, limit = 10) {
-    const colony = await colonyDataAccess.getColony(colonyName);
-
-    const actions = await actionDataAccess.getActions(colony._id, filter, sorter, page, limit);
+  static async getActions(colonyName, filter = {}, sorter = {}, page = 0, limit = 10) {
+    let colony;
+    if (colonyName) {
+      await colonyDataAccess.getColony(colonyName);
+    }
+    const actions = await actionDataAccess.getActions(colony?._id, filter, sorter, page, limit);
 
     return formatActions(actions);
   }

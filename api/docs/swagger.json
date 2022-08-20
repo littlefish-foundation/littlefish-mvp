@@ -369,7 +369,7 @@
           {
             "name": "price",
             "in": "query",
-            "description": "Price for the sale",
+            "description": "Price for the sale in ADA",
             "required": true,
             "type": "number"
           }
@@ -409,6 +409,28 @@
           }
         }
       }
+    },
+    "/action/sales": {
+      "get": {
+        "tags": [
+          "action"
+        ],
+        "summary": "Get action sales from chain",
+        "parameters": [
+          {
+            "name": "size",
+            "in": "query",
+            "description": "The count of action's to return",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response with action sales array from the chain"
+          }
+        }
+      }
     }
   },
   "definitions": {
@@ -431,6 +453,12 @@
           "format": "name",
           "description": "user name",
           "example": "burak.littlefish"
+        } ,
+        "avatar": {
+          "type": "string",
+          "format": "uri",
+          "description": "image source to the avatar",
+          "example": "https://littlefish-mvp.s3.eu-central-1.amazonaws.com/avatar_vader.jpeg"
         }
       }
     },

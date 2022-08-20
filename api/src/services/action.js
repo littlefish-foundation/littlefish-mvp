@@ -3,6 +3,7 @@ const actionDataAccess = require('../data-access/action');
 const { prepareAllImageURLsInFile, prepareImageURL, prepareActionToMint } = require('../logics/action');
 const { formatActionsFromChain, formatActions } = require('../formatters/action');
 const { ApiError, NotFoundError } = require('../errors');
+const { ADA_TO_LOVELACE_CONVERSION } = require('../constants');
 
 module.exports = class ActionService {
   static async getAction(assetName) {
@@ -45,7 +46,22 @@ module.exports = class ActionService {
 
   static async createActionSale(assetName, price) {
     const action = await actionDataAccess.getAction(assetName);
-    await actionServiceClient.createActionSale(action.actionId, price);
+
+    const priceInLovelace = ADA_TO_LOVELACE_CONVERSION * price;
+    await actionServiceClient.createActionSale(action.actionId, priceInLovelace);
+
+    return {
+      success: true,
+    };
+  }
+
+  static async getSales(size = 20) {
+    const response = await actionServiceClient.getSales(size);
+
+    if (response?.status !== 200) {
+      throw new ApiError(response.message, response.status);
+    }
+    return { sales: response?.data?.data };
   }
 
   static async mintAction(action) {

@@ -21,7 +21,8 @@ module.exports = {
       {
         name: Joi.string(),
         walletAddress: Joi.string().required(),
-        colonyName: Joi.string().required(),
+        colonyName: Joi.string(),
+        avatar: Joi.string().uri(),
       },
     ),
   },

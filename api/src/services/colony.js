@@ -8,10 +8,12 @@ module.exports = class ColonyService {
     const colony = colonyDataAccess.getColony(colonyName);
 
     const colonyMembers = await userDataAccess.getUsersByColony(colony._id);
+    const actions = await this.getColonyActions(colonyName);
 
     delete colony._id;
-    colony.members = colonyMembers;
 
+    colony.members = colonyMembers;
+    colony.actions = actions;
     return colony;
   }
 

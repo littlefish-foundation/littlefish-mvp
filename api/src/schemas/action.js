@@ -25,6 +25,14 @@ const getActionsFromBlockchain = {
   ),
 };
 
+const getSales = {
+  query: Joi.object(
+    {
+      size: Joi.number().integer().positive(),
+    },
+  ),
+};
+
 const getActions = {
   query: Joi.object(
     {
@@ -32,6 +40,15 @@ const getActions = {
       sorter: Joi.object(),
       page: Joi.number().integer().positive(),
       limit: Joi.number().integer().positive(),
+    },
+  ),
+};
+
+const createActionSale = {
+  ...assetNameParams,
+  query: Joi.object(
+    {
+      price: Joi.number().integer().min(10),
     },
   ),
 };
@@ -59,4 +76,6 @@ module.exports = {
   getAction,
   deleteAction,
   mintAction,
+  createActionSale,
+  getSales,
 };

@@ -33,6 +33,13 @@ module.exports = class ActionController {
     res.status(200).send(data);
   });
 
+  static getSale = catchAsync(async (req, res) => {
+    const { assetName } = req.params;
+
+    const data = await actionService.getSale(assetName);
+    res.status(200).send(data);
+  });
+
   static getActionsFromBlockchain = catchAsync(async (req, res) => {
     const { cursor, size } = req.query;
     const data = await actionService.getActionsFromBlockchain(cursor, size);

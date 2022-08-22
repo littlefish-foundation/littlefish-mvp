@@ -12,6 +12,10 @@ const getAction = {
   ...assetNameParams,
 };
 
+const getSale = {
+  ...assetNameParams,
+};
+
 const deleteAction = {
   ...assetNameParams,
 };
@@ -78,4 +82,5 @@ module.exports = {
   mintAction,
   createActionSale,
   getSales,
+  getSale,
 };

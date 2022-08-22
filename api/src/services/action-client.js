@@ -64,6 +64,25 @@ module.exports = class ActionServiceClient {
     return response;
   }
 
+  static async getSale(actionId) {
+    const options = {
+      method: 'GET',
+      url: `${config.actionServiceClient.url}v1/nft/collections/${config.actionServiceClient.baseCollectionId}/sales/${actionId}`,
+      headers: {
+        'Content-Type': 'application/json',
+        'x-api-key': config.actionServiceClient.apiKey,
+      },
+    };
+
+    let response;
+    try {
+      response = await axios.request(options);
+    } catch {
+      if (!response || response.status !== 200) throw new ApiError('Blockchain Server Error', 500);
+    }
+    return response;
+  }
+
   static async mintAction(action) {
     const options = {
       method: 'POST',
@@ -104,6 +123,6 @@ module.exports = class ActionServiceClient {
       throw new ApiError();
     }
 
-    return response;
+    return response?.data?.payment_link;
   }
 };

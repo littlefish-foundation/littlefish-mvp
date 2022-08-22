@@ -49,14 +49,35 @@ module.exports = class ActionService {
     return formatActions(actions);
   }
 
+  static async getSale(assetName) {
+    const { sales } = await this.getSales();
+    let sale;
+
+    for (let i = 0; i < sales?.length; i++) {
+      if (sales[i].status !== 'EXPIRED' && sales[i]?.tokens?.[0].asset_name === assetName) {
+        sale = sales[i];
+        break;
+      }
+    }
+
+    return {
+      sale,
+    };
+  }
+
   static async createActionSale(assetName, price) {
     const action = await actionDataAccess.getAction(assetName);
 
     const priceInLovelace = ADA_TO_LOVELACE_CONVERSION * price;
-    const response = await actionServiceClient.createActionSale(action.actionId, priceInLovelace);
-
+    const paymentLink = await actionServiceClient.createActionSale(action.actionId, priceInLovelace);
+    // if (paymentLink !== '') {
+    //   return {
+    //     link: paymentLink,
+    //   };
+    // }
+    const sale = await actionServiceClient.getSale(action.actionId);
     return {
-      link: response?.payment_link,
+      link: sale?.payment_link,
     };
   }
 

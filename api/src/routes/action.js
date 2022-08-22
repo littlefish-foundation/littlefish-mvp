@@ -5,9 +5,13 @@ const actionSchemas = require('../schemas/action');
 
 const router = express.Router();
 
-router.route('/chain').get(validator(actionSchemas.getActionsFromBlokchain), actionController.getActionsFromBlokchain);
-router.route('/:assetName').get(actionController.getAction);
-router.route('/').get(validator(actionSchemas.getActionsFromDatabase), actionController.getActionsFromDatabase);
+router.route('/chain')
+  .get(validator(actionSchemas.getActionsFromBlockchain), actionController.getActionsFromBlockchain);
+router.route('/sales').get(validator(actionSchemas.getSales), actionController.getSales);
+router.route('/').get(validator(actionSchemas.getActions), actionController.getActions);
 router.route('/').post(validator(actionSchemas.mintAction), actionController.mintAction);
+router.route('/:assetName/sale').post(validator(actionSchemas.createActionSale), actionController.createActionSale);
+router.route('/:assetName').get(validator(actionSchemas.getAction), actionController.getAction);
+router.route('/:assetName').delete(validator(actionSchemas.deleteAction), actionController.deleteAction);
 
 module.exports = router;

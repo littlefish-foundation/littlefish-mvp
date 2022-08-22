@@ -1,36 +1,52 @@
 const actionService = require('../services/action');
-const catchAsync = require('../utils/catchAsync');
+const catchAsync = require('../utils/catch-async');
 
-const getAction = catchAsync(async (req, res) => {
-  const { assetName } = req.params;
+module.exports = class ActionController {
+  static getAction = catchAsync(async (req, res) => {
+    const { assetName } = req.params;
 
-  const data = await actionService.getAction(assetName);
-  res.status(200).send(data);
-});
+    const data = await actionService.getAction(assetName);
+    res.status(200).send(data);
+  });
 
-const getActionsFromDatabase = catchAsync(async (req, res) => {
-  const {
-    filter, sorter, page, limit,
-  } = req.query;
+  static deleteAction = catchAsync(async (req, res) => {
+    const { assetName } = req.params;
 
-  const data = await actionService.getActionsFromDatabase(filter, sorter, page, limit);
-  res.status(200).send(data);
-});
+    const data = await actionService.deleteAction(assetName);
+    res.status(200).send(data);
+  });
 
-const getActionsFromBlokchain = catchAsync(async (req, res) => {
-  const { cursor, size } = req.query;
-  const data = await actionService.getActionsFromBlokchain(cursor, size);
-  res.status(200).send(data);
-});
+  static getActions = catchAsync(async (req, res) => {
+    const {
+      filter, sorter, page, limit,
+    } = req.query;
 
-const mintAction = catchAsync(async (req, res) => {
-  const result = await actionService.mintAction(req.body);
-  res.status(201).send(result);
-});
+    const data = await actionService.getActions(undefined, filter, sorter, page, limit);
+    res.status(200).send(data);
+  });
 
-module.exports = {
-  getAction,
-  getActionsFromDatabase,
-  getActionsFromBlokchain,
-  mintAction,
+  static createActionSale = catchAsync(async (req, res) => {
+    const { price } = req.query;
+    const { assetName } = req.params;
+
+    const data = await actionService.createActionSale(assetName, price);
+    res.status(200).send(data);
+  });
+
+  static getActionsFromBlockchain = catchAsync(async (req, res) => {
+    const { cursor, size } = req.query;
+    const data = await actionService.getActionsFromBlockchain(cursor, size);
+    res.status(200).send(data);
+  });
+
+  static getSales = catchAsync(async (req, res) => {
+    const { size } = req.query;
+    const data = await actionService.getSales(size);
+    res.status(200).send(data);
+  });
+
+  static mintAction = catchAsync(async (req, res) => {
+    const result = await actionService.mintAction(req.body);
+    res.status(201).send(result);
+  });
 };

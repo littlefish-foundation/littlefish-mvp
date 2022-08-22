@@ -11,7 +11,9 @@ const ACTION_METADATA_ATTRIBUTES = {
   DESCRIPTION_PART3: '<desc3>',
   DESCRIPTION_PART4: '<desc4>',
   OWNER_NAME: '<owner_name>',
-  ACTION_TYPE: '<action_type',
+  ACTION_TYPE: '<action_type>',
+  PRODUCER: '<producer>',
+  COLONY_NAME: '<colony_name>',
 
 };
 const ACTION_FILE_INDEXES = {
@@ -27,4 +29,5 @@ module.exports = {
   ACTION_MAX_ALLOWED_LENGTH: 64,
   ACTION_METADATA_ATTRIBUTES,
   ACTION_FILE_INDEXES,
+  ADA_TO_LOVELACE_CONVERSION: 1000000,
 };

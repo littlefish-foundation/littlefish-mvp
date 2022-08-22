@@ -2,16 +2,18 @@ const express = require('express');
 const helmet = require('helmet');
 const cors = require('cors');
 const swaggerUi = require('swagger-ui-express');
-const dotenv = require('dotenv');
+
+// has to be first for env variables
+const config = require('./config');
 
 const loaders = require('./loaders');
 const routes = require('./routes');
 const NotFoundError = require('./errors/not-found');
 const errorHandler = require('./middlewares/error-handler');
-const swaggerDocument = require('./docs/swagger.json');
+const swaggerDocument = require('../docs/swagger.json');
 
 const app = express();
-dotenv.config();
+
 loaders();
 
 app.use(helmet());
@@ -26,8 +28,8 @@ app.use(cors(options));
 
 app.use('/documentation', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
-app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
+app.use(express.json({ limit: '50mb' }));
+app.use(express.urlencoded({ limit: '50mb' }));
 
 app.use('/', routes);
 app.use((req, res, next) => {
@@ -37,8 +39,8 @@ app.use((req, res, next) => {
 
 app.use(errorHandler);
 
-const server = app.listen(process.env.PORT || 8080, () => {
-  console.log(`Server is listening on ${process.env.PORT || 8080} port.`);
+const server = app.listen(config.port || 8080, () => {
+  console.log(`Server is listening on ${config.port || 8080} port.`);
 });
 
 module.exports = server;

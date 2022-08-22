@@ -1,83 +1,102 @@
 const actionServiceClient = require('./action-client');
-const ActionModel = require('../models/action');
+const actionDataAccess = require('../data-access/action');
+const colonyDataAccess = require('../data-access/colony');
 const { prepareAllImageURLsInFile, prepareImageURL, prepareActionToMint } = require('../logics/action');
-const { formatActionsFromChain, formatActionsFromDatabase } = require('../formatters/action');
+const { formatActionsFromChain, formatActions } = require('../formatters/action');
 const { ApiError, NotFoundError } = require('../errors');
+const { ADA_TO_LOVELACE_CONVERSION } = require('../constants');
 
-async function getAction(assetName) {
-  const action = await ActionModel.findOne({ assetName }).select('-_id').lean().exec();
+module.exports = class ActionService {
+  static async getAction(assetName) {
+    const action = await actionDataAccess.getAction(assetName);
 
-  if (!action) {
-    throw new NotFoundError('Action is not found.');
+    if (!action) {
+      throw new NotFoundError('Action is not found.');
+    }
+
+    return action;
   }
 
-  return action;
-}
+  static async deleteAction(assetName) {
+    const { actionId } = await this.getAction(assetName);
 
-async function getActionsFromBlokchain(cursor, size) {
-  const response = await actionServiceClient.getActions(cursor, size);
+    await actionServiceClient.deleteAction(actionId);
 
-  if (response?.status !== 200) {
-    throw new ApiError(response.message, response.status);
+    const success = await actionDataAccess.deleteAction(assetName);
+
+    return {
+      success,
+    };
   }
 
-  return formatActionsFromChain(response?.data?.data);
-}
+  static async getActionsFromBlockchain(cursor, size) {
+    const response = await actionServiceClient.getActions(cursor, size);
 
-async function getActionsFromDatabase(filter = {}, sorter = {}, page = 0, limit = 10) {
-  const {
-    assetName, ownerName, minDate, maxDate,
-  } = filter;
+    if (response?.status !== 200) {
+      throw new ApiError(response.message, response.status);
+    }
 
-  const {
-    sortingField, sortingOrder,
-  } = sorter;
-  const actions = await ActionModel.find({
-    ...(minDate ? { createdAt: { $gte: minDate } } : undefined),
-    ...(maxDate ? { createdAt: { $lte: maxDate } } : undefined),
-    ...(ownerName ? { ownerName } : undefined),
-    ...(assetName ? { assetName: { $regex: assetName, $options: 'i' } } : undefined),
-  })
-    .select('name assetName ownerName image actionType description youtubeLink otherLink')
-    .skip(page * limit).limit(limit)
-    .sort({
-      ...(sortingField ? { sortingField: sortingOrder } : undefined),
-    })
-    .lean()
-    .exec();
+    return { actions: formatActionsFromChain(response?.data?.data) };
+  }
 
-  return formatActionsFromDatabase(actions);
-}
+  static async getActions(colonyName, filter = {}, sorter = {}, page = 0, limit = 10) {
+    let colony;
+    if (colonyName) {
+      await colonyDataAccess.getColony(colonyName);
+    }
+    const actions = await actionDataAccess.getActions(colony?._id, filter, sorter, page, limit);
 
-async function mintAction(action) {
-  const toMint = prepareActionToMint(action);
+    return formatActions(actions);
+  }
 
-  const response = await actionServiceClient.mintAction(toMint);
-  const createdAction = response?.data?.data[0];
-  const preparedFiles = prepareAllImageURLsInFile(createdAction.files);
+  static async createActionSale(assetName, price) {
+    const action = await actionDataAccess.getAction(assetName);
 
-  await ActionModel.create({
-    asset_name: createdAction.asset_name,
-    actionId: createdAction.id,
-    name: createdAction.name,
-    fingerprint: createdAction.fingerprint,
-    description: createdAction.desc,
-    media_type: createdAction.media_type,
-    image: prepareImageURL(createdAction.image),
-    status: createdAction.status,
-    files: preparedFiles,
-    metadata: createdAction.metadata,
-    custom_attributes: createdAction.custom_attributes,
-  });
+    const priceInLovelace = ADA_TO_LOVELACE_CONVERSION * price;
+    const response = await actionServiceClient.createActionSale(action.actionId, priceInLovelace);
 
-  return {
-    success: true,
-  };
-}
+    return {
+      link: response?.payment_link,
+    };
+  }
 
-module.exports = {
-  getAction,
-  getActionsFromDatabase,
-  getActionsFromBlokchain,
-  mintAction,
+  static async getSales(size = 20) {
+    const response = await actionServiceClient.getSales(size);
+
+    if (response?.status !== 200) {
+      throw new ApiError(response.message, response.status);
+    }
+    return { sales: response?.data?.data };
+  }
+
+  static async mintAction(action) {
+    const toMint = prepareActionToMint(action);
+
+    const response = await actionServiceClient.mintAction(toMint);
+    const createdAction = response?.data?.data[0];
+    const preparedFiles = prepareAllImageURLsInFile(createdAction.files);
+
+    await actionDataAccess.createAction({
+      assetName: createdAction.asset_name,
+      actionId: createdAction.id,
+      name: createdAction.name,
+      producer: action.ownerName,
+      ownerName: action.ownerName,
+      colonyName: action.colonyName,
+      fingerprint: createdAction.fingerprint,
+      description: action.description,
+      mediaType: createdAction.media_type,
+      image: prepareImageURL(createdAction.image),
+      status: createdAction.status,
+      actionType: action.actionType,
+      files: preparedFiles,
+      nftFormat: createdAction,
+      custom_attributes: createdAction.custom_attributes,
+      actionCollection: '01g99p2tr5evasrp2kyn25hqwe',
+    });
+
+    return {
+      success: true,
+    };
+  }
 };

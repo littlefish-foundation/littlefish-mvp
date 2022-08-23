@@ -13,12 +13,10 @@ const ColonyCard = (props) => {
 
       <div className="colony__content">
         <div className=" mt-3 d-flex align-items-center justify-content-between">
-          <div className="hero__btns d-flex align-items-center gap-4">
-            <button className=" explore__btn d-flex align-items-center gap-2">
-              <i className="ri-rocket-line"></i>{" "}
-              <Link to={`/colony/${name}`}>Explore the Colony</Link>
-            </button>
-          </div>
+          <button className="explore__btn d-flex align-items-center gap-2">
+            <i className="ri-rocket-line"></i>{" "}
+            <Link to={`/colony/${name}`}>Explore the Colony</Link>
+          </button>
         </div>
       </div>
     </div>

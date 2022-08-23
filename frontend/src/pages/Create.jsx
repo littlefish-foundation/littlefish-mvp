@@ -29,6 +29,7 @@ const action = {
 
 const Create = (props) => {
   const initialInputState = {
+    walletID: "",
     assetName: "",
     name: "",
     description: "",
@@ -39,6 +40,7 @@ const Create = (props) => {
     image: "",
     colonyName: "",
     mediaType: "",
+    price: null,
   };
 
   const [eachEntry, setEachEntry] = useState(initialInputState);
@@ -62,6 +64,7 @@ const Create = (props) => {
     colonyName,
     //image,
     //mediaType,
+    price,
   } = eachEntry;
 
   Object.assign(eachEntry, Type);
@@ -72,8 +75,13 @@ const Create = (props) => {
     setEachEntry({
       ...eachEntry,
       [e.target.name]: e.target.value,
-      image: window.bas64Data.split(",")[1],
-      mediaType: window.bas64Data.split(",")[0].split(":").pop().split(";")[0],
+      image: window.bas64Data?.split(",")[1],
+      mediaType: window.bas64Data
+        ?.split(",")[0]
+        ?.split(":")
+        ?.pop()
+        ?.split(";")[0],
+        walletID: window.namiAddress,
     });
   };
   //console.log(eachEntry);
@@ -127,7 +135,7 @@ const Create = (props) => {
                   <FormGroup className="form__input">
                     <Label for="ownerName">Wallet ID</Label>
                     <Input
-                      name="ownerName"
+                      name="walletId"
                       type="text"
                       placeholder="Connect your wallet to fill this part"
                       value={window.namiAddress}
@@ -238,6 +246,23 @@ const Create = (props) => {
                       value={otherLink}
                     />
                   </FormGroup>
+
+                  <FormGroup className="form__input">
+                    <Label for="exampleZip">Price</Label>
+                    <Input
+                      name="price"
+                      type="number"
+                      placeholder="Please enter a price in ADA"
+                      onChange={handleInputChange}
+                      value={price}
+                    />
+
+                    <FormText>
+                      If you want to sell this action please add a price in ADA,
+                      otherwise you may leave it empty.
+                    </FormText>
+                  </FormGroup>
+
                   <Button onClick={handleFinalSubmit}>Submit</Button>
                 </Form>
               </div>

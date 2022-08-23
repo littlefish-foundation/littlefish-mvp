@@ -42,10 +42,18 @@ const NftDetails = () => {
                   <br />
                   <div className="creator__detail">
                     <p>Action Category </p>
+
                     <h6>{singleNft?.actionType}</h6>
+                    <div>Links</div>
+                    <span>
+                      <Link to="#">
+                        <i className="ri-youtube-line"></i>
+                      </Link>
+                    </span>
                   </div>
                 </div>
-
+              </div>
+              <div>
                 <p className="my-4">{singleNft?.description}</p>
                 <button className="singleNft-btn d-flex align-items-center gap-2 w-100">
                   <i className="ri-shopping-bag-line"></i>

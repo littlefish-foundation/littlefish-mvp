@@ -7,7 +7,7 @@ import useFetch2 from "../../assets/data/useFetch2";
 import "./ColonyDetails.css";
 import ColonyMembership from "./ColonyMembership";
 import { Link } from "react-router-dom";
-
+import ColonyGallery from "./ColonyGallery";
 const ColonyDetails = () => {
   const { name } = useParams();
   const { COLONY__DATA } = useFetch2("http://localhost:8000/colony/");
@@ -86,6 +86,8 @@ const ColonyDetails = () => {
         </Container>
       </section>
       <ColonyMembership name={name}/>
+      <ColonyGallery />
+      
     </div>
   );
 };

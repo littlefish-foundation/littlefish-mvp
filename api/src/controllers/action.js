@@ -30,7 +30,7 @@ module.exports = class ActionController {
     const { assetName } = req.params;
 
     const data = await actionService.createActionSale(assetName, price);
-    res.status(200).send(data);
+    res.status(201).send(data);
   });
 
   static getSale = catchAsync(async (req, res) => {

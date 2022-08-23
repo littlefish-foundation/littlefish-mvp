@@ -114,10 +114,16 @@ module.exports = class ActionServiceClient {
         type: 'fixed',
         price,
         tokens: [actionId],
+        reservation_time: 900,
       },
     };
 
-    const response = await axios.request(options);
+    let response;
+    try {
+      response = await axios.request(options);
+    } catch {
+      throw new ApiError('Blockchain Server Error', 500);
+    }
 
     if (response && response.status !== 201) {
       throw new ApiError();

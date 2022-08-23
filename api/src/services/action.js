@@ -69,13 +69,19 @@ module.exports = class ActionService {
     const action = await actionDataAccess.getAction(assetName);
 
     const priceInLovelace = ADA_TO_LOVELACE_CONVERSION * price;
-    const paymentLink = await actionServiceClient.createActionSale(action.actionId, priceInLovelace);
-    // if (paymentLink !== '') {
-    //   return {
-    //     link: paymentLink,
-    //   };
-    // }
+    try {
+      const paymentLink = await actionServiceClient.createActionSale(action.actionId, priceInLovelace);
+      if (paymentLink !== '') {
+        return {
+          link: paymentLink,
+        };
+      }
+    } catch {
+      console.log('Action can not be created, but maybe already exists.');
+    }
+
     const sale = await actionServiceClient.getSale(action.actionId);
+
     return {
       link: sale?.payment_link,
     };

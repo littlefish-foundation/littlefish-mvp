@@ -2,8 +2,10 @@ const express = require('express');
 
 const router = express.Router();
 
-const nftRoutes = require('./nft');
+const actionRoutes = require('./action');
+const colonyRoutes = require('./colony');
 
-router.use('/nft', nftRoutes);
+router.use('/action', actionRoutes);
+router.use('/colony', colonyRoutes);
 
 module.exports = router;

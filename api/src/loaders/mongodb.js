@@ -1,7 +1,8 @@
 const mongoose = require('mongoose');
+const config = require('../config');
 
 const connectDB = () => {
-  mongoose.connect(process.env.DB_CONNECTION_STRING, {
+  mongoose.connect(config.dbConnectionUri, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
   }).catch((e) => { console.log(e?.message); process.exit(1); });

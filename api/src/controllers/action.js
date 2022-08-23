@@ -26,10 +26,10 @@ module.exports = class ActionController {
   });
 
   static createActionSale = catchAsync(async (req, res) => {
-    const { price } = req.query;
+    const { price, collectionId } = req.query;
     const { assetName } = req.params;
-
-    const data = await actionService.createActionSale(assetName, price);
+  
+    const data = await actionService.createActionSale(assetName, price, collectionId);
     res.status(201).send(data);
   });
 

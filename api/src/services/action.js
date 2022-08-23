@@ -65,23 +65,24 @@ module.exports = class ActionService {
     };
   }
 
-  static async createActionSale(assetName, price, collectionId) {
+  static async createActionSale(assetName, price) {
     const action = await actionDataAccess.getAction(assetName);
-
+    const { actionCollection} = action;
+    console.log( { assetName, price, actionCollection})
     const priceInLovelace = ADA_TO_LOVELACE_CONVERSION * price;
     try {
-      const paymentLink = await actionServiceClient.createActionSale(action.actionId, priceInLovelace, collectionId);
+      const paymentLink = await actionServiceClient.createActionSale(action.actionId, priceInLovelace, actionCollection);
       if (paymentLink !== '') {
         return {
           link: paymentLink,
         };
       }
     } catch {
-      console.log('Action can not be created, but maybe already exists.');
+      console.log('Sale can not be created, but maybe already exists.');
     }
-
-    const sale = await actionServiceClient.getSale(action.actionId);
-
+    console.log( { action })
+    const sale = await actionServiceClient.getSale(action.actionId, actionCollection);
+    console.log( { sale })
     return {
       link: sale?.payment_link,
     };
@@ -108,6 +109,7 @@ module.exports = class ActionService {
     const response = await actionServiceClient.mintAction(toMint, collectionId);
     const createdAction = response?.data?.data[0];
     const preparedFiles = prepareAllImageURLsInFile(createdAction.files);
+    console.log({ createdAction, action })
 
     await actionDataAccess.createAction({
       assetName: createdAction.asset_name,

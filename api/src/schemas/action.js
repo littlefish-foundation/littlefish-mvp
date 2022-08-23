@@ -52,7 +52,7 @@ const createActionSale = {
   ...assetNameParams,
   query: Joi.object(
     {
-      price: Joi.number().integer().min(10),
+      price: Joi.number().integer().min(10)
     },
   ),
 };

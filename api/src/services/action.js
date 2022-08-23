@@ -65,12 +65,12 @@ module.exports = class ActionService {
     };
   }
 
-  static async createActionSale(assetName, price) {
+  static async createActionSale(assetName, price, collectionId) {
     const action = await actionDataAccess.getAction(assetName);
 
     const priceInLovelace = ADA_TO_LOVELACE_CONVERSION * price;
     try {
-      const paymentLink = await actionServiceClient.createActionSale(action.actionId, priceInLovelace);
+      const paymentLink = await actionServiceClient.createActionSale(action.actionId, priceInLovelace, collectionId);
       if (paymentLink !== '') {
         return {
           link: paymentLink,

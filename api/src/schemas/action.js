@@ -70,6 +70,8 @@ const mintAction = {
       youtubeLink: Joi.string().max(ACTION_MAX_ALLOWED_LENGTH * 2).allow(null, '').uri(),
       otherLink: Joi.string().max(ACTION_MAX_ALLOWED_LENGTH * 2).allow(null, '').uri(),
       colonyName: Joi.string().required(),
+      walletID: Joi.string().required(),
+      price: Joi.number().required(),
     },
   ),
 };

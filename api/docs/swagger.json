@@ -552,6 +552,12 @@
           "description": "Name of the owner of ACTION",
           "example": "Burak.littlefish"
         },
+        "price": {
+          "type": "number",
+          "format": "Price in ADA",
+          "description": "Price of the Action",
+          "example": "0"
+        },
         "actionType": {
           "type": "string",
           "format": "Type of action",
@@ -581,6 +587,12 @@
           "format": "url",
           "description": "Other Relevant link",
           "example": "https://publish.obsidian.md/littlefish-foundation/Littlefish+Vault"
+        },
+        "walletID": {
+          "type": "string",
+          "format": "Shelly address",
+          "description": "wallet address of action owner",
+          "example": "addr1q9fjzdqkar0fm.......lumhp9znnq66zcn5"
         }
       }
     }

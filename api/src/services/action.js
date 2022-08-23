@@ -96,10 +96,16 @@ module.exports = class ActionService {
     return { sales: response?.data?.data };
   }
 
+  static async createActionCollection(walletAddress, assetName) {
+    const collectionId = await actionServiceClient.createCollection(walletAddress, assetName);
+    return { collectionId };
+  }
+
   static async mintAction(action) {
+    const { collectionId } = await this.createActionCollection(action.walletID, action.assetName);
     const toMint = prepareActionToMint(action);
 
-    const response = await actionServiceClient.mintAction(toMint);
+    const response = await actionServiceClient.mintAction(toMint, collectionId);
     const createdAction = response?.data?.data[0];
     const preparedFiles = prepareAllImageURLsInFile(createdAction.files);
 
@@ -119,7 +125,8 @@ module.exports = class ActionService {
       files: preparedFiles,
       nftFormat: createdAction,
       custom_attributes: createdAction.custom_attributes,
-      actionCollection: '01g99p2tr5evasrp2kyn25hqwe',
+      actionCollection: collectionId,
+      price: action.price,
     });
 
     return {

@@ -56,4 +56,10 @@ module.exports = class ActionController {
     const result = await actionService.mintAction(req.body);
     res.status(201).send(result);
   });
+
+  static createActionCollection = catchAsync(async (req, res) => {
+    const { walletAddress, assetName } = req.body;
+    const result = await actionService.createActionCollection(walletAddress, assetName);
+    res.status(201).send(result);
+  });
 };

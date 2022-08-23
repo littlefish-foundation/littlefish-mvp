@@ -1,5 +1,6 @@
 const {
   IPFS_SERVER_PREFIX, IPFS_FILE_PREFIX, ACTION_METADATA_ATTRIBUTES, ACTION_FILE_INDEXES, ACTION_MAX_ALLOWED_LENGTH,
+  ADA_TO_LOVELACE_CONVERSION,
 } = require('../constants');
 
 function prepareImageURL(url) {
@@ -28,6 +29,7 @@ function prepareActionToMint(action) {
         name: action.name,
         media_type: action.mediaType,
         image: action.image,
+        ...(action.price ? { price: action.price * ADA_TO_LOVELACE_CONVERSION } : undefined),
         metadata_attributes: [
           {
             tag: ACTION_METADATA_ATTRIBUTES.OWNER_NAME,

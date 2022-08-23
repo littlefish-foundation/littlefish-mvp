@@ -385,13 +385,6 @@
             "description": "Name of the asset",
             "required": true,
             "type": "string"
-          },
-          {
-            "name": "price",
-            "in": "query",
-            "description": "Price for the sale in ADA",
-            "required": true,
-            "type": "number"
           }
         ],
         "responses": {

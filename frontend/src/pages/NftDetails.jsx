@@ -4,6 +4,7 @@ import { useParams } from "react-router-dom";
 import { Container, Row, Col } from "reactstrap";
 //import NFT__DATA from "../assets/data/NFT__DATA";
 import useFetch from "../assets/data/useFetch";
+import useFetch3 from "../assets/data/useFetch3";
 
 import "../styles/nft-details.css";
 import { Link } from "react-router-dom";
@@ -13,6 +14,7 @@ const NftDetails = () => {
   const { NFT__DATA } = useFetch("http://localhost:8000/action/");
 
   const singleNft = NFT__DATA?.find((item) => item.assetName === assetName);
+  const { paymentLink } = useFetch3(NFT__DATA,assetName,singleNft?.price,singleNft?.actionCollection);
 
   return (
     <div>
@@ -41,9 +43,9 @@ const NftDetails = () => {
 
                   <br />
                   <div className="creator__detail">
-                    <p>Action Category </p>
+                    <p>Action Price in ADA </p>
 
-                    <h6>{singleNft?.actionType}</h6>
+                    <h6>{singleNft?.price}</h6>
                     <div>Links</div>
                     <span>
                       <Link to="#">
@@ -55,10 +57,12 @@ const NftDetails = () => {
               </div>
               <div>
                 <p className="my-4">{singleNft?.description}</p>
+                <a href={paymentLink} target="_blank" rel="noreferrer">
                 <button className="singleNft-btn d-flex align-items-center gap-2 w-100">
-                  <i className="ri-shopping-bag-line"></i>
-                  <Link to="/wallet">Buy Action</Link>
-                </button>
+                <i className="ri-shopping-bag-line"></i>
+              </button>
+              </a>
+         
               </div>
             </Col>
           </Row>
@@ -69,3 +73,7 @@ const NftDetails = () => {
 };
 
 export default NftDetails;
+/*       <button className="singleNft-btn d-flex align-items-center gap-2 w-100">
+                  <i className="ri-shopping-bag-line"></i>
+                  <href>{paymentLink}</href>
+                </button>*/ 

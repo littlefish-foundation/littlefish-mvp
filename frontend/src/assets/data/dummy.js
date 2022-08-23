@@ -9,32 +9,32 @@ import storm from "../avatars/storm.png"
 export const MEMBER__DATA = [
     {
         id: "1",
-        name: "Member.Littlefish",
+        name: "Burak.Littlefish",
         image: bb8,
     },
     {
         id: "2",
-        name: "Member.Littlefish",
+        name: "Cem.Littlefish",
         image: c3po,
     },
     {
         id: "3",
-        name: "Member.Littlefish",
+        name: "Chakhan.Littlefish",
         image: darth,
     },
     {
         id: "4",
-        name: "Member.Littlefish",
+        name: "Donald.Littlefish",
         image: mando,
     },
     {
         id: "5",
-        name: "Member.Littlefish",
+        name: "Newman.Littlefish",
         image: r2d2,
     },
     {
         id: "6",
-        name: "Member.Littlefish",
+        name: "Seoman.Littlefish",
         image: storm,
     },
 ]

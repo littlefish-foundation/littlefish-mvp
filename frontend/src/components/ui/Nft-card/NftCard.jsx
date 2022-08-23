@@ -1,11 +1,11 @@
-import React, { useState } from "react";
+import React, {  useState } from "react";
 import { Link } from "react-router-dom";
 
 import "./nft-card.css";
 import Modal from "../Modal/Modal";
 
 const NftCard = (props) => {
-  const { assetName, image, ownerName, actionType } = props.item;
+  const { assetName, image, ownerName, price } = props.item;
 
   const [showModal, setShowModal] = useState(false);
   //const { NFT__DATA } = useFetch("http://localhost:8000/action");
@@ -31,8 +31,8 @@ const NftCard = (props) => {
             </div>
 
             <div>
-              <h6>Category</h6>
-              <h6>{actionType}</h6>
+              <h6>Action Price</h6>
+              <h6>{`${price} ADA`}</h6>
               
             </div>
           </div>
@@ -41,7 +41,9 @@ const NftCard = (props) => {
         <div className=" mt-3 d-flex align-items-center justify-content-between">
           <button
             className="bid__btn d-flex align-items-center gap-1"
-            onClick={() => setShowModal(true)}
+            onClick={() => {
+            
+            } }
           >
             <i className="ri-shopping-bag-line"></i> Buy Action
           </button>

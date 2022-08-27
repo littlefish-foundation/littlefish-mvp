@@ -70,7 +70,7 @@ module.exports = class ActionService {
     const { actionCollection } = action;
     console.log({ assetName, actionCollection });
 
-    const priceInLovelace = ADA_TO_LOVELACE_CONVERSION * 10;
+    const priceInLovelace = ADA_TO_LOVELACE_CONVERSION * action.price;
     try {
       const paymentLink = await actionServiceClient.createActionSale(action.actionId, priceInLovelace, actionCollection);
       if (paymentLink !== '') {

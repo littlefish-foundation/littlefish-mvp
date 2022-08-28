@@ -3,7 +3,6 @@ node_modules/
 .idea/
 .vscode/
 build/
-frontend/build/
 logs/
 *.log
 npm-debug.log*
@@ -13,4 +12,4 @@ yarn-error.log*
 dist/
 api/.env
 .env
-
+/frontend/build/

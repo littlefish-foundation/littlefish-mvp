@@ -6,7 +6,7 @@ import useFetch from "../../../assets/data/useFetch";
 import NftCard from "../Nft-card/NftCard";
 
 const Trending = () => {
-  const { NFT__DATA } = useFetch("http://localhost:8000/action/");
+  const { NFT__DATA } = useFetch("http://185.203.34.66:8080/action/");
 
   console.log(NFT__DATA);
 

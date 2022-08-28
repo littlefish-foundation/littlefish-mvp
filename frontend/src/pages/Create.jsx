@@ -86,7 +86,7 @@ const Create = (props) => {
   };
   //console.log(eachEntry);
 
-  /*fetch('http://localhost:8000/action/', {
+  /*fetch('http://185.203.34.66:8080/action/', {
     method: 'POST',
     body: JSON.stringify(
       eachEntry
@@ -107,7 +107,7 @@ const Create = (props) => {
   const handleFinalSubmit = (e) => {
     e.preventDefault();
 
-    fetch("http://localhost:8000/action/", {
+    fetch("http://185.203.34.66:8080/action/", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(eachEntry),

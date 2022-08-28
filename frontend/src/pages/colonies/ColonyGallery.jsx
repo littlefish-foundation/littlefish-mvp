@@ -13,7 +13,7 @@ import "../../components/ui/Live-auction/live-auction.css";
 
 const ColonyGallery = () => {
   const { NFT__DATA } = useFetch(
-    "http://localhost:8000/colony/Littlefish%20Foundation/actions/"
+    "http://185.203.34.66:8080/colony/Littlefish%20Foundation/actions/"
   );
   // const [data, setData] = useState([]);
 

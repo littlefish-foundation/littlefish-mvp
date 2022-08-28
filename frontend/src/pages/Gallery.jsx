@@ -14,7 +14,7 @@ import "../components/ui/Live-auction/live-auction.css";
 // import LiveAuction from "../components/ui/Live-auction/LiveAuction";
 
 const Gallery = () => {
-  const { NFT__DATA } = useFetch("http://localhost:8000/action/");
+  const { NFT__DATA } = useFetch("http://185.203.34.66:8080/action/");
   const [data, setData] = useState([]);
 
   const handleCategory = () => {};

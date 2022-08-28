@@ -8,7 +8,7 @@ const NftCard = (props) => {
   const { assetName, image, ownerName, price } = props.item;
 
   const [showModal, setShowModal] = useState(false);
-  //const { NFT__DATA } = useFetch("http://localhost:8000/action");
+  //const { NFT__DATA } = useFetch("http://185.203.34.66:8080/action");
 
 
   return (

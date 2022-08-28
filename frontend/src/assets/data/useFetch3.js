@@ -10,7 +10,7 @@ function useFetch(a,assetName,price) {
     setLoading(true);
     axios.request({
         method: "POST",
-        url: `http://localhost:8000/action/sale/${assetName}`
+        url: `http://185.203.34.66:8080/action/sale/${assetName}`
       })
       .then((response) => {
         setPaymentLink(response.data.link);

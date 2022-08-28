@@ -11,7 +11,7 @@ import { Link } from "react-router-dom";
 
 const NftDetails = () => {
   const { assetName } = useParams();
-  const { NFT__DATA } = useFetch("http://localhost:8000/action/");
+  const { NFT__DATA } = useFetch("http://185.203.34.66:8080/action/");
 
   const singleNft = NFT__DATA?.find((item) => item.assetName === assetName);
   const { paymentLink } = useFetch3(NFT__DATA,assetName,singleNft?.price,singleNft?.actionCollection);

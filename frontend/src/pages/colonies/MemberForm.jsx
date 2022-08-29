@@ -1,39 +1,64 @@
 import React, { useState } from "react";
-import { Avatar } from "@mui/material";
 import Select from "react-select";
 
 import CommonSection from "../../components/ui/Common-section/CommonSection";
 import { Container, Row, Col } from "reactstrap";
 import { Button, Form, FormGroup, Input, Label, FormText } from "reactstrap";
+import "./MemberForm.css";
 
 const MemberForm = () => {
+  const customStyles = {
+    control: (base, state) => ({
+      ...base,
+      backgroundColor: "transparent",
+      border: "1px solid rgba(221, 221, 221, 0.171)",
+      fontSize: "0.8rem",
+      alignText: "left !important",
+    }),
+    menu: (base) => ({
+      ...base,
+      borderRadius: 0,
+      marginTop: 0,
+
+    }),
+    menuList: (base) => ({
+      ...base,
+      padding: 0,
+    }),
+  };
+
   const avatars = [
     {
-      value: "https://littlefish-mvp.s3.eu-central-1.amazonaws.com/avatar_vader.jpeg",
+      value:
+        "https://littlefish-mvp.s3.eu-central-1.amazonaws.com/avatar_vader.jpeg",
       avatar: (
         <img src="https://littlefish-mvp.s3.eu-central-1.amazonaws.com/avatar_vader.jpeg" />
       ),
     },
     {
-      value: "https://littlefish-mvp.s3.eu-central-1.amazonaws.com/avatar_fett.jpeg",
+      value:
+        "https://littlefish-mvp.s3.eu-central-1.amazonaws.com/avatar_fett.jpeg",
       avatar: (
         <img src="https://littlefish-mvp.s3.eu-central-1.amazonaws.com/avatar_fett.jpeg" />
       ),
     },
     {
-      value: "https://littlefish-mvp.s3.eu-central-1.amazonaws.com/avatar_3cpo.jpeg",
+      value:
+        "https://littlefish-mvp.s3.eu-central-1.amazonaws.com/avatar_3cpo.jpeg",
       avatar: (
         <img src="https://littlefish-mvp.s3.eu-central-1.amazonaws.com/avatar_3cpo.jpeg" />
       ),
     },
     {
-      value: "https://littlefish-mvp.s3.eu-central-1.amazonaws.com/avatar_r2d2.jpeg",
+      value:
+        "https://littlefish-mvp.s3.eu-central-1.amazonaws.com/avatar_r2d2.jpeg",
       avatar: (
         <img src="https://littlefish-mvp.s3.eu-central-1.amazonaws.com/avatar_r2d2.jpeg" />
       ),
     },
     {
-      value: "https://littlefish-mvp.s3.eu-central-1.amazonaws.com/avatar_bb8.jpeg",
+      value:
+        "https://littlefish-mvp.s3.eu-central-1.amazonaws.com/avatar_bb8.jpeg",
       avatar: (
         <img src="https://littlefish-mvp.s3.eu-central-1.amazonaws.com/avatar_bb8.jpeg" />
       ),
@@ -103,7 +128,8 @@ const MemberForm = () => {
                       onChange={handleChange}
                     />
                   </FormGroup>
-                  <div className="form__input">
+
+                  <FormGroup className="form__input">
                     <Input
                       name="colonyName"
                       type="text"
@@ -111,9 +137,10 @@ const MemberForm = () => {
                       value={colonyName}
                       onChange={handleChange}
                     />
-                  </div>
+                  </FormGroup>
+
                   <FormGroup className="form__input">
-                    <input
+                    <Input
                       type="text"
                       name="walletAddress"
                       placeholder="Enter you wallet address"
@@ -121,23 +148,26 @@ const MemberForm = () => {
                     />
                   </FormGroup>
 
-                  <Select
-                    placeholder="Select an Avatar"
-                    name="avatar"
-                    options={avatars}
-                    value={selected}
-                    onChange={onChangeSelection}
-                    getOptionLabel={(e) => (
-                      <div
-                        style={{
-                          display: "flex",
-                          alignItems: "center",
-                        }}
-                      >
-                        {e.avatar}
-                      </div>
-                    )}
-                  ></Select>
+                  <FormGroup className="form__input">
+                    <Select
+                      placeholder="Choose an Avatar"
+                      styles={customStyles}
+                      name="avatar"
+                      options={avatars}
+                      value={selected}
+                      onChange={onChangeSelection}
+                      getOptionLabel={(e) => (
+                        <div
+                          style={{
+                            display: "fit",
+                            alignItems: "center",
+                          }}
+                        >
+                          {e.avatar}
+                        </div>
+                      )}
+                    ></Select>
+                  </FormGroup>
 
                   <Button
                     className="send__btn"

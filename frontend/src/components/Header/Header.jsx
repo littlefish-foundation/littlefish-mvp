@@ -2,7 +2,6 @@ import React, { useRef, useEffect } from "react";
 import "./header.css";
 import { Container } from "reactstrap";
 import abstract from "../../assets/abstract.png";
-import SearchBar from "./SearchBar";
 
 import { NavLink, Link } from "react-router-dom";
 
@@ -85,7 +84,6 @@ const Header = () => {
             </ul>
           </div>
 
-          <SearchBar/>
 
           <div className="nav__right d-flex align-items-center gap-5 ">
             <button className="btn d-flex gap-2 align-items-center">

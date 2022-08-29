@@ -1,6 +1,6 @@
 import React from "react";
 
-import HeroSection from "../components/ui/HeroSection";
+import AboutSection from "../components/ui/AboutSection";
 import CommonSection from "../components/ui/Common-section/CommonSection";
 
 import Trending from "../components/ui/Trending-section/Trending";
@@ -10,8 +10,8 @@ const About = () => {
     <>
       <CommonSection assetName={"About littlefish"} />
 
-      <HeroSection />
-      <Trending />
+      <AboutSection />
+      
     </>
   );
 };

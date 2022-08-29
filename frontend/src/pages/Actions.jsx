@@ -13,7 +13,7 @@ import "../components/ui/Live-auction/live-auction.css";
 
 // import LiveAuction from "../components/ui/Live-auction/LiveAuction";
 
-const Gallery = () => {
+const Actions = () => {
   const { NFT__DATA } = useFetch("https://api.littlefish.foundation/action/");
   const [data, setData] = useState([]);
 
@@ -22,7 +22,21 @@ const Gallery = () => {
   const handleSort = (e) => {
     const filterValue = e.target.value;
     console.log( { filterValue})
+
     if (filterValue === "newest") {
+      const filterData = NFT__DATA.sort((tokenId1, tokenId2) =>
+        tokenId1.tokenId > tokenId2.tokenId
+          ? 1
+          : tokenId1.tokenId < tokenId2.tokenId
+          ? -1
+          : 0
+      );
+      // console.log(filterData);
+
+      setData(filterData);
+    }
+
+    if (filterValue === "oldest") {
       const filterData = NFT__DATA.sort((tokenId1, tokenId2) =>
         tokenId1.tokenId < tokenId2.tokenId
           ? 1
@@ -36,18 +50,6 @@ const Gallery = () => {
  
     }
 
-    if (filterValue === "oldest") {
-      const filterData = NFT__DATA.sort((tokenId1, tokenId2) =>
-        tokenId1.tokenId > tokenId2.tokenId
-          ? 1
-          : tokenId1.tokenId < tokenId2.tokenId
-          ? -1
-          : 0
-      );
-      // console.log(filterData);
-
-      setData(filterData);
-    }
 
     if (filterValue === "Z->A") {
       const filterData = NFT__DATA.sort((name1, name2) =>
@@ -78,7 +80,7 @@ const Gallery = () => {
 
   return (
     <>
-      <CommonSection assetName={"Gallery"} />
+      <CommonSection assetName={"Actions"} />
 
       <section>
         <Container>
@@ -124,4 +126,4 @@ const Gallery = () => {
   );
 };
 
-export default Gallery;
+export default Actions;

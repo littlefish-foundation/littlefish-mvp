@@ -6,12 +6,9 @@ import abstract from "../../assets/abstract.png";
 import { NavLink, Link } from "react-router-dom";
 
 const NAV__LINKS = [
+  
   {
-    display: "Dashboard",
-    url: "/dashboard",
-  },
-  {
-    display: "Gallery",
+    display: "Actions",
     url: "/action",
   },
   {
@@ -21,6 +18,10 @@ const NAV__LINKS = [
   {
     display: "Generate",
     url: "/create",
+  },
+  {
+    display: "About littlefish",
+    url: "/about",
   },
 ];
 

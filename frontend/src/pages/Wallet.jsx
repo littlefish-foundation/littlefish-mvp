@@ -81,7 +81,7 @@ const Wallet = () => {
               <div className=" m-auto">
                 <h3 className="text-light">Connect your wallet</h3>
                 <p >
-                  Nami Wallet Address:
+                  Wallet Address:
                 </p>
                 
 
@@ -97,6 +97,7 @@ const Wallet = () => {
                   <img src={Typhon} alt="" />
                 </span>
                 <h5>Typhon Wallet</h5>
+                <h6 style={{ color: "white" }}>Comming Soon ... </h6>
                 <button
                   style={{
                     backgroundColor: "#5142fc",
@@ -117,6 +118,7 @@ const Wallet = () => {
                   <img src={Nami} alt="" />
                 </span>
                 <h5>Nami Wallet</h5>
+                <h6 style={{ color: "white" }}>Up and Running... </h6>
                 <button
                   style={{
                     backgroundColor: "#5142fc",

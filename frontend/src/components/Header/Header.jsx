@@ -12,7 +12,7 @@ const NAV__LINKS = [
     url: "/action",
   },
   {
-    display: "Colony",
+    display: "Colonies",
     url: "/colony",
   },
   {

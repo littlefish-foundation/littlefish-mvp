@@ -14,7 +14,12 @@ const NftDetails = () => {
   const { NFT__DATA } = useFetch("https://api.littlefish.foundation/action/");
 
   const singleNft = NFT__DATA?.find((item) => item.assetName === assetName);
-  const { paymentLink } = useFetch3(NFT__DATA,assetName,singleNft?.price,singleNft?.actionCollection);
+  const { paymentLink } = useFetch3(
+    NFT__DATA,
+    assetName,
+    singleNft?.price,
+    singleNft?.actionCollection
+  );
 
   return (
     <div>
@@ -57,12 +62,11 @@ const NftDetails = () => {
               </div>
               <div>
                 <p className="my-4">{singleNft?.description}</p>
-                <a href={paymentLink} target="_blank" rel="noreferrer">
-                <button className="singleNft-btn d-flex align-items-center gap-2 w-100">
-                <i className="ri-shopping-bag-line"></i>
-              </button>
-              </a>
-         
+
+                <button className="singleNft-btn d-flex align-items-center gap-1 w-100">
+                  <i className="ri-shopping-bag-line"></i>
+                  <a href={paymentLink} target="_blank" rel="noreferrer">Buy Action</a>
+                </button>
               </div>
             </Col>
           </Row>
@@ -76,4 +80,4 @@ export default NftDetails;
 /*       <button className="singleNft-btn d-flex align-items-center gap-2 w-100">
                   <i className="ri-shopping-bag-line"></i>
                   <href>{paymentLink}</href>
-                </button>*/ 
+                </button>*/

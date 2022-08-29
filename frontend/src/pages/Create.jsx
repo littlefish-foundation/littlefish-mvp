@@ -38,20 +38,28 @@ const Create = (props) => {
     youtubeLink: "",
     otherLink: "",
     image: "",
-    colonyName: "",
+    //colonyName: "",
     mediaType: "",
     price: null,
   };
 
   const [eachEntry, setEachEntry] = useState(initialInputState);
-  const [actionType1, setActionType1] = useState(null);
+  const [actionType1, setActionType1] = useState("");
+
+  const [colonyName1, setColonyName1] = useState("");
 
   const onChangeSelection = (e) => {
     setActionType1(e.target.value);
   };
 
+  const onChangeColony = (e) => {
+    setColonyName1(e.target.value);
+  };
+
   const Type = { actionType: actionType1 };
   console.log(Type);
+
+  const Colony = { colonyName: colonyName1 };
 
   const {
     assetName,
@@ -61,13 +69,13 @@ const Create = (props) => {
     //actionType,
     youtubeLink,
     otherLink,
-    colonyName,
+    //colonyName,
     //image,
     //mediaType,
     price,
   } = eachEntry;
 
-  Object.assign(eachEntry, Type);
+  Object.assign(eachEntry, Type, Colony);
   // console.log(newEachEntry);
   console.log(eachEntry);
 
@@ -81,7 +89,7 @@ const Create = (props) => {
         ?.split(":")
         ?.pop()
         ?.split(";")[0],
-        walletID: window.namiAddress,
+      walletID: window.namiAddress,
     });
   };
   //console.log(eachEntry);
@@ -149,11 +157,11 @@ const Create = (props) => {
                   <Base64 />
 
                   <FormGroup className="form__input">
-                    <Label for="ownerName">Owner Name or Nickname</Label>
+                    <Label for="ownerName">Action Producer</Label>
                     <Input
                       name="ownerName"
                       type="text"
-                      placeholder="Enter the Name or Nickname of the Owner"
+                      placeholder="Enter the Name of the Producer"
                       onChange={handleInputChange}
                       value={ownerName}
                     />
@@ -175,7 +183,7 @@ const Create = (props) => {
                     <Input
                       name="name"
                       type="text"
-                      placeholder="Enter the full Name"
+                      placeholder="Enter the full Name of the Action"
                       onChange={handleInputChange}
                       value={name}
                     />
@@ -184,14 +192,12 @@ const Create = (props) => {
                   <FormGroup className="form__input">
                     <Label for="actionType">Action Type</Label>
                     <Input
-                      name="actionType"
                       type="select"
+                      name="actionType"
                       onChange={onChangeSelection}
                       value={actionType1}
                     >
-                      <option value="default" faded hidden>
-                        Choose the Action Type
-                      </option>
+                      <option>Choose Action Type</option>
                       <option value="Software Developing">
                         Sofware Developing
                       </option>
@@ -215,15 +221,20 @@ const Create = (props) => {
                   </FormGroup>
 
                   <FormGroup className="form__input">
-                    <Label for="colonyName">Colony Name</Label>
-                    <Input
-                      name="colonyName"
-                      type="text"
-                      placeholder="Enter the colony name"
-                      onChange={handleInputChange}
-                      value={colonyName}
-                    />
-                  </FormGroup>
+                  <Label for="colonyName">Colony Name</Label>
+                  <Input
+                    type="select"
+                    name="colonyName"
+                    onChange={onChangeColony}
+                    value={colonyName1}
+                  >
+                    <option>Choose your Colony</option>
+                    <option value="littlefish Foundation">
+                      littlefish Foundation
+                    </option>
+               
+                  </Input>
+                </FormGroup>
 
                   <FormGroup className="form__input">
                     <Label for="youtubeLink">YouTube Link</Label>

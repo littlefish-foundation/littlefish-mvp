@@ -8,7 +8,7 @@ import useFetch from "../assets/data/useFetch";
 
 import { Container, Row, Col } from "reactstrap";
 
-import "../styles/market.css";
+import "../styles/actions.css";
 import "../components/ui/Live-auction/live-auction.css";
 
 // import LiveAuction from "../components/ui/Live-auction/LiveAuction";

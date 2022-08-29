@@ -7,7 +7,7 @@ import CommonSection from "../../components/ui/Common-section/CommonSection";
 //import "./Colony.css";
 
 const Colony = (props) => {
-  const { COLONY__DATA } = useFetch2("http://185.203.34.66:8080/colony/");
+  const { COLONY__DATA } = useFetch2("https://api.littlefish.foundation/colony/");
 
   return (
     <div>

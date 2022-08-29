@@ -66,7 +66,7 @@ class Base64 extends React.Component {
 
         <Input
           type="file"
-          url="http://185.203.34.66:8080/action/"
+          url="https://api.littlefish.foundation/action/"
           name="image"
           onChange={this.handleFileInputChange}
           accept="image/*"

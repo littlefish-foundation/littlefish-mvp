@@ -9,7 +9,7 @@ import useFetch from "../../../assets/data/useFetch";
 import "./live-auction.css";
 
 const LiveAuction = () => {
-  const { NFT__DATA } = useFetch("http://185.203.34.66:8080/action");
+  const { NFT__DATA } = useFetch("https://api.littlefish.foundation/action");
   return (
     <section>
       <Container>

@@ -73,7 +73,7 @@ const MemberForm = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    fetch("http://185.203.34.66:8080/user/", {
+    fetch("https://api.littlefish.foundation/user/", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(eachField),

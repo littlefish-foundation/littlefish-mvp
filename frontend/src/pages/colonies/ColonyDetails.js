@@ -10,7 +10,7 @@ import { Link } from "react-router-dom";
 import ColonyGallery from "./ColonyGallery";
 const ColonyDetails = () => {
   const { name } = useParams();
-  const { COLONY__DATA } = useFetch2("http://185.203.34.66:8080/colony/");
+  const { COLONY__DATA } = useFetch2("https://api.littlefish.foundation/colony/");
 
   const singleColony = COLONY__DATA?.find((item) => item.name === name);
 

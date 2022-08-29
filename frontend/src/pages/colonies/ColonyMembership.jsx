@@ -20,7 +20,7 @@ const ColonyMembership = ({ name}) => {
           </Col>
 
           {MEMBER__DATA.map((item) => (
-            <Col lg="2" md="3" sm="4" xs="6" key={item.id} className="mb-4">
+            <Col lg="3" md="6" sm="6" xs="6" key={item.id} className="mb-4">
               <div className="single__seller-card d-flex align-items-center gap-3">
                 <div className="seller__img">
                   <img src={item.image} alt="" className="w-100" />

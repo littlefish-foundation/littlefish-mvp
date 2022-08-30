@@ -15,8 +15,8 @@ import {
   ModalFooter,
 } from "reactstrap";
 
-import SubHeader from "../components/ui/Sub-Header/SubHeader";
-import NftCard from "../components/ui/Nft-card/NftCard";
+import SubHeader from "../components/UserInterface/Sub-Header/SubHeader";
+import NftCard from "../components/UserInterface/Nft-card/NftCard";
 import img from "../assets/example.png";
 import "../styles/create-item.css";
 import Base64 from "../assets/Base64";

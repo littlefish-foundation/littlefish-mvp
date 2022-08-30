@@ -1,5 +1,5 @@
 import React from "react";
-import SubHeader from "../components/ui/Sub-Header/SubHeader";
+import SubHeader from "../components/UserInterface/Sub-Header/SubHeader";
 import { useParams } from "react-router-dom";
 import { Container, Row, Col } from "reactstrap";
 //import NFT__DATA from "../assets/data/NFT__DATA";

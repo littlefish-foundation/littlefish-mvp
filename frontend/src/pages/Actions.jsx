@@ -1,15 +1,15 @@
 import React, { useState } from "react";
 
-import SubHeader from "../components/ui/Sub-Header/SubHeader";
+import SubHeader from "../components/UserInterface/Sub-Header/SubHeader";
 
-import NftCard from "../components/ui/Nft-card/NftCard";
+import NftCard from "../components/UserInterface/Nft-card/NftCard";
 
 import useFetch from "../assets/data/useFetch";
 
 import { Container, Row, Col } from "reactstrap";
 
 import "../styles/actions.css";
-import "../components/ui/Live-auction/live-auction.css";
+import "../components/UserInterface/Live-auction/live-auction.css";
 
 // import LiveAuction from "../components/ui/Live-auction/LiveAuction";
 

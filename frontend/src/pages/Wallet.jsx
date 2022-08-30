@@ -1,16 +1,22 @@
 import React, { useState, useEffect } from "react";
-import SubHeader from "../components/ui/Sub-Header/SubHeader";
-import { Container, Row, Col } from "reactstrap";
+import SubHeader from "../components/UserInterface/Sub-Header/SubHeader";
+import {
+  Container,
+  Row,
+  Col,
+  UncontrolledPopover,
+  PopoverHeader,
+  PopoverBody,
+  Button,
+} from "reactstrap";
 import "../styles/wallet.css";
 //import WalletConnect from "./walletConnect/WalletConnect";
 import Typhon from "../assets/typhon.svg";
 import Nami from "../assets/Nami.svg";
 
-
 const Wallet = () => {
   const [namiAddr, setNamiAddr] = useState(false);
   const [account, setAccount] = useState(null);
-
 
   const connectTyphonWallet = () => {
     var typhon;
@@ -63,13 +69,11 @@ const Wallet = () => {
         //setNamiAddr(false);
         console.log(addr);
         setAccount(addr);
-        
       }
     }
     t();
   }, [namiAddr]);
   window.namiAddress = account;
-
 
   return (
     <>
@@ -80,25 +84,21 @@ const Wallet = () => {
             <Col lg="12" className="mb-5 text-center">
               <div className=" m-auto">
                 <h3 className="text-light">Connect your wallet</h3>
-                <p >
-                  Wallet Address:
-                </p>
-                
+                <p>Wallet Address:</p>
 
-                <p>
-                  {account}
-                </p>
-              
+                <p>{account}</p>
               </div>
             </Col>
+
             <Col>
               <div className="wallet__item">
                 <span>
                   <img src={Typhon} alt="" />
                 </span>
                 <h5>Typhon Wallet</h5>
-                <h6 style={{ color: "white" }}>Comming Soon ... </h6>
-                <button
+                <Button
+                  id="UncontrolledPopover"
+                  type="button"
                   style={{
                     backgroundColor: "#5142fc",
                     borderRadius: "50px",
@@ -106,20 +106,30 @@ const Wallet = () => {
                     width: "400px",
                     height: "35px",
                   }}
-                  onClick={connectTyphonWallet}
                 >
                   Connect to Typhon Wallet
-                </button>
+                </Button>
+                <UncontrolledPopover
+                  placement="right"
+                  target="UncontrolledPopover"
+                >
+                  <PopoverHeader>Attention!</PopoverHeader>
+                  <PopoverBody>
+                    Typhon integration comming soon... For now please use Nami Wallet.<br/>
+                    Thank you for your understanding. <br/>
+                    littlefish Dev Team
+                  </PopoverBody>
+                </UncontrolledPopover>
               </div>
             </Col>
+
             <Col>
               <div className="wallet__item">
                 <span>
                   <img src={Nami} alt="" />
                 </span>
                 <h5>Nami Wallet</h5>
-                <h6 style={{ color: "white" }}>Up and Running... </h6>
-                <button
+                <Button
                   style={{
                     backgroundColor: "#5142fc",
                     borderRadius: "50px",
@@ -130,7 +140,7 @@ const Wallet = () => {
                   onClick={() => setNamiAddr(true)}
                 >
                   Connect to Nami Wallet
-                </button>
+                </Button>
               </div>
             </Col>
           </Row>

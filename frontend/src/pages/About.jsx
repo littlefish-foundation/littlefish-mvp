@@ -1,9 +1,9 @@
 import React from "react";
 
-import AboutSection from "../components/ui/AboutSection";
-import SubHeader from "../components/ui/Sub-Header/SubHeader";
+import AboutSection from "../components/UserInterface/AboutSection";
+import SubHeader from "../components/UserInterface/Sub-Header/SubHeader";
 
-import Trending from "../components/ui/Trending-section/Trending";
+import Trending from "../components/UserInterface/Trending-section/Trending";
 
 const About = () => {
   return (

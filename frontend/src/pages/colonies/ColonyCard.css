@@ -22,16 +22,22 @@
 .colony__name {
   margin-top: 15px;
   color: #ffffff;
+  justify-content: center;
+  display: flex;
+
 }
 
 .colony__name a {
   color: #ffffff;
   font-size: 0.1rem;
   text-decoration: none;
+  
 }
 
 .colony__name a:hover {
   color: #fff;
+  margin-right: auto;
+  margin-left: auto;
 }
 
 .explore__btn {

@@ -1,12 +1,10 @@
 import React from "react";
-import SubHeader from "../../components/ui/Sub-Header/SubHeader";
+import SubHeader from "../../components/UserInterface/Sub-Header/SubHeader";
 import { useParams } from "react-router-dom";
-import { Container, Row, Col, ListGroup, ListGroupItem } from "reactstrap";
-//import NFT__DATA from "../assets/data/NFT__DATA";
+import { Container, Row, Col } from "reactstrap";
 import useFetch2 from "../../assets/data/useFetch2";
 import "./ColonyDetails.css";
 import ColonyMembership from "./ColonyMembership";
-import { Link } from "react-router-dom";
 import ColonyGallery from "./ColonyGallery";
 
 const ColonyDetails = () => {

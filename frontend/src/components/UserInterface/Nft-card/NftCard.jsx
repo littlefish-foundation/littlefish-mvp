@@ -5,7 +5,11 @@ import "./nft-card.css";
 import Modal from "../Modal/Modal";
 
 const NftCard = (props) => {
-  const { assetName, image, ownerName, price } = props.item;
+  const { assetName, image, ownerName, price, createdAt } = props.item;
+
+  const createdat = createdAt.substring(0, 10);
+
+  console.log(createdat);
 
   const [showModal, setShowModal] = useState(false);
   //const { NFT__DATA } = useFetch("https://api.littlefish.foundation/action");
@@ -43,6 +47,10 @@ const NftCard = (props) => {
             </button>
 
             {showModal && <Modal setShowModal={setShowModal} />}
+            <span className="history__link">
+              <h6>Creation Date</h6>
+              <h6>{createdat}</h6>
+            </span>
           </div>
         </div>
       </div>

@@ -17,6 +17,7 @@ const Actions = () => {
   const { NFT__DATA } = useFetch("https://api.littlefish.foundation/action/");
   const [data, setData] = useState([]);
 
+  console.log(NFT__DATA);
   const handleCategory = () => {};
 
   const handleSort = (e) => {

@@ -30,6 +30,7 @@ const action = {
   image: img,
   ownerName: "Littlefish DAO",
   actionType: "Research & Development",
+  price: "20",
 };
 
 const Create = (props) => {

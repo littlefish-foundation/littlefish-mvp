@@ -7,7 +7,7 @@ import Modal from "../Modal/Modal";
 const NftCard = (props) => {
   const { assetName, image, ownerName, price, createdAt } = props.item;
 
-  const createdat = createdAt.substring(0, 10);
+  const createdat = createdAt?.substring(0, 10);
 
   console.log(createdat);
 

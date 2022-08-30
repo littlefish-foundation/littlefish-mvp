@@ -37,7 +37,7 @@ const ColonyDetails = () => {
                 <h2>{singleColony?.name}</h2>
 
                 <div className="colony__creator d-flex gap-3 align-items-center">
-                  <div className="creator__detail">
+                  <div className="owner__detail">
                     <p>wallet Address:</p>
                     <h6>{singleColony?.walletAddress}</h6>
                   </div>

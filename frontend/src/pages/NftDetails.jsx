@@ -5,9 +5,13 @@ import { Container, Row, Col } from "reactstrap";
 //import NFT__DATA from "../assets/data/NFT__DATA";
 import useFetch from "../assets/data/useFetch";
 import useFetch3 from "../assets/data/useFetch3";
+import { FaUserAlt } from "react-icons/fa";
+import { IoMdPricetags } from "react-icons/io";
+import { BsCalendarDateFill } from "react-icons/bs";
+import { MdDescription } from "react-icons/md";
 
 import "../styles/nft-details.css";
-import { Link } from "react-router-dom";
+//import { Link } from "react-router-dom";
 
 const NftDetails = () => {
   const { assetName } = useParams();
@@ -28,44 +32,82 @@ const NftDetails = () => {
       <section>
         <Container>
           <Row>
-            <Col lg="6" md="6" sm="6">
+            <Col lg="6">
               <img
                 src={singleNft?.image}
                 alt=""
                 className="w-100 single__nft-img"
               />
             </Col>
+            <Col lg="6">
+              <div>
+                <div className="nft__creator d-flex gap-3 align-items-center">
+                  <FaUserAlt
+                    style={{
+                      color: "white",
+                      fontSize: "2.5rem",
+                      alignItems: "center",
+                    }}
+                  />{" "}
+                  <div className="creator__detail">
+                    <h6>Created By: {singleNft?.ownerName} </h6>
+                  </div>
+                </div>
 
-            <Col lg="6" md="6" sm="6">
-              <div className="single__nft__content">
-                <h2>{singleNft?.assetName}</h2>
+                <br />
 
                 <div className="nft__creator d-flex gap-3 align-items-center">
+                  <IoMdPricetags
+                    style={{
+                      color: "white",
+                      fontSize: "2.5rem",
+                      alignItems: "center",
+                    }}
+                  />
                   <div className="creator__detail">
-                    <p>Created By</p>
-                    <h6>{singleNft?.ownerName}</h6>
+                    <h6>Price: {singleNft?.price} ADA</h6>
                   </div>
+                </div>
 
-                  <br />
+                <br />
+
+                <div className="nft__creator d-flex gap-3 align-items-center">
+                  <BsCalendarDateFill
+                    style={{
+                      color: "white",
+                      fontSize: "2.5rem",
+                      alignItems: "center",
+                    }}
+                  />
+
                   <div className="creator__detail">
-                    <p>Action Price in ADA </p>
+                    <h6>
+                      Creation Date: {singleNft?.createdAt.substring(0, 10)}
+                    </h6>
+                  </div>
+                </div>
 
-                    <h6>{singleNft?.price}</h6>
-                    <div>Links</div>
-                    <span>
-                      <Link to="#">
-                        <i className="ri-youtube-line"></i>
-                      </Link>
-                    </span>
+                <br />
+                <div className="nft__creator d-flex gap-3 align-items-center">
+                  <div className="creator__detail">
+                    <MdDescription
+                      style={{
+                        color: "white",
+                        fontSize: "3rem",
+                      }}
+                    ></MdDescription>
+                    <p>{singleNft?.description}</p>
                   </div>
                 </div>
               </div>
-              <div>
-                <p className="my-4">{singleNft?.description}</p>
+              <br />
 
-                <button className="singleNft-btn d-flex align-items-center gap-1 w-100">
+              <div>
+                <button className="singleNft-btn d-flex align-items-center gap-1">
                   <i className="ri-shopping-bag-line"></i>
-                  <a href={paymentLink} target="_blank" rel="noreferrer">Buy Action</a>
+                  <a href={paymentLink} target="_blank" rel="noreferrer">
+                    Buy Action
+                  </a>
                 </button>
               </div>
             </Col>
@@ -77,7 +119,3 @@ const NftDetails = () => {
 };
 
 export default NftDetails;
-/*       <button className="singleNft-btn d-flex align-items-center gap-2 w-100">
-                  <i className="ri-shopping-bag-line"></i>
-                  <href>{paymentLink}</href>
-                </button>*/

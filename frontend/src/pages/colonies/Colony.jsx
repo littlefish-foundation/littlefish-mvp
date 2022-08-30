@@ -2,7 +2,7 @@ import React from "react";
 import useFetch2 from "../../assets/data/useFetch2";
 import { Row } from "reactstrap";
 import ColonyCard from "./ColonyCard";
-import CommonSection from "../../components/ui/Common-section/CommonSection";
+import SubHeader from "../../components/ui/Sub-Header/SubHeader";
 
 import "./Colony.css";
 
@@ -13,7 +13,7 @@ const Colony = (props) => {
 
   return (
     <div>
-      <CommonSection assetName={"Colonies"} />
+      <SubHeader assetName={"Colonies"} />
       {COLONY__DATA?.map((item) => (
         <ColonyCard
           style={{ leftMargin: "auto", rightMargin: "auto" }}

@@ -1,14 +1,14 @@
 import React from "react";
 
 import AboutSection from "../components/ui/AboutSection";
-import CommonSection from "../components/ui/Common-section/CommonSection";
+import SubHeader from "../components/ui/Sub-Header/SubHeader";
 
 import Trending from "../components/ui/Trending-section/Trending";
 
 const About = () => {
   return (
     <>
-      <CommonSection assetName={"About littlefish"} />
+      <SubHeader assetName={"About littlefish"} />
 
       <AboutSection />
       

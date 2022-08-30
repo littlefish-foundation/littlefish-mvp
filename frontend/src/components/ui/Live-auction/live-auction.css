@@ -37,10 +37,6 @@
   color: #fff;
 }
 
-.creator__img {
-  width: 40px;
-  height: 40px;
-}
 
 .creator__info h6 {
   font-size: 0.7rem;
@@ -76,23 +72,4 @@
   color: #5142fc;
 }
 
-.history__link a {
-  text-decoration: none;
-  color: rgba(255, 255, 255, 0.772);
 
-  font-size: 0.9rem;
-}
-
-.history__link a:hover {
-  color: #fff;
-}
-
-.live__auction__top h3 {
-  color: #fff;
-}
-
-.live__auction__top span a {
-  text-decoration: none;
-  color: #fff;
-  border-bottom: 1px solid #5142fc;
-}

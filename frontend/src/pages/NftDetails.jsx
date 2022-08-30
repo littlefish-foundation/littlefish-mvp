@@ -1,5 +1,5 @@
 import React from "react";
-import CommonSection from "../components/ui/Common-section/CommonSection";
+import SubHeader from "../components/ui/Sub-Header/SubHeader";
 import { useParams } from "react-router-dom";
 import { Container, Row, Col } from "reactstrap";
 //import NFT__DATA from "../assets/data/NFT__DATA";
@@ -23,7 +23,7 @@ const NftDetails = () => {
 
   return (
     <div>
-      <CommonSection assetName={singleNft?.assetName} />
+      <SubHeader assetName={singleNft?.assetName} />
 
       <section>
         <Container>

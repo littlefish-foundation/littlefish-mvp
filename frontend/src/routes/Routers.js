@@ -3,7 +3,7 @@ import React from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
 
 import About from "../pages/About";
-import Gallery from "../pages/Actions";
+import Actions from "../pages/Actions";
 import Create from "../pages/Create";
 import Wallet from "../pages/Wallet";
 import Colony from "../pages/colonies/Colony";
@@ -18,7 +18,7 @@ const Routers = () => {
       <Route path="/" element={<Navigate to="/action" />} />
       <Route path="/about" element={<About />} />
 
-      <Route path="/action" element={<Gallery />} />
+      <Route path="/action" element={<Actions />} />
       <Route path="/wallet" element={<Wallet />} />
       <Route path="/colony" element={<Colony />} />
       <Route path="/colony/:name" element={<ColonyDetails />} />

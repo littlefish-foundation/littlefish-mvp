@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Select from "react-select";
 
-import CommonSection from "../../components/ui/Common-section/CommonSection";
+import SubHeader from "../../components/ui/Sub-Header/SubHeader";
 import { Container, Row, Col } from "reactstrap";
 import { Button, Form, FormGroup, Input, Label, FormText } from "reactstrap";
 import "./MemberForm.css";
@@ -110,7 +110,7 @@ const MemberForm = () => {
 
   return (
     <div>
-      <CommonSection assetName="Membership Form" />
+      <SubHeader assetName="Membership Form" />
       <section>
         <Container>
           <Row>

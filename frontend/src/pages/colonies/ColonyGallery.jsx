@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-import CommonSection from "../../components/ui/Common-section/CommonSection";
+import SubHeader from "../../components/ui/Sub-Header/SubHeader";
 import NftCard from "../../components/ui/Nft-card/NftCard";
 
 import useFetch from "../../assets/data/useFetch";

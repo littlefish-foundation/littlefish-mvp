@@ -1,11 +1,11 @@
 import React from "react";
 
-import "./common-section.css";
+import "./sub-header.css";
 
 import { Container } from "reactstrap";
-const CommonSection = ({ assetName }) => {
+const SubHeader = ({ assetName }) => {
   return (
-    <section className="common__section">
+    <section className="sub__header">
       <Container className="text-center">
         <h2>{assetName}</h2>
       </Container>
@@ -13,4 +13,4 @@ const CommonSection = ({ assetName }) => {
   );
 };
 
-export default CommonSection;
+export default SubHeader;

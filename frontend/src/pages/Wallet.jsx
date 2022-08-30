@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import CommonSection from "../components/ui/Common-section/CommonSection";
+import SubHeader from "../components/ui/Sub-Header/SubHeader";
 import { Container, Row, Col } from "reactstrap";
 import "../styles/wallet.css";
 //import WalletConnect from "./walletConnect/WalletConnect";
@@ -73,7 +73,7 @@ const Wallet = () => {
 
   return (
     <>
-      <CommonSection assetName={"Connect Wallet"} />
+      <SubHeader assetName={"Connect Wallet"} />
       <section>
         <Container>
           <Row>

@@ -15,6 +15,14 @@
   margin-bottom: 15px;
 }
 
+.Char__counter {
+  margin: 4px 0 0;
+  font-size: 8px;
+  width: 100%;
+  color: #fff;
+  text-align: right;
+}
+
 .form__input label {
   color: #fff;
   margin-bottom: 10px;
@@ -32,5 +40,6 @@
 @media only screen and (max-width: 576px) {
   .create__item {
     margin-top: 15px;
+    width: 50%;
   }
 }

@@ -108,7 +108,23 @@ const Wallet = () => {
                   onClick={connectTyphonWallet}
                 >
                   Connect to Typhon Wallet
+<<<<<<< Updated upstream
                 </button>
+=======
+                </Button>
+                <UncontrolledPopover
+                  placement="right"
+                  target="UncontrolledPopover"
+                  trigger="hover focus"
+                >
+                  <PopoverHeader>Attention!</PopoverHeader>
+                  <PopoverBody>
+                    Typhon integration comming soon... For now please use Nami Wallet.<br/>
+                    Thank you for your understanding. <br/>
+                    littlefish Dev Team
+                  </PopoverBody>
+                </UncontrolledPopover>
+>>>>>>> Stashed changes
               </div>
             </Col>
             <Col>

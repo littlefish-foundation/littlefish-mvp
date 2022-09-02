@@ -5,6 +5,14 @@ import { Container, Row, Col } from "reactstrap";
 //import NFT__DATA from "../assets/data/NFT__DATA";
 import useFetch from "../assets/data/useFetch";
 import useFetch3 from "../assets/data/useFetch3";
+<<<<<<< Updated upstream
+=======
+import { FaUserAlt } from "react-icons/fa";
+import { IoMdPricetags } from "react-icons/io";
+import { BsCalendarDateFill } from "react-icons/bs";
+import { MdDescription } from "react-icons/md";
+import { GiSchoolOfFish } from "react-icons/gi";
+>>>>>>> Stashed changes
 
 import "../styles/nft-details.css";
 import { Link } from "react-router-dom";
@@ -12,6 +20,8 @@ import { Link } from "react-router-dom";
 const NftDetails = () => {
   const { assetName } = useParams();
   const { NFT__DATA } = useFetch("http://localhost:8000/action/");
+
+  console.log(NFT__DATA);
 
   const singleNft = NFT__DATA?.find((item) => item.assetName === assetName);
   const { paymentLink } = useFetch3(NFT__DATA,assetName,singleNft?.price,singleNft?.actionCollection);
@@ -52,6 +62,20 @@ const NftDetails = () => {
                         <i className="ri-youtube-line"></i>
                       </Link>
                     </span>
+                  </div>
+                </div>
+
+                <br />
+                <div className="nft__creator d-flex gap-3 align-items-center">
+                  <GiSchoolOfFish
+                    style={{
+                      color: "white",
+                      fontSize: "3rem",
+                    }}
+                  ></GiSchoolOfFish>
+                  <div className="creator__detail">
+                    <p>littlefish Foundation</p>{" "}
+                    {/*this is temporary until ready from backend*/}
                   </div>
                 </div>
               </div>

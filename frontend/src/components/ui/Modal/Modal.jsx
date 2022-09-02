@@ -1,41 +1,36 @@
 import React from "react";
+import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
+import { useNavigate } from "react-router-dom";
 
 import "./modal.css";
 
 const Modal = ({ setShowModal }) => {
+  const navigate = useNavigate();
+
+  const navigateActions = () => {
+    // 👇️ navigate to /
+    navigate("/action");
+  };
+
   return (
     <div className="modal__wrapper">
       <div className="single__modal">
         <span className="close__modal">
           <i class="ri-close-line" onClick={() => setShowModal(false)}></i>
         </span>
-        <h6 className="text-center text-light">Buy Action</h6>
-        <p className="text-center text-light">
-          You must pay at least<span className="money"> 10 ADA</span>
+        <div>
+          <CheckCircleOutlineIcon color="success" sx={{ fontSize: 50 }} />
+          <h6 className="text-center text-dark">
+            Action Generation was Successful
+          </h6>
+        </div>
+        <p className="text-center text-dark">
+          It may take a moment for it to appear in Actions.
         </p>
 
-        <div className="input__item mb-4">
-          <input type="number" placeholder="00 : 00 ADA" />
-        </div>
-
-       
-
-        <div className=" d-flex align-items-center justify-content-between">
-          <p>Your payment must be at least</p>
-          <span className="money">ADA</span>
-        </div>
-
-        <div className=" d-flex align-items-center justify-content-between">
-          <p>Service Fee</p>
-          <span className="money">0.15 ADA</span>
-        </div>
-
-        <div className=" d-flex align-items-center justify-content-between">
-          <p>Total Price Amount</p>
-          <span className="money">10.15 ADA</span>
-        </div>
-
-        <button className="place__bid-btn">Buy Action</button>
+        <button className="place__bid-btn" onClick={navigateActions}>
+          Redirect to Actions
+        </button>
       </div>
     </div>
   );

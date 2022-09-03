@@ -1,4 +1,4 @@
-import React, { useState, useParams } from "react";
+import React, { useState } from "react";
 import {
   Container,
   Row,
@@ -8,14 +8,7 @@ import {
   FormGroup,
   Input,
   Label,
-  FormText,
-  ModalHeader,
-  ModalBody,
-  ModalFooter,
 } from "reactstrap";
-
-import useFetchIpfsLink from "../assets/data/getActionByAssetName";
-import useFetch from "../assets/data/useFetch";
 
 import SubHeader from "../components/UserInterface/Sub-Header/SubHeader";
 import NftCard from "../components/UserInterface/Nft-card/NftCard";
@@ -28,16 +21,10 @@ import SuccessModal from "../components/UserInterface/Modal/SuccessModal";
 import ErrorModal from "../components/UserInterface/Modal/ErrorModal";
 import LoadingModal from "../components/UserInterface/Modal/LoadingModal";
 
-import Wallet from "./Wallet";
-
-const action = {
-  id: "01",
+const actionInitialState = {
   assetName: "Whitepaper",
-  description:
-    "The foundational document of the littlefish foundation; our values, philosophy, the problem space, and our approach to solving problems in it.",
   image: img,
   ownerName: "Littlefish DAO",
-  actionType: "Research & Development",
   price: "20",
 };
 
@@ -53,7 +40,7 @@ const Create = (props) => {
     image: "",
     colonyName: "",
     mediaType: "",
-    price: null,
+    price: "",
   };
 
   const maxCount = 256;
@@ -64,10 +51,7 @@ const Create = (props) => {
   const [actionType1, setActionType1] = useState("");
 
   const [colonyName1, setColonyName1] = useState("");
-  const [tooltipOpen, setTooltipOpen] = useState(false);
   const [postStatus, setPostStatus] = useState(null);
-
-  const toggle = () => setTooltipOpen(!tooltipOpen);
 
   const onChangeSelection = (e) => {
     setActionType1(e.target.value);
@@ -82,21 +66,9 @@ const Create = (props) => {
 
   const Colony = { colonyName: colonyName1 };
 
-  const {
-    assetName,
-    name,
-    description,
-    ownerName,
-    //actionType,
-
-    //colonyName,
-    //image,
-    //mediaType,
-    price,
-  } = eachEntry;
+  const { assetName, name, description, ownerName, price } = eachEntry;
 
   Object.assign(eachEntry, Type, Colony);
-  // console.log(newEachEntry);
   console.log(eachEntry);
 
   const handleInputChange = (e) => {
@@ -124,7 +96,6 @@ const Create = (props) => {
       .then((response) => response.json())
 
       .then((data) => {
-
         setPostStatus(Object.entries(data)[0][0]);
 
         console.log(Object.entries(data)[0][0]);
@@ -151,7 +122,7 @@ const Create = (props) => {
             <Row>
               <Col lg="3" md="4" sm="6">
                 <h5 className="mb-4 text-light">Example Action</h5>
-                <NftCard item={action} />
+                <NftCard item={actionInitialState} />
               </Col>
 
               <Col lg="8" md="8" sm="6">
@@ -294,26 +265,6 @@ const Create = (props) => {
 
                     <DynamicFields />
 
-                    {/*<FormGroup className="form__input">
-                    <Label for="youtubeLink">YouTube Link</Label>
-                    <Input
-                      name="youtubeLink"
-                      type="text"
-                      placeholder="Enter YouTube link if any."
-                      onChange={handleInputChange}
-                      value={youtubeLink}
-                    />
-                  </FormGroup>
-                  <FormGroup className="form__input">
-                    <Label for="otherLink">Other Link</Label>
-                    <Input
-                      name="otherLink"
-                      type="text"
-                      placeholder="Enter other relavant link if any."
-                      onChange={handleInputChange}
-                      value={otherLink}
-                    />
-</FormGroup>*/}
                     <br />
                     <Button
                       style={{ backgroundColor: "#5142fc", width: "185px" }}

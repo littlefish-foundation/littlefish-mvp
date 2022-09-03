@@ -1,8 +1,7 @@
-import React, { useState } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
 
 import "../UserInterface/Nft-card/nft-card.css";
-import Base64 from "../../assets/Base64";
 
 const ActionModal = (props) => {
   const { assetName, ownerName, price, createdAt } = props.item;
@@ -10,8 +9,6 @@ const ActionModal = (props) => {
   const image64 = window.bas64Data;
 
   const createdat = createdAt?.substring(0, 10);
-
-
 
   return (
     <Link to={`/action/${assetName}`} style={{ textDecoration: "none" }}>

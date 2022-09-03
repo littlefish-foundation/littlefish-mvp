@@ -1,18 +1,13 @@
-import React, { useState, useParams } from "react";
+import React from "react";
 import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
 import { useNavigate } from "react-router-dom";
 import useFetch from "../../../assets/data/useFetch";
-import NftCard from "../Nft-card/NftCard";
-import useFetchIpfsLink from "../../../assets/data/getActionByAssetName";
 
 import "./modal.css";
 import ActionModal from "../../actionModal/actionModal";
 
 const SuccessModal = ({ setShowModal }) => {
-
   const { NFT__DATA } = useFetch("https://api.littlefish.foundation/action/");
-
-  
 
   const navigate = useNavigate();
 
@@ -31,8 +26,8 @@ const SuccessModal = ({ setShowModal }) => {
           <CheckCircleOutlineIcon color="success" sx={{ fontSize: 50 }} />
           <h6 className="text-center text-dark">
             Action Generation was Successful
+            <p>Preview of Your Action:</p>
           </h6>
-          <br/>
         </div>
         <div className="nft__centered">
           {NFT__DATA?.slice(0, 1).map((item) => (
@@ -40,7 +35,7 @@ const SuccessModal = ({ setShowModal }) => {
           ))}
         </div>
 
-        <br/>
+        <br />
         <button className="place__bid-btn" onClick={navigateActions}>
           Redirect to Actions
         </button>

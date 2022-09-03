@@ -13,10 +13,16 @@ import "../styles/wallet.css";
 //import WalletConnect from "./walletConnect/WalletConnect";
 import Typhon from "../assets/typhon.svg";
 import Nami from "../assets/Nami.svg";
+import PopOvers from "../components/UserInterface/popovers/PopOvers";
+import AbsentNamiWalletModal from "../components/UserInterface/Modal/AbsentNamiWalletModal";
+import NamiAddressModal from "../components/UserInterface/Modal/NamiAddressModal";
+
 
 const Wallet = (props) => {
   const [namiAddr, setNamiAddr] = useState(false);
   const [account, setAccount] = useState(null);
+  const [showModal, setShowModal] = useState(false);
+  const [namiCheck, setNamiCheck] = useState(null);
 
   const connectTyphonWallet = () => {
     var typhon;
@@ -48,13 +54,12 @@ const Wallet = (props) => {
   };
 
   var nami;
-  window.onLoad = () => {
-    nami = window.cardano.nami;
-
-    if (!nami) {
-      console.log("Nami is NOT installed!");
-    }
-  };
+  // window.onLoad = () => {
+  //   nami = window.cardano.nami;
+  //   if (!nami) {
+  //     console.log("Nami is NOT installed!");
+  //   }
+  // };
 
   useEffect(() => {
     async function t() {
@@ -63,17 +68,30 @@ const Wallet = (props) => {
         window.cardano,
         "<blockfrost-api-key>"
       );
+
       if (namiAddr) {
         await Nami.enable();
         let addr = await Nami.getAddress();
+        setNamiCheck(Nami.enable);
+
         //setNamiAddr(false);
-        console.log(addr);
         setAccount(addr);
       }
     }
     t();
   }, [namiAddr]);
+
+  console.log(namiCheck);
+
   window.namiAddress = account;
+
+  const namiClickHandler = (e) => {
+    if (namiCheck === null) {
+      setShowModal(true);
+    }
+    setNamiAddr(true);
+    //setShowModal(false);
+  };
 
   return (
     <>
@@ -84,9 +102,7 @@ const Wallet = (props) => {
             <Col lg="12" className="mb-5 text-center">
               <div className=" m-auto">
                 <h3 className="text-light">Connect your wallet</h3>
-                <p>Wallet Address:</p>
-
-                <p>{account}</p>
+               
               </div>
             </Col>
 
@@ -131,18 +147,27 @@ const Wallet = (props) => {
                   <img src={Nami} alt="" />
                 </span>
                 <h5>Nami Wallet</h5>
-                <Button
-                  style={{
-                    backgroundColor: "#5142fc",
-                    borderRadius: "50px",
-                    color: "white",
-                    width: "400px",
-                    height: "35px",
-                  }}
-                  onClick={() => setNamiAddr(true)}
-                >
-                  Connect to Nami Wallet
-                </Button>
+                <div>
+                  <Button
+                    id="namiWallet"
+                    style={{
+                      backgroundColor: "#5142fc",
+                      borderRadius: "50px",
+                      color: "white",
+                      width: "400px",
+                      height: "35px",
+                    }}
+                    onClick={namiClickHandler}
+                  >
+                    Connect to Nami Wallet
+                  </Button>
+                  {namiCheck === null && showModal && (
+                    <AbsentNamiWalletModal setShowModal={setShowModal} />
+                  )}
+                  {namiCheck !== null && showModal && (
+                    <NamiAddressModal account={account} setShowModal={setShowModal} />
+                  )}
+                </div>
               </div>
             </Col>
           </Row>

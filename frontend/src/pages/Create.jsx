@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useParams } from "react";
 import {
   Container,
   Row,
@@ -14,6 +14,9 @@ import {
   ModalFooter,
 } from "reactstrap";
 
+import useFetchIpfsLink from "../assets/data/getActionByAssetName";
+import useFetch from "../assets/data/useFetch";
+
 import SubHeader from "../components/UserInterface/Sub-Header/SubHeader";
 import NftCard from "../components/UserInterface/Nft-card/NftCard";
 import img from "../assets/example.png";
@@ -21,7 +24,9 @@ import "../styles/create-item.css";
 import Base64 from "../assets/Base64";
 import PopOvers from "../components/UserInterface/popovers/PopOvers";
 import DynamicFields from "../components/UserInterface/DynamicFields/DynamicFields";
-import Modal from "../components/UserInterface/Modal/Modal";
+import SuccessModal from "../components/UserInterface/Modal/SuccessModal";
+import ErrorModal from "../components/UserInterface/Modal/ErrorModal";
+import LoadingModal from "../components/UserInterface/Modal/LoadingModal";
 
 import Wallet from "./Wallet";
 
@@ -39,6 +44,7 @@ const action = {
 const Create = (props) => {
   const initialInputState = {
     walletID: "",
+
     assetName: "",
     name: "",
     description: "",
@@ -59,6 +65,8 @@ const Create = (props) => {
 
   const [colonyName1, setColonyName1] = useState("");
   const [tooltipOpen, setTooltipOpen] = useState(false);
+  const [postStatus, setPostStatus] = useState(null);
+
   const toggle = () => setTooltipOpen(!tooltipOpen);
 
   const onChangeSelection = (e) => {
@@ -114,8 +122,12 @@ const Create = (props) => {
       body: JSON.stringify(eachEntry),
     })
       .then((response) => response.json())
+
       .then((data) => {
-        console.log(data);
+
+        setPostStatus(Object.entries(data)[0][0]);
+
+        console.log(Object.entries(data)[0][0]);
       })
       .catch((err) => {
         console.log("Error:", err.message);
@@ -233,7 +245,7 @@ const Create = (props) => {
                         type="textarea"
                         name="description"
                         rows="4"
-                        minLength="50"
+                        //minLength="50"
                         maxLength="256"
                         placeholder="Enter description"
                         onChange={handleInputChange}
@@ -309,8 +321,15 @@ const Create = (props) => {
                     >
                       Submit
                     </Button>
-
-                    {showModal && <Modal setShowModal={setShowModal} />}
+                    {postStatus === "success" && showModal && (
+                      <SuccessModal setShowModal={setShowModal} />
+                    )}
+                    {postStatus === "error" && showModal && (
+                      <ErrorModal setShowModal={setShowModal} />
+                    )}
+                    {postStatus === null && showModal && (
+                      <LoadingModal setShowModal={setShowModal} />
+                    )}
                   </Form>
                 </div>
               </Col>

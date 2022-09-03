@@ -14,7 +14,7 @@ import "../styles/wallet.css";
 import Typhon from "../assets/typhon.svg";
 import Nami from "../assets/Nami.svg";
 
-const Wallet = () => {
+const Wallet = (props) => {
   const [namiAddr, setNamiAddr] = useState(false);
   const [account, setAccount] = useState(null);
 
@@ -115,8 +115,10 @@ const Wallet = () => {
                 >
                   <PopoverHeader>Attention!</PopoverHeader>
                   <PopoverBody>
-                    Typhon integration comming soon... For now please use Nami Wallet.<br/>
-                    Thank you for your understanding. <br/>
+                    Typhon integration comming soon... For now please use Nami
+                    Wallet.
+                    <br />
+                    Thank you for your understanding. <br />
                     littlefish Dev Team
                   </PopoverBody>
                 </UncontrolledPopover>

@@ -1,24 +1,23 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
-import "./nft-card.css";
-import Modal from "../Modal/SuccessModal";
+import "../UserInterface/Nft-card/nft-card.css";
+import Base64 from "../../assets/Base64";
 
-const NftCard = (props) => {
-  const { assetName, image, ownerName, price, createdAt } = props.item;
+const ActionModal = (props) => {
+  const { assetName, ownerName, price, createdAt } = props.item;
+
+  const image64 = window.bas64Data;
 
   const createdat = createdAt?.substring(0, 10);
 
-  console.log(createdat);
 
-  const [showModal, setShowModal] = useState(false);
-  //const { NFT__DATA } = useFetch("https://api.littlefish.foundation/action");
 
   return (
     <Link to={`/action/${assetName}`} style={{ textDecoration: "none" }}>
       <div className="single__nft__card">
         <div className="nft__img">
-          <img src={image} alt="" className="w-100" />
+          <img src={image64} alt="" className="w-100" />
         </div>
 
         <div className="nft__content">
@@ -46,7 +45,6 @@ const NftCard = (props) => {
               <i className="ri-shopping-bag-line"></i> Buy Action
             </button>
 
-            {showModal && <Modal setShowModal={setShowModal} />}
             <span className="history__link">
               <h6>Creation Date</h6>
               <h6>{createdat}</h6>
@@ -58,4 +56,4 @@ const NftCard = (props) => {
   );
 };
 
-export default NftCard;
+export default ActionModal;

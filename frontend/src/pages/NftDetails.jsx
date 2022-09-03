@@ -19,6 +19,7 @@ const NftDetails = () => {
   const { assetName } = useParams();
   const { NFT__DATA } = useFetch("https://api.littlefish.foundation/action/");
 
+
   const singleNft = NFT__DATA?.find((item) => item.assetName === assetName);
   const { paymentLink } = useFetch3(
     NFT__DATA,
@@ -26,6 +27,8 @@ const NftDetails = () => {
     singleNft?.price,
     singleNft?.actionCollection
   );
+
+  //console.log(paymentLink);
 
   return (
     <div>

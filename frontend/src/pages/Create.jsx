@@ -9,7 +9,6 @@ import {
   Input,
   Label,
   FormText,
-  Modal,
   ModalHeader,
   ModalBody,
   ModalFooter,
@@ -22,6 +21,7 @@ import "../styles/create-item.css";
 import Base64 from "../assets/Base64";
 import PopOvers from "../components/UserInterface/popovers/PopOvers";
 import DynamicFields from "../components/UserInterface/DynamicFields/DynamicFields";
+import Modal from "../components/UserInterface/Modal/Modal";
 
 import Wallet from "./Wallet";
 
@@ -115,7 +115,7 @@ const Create = (props) => {
     })
       .then((response) => response.json())
       .then((data) => {
-        console.log("Success:", data);
+        console.log(data);
       })
       .catch((err) => {
         console.log("Error:", err.message);
@@ -149,7 +149,7 @@ const Create = (props) => {
                       <Label for="walletID">Wallet ID*</Label>
 
                       <Input
-                        required
+                        //required
                         id="walletID"
                         name="walletID"
                         type="text"
@@ -165,7 +165,7 @@ const Create = (props) => {
                     <FormGroup className="form__input">
                       <Label for="ownerName">Action Producer*</Label>
                       <Input
-                        required
+                        //required
                         id="ownerName"
                         name="ownerName"
                         type="text"
@@ -179,7 +179,7 @@ const Create = (props) => {
                     <FormGroup className="form__input">
                       <Label for="assetName">Action Name*</Label>
                       <Input
-                        required
+                        //required
                         id="assetName"
                         name="assetName"
                         type="text"
@@ -193,7 +193,7 @@ const Create = (props) => {
                     <FormGroup className="form__input">
                       <Label for="name">Name*</Label>
                       <Input
-                        required
+                        //required
                         id="name"
                         name="name"
                         type="text"
@@ -207,7 +207,7 @@ const Create = (props) => {
                     <FormGroup className="form__input">
                       <Label for="actionType">Action Type*</Label>
                       <Input
-                        required
+                        //required
                         id="actionType"
                         type="select"
                         name="actionType"
@@ -228,7 +228,7 @@ const Create = (props) => {
                     <FormGroup className="form__input">
                       <Label for="description">Description*</Label>
                       <Input
-                        required
+                        //required
                         id="description"
                         type="textarea"
                         name="description"
@@ -250,7 +250,7 @@ const Create = (props) => {
                     <FormGroup className="form__input">
                       <Label for="colonyName">Colony Name*</Label>
                       <Input
-                        required
+                        //required
                         id="colonyName"
                         type="select"
                         name="colonyName"
@@ -268,7 +268,7 @@ const Create = (props) => {
                     <FormGroup className="form__input">
                       <Label for="price">Price*</Label>
                       <Input
-                        required
+                        //required
                         id="price"
                         name="price"
                         type="number"

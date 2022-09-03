@@ -10,12 +10,12 @@
 
 .single__modal {
   position: relative;
-  top: 50%;
+  top: 30%;
   left: 50%;
   width: 500px;
-  height: 500px;
+  height: auto;
   transform: translate(-50%, -50%);
-  background: #343444 !important;
+  background: #fff !important;
   border-radius: 5px;
   padding: 30px;
   z-index: 5555555 !important;
@@ -26,10 +26,11 @@
   font-size: 1.1rem;
   font-weight: 500;
   margin-bottom: 10px;
+  color: #000000;
 }
 
 .single__modal .money {
-  color: #fff;
+  color: #000000;
   font-weight: 500;
   font-size: 1.1rem;
 }
@@ -38,7 +39,7 @@
   width: 100%;
   border: 1px solid rgba(221, 221, 221, 0.274);
   background: transparent;
-  color: #fff;
+  color: #000000;
   padding: 9px 25px;
   border-radius: 5px;
   outline: none;
@@ -47,35 +48,35 @@
 
 .input__item h6 {
   font-size: 0.9rem;
-  color: #fff;
+  color: #000000;
 }
 
 .place__bid-btn {
-  padding: 7px 25px;
+  padding: 7px 7px;
   border: none;
   outline: none;
-  width: 120px;
+  width: auto;
   margin: auto;
-  background: #5142fc;
+  background: #a0adad;
   color: #fff;
-  border-radius: 50px;
+  border-radius: 5px;
   font-size: 0.8rem;
   display: block;
-  margin-top: 15px;
+  margin-top: 11px;
 }
 
 .close__modal {
   position: absolute;
-  top: -2px;
-  right: -2px;
+  top: 0px;
+  right: 0px;
   z-index: 6666666;
 }
 
 .close__modal i {
-  padding: 5px;
-  background: #5142fc;
-  color: #fff;
-  border-radius: 50%;
+  padding: 3px;
+  background: #fff;
+  color: #000000;
+  border-radius: 5px;
 }
 
 @media only screen and (max-width: 992px) {

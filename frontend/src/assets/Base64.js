@@ -1,10 +1,6 @@
 import React from "react";
-import {
-
-  FormGroup,
-  Input,
-  Label,
-} from "reactstrap";
+import { FormGroup, Input, Label } from "reactstrap";
+import PopOvers from "../components/UserInterface/popovers/PopOvers";
 
 class Base64 extends React.Component {
   state = {
@@ -65,12 +61,14 @@ class Base64 extends React.Component {
         <Label for="image">Upload Cover Image</Label>
 
         <Input
+          id="image"
           type="file"
           url="https://api.littlefish.foundation/action/"
           name="image"
           onChange={this.handleFileInputChange}
           accept="image/*"
         />
+        <PopOvers />
       </FormGroup>
     );
   }

@@ -1,5 +1,5 @@
 .form__input input,
-.form__input Select,
+.form__input select,
 .form__input textarea {
   width: 100%;
   padding: 7px 25px;
@@ -11,8 +11,16 @@
   border-radius: 5px;
   cursor: pointer;
 }
-input {
+.form__input {
   margin-bottom: 15px;
+}
+
+.Char__counter {
+  margin: 4px 0 0;
+  font-size: 8px;
+  width: 100%;
+  color: #fff;
+  text-align: right;
 }
 
 .form__input label {
@@ -32,5 +40,6 @@ input {
 @media only screen and (max-width: 576px) {
   .create__item {
     margin-top: 15px;
+    width: 50%;
   }
 }

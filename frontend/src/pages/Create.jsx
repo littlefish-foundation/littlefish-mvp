@@ -20,6 +20,9 @@ import NftCard from "../components/UserInterface/Nft-card/NftCard";
 import img from "../assets/example.png";
 import "../styles/create-item.css";
 import Base64 from "../assets/Base64";
+import PopOvers from "../components/UserInterface/popovers/PopOvers";
+import DynamicFields from "../components/UserInterface/DynamicFields/DynamicFields";
+
 import Wallet from "./Wallet";
 
 const action = {
@@ -40,23 +43,23 @@ const Create = (props) => {
     name: "",
     description: "",
     ownerName: "",
-    actionType: null,
-    youtubeLink: "",
-    otherLink: "",
+
     image: "",
-    //colonyName: "",
+    colonyName: "",
     mediaType: "",
     price: null,
   };
 
-  const [modal, setModal] = useState(false);
+  const maxCount = 256;
 
-  const toggle = () => setModal(!modal);
+  const [showModal, setShowModal] = useState(false);
 
   const [eachEntry, setEachEntry] = useState(initialInputState);
   const [actionType1, setActionType1] = useState("");
 
   const [colonyName1, setColonyName1] = useState("");
+  const [tooltipOpen, setTooltipOpen] = useState(false);
+  const toggle = () => setTooltipOpen(!tooltipOpen);
 
   const onChangeSelection = (e) => {
     setActionType1(e.target.value);
@@ -77,8 +80,7 @@ const Create = (props) => {
     description,
     ownerName,
     //actionType,
-    youtubeLink,
-    otherLink,
+
     //colonyName,
     //image,
     //mediaType,
@@ -110,12 +112,21 @@ const Create = (props) => {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(eachEntry),
-    }).then(() => {});
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log("Success:", data);
+      })
+      .catch((err) => {
+        console.log("Error:", err.message);
+      });
 
     console.log(eachEntry);
     setEachEntry(initialInputState);
+
     setActionType1("");
     setColonyName1("");
+    setShowModal(true);
   };
 
   return (
@@ -131,67 +142,79 @@ const Create = (props) => {
                 <NftCard item={action} />
               </Col>
 
-              <Col lg="9" md="8" sm="6">
+              <Col lg="8" md="8" sm="6">
                 <div className="create__item">
                   <Form>
                     <FormGroup className="form__input">
-                      <Label for="ownerName">Wallet ID</Label>
+                      <Label for="walletID">Wallet ID*</Label>
+
                       <Input
-                        name="walletId"
+                        required
+                        id="walletID"
+                        name="walletID"
                         type="text"
                         placeholder="Connect your wallet to fill this part"
+                        onChange={handleInputChange}
                         value={window.namiAddress}
-                      />
-                      <FormText>
-                        If you are not able to see your Wallet ID, reconnect
-                        your wallet
-                      </FormText>
+                      ></Input>
+                      <PopOvers />
                     </FormGroup>
 
                     <Base64 />
 
                     <FormGroup className="form__input">
-                      <Label for="ownerName">Action Producer</Label>
+                      <Label for="ownerName">Action Producer*</Label>
                       <Input
+                        required
+                        id="ownerName"
                         name="ownerName"
                         type="text"
                         placeholder="Enter the Name of the Producer"
                         onChange={handleInputChange}
                         value={ownerName}
                       />
+                      <PopOvers />
                     </FormGroup>
 
                     <FormGroup className="form__input">
-                      <Label for="assetName">Action Name</Label>
+                      <Label for="assetName">Action Name*</Label>
                       <Input
+                        required
+                        id="assetName"
                         name="assetName"
                         type="text"
                         placeholder="Enter the Name of the Action"
                         onChange={handleInputChange}
                         value={assetName}
                       />
+                      <PopOvers />
                     </FormGroup>
 
                     <FormGroup className="form__input">
-                      <Label for="name">Name</Label>
+                      <Label for="name">Name*</Label>
                       <Input
+                        required
+                        id="name"
                         name="name"
                         type="text"
                         placeholder="Enter the full Name of the Action"
                         onChange={handleInputChange}
                         value={name}
                       />
+                      <PopOvers />
                     </FormGroup>
 
                     <FormGroup className="form__input">
-                      <Label for="actionType">Action Type</Label>
+                      <Label for="actionType">Action Type*</Label>
                       <Input
+                        required
+                        id="actionType"
                         type="select"
                         name="actionType"
                         onChange={onChangeSelection}
                         value={actionType1}
                       >
-                        <option>Choose Action Type</option>
+                        <option></option>
                         <option value="Software Developing">
                           Sofware Developing
                         </option>
@@ -199,24 +222,36 @@ const Create = (props) => {
                         <option value="Community Help">Community Help</option>
                         <option value="Plan & Strategy">Plan & Strategy</option>
                       </Input>
+                      <PopOvers />
                     </FormGroup>
 
                     <FormGroup className="form__input">
-                      <Label for="description">Description</Label>
+                      <Label for="description">Description*</Label>
                       <Input
+                        required
+                        id="description"
                         type="textarea"
                         name="description"
                         rows="4"
+                        minLength="50"
+                        maxLength="256"
                         placeholder="Enter description"
                         onChange={handleInputChange}
                         value={description}
-                        className="w-100"
+                        className="w-90"
                       ></Input>
+                      <div className="Char__counter">
+                        {description.length}/ {maxCount}
+                      </div>
+
+                      <PopOvers />
                     </FormGroup>
 
                     <FormGroup className="form__input">
-                      <Label for="colonyName">Colony Name</Label>
+                      <Label for="colonyName">Colony Name*</Label>
                       <Input
+                        required
+                        id="colonyName"
                         type="select"
                         name="colonyName"
                         onChange={onChangeColony}
@@ -227,33 +262,14 @@ const Create = (props) => {
                           littlefish Foundation
                         </option>
                       </Input>
+                      <PopOvers />
                     </FormGroup>
 
                     <FormGroup className="form__input">
-                      <Label for="youtubeLink">YouTube Link</Label>
+                      <Label for="price">Price*</Label>
                       <Input
-                        name="youtubeLink"
-                        type="text"
-                        placeholder="Enter YouTube link if any."
-                        onChange={handleInputChange}
-                        value={youtubeLink}
-                      />
-                    </FormGroup>
-
-                    <FormGroup className="form__input">
-                      <Label for="otherLink">Other Link</Label>
-                      <Input
-                        name="otherLink"
-                        type="text"
-                        placeholder="Enter other relavant link if any."
-                        onChange={handleInputChange}
-                        value={otherLink}
-                      />
-                    </FormGroup>
-
-                    <FormGroup className="form__input">
-                      <Label for="exampleZip">Price</Label>
-                      <Input
+                        required
+                        id="price"
                         name="price"
                         type="number"
                         placeholder="Please enter a price in ADA"
@@ -261,13 +277,40 @@ const Create = (props) => {
                         value={price}
                       />
 
-                      <FormText>
-                        If you want to sell this action please add a price in
-                        ADA, otherwise you may leave it empty.
-                      </FormText>
+                      <PopOvers />
                     </FormGroup>
 
-                    <Button onClick={toggle}>Submit</Button>
+                    <DynamicFields />
+
+                    {/*<FormGroup className="form__input">
+                    <Label for="youtubeLink">YouTube Link</Label>
+                    <Input
+                      name="youtubeLink"
+                      type="text"
+                      placeholder="Enter YouTube link if any."
+                      onChange={handleInputChange}
+                      value={youtubeLink}
+                    />
+                  </FormGroup>
+                  <FormGroup className="form__input">
+                    <Label for="otherLink">Other Link</Label>
+                    <Input
+                      name="otherLink"
+                      type="text"
+                      placeholder="Enter other relavant link if any."
+                      onChange={handleInputChange}
+                      value={otherLink}
+                    />
+</FormGroup>*/}
+                    <br />
+                    <Button
+                      style={{ backgroundColor: "#5142fc", width: "185px" }}
+                      onClick={handleFinalSubmit}
+                    >
+                      Submit
+                    </Button>
+
+                    {showModal && <Modal setShowModal={setShowModal} />}
                   </Form>
                 </div>
               </Col>

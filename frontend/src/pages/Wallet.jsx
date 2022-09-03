@@ -13,10 +13,8 @@ import "../styles/wallet.css";
 //import WalletConnect from "./walletConnect/WalletConnect";
 import Typhon from "../assets/typhon.svg";
 import Nami from "../assets/Nami.svg";
-import PopOvers from "../components/UserInterface/popovers/PopOvers";
 import AbsentNamiWalletModal from "../components/UserInterface/Modal/AbsentNamiWalletModal";
 import NamiAddressModal from "../components/UserInterface/Modal/NamiAddressModal";
-
 
 const Wallet = (props) => {
   const [namiAddr, setNamiAddr] = useState(false);
@@ -102,7 +100,6 @@ const Wallet = (props) => {
             <Col lg="12" className="mb-5 text-center">
               <div className=" m-auto">
                 <h3 className="text-light">Connect your wallet</h3>
-               
               </div>
             </Col>
 
@@ -164,8 +161,12 @@ const Wallet = (props) => {
                   {namiCheck === null && showModal && (
                     <AbsentNamiWalletModal setShowModal={setShowModal} />
                   )}
+
                   {namiCheck !== null && showModal && (
-                    <NamiAddressModal account={account} setShowModal={setShowModal} />
+                    <NamiAddressModal
+                      account={account}
+                      setShowModal={setShowModal}
+                    />
                   )}
                 </div>
               </div>

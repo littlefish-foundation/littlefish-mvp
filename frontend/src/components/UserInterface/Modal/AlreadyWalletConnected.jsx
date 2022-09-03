@@ -7,7 +7,7 @@ import "./modal.css";
 import Wallet from "../../../pages/Wallet";
 import { useSlotProps } from "@mui/base";
 
-const NamiAddressModal = ({ account, setShowModal }) => {
+const AlreadyWalletConnected = ({ account, setShowModal }) => {
   //const account = account;
   const navigate = useNavigate();
 
@@ -23,7 +23,7 @@ const NamiAddressModal = ({ account, setShowModal }) => {
         <div>
           <TbPlugConnected style={{ color: "blue", fontSize: 50 }} />
           <h6 className="text-center text-dark">
-            Nami Wallet connected Successfully!
+            Nami Wallet Already connected !
           </h6>
         </div>
         <p>Your Wallet Address: {account}</p>
@@ -37,4 +37,4 @@ const NamiAddressModal = ({ account, setShowModal }) => {
   );
 };
 
-export default NamiAddressModal;
+export default AlreadyWalletConnected;

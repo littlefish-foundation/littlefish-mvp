@@ -36,22 +36,21 @@
   cursor: pointer;
 }
 
-.single__modal__success h6 p{
-  font-size: 1.1rem;
-  font-weight: 500;
-  margin-bottom: 10px;
-  color: #000000;
-  
-}
-
-.single__modal h6 p{
+.single__modal__success h6 p {
   font-size: 1.1rem;
   font-weight: 500;
   margin-bottom: 10px;
   color: #000000;
 }
 
-.single__modal p{
+.single__modal h6 p {
+  font-size: 1.1rem;
+  font-weight: 500;
+  margin-bottom: 10px;
+  color: #000000;
+}
+
+.single__modal p {
   font-size: 1.1rem;
   font-weight: 500;
   margin-bottom: 10px;
@@ -114,7 +113,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  max-height: 500px ;
+  max-height: 500px;
 }
 
 @media only screen and (max-width: 992px) {

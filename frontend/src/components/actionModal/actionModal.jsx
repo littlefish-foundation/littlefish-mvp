@@ -39,7 +39,7 @@ const ActionModal = (props) => {
               className="bid__btn d-flex align-items-center gap-1"
               onClick={() => {}}
             >
-              <i className="ri-shopping-bag-line"></i> Buy Action
+              <i className="ri-shopping-bag-line"></i> Reward Action
             </button>
 
             <span className="history__link">

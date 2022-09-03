@@ -124,7 +124,7 @@ const NftDetails = () => {
                 <button className="singleNft-btn d-flex align-items-center gap-1">
                   <i className="ri-shopping-bag-line"></i>
                   <a href={paymentLink} target="_blank" rel="noreferrer">
-                    Buy Action
+                    Reward This Action
                   </a>
                 </button>
               </div>

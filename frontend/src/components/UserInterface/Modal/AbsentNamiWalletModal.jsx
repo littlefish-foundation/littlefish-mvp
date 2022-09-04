@@ -12,7 +12,7 @@ const AbsentNamiWalletModal = ({ setShowModal }) => {
           <i class="ri-close-line" onClick={() => setShowModal(false)}></i>
         </span>
         <div>
-          <TbPlugConnectedX style={{ color: "blue", fontSize: 50 }} />
+          <TbPlugConnectedX style={{ color: "red", fontSize: 50 }} />
           <br />
           <h6 className="text-center text-dark">
             Connection to Nami Wallet Failed!

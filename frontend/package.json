@@ -5,11 +5,12 @@
   "dependencies": {
     "@blueprintjs/core": "^4.8.0",
     "@blueprintjs/icons": "^4.4.1",
-    "@emotion/react": "^11.10.0",
-    "@emotion/styled": "^11.10.0",
+    "@emotion/react": "^11.10.4",
+    "@emotion/styled": "^11.10.4",
     "@emurgo/cardano-serialization-lib-asmjs": "^10.0.4-beta.4",
     "@emurgo/cardano-serialization-lib-browser": "^11.0.1",
-    "@mui/material": "^5.10.1",
+    "@mui/icons-material": "^5.10.3",
+    "@mui/material": "^5.10.3",
     "@testing-library/jest-dom": "^5.15.0",
     "@testing-library/react": "^11.2.7",
     "@testing-library/user-event": "^12.8.3",
@@ -57,5 +58,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "@testing-library/dom": "^8.17.1"
   }
 }

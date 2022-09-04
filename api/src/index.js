@@ -6,10 +6,10 @@ const swaggerUi = require('swagger-ui-express');
 // has to be first for env variables
 const config = require('./config');
 
-const loaders = require('./loaders');
-const routes = require('./routes');
+const loaders = require('./server/loaders');
+const routes = require('./server/routes');
 const NotFoundError = require('./errors/not-found');
-const errorHandler = require('./middlewares/error-handler');
+const errorHandler = require('./server/middlewares/error-handler');
 const swaggerDocument = require('../docs/swagger.json');
 
 const app = express();

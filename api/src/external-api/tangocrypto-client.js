@@ -2,7 +2,7 @@ const axios = require('axios');
 const ApiError = require('../errors/api-error');
 const config = require('../config');
 
-module.exports = class ActionServiceClient {
+module.exports = class TangocryptoClient {
   static async createCollection(walletAddress, assetName) {
     const options = {
       method: 'POST',
@@ -47,23 +47,15 @@ module.exports = class ActionServiceClient {
         version: '1.0',
       },
     };
-    let response;
 
-    try {
-      response = await axios.request(options);
+    const response = this.actionRequestSender(options, 201);
 
-      if (!response || response?.status !== 201) {
-        throw new ApiError('Blockchain Server Error', 500);
-      }
-    } catch (e) {
-      throw new ApiError(e?.response?.data?.message || e?.message, e?.response?.data?.statusCode || e?.status);
-    }
-
-    return response?.data?.id;
+    return {
+      response,
+    };
   }
 
-  static async deleteAction(actionId, collectionID = '01g99p2tr5evasrp2kyn25hqwe') {
-    let response;
+  static async deleteAction(actionId, collectionID) {
     const options = {
       method: 'DELETE',
       url: `${config.actionServiceClient.url}v1/nft/collections/${collectionID}/tokens/${actionId}`,
@@ -73,37 +65,14 @@ module.exports = class ActionServiceClient {
       },
     };
 
-    try {
-      response = await axios.request(options);
-    } catch {
-      if (!response || response.status !== 200) throw new ApiError('Blockchain Server Error', 500);
-    }
+    const response = this.actionRequestSender(options, 200);
 
-    return response;
-  }
-
-  static async getActions(cursor = undefined, size = 10, collectionID = '01g99p2tr5evasrp2kyn25hqwe') {
-    let response;
-    const options = {
-      method: 'GET',
-      url: `${config.actionServiceClient.url}v1/nft/collections/${collectionID}/tokens`,
-      params: { size, cursor },
-      headers: {
-        'Content-Type': 'application/json',
-        'x-api-key': config.actionServiceClient.apiKey,
-      },
+    return {
+      response,
     };
-
-    try {
-      response = await axios.request(options);
-    } catch {
-      if (!response || response.status !== 200) throw new ApiError('Blockchain Server Error', 500);
-    }
-
-    return response;
   }
 
-  static async getSales(size, collectionID = '01g99p2tr5evasrp2kyn25hqwe') {
+  static async getSales(size, collectionID) {
     const options = {
       method: 'GET',
       url: `${config.actionServiceClient.url}v1/nft/collections/${collectionID}/sales`,
@@ -114,16 +83,14 @@ module.exports = class ActionServiceClient {
       },
     };
 
-    let response;
-    try {
-      response = await axios.request(options);
-    } catch {
-      if (!response || response.status !== 200) throw new ApiError('Blockchain Server Error', 500);
-    }
-    return response;
+    const response = this.actionRequestSender(options, 200);
+
+    return {
+      response,
+    };
   }
 
-  static async getSale(actionId, collectionID = '01g99p2tr5evasrp2kyn25hqwe') {
+  static async getSale(actionId, collectionID) {
     const options = {
       method: 'GET',
       url: `${config.actionServiceClient.url}v1/nft/collections/${collectionID}/sales/${actionId}`,
@@ -133,16 +100,31 @@ module.exports = class ActionServiceClient {
       },
     };
 
-    let response;
-    try {
-      response = await axios.request(options);
-    } catch {
-      if (!response || response.status !== 200) throw new ApiError('Blockchain Server Error', 500);
-    }
-    return response;
+    const response = this.actionRequestSender(options, 200);
+
+    return {
+      response,
+    };
   }
 
-  static async mintAction(action, collectionID = '01g99p2tr5evasrp2kyn25hqwe') {
+  static async getAction(actionId, collectionID) {
+    const options = {
+      method: 'GET',
+      url: `${config.actionServiceClient.url}v1/nft/collections/${collectionID}/tokens/${actionId}`,
+      headers: {
+        'Content-Type': 'application/json',
+        'x-api-key': config.actionServiceClient.apiKey,
+      },
+    };
+
+    const response = this.actionRequestSender(options, 200);
+
+    return {
+      response,
+    };
+  }
+
+  static async mintAction(action, collectionID) {
     const options = {
       method: 'POST',
       url: `${config.actionServiceClient.url}v1/nft/collections/${collectionID}/tokens`,
@@ -153,15 +135,14 @@ module.exports = class ActionServiceClient {
       data: action,
     };
 
-    const response = await axios.request(options);
-    if (response && response.status !== 201) {
-      throw new ApiError();
-    }
+    const response = this.actionRequestSender(options, 201);
 
-    return response;
+    return {
+      response,
+    };
   }
 
-  static async createActionSale(actionId, price, collectionID = '01g99p2tr5evasrp2kyn25hqwe') {
+  static async createActionSale(actionId, price, collectionID) {
     const options = {
       method: 'POST',
       url: `${config.actionServiceClient.url}v1/nft/collections/${collectionID}/sales`,
@@ -177,6 +158,14 @@ module.exports = class ActionServiceClient {
       },
     };
 
+    const response = this.actionRequestSender(options, 201);
+
+    return {
+      response,
+    };
+  }
+
+  static async actionRequestSender(options, expectedCode) {
     let response;
     try {
       response = await axios.request(options);
@@ -184,10 +173,10 @@ module.exports = class ActionServiceClient {
       throw new ApiError('Blockchain Server Error', 500);
     }
 
-    if (response && response.status !== 201) {
+    if (response && response.status !== expectedCode) {
       throw new ApiError();
     }
 
-    return response?.data?.payment_link;
+    return response;
   }
 };

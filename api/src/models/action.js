@@ -1,9 +1,9 @@
 const mongoose = require('mongoose');
 
 const Action = new mongoose.Schema({
-  actionId: { type: String, required: true, unique: true },
+  actionId: { type: String, required: true },
   name: { type: String, required: true },
-  assetName: { type: String, required: true, unique: true },
+  assetName: { type: String, required: true },
   ownerName: { type: String, required: true },
   producer: { type: String, required: true },
   fingerprint: { type: String, required: true },

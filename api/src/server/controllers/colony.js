@@ -1,5 +1,5 @@
-const colonyService = require('../services/colony');
-const catchAsync = require('../utils/catch-async');
+const colonyService = require('../../services/colony');
+const catchAsync = require('../../utils/catch-async');
 
 module.exports = class ColonyController {
   static getColony = catchAsync(async (req, res) => {
@@ -50,19 +50,5 @@ module.exports = class ColonyController {
     // const data = await colonyService.createColony(colony);
     //
     // res.status(201).send(data);
-  });
-
-  static createColonyPreSignedUrls = catchAsync(async (req, res) => {
-    res.status(500).send({
-      message: 'Colonies will not be created at this point. Littlefish Foundation is the only colony available.',
-    });
-
-    // const {
-    //   files,
-    // } = req.body;
-    //
-    // const data = await colonyService.createColonyPreSignedUrls(files);
-    //
-    // res.status(200).send(data);
   });
 };

@@ -17,11 +17,11 @@ module.exports = class ActionService {
     return action;
   }
 
-  static async getActionByBlockchainId(id) {
-    const action = await actionDataAccess.getActionByBlockchainId(id);
+  static async getActionByBlockchainId(chainID) {
+    const action = await actionDataAccess.getActionByBlockchainId(chainID);
 
     if (!action) {
-      throw new NotFoundError(`Action with chain id: ${id} is not found.`);
+      throw new NotFoundError(`Action with chain id: ${chainID} is not found.`);
     }
 
     return action;
@@ -44,7 +44,7 @@ module.exports = class ActionService {
     const { actionId, actionCollection } = await this.getActionById(id);
 
     // TODO action response obj
-    const action = await tangocryptoClient.getAction(actionId, actionCollection);
+    const { action } = await tangocryptoClient.getAction(actionId, actionCollection);
 
     await actionDataAccess.syncActionStatus(id, action.status);
 
@@ -112,35 +112,34 @@ module.exports = class ActionService {
   }
 
   static async createActionCollection(walletAddress, assetName) {
-    const collectionId = await tangocryptoClient.createCollection(walletAddress, assetName);
-    return { collectionId };
+    const collectionID = await tangocryptoClient.createCollection(walletAddress, assetName);
+    return { collectionID };
   }
 
   static async mintAction(action) {
-    const { collectionId } = await this.createActionCollection(action.walletID, action.assetName);
+    const { collectionID } = await this.createActionCollection(action.walletID, action.assetName);
     const toMint = prepareActionToMint(action);
 
-    const response = await tangocryptoClient.mintAction(toMint, collectionId);
-    const createdAction = response?.data?.data[0];
-    const preparedFiles = prepareAllImageURLsInFile(createdAction.files);
-    console.log({ createdAction, action });
+    const { mintedAction } = await tangocryptoClient.mintAction(toMint, collectionID);
+
+    const preparedFiles = prepareAllImageURLsInFile(mintedAction.files);
 
     await actionDataAccess.createAction({
-      assetName: createdAction.asset_name,
-      actionId: createdAction.id,
-      name: createdAction.name,
+      assetName: mintedAction.asset_name,
+      chainID: mintedAction.id,
+      name: mintedAction.name,
       producer: action.ownerName,
       ownerName: action.ownerName,
       colonyName: action.colonyName,
-      fingerprint: createdAction.fingerprint,
+      fingerprint: mintedAction.fingerprint,
       description: action.description,
-      mediaType: createdAction.media_type,
-      image: prepareImageURL(createdAction.image),
-      status: createdAction.status,
+      mediaType: mintedAction.media_type,
+      image: prepareImageURL(mintedAction.image),
+      status: mintedAction.status,
       actionType: action.actionType,
       files: preparedFiles,
-      nftFormat: createdAction,
-      custom_attributes: createdAction.custom_attributes,
+      nftFormat: mintedAction,
+      custom_attributes: mintedAction.custom_attributes,
       actionCollection: collectionId,
       price: action.price,
     });

@@ -4,7 +4,11 @@ const validator = require('./middlewares/validator');
 const actionController = require('./controllers/action');
 const colonyController = require('./controllers/colony');
 const userController = require('./controllers/user');
-const { actionSchemas, colonySchemas, userSchemas } = require('./schemas');
+const actionSaleController = require('./controllers/action-sale');
+const actionCategoryController = require('./controllers/action-category');
+const {
+  actionSchemas, colonySchemas, userSchemas, actionCategorySchemas, actionSaleSchemas,
+} = require('./schemas');
 
 const router = express.Router();
 
@@ -30,5 +34,19 @@ userRouter.route('/:walletAddress').delete(validator(userSchemas.deleteUser), us
 userRouter.route('/:walletAddress/colony').post(validator(userSchemas.updateUserColony), userController.updateUserColony);
 userRouter.route('/').post(validator(userSchemas.createUser), userController.createUser);
 router.use('/user', userRouter);
+
+const actionSaleRouter = express.Router();
+actionSaleRouter.route('/:actionID').get(validator(actionSaleSchemas.getSaleByActionId), actionSaleController.getSaleByActionId);
+actionSaleRouter.route('/:actionID').delete(validator(actionSaleSchemas.deleteSaleByActionId), actionSaleController.deleteActionSaleByActionId);
+actionSaleRouter.route('/').post(validator(actionSaleSchemas.createActionSale), actionSaleController.createActionSale);
+actionSaleRouter.route('/:actionID').patch(validator(actionSaleSchemas.updateSaleByActionId), actionSaleController.updateActionSaleByActionId);
+router.use('/action-sale', actionSaleRouter);
+
+const actionCategoryRouter = express.Router();
+actionCategoryRouter.route('/:actionID').get(validator(actionCategorySchemas.getActionCategory), actionCategoryController.getActionCategory);
+actionCategoryRouter.route('/:actionID').delete(validator(actionCategorySchemas.deleteActionCategory), actionCategoryController.deleteActionCategory);
+actionCategoryRouter.route('/').delete(validator(actionCategorySchemas.getActionCategories), actionCategoryController.getActionCategories);
+actionCategoryRouter.route('/').post(validator(actionCategorySchemas.createActionCategory), actionCategoryController.createActionCategory);
+router.use('/action-category', actionCategoryRouter);
 
 module.exports = router;

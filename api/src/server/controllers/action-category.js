@@ -9,10 +9,10 @@ module.exports = class ActionCategoryController {
     res.status(200).send(data);
   });
 
-  static deleteActionCategoryByActionId = catchAsync(async (req, res) => {
+  static deleteActionCategory = catchAsync(async (req, res) => {
     const { name } = req.params;
 
-    const result = await actionCategoryService.deleteCategory(name);
+    const result = await actionCategoryService.deleteActionCategory(name);
     res.status(200).send(result);
   });
 

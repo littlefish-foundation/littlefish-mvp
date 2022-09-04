@@ -16,7 +16,7 @@ module.exports = class ActionCategoryAccess {
     return ActionCategoryModel.create(category);
   }
 
-  static async deleteCategory(name) {
+  static async deleteActionCategory(name) {
     const { ok } = await ActionCategoryModel.deleteOne({ name });
     if (ok === 1) {
       return true;

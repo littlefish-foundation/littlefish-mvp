@@ -33,7 +33,7 @@ module.exports = class ActionSaleService {
     }
 
     const price = (actionSale.price || action.price) * ADA_TO_LOVELACE_CONVERSION;
-    const createdSale = await tangocryptoClient.createActionSale(action.actionId, price, action.actionCollection);
+    const { createdSale } = await tangocryptoClient.createActionSale(action.actionId, price, action.actionCollection);
 
     // TODO createActionSale response
     await actionSaleDataAccess.createActionSale({

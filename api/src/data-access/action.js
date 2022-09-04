@@ -1,8 +1,8 @@
 const ActionModel = require('../models/action');
 
 module.exports = class ActionDataAccess {
-  static async getActionByBlockchainId(blockchainId) {
-    return ActionModel.findOne({ actionId: blockchainId }).lean().exec();
+  static async getActionByBlockchainId(chainID) {
+    return ActionModel.findOne({ chainID }).lean().exec();
   }
 
   static async getActionById(id) {

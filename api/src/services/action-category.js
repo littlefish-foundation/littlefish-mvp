@@ -11,8 +11,8 @@ module.exports = class ActionCategoryService {
     return actionCategory;
   }
 
-  static async deleteCategory(name) {
-    const success = await actionCategoryDataAccess.deleteCategory(name);
+  static async deleteActionCategory(name) {
+    const success = await actionCategoryDataAccess.deleteActionCategory(name);
 
     return {
       success,

@@ -68,25 +68,7 @@ module.exports = class TangocryptoClient {
     const response = this.actionRequestSender(options, 200);
 
     return {
-      response,
-    };
-  }
-
-  static async getSales(size, collectionID) {
-    const options = {
-      method: 'GET',
-      url: `${config.actionServiceClient.url}v1/nft/collections/${collectionID}/sales`,
-      params: { size },
-      headers: {
-        'Content-Type': 'application/json',
-        'x-api-key': config.actionServiceClient.apiKey,
-      },
-    };
-
-    const response = this.actionRequestSender(options, 200);
-
-    return {
-      response,
+      success: response?.data?.deleted || false,
     };
   }
 
@@ -103,7 +85,7 @@ module.exports = class TangocryptoClient {
     const response = this.actionRequestSender(options, 200);
 
     return {
-      response,
+      sale: response.data,
     };
   }
 
@@ -120,7 +102,7 @@ module.exports = class TangocryptoClient {
     const response = this.actionRequestSender(options, 200);
 
     return {
-      response,
+      action: response.data,
     };
   }
 
@@ -138,7 +120,7 @@ module.exports = class TangocryptoClient {
     const response = this.actionRequestSender(options, 201);
 
     return {
-      response,
+      mintedAction: response.data.data[0],
     };
   }
 
@@ -161,7 +143,7 @@ module.exports = class TangocryptoClient {
     const response = this.actionRequestSender(options, 201);
 
     return {
-      response,
+      createdSale: response.data,
     };
   }
 
@@ -169,12 +151,17 @@ module.exports = class TangocryptoClient {
     let response;
     try {
       response = await axios.request(options);
-    } catch {
-      throw new ApiError('Blockchain Server Error', 500);
+    } catch (e) {
+      const error = e?.response?.data || {
+        statusCode: 500,
+        message: ['Tangocrypto server error.'],
+      };
+
+      throw new ApiError(error.message.join('\n'), error.statusCode);
     }
 
     if (response && response.status !== expectedCode) {
-      throw new ApiError();
+      throw new ApiError(JSON.stringify(response) || 'Tangocrypto server error.', 500);
     }
 
     return response;

@@ -1,19 +1,19 @@
 import React, { useState } from "react";
 
-import CommonSection from "../../components/ui/Common-section/CommonSection";
-import NftCard from "../../components/ui/Nft-card/NftCard";
+import SubHeader from "../../components/UserInterface/Sub-Header/SubHeader";
+import NftCard from "../../components/UserInterface/Nft-card/NftCard";
 
 import useFetch from "../../assets/data/useFetch";
 import { Container, Row, Col } from "reactstrap";
 
-import "../../styles/market.css";
-import "../../components/ui/Live-auction/live-auction.css";
+import "../../styles/actions.css";
+import "../../components/UserInterface/Live-auction/live-auction.css";
 
 // import LiveAuction from "../components/ui/Live-auction/LiveAuction";
 
 const ColonyGallery = () => {
   const { NFT__DATA } = useFetch(
-    "http://localhost:8000/colony/Littlefish%20Foundation/actions/"
+    "https://api.littlefish.foundation/colony/Littlefish%20Foundation/actions/"
   );
   // const [data, setData] = useState([]);
 

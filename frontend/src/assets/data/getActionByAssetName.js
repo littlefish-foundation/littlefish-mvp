@@ -1,19 +1,19 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 
-function useFetch(a,assetName,price) {
-  const [paymentLink, setPaymentLink] = useState(null);
+function useFetchIpfsLink(assetName,image) {
+  const [actionIpfsLink, setActionIpfsLink] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
   useEffect(() => {
     setLoading(true);
     axios.request({
-        method: "POST",
-        url: `https://api.littlefish.foundation/action/sale/${assetName}`
+        method: "GET",
+        url: `https://api.littlefish.foundation/action/${assetName}`
       })
       .then((response) => {
-        setPaymentLink(response.data.link);
+        setActionIpfsLink(response.data.image);
       })
       .catch((err) => {
         console.log({err})
@@ -22,8 +22,8 @@ function useFetch(a,assetName,price) {
       .finally(() => {
         setLoading(false);
       });
-  }, [a,assetName,price]);
+  }, [assetName,image]);
 
-  return { paymentLink, loading, error };
+  return { actionIpfsLink, loading, error };
 }
-export default useFetch;
+export default useFetchIpfsLink;

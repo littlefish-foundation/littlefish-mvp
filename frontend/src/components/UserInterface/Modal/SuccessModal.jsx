@@ -1,10 +1,14 @@
 import React from "react";
 import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
 import { useNavigate } from "react-router-dom";
+import useFetch from "../../../assets/data/useFetch";
 
 import "./modal.css";
+import ActionModal from "../../actionModal/actionModal";
 
-const Modal = ({ setShowModal }) => {
+const SuccessModal = ({ setShowModal }) => {
+  const { NFT__DATA } = useFetch("https://api.littlefish.foundation/action/");
+
   const navigate = useNavigate();
 
   const navigateActions = () => {
@@ -14,7 +18,7 @@ const Modal = ({ setShowModal }) => {
 
   return (
     <div className="modal__wrapper">
-      <div className="single__modal">
+      <div className="single__modal__success">
         <span className="close__modal">
           <i class="ri-close-line" onClick={() => setShowModal(false)}></i>
         </span>
@@ -22,12 +26,16 @@ const Modal = ({ setShowModal }) => {
           <CheckCircleOutlineIcon color="success" sx={{ fontSize: 50 }} />
           <h6 className="text-center text-dark">
             Action Generation was Successful
+            <p>Preview of Your Action:</p>
           </h6>
         </div>
-        <p className="text-center text-dark">
-          It may take a moment for it to appear in Actions.
-        </p>
+        <div className="nft__centered">
+          {NFT__DATA?.slice(0, 1).map((item) => (
+            <ActionModal item={item} />
+          ))}
+        </div>
 
+        <br />
         <button className="place__bid-btn" onClick={navigateActions}>
           Redirect to Actions
         </button>
@@ -36,4 +44,4 @@ const Modal = ({ setShowModal }) => {
   );
 };
 
-export default Modal;
+export default SuccessModal;

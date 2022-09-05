@@ -1,62 +1,87 @@
 import React, { useState } from "react";
-import { Avatar } from "@mui/material";
+import Select from "react-select";
 
-import CommonSection from "../../components/ui/Common-section/CommonSection";
+import SubHeader from "../../components/UserInterface/Sub-Header/SubHeader";
 import { Container, Row, Col } from "reactstrap";
 import { Button, Form, FormGroup, Input, Label, FormText } from "reactstrap";
+import "./MemberForm.css";
 
 const MemberForm = () => {
+  const customStyles = {
+    control: (base, state) => ({
+      ...base,
+      backgroundColor: "transparent",
+      border: "1px solid rgba(221, 221, 221, 0.171)",
+      fontSize: "0.8rem",
+      alignText: "left !important",
+    }),
+    menu: (base) => ({
+      ...base,
+      borderRadius: 0,
+      marginTop: 0,
+
+    }),
+    menuList: (base) => ({
+      ...base,
+      padding: 0,
+    }),
+  };
+
   const avatars = [
     {
-      value: "vader",
-      image:
+      value:
         "https://littlefish-mvp.s3.eu-central-1.amazonaws.com/avatar_vader.jpeg",
+      avatar: (
+        <img src="https://littlefish-mvp.s3.eu-central-1.amazonaws.com/avatar_vader.jpeg" />
+      ),
     },
     {
-      value: "fett",
-      image:
+      value:
         "https://littlefish-mvp.s3.eu-central-1.amazonaws.com/avatar_fett.jpeg",
+      avatar: (
+        <img src="https://littlefish-mvp.s3.eu-central-1.amazonaws.com/avatar_fett.jpeg" />
+      ),
     },
     {
-      value: "c3po",
-      image:
+      value:
         "https://littlefish-mvp.s3.eu-central-1.amazonaws.com/avatar_3cpo.jpeg",
+      avatar: (
+        <img src="https://littlefish-mvp.s3.eu-central-1.amazonaws.com/avatar_3cpo.jpeg" />
+      ),
     },
     {
-      value: "r2d2",
-      image:
+      value:
         "https://littlefish-mvp.s3.eu-central-1.amazonaws.com/avatar_r2d2.jpeg",
+      avatar: (
+        <img src="https://littlefish-mvp.s3.eu-central-1.amazonaws.com/avatar_r2d2.jpeg" />
+      ),
     },
     {
-      value: "bb8",
-      image:
+      value:
         "https://littlefish-mvp.s3.eu-central-1.amazonaws.com/avatar_bb8.jpeg",
-    },
-    {
-      value: "trooper",
-      image:
-        "https://littlefish-mvp.s3.eu-central-1.amazonaws.com/avatar_trooper.jpeg",
+      avatar: (
+        <img src="https://littlefish-mvp.s3.eu-central-1.amazonaws.com/avatar_bb8.jpeg" />
+      ),
     },
   ];
 
   const initialInput = {
     walletAddress: "",
     name: "",
-    colony: "Littlefish Foundation",
-    //avatar: null,
+    colonyName: "Littlefish Foundation",
+    avatar: null,
   };
 
   const [eachField, setEachField] = useState(initialInput);
-  const [avatar1, setAvatar1] = useState("");
+  const [selected, setSelected] = useState(null);
 
   const onChangeSelection = (e) => {
-    setAvatar1(e.target.value);
-    console.log(e.target.value);
+    setSelected(e);
+    setSelected(e.value);
   };
 
-  const Avatars = { avatar: avatar1 };
-
-  const { /*walletAddress*/ name, colony } = eachField;
+  const { name, colonyName } = eachField;
+  const Avatars = { avatar: selected };
 
   Object.assign(eachField, Avatars);
 
@@ -73,7 +98,7 @@ const MemberForm = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    fetch("http://localhost:8000/user/", {
+    fetch("https://api.littlefish.foundation/user/", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(eachField),
@@ -85,7 +110,7 @@ const MemberForm = () => {
 
   return (
     <div>
-      <CommonSection title="Contact" />
+      <SubHeader assetName="Membership Form" />
       <section>
         <Container>
           <Row>
@@ -103,18 +128,19 @@ const MemberForm = () => {
                       onChange={handleChange}
                     />
                   </FormGroup>
-                  <div className="form__input">
-                    <Input
-                      name="colony"
-                      type="text"
-                      //placeholder="Enter the name of your colony."
-                      value={colony}
-                      //onChange={handleChange}
-                      disabled
-                    />
-                  </div>
+
                   <FormGroup className="form__input">
-                    <input
+                    <Input
+                      name="colonyName"
+                      type="text"
+                      placeholder="Enter the name of your colony."
+                      value={colonyName}
+                      onChange={handleChange}
+                    />
+                  </FormGroup>
+
+                  <FormGroup className="form__input">
+                    <Input
                       type="text"
                       name="walletAddress"
                       placeholder="Enter you wallet address"
@@ -122,13 +148,25 @@ const MemberForm = () => {
                     />
                   </FormGroup>
 
-                  <FormGroup row tag="fieldset">
-                    <Input
+                  <FormGroup className="form__input">
+                    <Select
+                      placeholder="Choose an Avatar"
+                      styles={customStyles}
                       name="avatar"
-                      type="select"
-                      value={avatar1}
+                      options={avatars}
+                      value={selected}
                       onChange={onChangeSelection}
-                    ></Input>
+                      getOptionLabel={(e) => (
+                        <div
+                          style={{
+                            display: "fit",
+                            alignItems: "center",
+                          }}
+                        >
+                          {e.avatar}
+                        </div>
+                      )}
+                    ></Select>
                   </FormGroup>
 
                   <Button

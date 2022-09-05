@@ -7,8 +7,14 @@
   font-size: 2.5rem;
 }
 
+.hero__content h3 {
+  line-height: 40px;
+  font-size: 1.5rem;
+  color: #fff;
+}
+
 .hero__content p span {
-  background: linear-gradient(-45deg, #43DEA1, #3958F5, #43DEA1, #3958F5);
+  background:  #43DEA1;
   background-size: 100% 100%;
   background-clip: text;
   -webkit-text-stroke: 3px transparent;
@@ -30,6 +36,8 @@
   border: 1px solid #5142fc !important;
   font-size: 0.9rem;
   background: transparent;
+  margin-right: auto;
+  margin-left: auto;
 }
 
 .explore__btn i,

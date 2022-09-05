@@ -13,7 +13,7 @@
   top: 30%;
   left: 50%;
   width: 500px;
-  height: auto;
+  max-height: auto;
   transform: translate(-50%, -50%);
   background: #fff !important;
   border-radius: 5px;
@@ -22,11 +22,41 @@
   cursor: pointer;
 }
 
-.single__modal h6 {
+.single__modal__success {
+  position: relative;
+  top: 30%;
+  left: 50%;
+  width: 500px;
+  max-height: auto;
+  transform: translate(-50%, -20%);
+  background: #fff !important;
+  border-radius: 5px;
+  padding: 30px;
+  z-index: 5555555 !important;
+  cursor: pointer;
+}
+
+.single__modal__success h6 p {
   font-size: 1.1rem;
   font-weight: 500;
   margin-bottom: 10px;
   color: #000000;
+}
+
+.single__modal h6 p {
+  font-size: 1.1rem;
+  font-weight: 500;
+  margin-bottom: 10px;
+  color: #000000;
+}
+
+.single__modal p {
+  font-size: 1.1rem;
+  font-weight: 500;
+  margin-bottom: 10px;
+  color: #000000;
+  overflow: auto;
+  overflow-wrap: break-word;
 }
 
 .single__modal .money {
@@ -50,8 +80,6 @@
   font-size: 0.9rem;
   color: #000000;
 }
-
-
 
 .place__bid-btn {
   padding: 7px 7px;
@@ -79,6 +107,13 @@
   background: #fff;
   color: #000000;
   border-radius: 5px;
+}
+
+.nft__centered {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  max-height: 500px;
 }
 
 @media only screen and (max-width: 992px) {

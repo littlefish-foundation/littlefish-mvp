@@ -25,14 +25,14 @@
   border-radius: 50px;
 }
 
-.creator__detail p {
+.owner__detail p {
   font-size: 0.7rem;
   font-weight: 300;
   margin-bottom: 0;
   margin-top: 0;
 }
 
-.creator__detail h6 {
+.owner__detail h6 {
   color: #fff;
   margin-bottom: 0;
   font-size: 0.9rem;

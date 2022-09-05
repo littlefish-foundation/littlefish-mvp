@@ -1,7 +1,6 @@
 import React from "react";
 import { FormGroup, Input, Label } from "reactstrap";
-import { Tooltip } from "reactstrap";
-import PopOvers from "../components/UserInterface/popovers/PopOver";
+import PopOvers from "../components/UserInterface/popovers/PopOvers";
 
 class Base64 extends React.Component {
   state = {
@@ -59,17 +58,12 @@ class Base64 extends React.Component {
   render() {
     return (
       <FormGroup className="form__input">
-        <Label for="image">Upload Cover Image*</Label>
+        <Label for="image">Upload Cover Image</Label>
 
         <Input
-          //required
-          type="file"
-<<<<<<< Updated upstream
-          url="http://localhost:8000/action/"
-=======
           id="image"
+          type="file"
           url="https://api.littlefish.foundation/action/"
->>>>>>> Stashed changes
           name="image"
           onChange={this.handleFileInputChange}
           accept="image/*"

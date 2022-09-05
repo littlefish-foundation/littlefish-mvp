@@ -1,61 +1,54 @@
 import React, { useState } from "react";
-import {
-  Container,
-  Row,
-  Col,
-  Button,
-  Form,
-  FormGroup,
-  Input,
-  Label,
-} from "reactstrap";
+import { Row, Col, Button, FormGroup, Input, Label } from "reactstrap";
 import "../../../styles/create-item.css";
 import "./DynamicFields.css";
 
 const DynamicFields = () => {
-  const [allLinks, setAllLinks] = useState([{ linkName: "", link: "" }]);
+  const [allUrls, setAllUrls] = useState([{ urlName: "", url: "" }]);
 
   const handleAddLinks = () => {
-    const values = [...allLinks];
+    const values = [...allUrls];
     values.push({
-      linkName: "",
-      link: "",
+      urlName: "",
+      url: "",
     });
-    setAllLinks(values);
+    setAllUrls(values);
   };
 
-  const handleRemoveLinks = (index) => {
-    const values = [...allLinks];
+  const handleRemoveUrls = (index) => {
+    const values = [...allUrls];
     values.pop();
-    setAllLinks(values);
+    setAllUrls(values);
   };
 
   const handleInputChange = (index, event) => {
-    const values = [...allLinks];
+    const values = [...allUrls];
     const updatedValue = event.target.name;
     values[index][updatedValue] = event.target.value;
 
-    setAllLinks(values);
+    setAllUrls(values);
   };
 
-  console.log(allLinks);
+  console.log(allUrls);
 
   return (
     <div>
-      {allLinks.length > 0 && (
+      {allUrls.length > 0 && (
         <>
-          {allLinks.map((field, index) => (
+          {allUrls.map((field, index) => (
             <div>
               {" "}
               <Row>
                 <Col lg="4">
                   <FormGroup className="form__input">
-                    <Label for="linkName">Name of the Link</Label>
+                    <Label for="linkName">Name of the URL</Label>
 
                     <Input
+                      disabled
+                      id="url"
                       type="text"
-                      name="linkName"
-                      placeholder="Enter the Link Name"
+                      name="urlName"
+                      placeholder="Enter the URL Name"
                       value={field.linkName}
                       onChange={(event) => handleInputChange(index, event)}
                     />
@@ -63,13 +56,15 @@ const DynamicFields = () => {
                 </Col>
                 <Col lg="8">
                   <FormGroup className="form__input">
-                    <Label for="link">Link</Label>
+                    <Label for="url">URL</Label>
 
                     <Input
+                      disabled
+                      id="url"
                       type="text"
-                      name="link"
-                      placeholder="Paste the Link"
-                      value={field.link}
+                      name="url"
+                      placeholder="Paste the URL"
+                      value={field.url}
                       onChange={(event) => handleInputChange(index, event)}
                     />
                   </FormGroup>
@@ -77,19 +72,15 @@ const DynamicFields = () => {
               </Row>
             </div>
           ))}
-          <div>
-            <Button className="cancel-btn-first"  onClick={() => handleRemoveLinks()}>
-              Cancel
-            </Button>
-            &nbsp;
-            &nbsp;
-            &nbsp;
-            <Button className="add-btn-second" onClick={() => handleAddLinks()}>
-              Add Link
-            </Button>
-          </div>
         </>
       )}
+      <Button className="cancel-btn-first" onClick={() => handleRemoveUrls()}>
+        Delete
+      </Button>
+      &nbsp; &nbsp; &nbsp;
+      <Button className="add-btn-second" onClick={() => handleAddLinks()}>
+        Add
+      </Button>
     </div>
   );
 };

@@ -5,29 +5,29 @@
   "dependencies": {
     "@blueprintjs/core": "^4.8.0",
     "@blueprintjs/icons": "^4.4.1",
-    "@emotion/react": "^11.10.0",
-    "@emotion/styled": "^11.10.0",
+    "@emotion/react": "^11.10.4",
+    "@emotion/styled": "^11.10.4",
     "@emurgo/cardano-serialization-lib-asmjs": "^10.0.4-beta.4",
     "@emurgo/cardano-serialization-lib-browser": "^11.0.1",
     "@mui/icons-material": "^5.10.3",
-    "@mui/material": "^5.10.1",
+    "@mui/material": "^5.10.3",
     "@testing-library/jest-dom": "^5.15.0",
     "@testing-library/react": "^11.2.7",
     "@testing-library/user-event": "^12.8.3",
     "axios": "^0.27.2",
     "blakejs": "^1.2.1",
-    "bootstrap": "^5.2.0",
+    "bootstrap": "^5.1.3",
     "buffer": "^6.0.3",
     "cbor-web": "^8.1.0",
     "encodr": "^1.3.3",
-    "lodash": "^4.17.21",
     "mobiscroll-react": "^4.0.0",
     "nami-wallet-api": "^1.1.9",
     "primeicons": "^5.0.0",
     "primereact": "^8.3.0",
     "react": "^17.0.2",
-    "react-bootstrap": "^2.5.0",
     "react-dom": "^17.0.2",
+    "react-file-base64": "^1.0.3",
+    "react-icons": "^4.4.0",
     "react-router-dom": "^6.2.1",
     "react-scripts": "4.0.3",
     "react-select": "^5.4.0",
@@ -58,5 +58,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "@testing-library/dom": "^8.17.1"
   }
 }

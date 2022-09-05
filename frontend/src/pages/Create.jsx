@@ -8,42 +8,30 @@ import {
   FormGroup,
   Input,
   Label,
-  FormText,
 } from "reactstrap";
-<<<<<<< Updated upstream
-import CommonSection from "../components/ui/Common-section/CommonSection";
-import NftCard from "../components/ui/Nft-card/NftCard";
-=======
-
-import PopOvers from "../components/UserInterface/popovers/PopOver";
 
 import SubHeader from "../components/UserInterface/Sub-Header/SubHeader";
 import NftCard from "../components/UserInterface/Nft-card/NftCard";
->>>>>>> Stashed changes
 import img from "../assets/example.png";
 import "../styles/create-item.css";
-import Modal from "../components/UserInterface/Modal/Modal";
 import Base64 from "../assets/Base64";
-import { BsInfoCircle } from "react-icons/bs";
-
+import PopOvers from "../components/UserInterface/popovers/PopOvers";
 import DynamicFields from "../components/UserInterface/DynamicFields/DynamicFields";
+import SuccessModal from "../components/UserInterface/Modal/SuccessModal";
+import ErrorModal from "../components/UserInterface/Modal/ErrorModal";
+import LoadingModal from "../components/UserInterface/Modal/LoadingModal";
 
-const action = {
-  id: "01",
+const actionInitialState = {
   assetName: "Whitepaper",
-  description:
-    "The foundational document of the littlefish foundation; our values, philosophy, the problem space, and our approach to solving problems in it.",
   image: img,
   ownerName: "Littlefish DAO",
-  actionType: "Research & Development",
+  price: "20",
 };
-
-// const isEmpty = (value) => value?.trim() === "";
-// const isNull = (value) => value === null;
 
 const Create = (props) => {
   const initialInputState = {
     walletID: "",
+
     assetName: "",
     name: "",
     description: "",
@@ -52,71 +40,36 @@ const Create = (props) => {
     image: "",
     colonyName: "",
     mediaType: "",
-    price: null,
+    price: "",
   };
 
-<<<<<<< Updated upstream
-  const [eachEntry, setEachEntry] = useState(initialInputState);
-  const [actionType1, setActionType1] = useState(null);
-=======
   const maxCount = 256;
 
-  const [formInputValidity, setFormInputValidity] = useState({
-    assetName: true,
-    name: true,
-    ownerName: true,
-    walletID: true,
-    description: true,
-  });
-
   const [showModal, setShowModal] = useState(false);
+
   const [eachEntry, setEachEntry] = useState(initialInputState);
   const [actionType1, setActionType1] = useState("");
+
   const [colonyName1, setColonyName1] = useState("");
->>>>>>> Stashed changes
-
-  const [tooltipOpen, setTooltipOpen] = useState(false);
-  const toggle = () => setTooltipOpen(!tooltipOpen);
-
-  // const [mustBeValidEntries, setMustBeValidEntries] = useState(true);
-
-  // const [assetNameValid, setAssetNameValid] = useState(true);
-  // const [nameValid, setNameValid] = useState(true);
-  // const [ownerNameValid, setOwnerNameValid] = useState(true);
-  // const [walletIDValid, setWalletIDValid] = useState(true);
-  // const [descriptionValid, setDescripttionValid] = useState(true);
-  // const [priceValid, setPriceValid] = useState(true);
-  // const [actionTypeValid, setActionTypeValid] = useState(true);
-  // const [colonyNameValid, setColonyNameValid] = useState(true);
+  const [postStatus, setPostStatus] = useState(null);
 
   const onChangeSelection = (e) => {
     setActionType1(e.target.value);
   };
 
+  const onChangeColony = (e) => {
+    setColonyName1(e.target.value);
+  };
+
   const Type = { actionType: actionType1 };
+  console.log(Type);
 
-  const {
-    walletID,
-    assetName,
-    name,
-    description,
-    ownerName,
-    //actionType,
-<<<<<<< Updated upstream
-    youtubeLink,
-    otherLink,
-    colonyName,
-=======
+  const Colony = { colonyName: colonyName1 };
 
-    //colonyName,
->>>>>>> Stashed changes
-    //image,
-    //mediaType,
-    price,
-  } = eachEntry;
+  const { assetName, name, description, ownerName, price } = eachEntry;
 
-  Object.assign(eachEntry, Type);
-  // console.log(newEachEntry);
+  Object.assign(eachEntry, Type, Colony);
+  console.log(eachEntry);
 
   const handleInputChange = (e) => {
     setEachEntry({
@@ -128,65 +81,24 @@ const Create = (props) => {
         ?.split(":")
         ?.pop()
         ?.split(";")[0],
-        walletID: window.namiAddress,
+      walletID: window.namiAddress,
     });
   };
-  //console.log(eachEntry);
 
-  /*fetch('http://localhost:8000/action/', {
-    method: 'POST',
-    body: JSON.stringify(
-      eachEntry
-    )
-    headers: {
-      'Content-type': 'application/json',
-    },
-  })
-     .then((response) => response.json())
-     .then((data) => {
-        console.log(data);
-        // Handle data
-     })
-     .catch((err) => {
-        console.log(err.message);
-     });*/
-
-  console.log(eachEntry);
   const handleFinalSubmit = (e) => {
     e.preventDefault();
-    // const assetNameValid = !isEmpty(assetName);
-    // const nameValid = !isEmpty(name);
-    // const ownerNameValid = !isEmpty(ownerName);
-    // const walletIDValid = !isEmpty(walletID);
-    // const descriptionValid = !isEmpty(description);
 
-    // setFormInputValidity({
-    //   assetName: assetNameValid,
-    //   name: nameValid,
-    //   ownerName: ownerNameValid,
-    //   walletID: walletIDValid,
-    //   description: descriptionValid,
-    // });
-
-    // const formIsValid =
-    //   assetNameValid &&
-    //   nameValid &&
-    //   ownerNameValid &&
-    //   walletIDValid &&
-    //   descriptionValid;
-
-    // if (!formIsValid) {
-    //   return;
-    // }
-
-    fetch("http://localhost:8000/action/", {
+    fetch("https://api.littlefish.foundation/action/", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(eachEntry),
     })
       .then((response) => response.json())
+
       .then((data) => {
-        console.log("Success:", data);
+        setPostStatus(Object.entries(data)[0][0]);
+
+        console.log(Object.entries(data)[0][0]);
       })
       .catch((err) => {
         console.log("Error:", err.message);
@@ -194,186 +106,13 @@ const Create = (props) => {
 
     console.log(eachEntry);
     setEachEntry(initialInputState);
-<<<<<<< Updated upstream
-=======
+
     setActionType1("");
     setColonyName1("");
     setShowModal(true);
->>>>>>> Stashed changes
   };
 
-  // const assetNameInavlidityControl = formInputValidity.assetName ? false : true;
-  // const nameInavlidityControl = formInputValidity.name ? false : true;
-  // const ownerNameInavlidityControl = formInputValidity.ownerName ? false : true;
-  // const walletIDInavlidityControl = formInputValidity.walletID ? false : true;
-  // const descriptionInavlidityControl = formInputValidity.description
-  //   ? false
-  //   : true;
-
-  const assetNameInavlidityControl = formInputValidity.assetName ? false : true;
-  const nameInavlidityControl = formInputValidity.name ? false : true;
-  const ownerNameInavlidityControl = formInputValidity.ownerName ? false : true;
-  const walletIDInavlidityControl = formInputValidity.walletID ? false : true;
-  const descriptionInavlidityControl = formInputValidity.description
-    ? false
-    : true;
-
   return (
-<<<<<<< Updated upstream
-    <>
-      <CommonSection assetName="Generate a New Action" />
-
-      <section>
-        <Container>
-          <Row>
-            <Col lg="3" md="4" sm="6">
-              <h5 className="mb-4 text-light">Example Action</h5>
-              <NftCard item={action} />
-            </Col>
-
-            <Col lg="9" md="8" sm="6">
-              <div className="create__item">
-                <Form>
-                  <FormGroup className="form__input">
-                    <Label for="ownerName">Wallet ID</Label>
-                    <Input
-                      name="walletId"
-                      type="text"
-                      placeholder="Connect your wallet to fill this part"
-                      value={window.namiAddress}
-                    />
-                    <FormText>
-                      If you are not able to see your Wallet ID, reconnect your
-                      wallet
-                    </FormText>
-                  </FormGroup>
-
-                  <Base64 />
-
-                  <FormGroup className="form__input">
-                    <Label for="ownerName">Owner Name or Nickname</Label>
-                    <Input
-                      name="ownerName"
-                      type="text"
-                      placeholder="Enter the Name or Nickname of the Owner"
-                      onChange={handleInputChange}
-                      value={ownerName}
-                    />
-                  </FormGroup>
-
-                  <FormGroup className="form__input">
-                    <Label for="assetName">Action Name</Label>
-                    <Input
-                      name="assetName"
-                      type="text"
-                      placeholder="Enter the Name of the Action"
-                      onChange={handleInputChange}
-                      value={assetName}
-                    />
-                  </FormGroup>
-
-                  <FormGroup className="form__input">
-                    <Label for="name">Name</Label>
-                    <Input
-                      name="name"
-                      type="text"
-                      placeholder="Enter the full Name"
-                      onChange={handleInputChange}
-                      value={name}
-                    />
-                  </FormGroup>
-
-                  <FormGroup className="form__input">
-                    <Label for="actionType">Action Type</Label>
-                    <Input
-                      name="actionType"
-                      type="select"
-                      onChange={onChangeSelection}
-                      value={actionType1}
-                    >
-                      <option value="default" faded hidden>
-                        Choose the Action Type
-                      </option>
-                      <option value="Software Developing">
-                        Sofware Developing
-                      </option>
-                      <option value="Research">Research</option>
-                      <option value="Community Help">Community Help</option>
-                      <option value="Plan & Strategy">Plan & Strategy</option>
-                    </Input>
-                  </FormGroup>
-
-                  <FormGroup className="form__input">
-                    <Label for="description">Description</Label>
-                    <Input
-                      type="textarea"
-                      name="description"
-                      rows="4"
-                      placeholder="Enter description"
-                      onChange={handleInputChange}
-                      value={description}
-                      className="w-100"
-                    ></Input>
-                  </FormGroup>
-
-                  <FormGroup className="form__input">
-                    <Label for="colonyName">Colony Name</Label>
-                    <Input
-                      name="colonyName"
-                      type="text"
-                      placeholder="Enter the colony name"
-                      onChange={handleInputChange}
-                      value={colonyName}
-                    />
-                  </FormGroup>
-
-                  <FormGroup className="form__input">
-                    <Label for="youtubeLink">YouTube Link</Label>
-                    <Input
-                      name="youtubeLink"
-                      type="text"
-                      placeholder="Enter YouTube link if any."
-                      onChange={handleInputChange}
-                      value={youtubeLink}
-                    />
-                  </FormGroup>
-
-                  <FormGroup className="form__input">
-                    <Label for="otherLink">Other Link</Label>
-                    <Input
-                      name="otherLink"
-                      type="text"
-                      placeholder="Enter other relavant link if any."
-                      onChange={handleInputChange}
-                      value={otherLink}
-                    />
-                  </FormGroup>
-
-                  <FormGroup className="form__input">
-                    <Label for="exampleZip">Price</Label>
-                    <Input
-                      name="price"
-                      type="number"
-                      placeholder="Please enter a price in ADA"
-                      onChange={handleInputChange}
-                      value={price}
-                    />
-
-                    <FormText>
-                      If you want to sell this action please add a price in ADA,
-                      otherwise you may leave it empty.
-                    </FormText>
-                  </FormGroup>
-
-                  <Button onClick={handleFinalSubmit}>Submit</Button>
-                </Form>
-              </div>
-            </Col>
-          </Row>
-        </Container>
-      </section>
-    </>
-=======
     <div>
       <div>
         <SubHeader assetName="Generate a New Action" />
@@ -383,7 +122,7 @@ const Create = (props) => {
             <Row>
               <Col lg="3" md="4" sm="6">
                 <h5 className="mb-4 text-light">Example Action</h5>
-                <NftCard item={action} />
+                <NftCard item={actionInitialState} />
               </Col>
 
               <Col lg="8" md="8" sm="6">
@@ -393,7 +132,7 @@ const Create = (props) => {
                       <Label for="walletID">Wallet ID*</Label>
 
                       <Input
-                        required
+                        //required
                         id="walletID"
                         name="walletID"
                         type="text"
@@ -409,7 +148,7 @@ const Create = (props) => {
                     <FormGroup className="form__input">
                       <Label for="ownerName">Action Producer*</Label>
                       <Input
-                        required
+                        //required
                         id="ownerName"
                         name="ownerName"
                         type="text"
@@ -423,7 +162,7 @@ const Create = (props) => {
                     <FormGroup className="form__input">
                       <Label for="assetName">Action Name*</Label>
                       <Input
-                        required
+                        //required
                         id="assetName"
                         name="assetName"
                         type="text"
@@ -437,7 +176,7 @@ const Create = (props) => {
                     <FormGroup className="form__input">
                       <Label for="name">Name*</Label>
                       <Input
-                        required
+                        //required
                         id="name"
                         name="name"
                         type="text"
@@ -451,7 +190,7 @@ const Create = (props) => {
                     <FormGroup className="form__input">
                       <Label for="actionType">Action Type*</Label>
                       <Input
-                        required
+                        //required
                         id="actionType"
                         type="select"
                         name="actionType"
@@ -472,12 +211,12 @@ const Create = (props) => {
                     <FormGroup className="form__input">
                       <Label for="description">Description*</Label>
                       <Input
-                        required
+                        //required
                         id="description"
                         type="textarea"
                         name="description"
                         rows="4"
-                        minLength="50"
+                        //minLength="50"
                         maxLength="256"
                         placeholder="Enter description"
                         onChange={handleInputChange}
@@ -494,7 +233,7 @@ const Create = (props) => {
                     <FormGroup className="form__input">
                       <Label for="colonyName">Colony Name*</Label>
                       <Input
-                        required
+                        //required
                         id="colonyName"
                         type="select"
                         name="colonyName"
@@ -512,7 +251,7 @@ const Create = (props) => {
                     <FormGroup className="form__input">
                       <Label for="price">Price*</Label>
                       <Input
-                        required
+                        //required
                         id="price"
                         name="price"
                         type="number"
@@ -526,31 +265,22 @@ const Create = (props) => {
 
                     <DynamicFields />
 
-                    {/*<FormGroup className="form__input">
-                      <Label for="youtubeLink">YouTube Link</Label>
-                      <Input
-                        name="youtubeLink"
-                        type="text"
-                        placeholder="Enter YouTube link if any."
-                        onChange={handleInputChange}
-                        value={youtubeLink}
-                      />
-                    </FormGroup>
-
-                    <FormGroup className="form__input">
-                      <Label for="otherLink">Other Link</Label>
-                      <Input
-                        name="otherLink"
-                        type="text"
-                        placeholder="Enter other relavant link if any."
-                        onChange={handleInputChange}
-                        value={otherLink}
-                      />
-  </FormGroup>*/}
-                    <br/>
-                    <Button style={{ backgroundColor:"#5142fc" , width:"185px"}} onClick={handleFinalSubmit}>Submit</Button>
-
-                    {showModal && <Modal setShowModal={setShowModal} />}
+                    <br />
+                    <Button
+                      style={{ backgroundColor: "#5142fc", width: "185px" }}
+                      onClick={handleFinalSubmit}
+                    >
+                      Submit
+                    </Button>
+                    {postStatus === "success" && showModal && (
+                      <SuccessModal setShowModal={setShowModal} />
+                    )}
+                    {postStatus === "error" && showModal && (
+                      <ErrorModal setShowModal={setShowModal} />
+                    )}
+                    {postStatus === null && showModal && (
+                      <LoadingModal setShowModal={setShowModal} />
+                    )}
                   </Form>
                 </div>
               </Col>
@@ -559,7 +289,6 @@ const Create = (props) => {
         </section>
       </div>
     </div>
->>>>>>> Stashed changes
   );
 };
 

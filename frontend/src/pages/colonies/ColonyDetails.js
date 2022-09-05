@@ -1,22 +1,23 @@
 import React from "react";
-import CommonSection from "../../components/ui/Common-section/CommonSection";
+import SubHeader from "../../components/UserInterface/Sub-Header/SubHeader";
 import { useParams } from "react-router-dom";
-import { Container, Row, Col, ListGroup, ListGroupItem } from "reactstrap";
-//import NFT__DATA from "../assets/data/NFT__DATA";
+import { Container, Row, Col } from "reactstrap";
 import useFetch2 from "../../assets/data/useFetch2";
 import "./ColonyDetails.css";
 import ColonyMembership from "./ColonyMembership";
-import { Link } from "react-router-dom";
 import ColonyGallery from "./ColonyGallery";
+
 const ColonyDetails = () => {
   const { name } = useParams();
-  const { COLONY__DATA } = useFetch2("http://localhost:8000/colony/");
+  const { COLONY__DATA } = useFetch2(
+    "https://api.littlefish.foundation/colony/"
+  );
 
   const singleColony = COLONY__DATA?.find((item) => item.name === name);
 
   return (
     <div>
-      <CommonSection assetName={singleColony?.name} />
+      <SubHeader assetName={singleColony?.name} />
 
       <section>
         <Container>
@@ -36,7 +37,7 @@ const ColonyDetails = () => {
                 <h2>{singleColony?.name}</h2>
 
                 <div className="colony__creator d-flex gap-3 align-items-center">
-                  <div className="creator__detail">
+                  <div className="owner__detail">
                     <p>wallet Address:</p>
                     <h6>{singleColony?.walletAddress}</h6>
                   </div>
@@ -51,43 +52,37 @@ const ColonyDetails = () => {
               {/*<input type="text" className="newsletter" placeholder="Email" />*/}
               <div className="social__links d-flex gap-3 align-items-center ">
                 <span>
-                  <Link to="#">
+                  <a href="https://github.com/littlefish-foundation">
                     <i className="ri-github-line"></i>
-                  </Link>
+                  </a>
                 </span>
                 <span>
-                  <Link to="#">
+                  <a href="https://www.youtube.com/channel/UCqST3YotsWuc0faaqsLjdKQ/videos">
                     <i className="ri-youtube-line"></i>
-                  </Link>
+                  </a>
                 </span>
                 <span>
-                  <Link to="#">
+                  <a href="https://twitter.com/LittleFishDAO">
                     <i className="ri-twitter-line"></i>
-                  </Link>
+                  </a>
                 </span>
                 <span>
-                  <Link to="#">
+                  <a href="https://linktr.ee/littlefish.foundation">
                     <i className="ri-telegram-line"></i>
-                  </Link>
+                  </a>
                 </span>
                 <span>
-                  <Link to="#">
+                  <a href="https://discord.gg/tBKZd5AGUS">
                     <i className="ri-discord-line"></i>
-                  </Link>
-                </span>
-                <span>
-                  <Link to="#">
-                    <i className="ri-internet-line"></i>
-                  </Link>
+                  </a>
                 </span>
               </div>
             </Col>
           </Row>
         </Container>
       </section>
-      <ColonyMembership name={name}/>
+      <ColonyMembership name={name} />
       <ColonyGallery />
-      
     </div>
   );
 };

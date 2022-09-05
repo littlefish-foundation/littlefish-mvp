@@ -5,9 +5,9 @@ const actionController = require('./controllers/action');
 const colonyController = require('./controllers/colony');
 const userController = require('./controllers/user');
 const actionSaleController = require('./controllers/action-sale');
-const actionCategoryController = require('./controllers/action-category');
+const actionTypeController = require('./controllers/action-type');
 const {
-  actionSchemas, colonySchemas, userSchemas, actionCategorySchemas, actionSaleSchemas,
+  actionSchemas, colonySchemas, userSchemas, actionTypeSchemas, actionSaleSchemas,
 } = require('./schemas');
 
 const router = express.Router();
@@ -42,11 +42,11 @@ actionSaleRouter.route('/').post(validator(actionSaleSchemas.createActionSale), 
 actionSaleRouter.route('/:actionID').patch(validator(actionSaleSchemas.updateSaleByActionId), actionSaleController.updateActionSaleByActionId);
 router.use('/action-sale', actionSaleRouter);
 
-const actionCategoryRouter = express.Router();
-actionCategoryRouter.route('/:name').get(validator(actionCategorySchemas.getActionCategory), actionCategoryController.getActionCategory);
-actionCategoryRouter.route('/:name').delete(validator(actionCategorySchemas.deleteActionCategory), actionCategoryController.deleteActionCategory);
-actionCategoryRouter.route('/').get(validator(actionCategorySchemas.getActionCategories), actionCategoryController.getActionCategories);
-actionCategoryRouter.route('/').post(validator(actionCategorySchemas.createActionCategory), actionCategoryController.createActionCategory);
-router.use('/action-category', actionCategoryRouter);
+const actionTypeRouter = express.Router();
+actionTypeRouter.route('/:name').get(validator(actionTypeSchemas.getActionType), actionTypeController.getActionType);
+actionTypeRouter.route('/:name').delete(validator(actionTypeSchemas.deleteActionType), actionTypeController.deleteActionType);
+actionTypeRouter.route('/').get(validator(actionTypeSchemas.getActionTypes), actionTypeController.getActionTypes);
+actionTypeRouter.route('/').post(validator(actionTypeSchemas.createActionType), actionTypeController.createActionType);
+router.use('/action-type', actionTypeRouter);
 
 module.exports = router;

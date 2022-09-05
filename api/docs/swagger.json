@@ -31,8 +31,8 @@
       "description": "Action sales."
     },
     {
-      "name": "action-category",
-      "description": "Action categories."
+      "name": "action-type",
+      "description": "Action types."
     }
   ],
   "paths": {
@@ -107,37 +107,37 @@
         }
       }
     },
-    "/action-category/{name}/": {
+    "/action-type/{name}/": {
       "get": {
         "tags": [
-          "action-category"
+          "action-type"
         ],
-        "summary": "Get the specified action category",
+        "summary": "Get the specified action type",
         "parameters": [
           {
             "name": "name",
             "in": "path",
-            "description": "Name of the action category",
+            "description": "Name of the action type",
             "required": true,
             "type": "string"
           }
         ],
         "responses": {
           "200": {
-            "description": "Successful response with the specified category"
+            "description": "Successful response with the specified type"
           }
         }
       },
       "delete": {
         "tags": [
-          "action-category"
+          "action-type"
         ],
-        "summary": "Delete the specified action category",
+        "summary": "Delete the specified action type",
         "parameters": [
           {
             "name": "name",
             "in": "path",
-            "description": "Name of the action category",
+            "description": "Name of the action type",
             "required": true,
             "type": "string"
           }
@@ -149,12 +149,12 @@
         }
       }
     },
-    "/action-category/": {
+    "/action-type/": {
       "get": {
         "tags": [
-          "action-category"
+          "action-type"
         ],
-        "summary": "Get action categories",
+        "summary": "Get action types",
         "parameters": [
           {
             "name": "page",
@@ -166,27 +166,27 @@
           {
             "name": "limit",
             "in": "query",
-            "description": "Count of the categories in the page",
+            "description": "Count of the types in the page",
             "required": false,
             "type": "number"
           }
         ],
         "responses": {
           "200": {
-            "description": "Successful response with action categories"
+            "description": "Successful response with action types"
           }
         }
       },
       "post": {
         "tags": [
-          "action-category"
+          "action-type"
         ],
-        "summary": "Create action category",
+        "summary": "Create action type",
         "parameters": [
           {
             "name": "name",
             "in": "query",
-            "description": "Name of the category",
+            "description": "Name of the type",
             "required": true,
             "type": "string"
           }

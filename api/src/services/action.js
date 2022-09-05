@@ -1,6 +1,7 @@
 const tangocryptoClient = require('../external-api/tangocrypto-client');
 const actionDataAccess = require('../data-access/action');
 const colonyDataAccess = require('../data-access/colony');
+const actionTypeDataAccess = require('../data-access/action-type');
 const actionLogic = require('../logics/action');
 const { formatActions } = require('../formatters/action');
 const { NotFoundError } = require('../errors');
@@ -110,9 +111,15 @@ module.exports = class ActionService {
   static async mintAction(action) {
     const { actionLinks, collectionLinkAttributes } = actionLogic.prepareLinksToMint(action.links);
     const toMint = actionLogic.prepareActionToMint(action, actionLinks);
-
     const { collectionID } = await this.createActionCollection(action.walletID, action.assetName, collectionLinkAttributes);
     const { mintedAction } = await tangocryptoClient.mintAction(toMint, collectionID);
+
+    const actionType = actionTypeDataAccess.getActionType(action.actionType);
+    if (actionType) {
+      await actionTypeDataAccess.incrementActionType(actionType.name);
+    } else {
+      await actionTypeDataAccess.createActionType(action.actionType);
+    }
 
     const preparedFiles = actionLogic.prepareAllImageURLsInFile(mintedAction.files);
 

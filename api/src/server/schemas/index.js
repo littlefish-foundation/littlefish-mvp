@@ -1,12 +1,12 @@
 const actionSchemas = require('./action');
-const actionCategorySchemas = require('./action-category');
+const actionTypeSchemas = require('./action-type');
 const actionSaleSchemas = require('./action-sale');
 const colonySchemas = require('./colony');
 const userSchemas = require('./user');
 
 module.exports = {
   actionSchemas,
-  actionCategorySchemas,
+  actionTypeSchemas,
   actionSaleSchemas,
   colonySchemas,
   userSchemas,

@@ -38,7 +38,7 @@ app.use((req, res, next) => {
 });
 
 app.use(errorHandler);
-console.log({ config });
+
 if (config.runningEnvironment === 'dev') {
   app.listen(config.port || 8080, () => {
     console.log(`Server is listening on ${config.port || 8080} port.`);

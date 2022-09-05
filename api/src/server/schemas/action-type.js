@@ -9,18 +9,18 @@ const nameParams = {
 };
 
 module.exports = {
-  getActionCategory: {
+  getActionType: {
     ...nameParams,
   },
 
-  getActionCategories: {
+  getActionTypes: {
     query: Joi.object({
       page: Joi.number().integer().default(0),
       limit: Joi.number().integer().positive().default(20),
     }),
   },
 
-  createActionCategory: {
+  createActionType: {
     query: Joi.object(
       {
         name: Joi.string().required(),
@@ -28,7 +28,7 @@ module.exports = {
     ),
   },
 
-  deleteActionCategory: {
+  deleteActionType: {
     ...nameParams,
   },
 };

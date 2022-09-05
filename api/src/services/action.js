@@ -1,9 +1,9 @@
 const tangocryptoClient = require('../external-api/tangocrypto-client');
 const actionDataAccess = require('../data-access/action');
 const colonyDataAccess = require('../data-access/colony');
-const { prepareAllImageURLsInFile, prepareImageURL, prepareActionToMint } = require('../logics/action');
+const actionLogic = require('../logics/action');
 const { formatActions } = require('../formatters/action');
-const { ApiError, NotFoundError } = require('../errors');
+const { NotFoundError } = require('../errors');
 const { ADA_TO_LOVELACE_CONVERSION } = require('../constants');
 
 module.exports = class ActionService {
@@ -102,27 +102,19 @@ module.exports = class ActionService {
     };
   }
 
-  static async getSales(size = 20) {
-    const response = await tangocryptoClient.getSales(size);
-
-    if (response?.status !== 200) {
-      throw new ApiError(response.message, response.status);
-    }
-    return { sales: response?.data?.data };
-  }
-
-  static async createActionCollection(walletAddress, assetName) {
-    const collectionID = await tangocryptoClient.createCollection(walletAddress, assetName);
+  static async createActionCollection(walletAddress, assetName, collectionLinkAttributes) {
+    const collectionID = await tangocryptoClient.createCollection(walletAddress, assetName, collectionLinkAttributes);
     return { collectionID };
   }
 
   static async mintAction(action) {
-    const { collectionID } = await this.createActionCollection(action.walletID, action.assetName);
-    const toMint = prepareActionToMint(action);
+    const { actionLinks, collectionLinkAttributes } = actionLogic.prepareLinksToMint(action.links);
+    const toMint = actionLogic.prepareActionToMint(action, actionLinks);
 
+    const { collectionID } = await this.createActionCollection(action.walletID, action.assetName, collectionLinkAttributes);
     const { mintedAction } = await tangocryptoClient.mintAction(toMint, collectionID);
 
-    const preparedFiles = prepareAllImageURLsInFile(mintedAction.files);
+    const preparedFiles = actionLogic.prepareAllImageURLsInFile(mintedAction.files);
 
     await actionDataAccess.createAction({
       assetName: mintedAction.asset_name,
@@ -134,13 +126,14 @@ module.exports = class ActionService {
       fingerprint: mintedAction.fingerprint,
       description: action.description,
       mediaType: mintedAction.media_type,
-      image: prepareImageURL(mintedAction.image),
+      links: action.links,
+      image: actionLogic.prepareImageURL(mintedAction.image),
       status: mintedAction.status,
       actionType: action.actionType,
       files: preparedFiles,
       nftFormat: mintedAction,
       custom_attributes: mintedAction.custom_attributes,
-      actionCollection: collectionId,
+      actionCollection: collectionID,
       price: action.price,
     });
 

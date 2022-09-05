@@ -1,9 +1,10 @@
 const axios = require('axios');
 const ApiError = require('../errors/api-error');
 const config = require('../config');
+const { ACTION_METADATA_ATTRIBUTES } = require('../constants');
 
 module.exports = class TangocryptoClient {
-  static async createCollection(walletAddress, assetName) {
+  static async createCollection(walletAddress, assetName, collectionLinkAttributes) {
     const options = {
       method: 'POST',
       url: `${config.actionServiceClient.url}v1/nft/collections`,
@@ -21,7 +22,6 @@ module.exports = class TangocryptoClient {
           name: '<name>',
           asset_name: '<asset_name>',
           media_type: '<mime_type>',
-          description: '<description>',
           files: [
             {
               name: '<asset_name>',
@@ -30,18 +30,16 @@ module.exports = class TangocryptoClient {
             },
           ],
           attributes: {
-            desc1: '<desc1>',
             colony_name: '<colony_name>',
-            desc2: '<desc2>',
-            desc3: '<desc3>',
+            desc1: ACTION_METADATA_ATTRIBUTES.DESCRIPTION_PART1,
+            desc2: ACTION_METADATA_ATTRIBUTES.DESCRIPTION_PART2,
+            desc3: ACTION_METADATA_ATTRIBUTES.DESCRIPTION_PART3,
+            desc4: ACTION_METADATA_ATTRIBUTES.DESCRIPTION_PART4,
             owner_name: '<owner_name>',
             action_type: '<action_type>',
             producer: '<producer>',
-            link_1: '<link_1>',
-            link_2: '<link_2>',
-            link_11: '<link_11>',
-            link_22: '<link_22>',
             project: 'Littlefish MVP',
+            ...collectionLinkAttributes,
           },
         },
         version: '1.0',

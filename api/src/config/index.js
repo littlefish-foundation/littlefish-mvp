@@ -3,6 +3,7 @@ const dotenv = require('dotenv');
 dotenv.config();
 
 module.exports = {
+  runningEnvironment: process.env.NODE_ENV,
   dbConnectionUri: process.env.DB_CONNECTION_STRING,
   port: process.env.PORT,
   actionServiceClient: {

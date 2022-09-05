@@ -72,20 +72,15 @@ const DynamicFields = () => {
               </Row>
             </div>
           ))}
-          <div>
-            <Button
-              className="cancel-btn-first"
-              onClick={() => handleRemoveUrls()}
-            >
-              Delete
-            </Button>
-            &nbsp; &nbsp; &nbsp;
-            <Button className="add-btn-second" onClick={() => handleAddLinks()}>
-              Add
-            </Button>
-          </div>
         </>
       )}
+      <Button className="cancel-btn-first" onClick={() => handleRemoveUrls()}>
+        Delete
+      </Button>
+      &nbsp; &nbsp; &nbsp;
+      <Button className="add-btn-second" onClick={() => handleAddLinks()}>
+        Add
+      </Button>
     </div>
   );
 };

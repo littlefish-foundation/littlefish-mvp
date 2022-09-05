@@ -1,9 +1,9 @@
 const mongoose = require('mongoose');
 
 const Action = new mongoose.Schema({
-  actionId: { type: String, required: true, unique: true },
+  chainID: { type: String, required: true },
   name: { type: String, required: true },
-  assetName: { type: String, required: true, unique: true },
+  assetName: { type: String, required: true },
   ownerName: { type: String, required: true },
   producer: { type: String, required: true },
   fingerprint: { type: String, required: true },
@@ -12,9 +12,8 @@ const Action = new mongoose.Schema({
   image: { type: String, required: true },
   status: { type: String, required: true },
   actionType: { type: String, required: true },
-  youtubeLink: { type: String },
-  otherLink: { type: String },
   actionCollection: { type: String, required: true },
+  links: { type: Array },
   files: { type: Array },
   price: { type: Number },
   colony: { ref: 'Colony', type: mongoose.Schema.Types.ObjectId },

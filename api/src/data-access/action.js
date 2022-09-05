@@ -1,32 +1,35 @@
 const ActionModel = require('../models/action');
-const { NotFoundError } = require('../errors');
 
 module.exports = class ActionDataAccess {
-  static async getAction(assetName) {
-    const action = await ActionModel.findOne({ assetName }).select('-_id').lean().exec();
+  static async getActionByBlockchainId(chainID) {
+    return ActionModel.findOne({ chainID }).lean().exec();
+  }
 
-    if (!action) {
-      throw new NotFoundError('Action is not found.');
-    }
-
-    return action;
+  static async getActionById(id) {
+    return ActionModel.findById(id).lean().exec();
   }
 
   static async createAction(action) {
-    await ActionModel.create(action);
+    // TODO RESPONSE OF CREATE ACTION
+    return ActionModel.create(action);
   }
 
-  static async deleteAction(assetName) {
-    const { ok } = await ActionModel.deleteOne({ assetName });
+  static async deleteActionById(id) {
+    const { ok } = await ActionModel.findByIdAndDelete(id);
     if (ok === 1) {
       return true;
     }
-    throw new NotFoundError('Action is not found.');
+    return false;
+  }
+
+  static async syncActionStatus(id, status) {
+    // TODO response
+    return ActionModel.findByIdAndUpdate(id, { status });
   }
 
   static async getActions(colony, filter, sorter, page, limit) {
     const {
-      assetName, ownerName, minDate, maxDate,
+      assetName, ownerName, minDate, maxDate, status,
     } = filter;
 
     const {
@@ -39,8 +42,8 @@ module.exports = class ActionDataAccess {
       ...(maxDate ? { createdAt: { $lte: maxDate } } : undefined),
       ...(ownerName ? { ownerName } : undefined),
       ...(assetName ? { assetName: { $regex: assetName, $options: 'i' } } : undefined),
+      ...(status ? { status } : undefined),
     })
-      .select('-_id')
       .skip(page * limit).limit(limit)
       .sort({
         ...(sortingField ? { sortingField: sortingOrder } : undefined),

@@ -10,6 +10,5 @@ const colony = new mongoose.Schema({
   createdAt: { type: Date, default: Date.now },
   updatedAt: { type: Date, default: Date.now },
 });
-colony.add({ superColony: colony });
 
 module.exports = mongoose.model('Colony', colony);

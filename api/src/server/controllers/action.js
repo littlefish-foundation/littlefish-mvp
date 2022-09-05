@@ -18,10 +18,12 @@ module.exports = class ActionController {
 
   static getActions = catchAsync(async (req, res) => {
     const {
-      filter, sorter, page, limit,
+      assetName, ownerName, status, minDate, maxDate, sortingOrder, sortingField, page, limit,
     } = req.query;
 
-    const data = await actionService.getActions(undefined, filter, sorter, page, limit);
+    const data = await actionService.getActions(undefined, {
+      assetName, ownerName, status, minDate, maxDate,
+    }, { sortingOrder, sortingField }, page, limit);
     res.status(200).send(data);
   });
 

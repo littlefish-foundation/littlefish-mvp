@@ -24,7 +24,8 @@ module.exports = class UserController {
   });
 
   static createUser = catchAsync(async (req, res) => {
-    const result = await userService.createUser(req.body);
+    const { user } = req.body;
+    const result = await userService.createUser(user);
     res.status(201).send(result);
   });
 
@@ -33,6 +34,6 @@ module.exports = class UserController {
     const { colonyName } = req.query;
 
     const result = await userService.updateUserColony(walletAddress, colonyName);
-    res.status(201).send(result);
+    res.status(200).send(result);
   });
 };

@@ -43,9 +43,9 @@ actionSaleRouter.route('/:actionID').patch(validator(actionSaleSchemas.updateSal
 router.use('/action-sale', actionSaleRouter);
 
 const actionCategoryRouter = express.Router();
-actionCategoryRouter.route('/:actionID').get(validator(actionCategorySchemas.getActionCategory), actionCategoryController.getActionCategory);
-actionCategoryRouter.route('/:actionID').delete(validator(actionCategorySchemas.deleteActionCategory), actionCategoryController.deleteActionCategory);
-actionCategoryRouter.route('/').delete(validator(actionCategorySchemas.getActionCategories), actionCategoryController.getActionCategories);
+actionCategoryRouter.route('/:name').get(validator(actionCategorySchemas.getActionCategory), actionCategoryController.getActionCategory);
+actionCategoryRouter.route('/:name').delete(validator(actionCategorySchemas.deleteActionCategory), actionCategoryController.deleteActionCategory);
+actionCategoryRouter.route('/').get(validator(actionCategorySchemas.getActionCategories), actionCategoryController.getActionCategories);
 actionCategoryRouter.route('/').post(validator(actionCategorySchemas.createActionCategory), actionCategoryController.createActionCategory);
 router.use('/action-category', actionCategoryRouter);
 

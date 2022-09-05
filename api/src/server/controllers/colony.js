@@ -31,10 +31,12 @@ module.exports = class ColonyController {
     } = req.params;
 
     const {
-      filter, sorter, page, limit,
+      assetName, ownerName, status, minDate, maxDate, sortingOrder, sortingField, page, limit,
     } = req.query;
 
-    const data = await colonyService.getColonyActions(colonyName, filter, sorter, page, limit);
+    const data = await colonyService.getColonyActions(colonyName, {
+      assetName, ownerName, status, minDate, maxDate,
+    }, { sortingOrder, sortingField }, page, limit);
     res.status(200).send(data);
   });
 

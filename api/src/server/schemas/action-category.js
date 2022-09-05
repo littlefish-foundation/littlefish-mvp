@@ -21,7 +21,7 @@ module.exports = {
   },
 
   createActionCategory: {
-    body: Joi.object(
+    query: Joi.object(
       {
         name: Joi.string().required(),
       },

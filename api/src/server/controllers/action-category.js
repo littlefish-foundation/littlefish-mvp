@@ -17,7 +17,7 @@ module.exports = class ActionCategoryController {
   });
 
   static createActionCategory = catchAsync(async (req, res) => {
-    const actionCategory = req.body;
+    const actionCategory = req.query;
 
     const result = await actionCategoryService.createActionCategory(actionCategory);
     res.status(201).send(result);

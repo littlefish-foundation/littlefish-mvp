@@ -1,11 +1,12 @@
 {
   "swagger": "2.0",
   "info": {
-    "description": "This API is for Littlefish ACTION marketplace MVP. For further information go to linktr.ee/littlefish",
+    "description": "This API is for Littlefish action marketplace MVP. For further information go to linktr.ee/littlefish",
     "version": "1.0.0",
     "title": "Littlefish MVP API"
   },
   "schemes": [
+    "https",
     "http"
   ],
   "tags": [
@@ -24,9 +25,179 @@
     {
       "name": "user",
       "description": "Users are members of the colonies and create actions"
+    },
+    {
+      "name": "action-sale",
+      "description": "Action sales."
+    },
+    {
+      "name": "action-type",
+      "description": "Action types."
     }
   ],
   "paths": {
+    "/action-sale/{actionID}/": {
+      "get": {
+        "tags": [
+          "action-sale"
+        ],
+        "summary": "Get the specified action sale",
+        "parameters": [
+          {
+            "name": "actionID",
+            "in": "path",
+            "description": "ID of the action",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response with the specified action sale"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "action-sale"
+        ],
+        "summary": "Delete the specified action sale",
+        "parameters": [
+          {
+            "name": "actionID",
+            "in": "path",
+            "description": "ID of the action",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful deletion"
+          }
+        }
+      }
+    },
+    "/action-sale/": {
+      "post": {
+        "tags": [
+          "action-sale"
+        ],
+        "summary": "Create the sale for specified action",
+        "parameters": [
+          {
+            "name": "actionID",
+            "in": "query",
+            "description": "ID of the action",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "price",
+            "in": "query",
+            "description": "Price of the action",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Successful action sale creation"
+          }
+        }
+      }
+    },
+    "/action-type/{name}/": {
+      "get": {
+        "tags": [
+          "action-type"
+        ],
+        "summary": "Get the specified action type",
+        "parameters": [
+          {
+            "name": "name",
+            "in": "path",
+            "description": "Name of the action type",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response with the specified type"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "action-type"
+        ],
+        "summary": "Delete the specified action type",
+        "parameters": [
+          {
+            "name": "name",
+            "in": "path",
+            "description": "Name of the action type",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful deletion"
+          }
+        }
+      }
+    },
+    "/action-type/": {
+      "get": {
+        "tags": [
+          "action-type"
+        ],
+        "summary": "Get action types",
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "description": "Page of the response",
+            "required": false,
+            "type": "number"
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "Count of the types in the page",
+            "required": false,
+            "type": "number"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response with action types"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "action-type"
+        ],
+        "summary": "Create action type",
+        "parameters": [
+          {
+            "name": "name",
+            "in": "query",
+            "description": "Name of the type",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Successful response of creation"
+          }
+        }
+      }
+    },
     "/user/{walletAddress}/": {
       "get": {
         "tags": [
@@ -210,37 +381,72 @@
             "type": "string"
           },
           {
-            "name": "cursor",
+            "name": "page",
             "in": "query",
-            "description": "First colony to return",
+            "description": "The current page of action response",
             "required": false,
             "type": "string"
           },
           {
-            "name": "size",
+            "name": "limit",
             "in": "query",
-            "description": "The count of colony's to return",
+            "description": "The count of action's to return",
             "required": false,
             "type": "string"
           },
           {
-            "name": "filter",
+            "name": "assetName",
             "in": "query",
-            "description": "filter object",
+            "description": "aciton asset name to filter",
             "required": false,
             "type": "string"
           },
           {
-            "name": "sorter",
+            "name": "ownerName",
             "in": "query",
-            "description": "sorter object",
+            "description": "action owner name to filter",
             "required": false,
             "type": "string"
+          },
+          {
+            "name": "status",
+            "in": "query",
+            "description": "status of the action",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "minDate",
+            "in": "query",
+            "description": "minimum creation date of action",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "maxDate",
+            "in": "query",
+            "description": "maximum creation date of action",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "sortingField",
+            "in": "query",
+            "description": "field to sort actions",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "sortingOrder",
+            "in": "query",
+            "description": "1 for ascending, -1 for descending",
+            "required": false,
+            "type": "number"
           }
         ],
         "responses": {
           "200": {
-            "description": "Successful response with colony array from the chain"
+            "description": "Successful response with colony actions"
           }
         }
       }
@@ -309,23 +515,58 @@
             "type": "string"
           },
           {
-            "name": "filter",
+            "name": "assetName",
             "in": "query",
-            "description": "filter object",
+            "description": "aciton asset name to filter",
             "required": false,
             "type": "string"
           },
           {
-            "name": "sorter",
+            "name": "ownerName",
             "in": "query",
-            "description": "sorter object",
+            "description": "action owner name to filter",
             "required": false,
             "type": "string"
+          },
+          {
+            "name": "status",
+            "in": "query",
+            "description": "status of the action",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "minDate",
+            "in": "query",
+            "description": "minimum creation date of action",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "maxDate",
+            "in": "query",
+            "description": "maximum creation date of action",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "sortingField",
+            "in": "query",
+            "description": "field to sort actions",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "sortingOrder",
+            "in": "query",
+            "description": "1 for ascending, -1 for descending",
+            "required": false,
+            "type": "number"
           }
         ],
         "responses": {
           "200": {
-            "description": "Successful response with ACTION array from the database"
+            "description": "Successful response with actions"
           }
         }
       },
@@ -351,99 +592,6 @@
           }
         }
       }
-    },
-    "/action/sale/{assetName}": {
-      "get": {
-        "tags": [
-          "action"
-        ],
-        "summary": "Get an sale for action",
-        "parameters": [
-          {
-            "name": "assetName",
-            "in": "path",
-            "description": "Name of the asset",
-            "required": true,
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Successful response with action sale"
-          }
-        }
-      },
-      "post": {
-        "tags": [
-          "action"
-        ],
-        "summary": "Create sale for action",
-        "parameters": [
-          {
-            "name": "assetName",
-            "in": "path",
-            "description": "Name of the asset",
-            "required": true,
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Successful response with action buy link"
-          }
-        }
-      }
-    },
-    "/action/chain": {
-      "get": {
-        "tags": [
-          "action"
-        ],
-        "summary": "Get actions from chain",
-        "parameters": [
-          {
-            "name": "cursor",
-            "in": "query",
-            "description": "First action to return",
-            "required": false,
-            "type": "string"
-          },
-          {
-            "name": "size",
-            "in": "query",
-            "description": "The count of action's to return",
-            "required": false,
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Successful response with ACTION array from the chain"
-          }
-        }
-      }
-    },
-    "/action/sales": {
-      "get": {
-        "tags": [
-          "action"
-        ],
-        "summary": "Get action sales from chain",
-        "parameters": [
-          {
-            "name": "size",
-            "in": "query",
-            "description": "The count of action's to return",
-            "required": false,
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Successful response with action sales array from the chain"
-          }
-        }
-      }
     }
   },
   "definitions": {
@@ -466,7 +614,7 @@
           "format": "name",
           "description": "user name",
           "example": "burak.littlefish"
-        } ,
+        },
         "avatar": {
           "type": "string",
           "format": "uri",
@@ -569,23 +717,31 @@
           "description": "Format of media",
           "example": "image/png"
         },
-        "youtubeLink": {
-          "type": "string",
-          "format": "url",
-          "description": "Youtube link",
-          "example": "https://www.youtube.com/watch?v=IYCS9kEr7vw"
-        },
-        "otherLink": {
-          "type": "string",
-          "format": "url",
-          "description": "Other Relevant link",
-          "example": "https://publish.obsidian.md/littlefish-foundation/Littlefish+Vault"
-        },
         "walletID": {
           "type": "string",
           "format": "Shelly address",
           "description": "wallet address of action owner",
           "example": "addr1q9fjzdqkar0fm.......lumhp9znnq66zcn5"
+        },
+        "links": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "url": {
+                "type": "string",
+                "format": "url",
+                "description": "url of link",
+                "example": "https://linktr.ee/littlefish.foundation"
+              },
+              "urlName": {
+                "type": "string",
+                "format": "name of link",
+                "description": "name of the link.",
+                "example": "Littlefish Foundation Linktree"
+              }
+            }
+          }
         }
       }
     }

@@ -12,10 +12,18 @@ module.exports = {
   getUser: {
     ...walletNameParams,
   },
+
   deleteUser: {
     ...walletNameParams,
   },
 
+  getUsersByColony: {
+    query: Joi.object({
+      colonyName: Joi.string().required(),
+      page: Joi.number().integer().default(0),
+      limit: Joi.number().integer().positive().default(20),
+    }),
+  },
   createUser: {
     body: Joi.object(
       {

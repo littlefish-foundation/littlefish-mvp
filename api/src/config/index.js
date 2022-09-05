@@ -10,11 +10,4 @@ module.exports = {
     baseCollectionId: process.env.ACTION_BASE_COLLECTION_ID,
     apiKey: process.env.API_KEY,
   },
-  aws: {
-    accessKey: {
-      id: process.env.AWS_S3_ACCESS_KEY_ID,
-      bucketName: process.env.AWS_S3_BUCKET_NAME,
-      secret: process.env.AWS_S3_SECRET_ACCESS_KEY,
-    },
-  },
 };

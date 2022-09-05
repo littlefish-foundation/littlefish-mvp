@@ -20,20 +20,18 @@ const NAV__LINKS = [
     url: "/create",
   },
   {
-    display: "About littlefish",
+    display: "About",
     url: "/about",
   },
 ];
 
 const Header = () => {
-
   const headerRef = useRef(null);
 
   const menuRef = useRef(null);
 
   let address = localStorage.length;
   console.log(address);
-
 
   useEffect(() => {
     window.addEventListener("scroll", () => {
@@ -89,14 +87,21 @@ const Header = () => {
           </div>
 
           <div className="nav__right d-flex align-items-center gap-5 ">
-            <button className="btn d-flex gap-2 align-items-center">
+            <button
+              style={{
+                border: address !== 0 ? "3px solid green" : "3px solid #2037e4",
+              }}
+              className="btn d-flex gap-2 align-items-center"
+            >
               <span>
-                <i className="ri-wallet-line"></i>
+                <i className="ri-wallet-line" color="success"></i>
               </span>
 
-              <Link to="/wallet">Connect Wallet</Link>
+              <Link to="/wallet">
+                Connect Wallet <br/> {address !== 0 ? "connected" : ""}
+              </Link>
             </button>
-            {address !== 0 && <FiberManualRecordIcon sx={{ color: "green" }} />}
+
             <span className="mobile__menu">
               <i className="ri-menu-line" onClick={toggleMenu}></i>
             </span>

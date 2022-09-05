@@ -99,11 +99,11 @@ const Create = (props) => {
 
   const Colony = { colonyName: colonyName1 };
   const urls = { links: allUrls };
-  const taggings = { tags: tags };
+  //const taggings = { tags: tags };
 
   const { assetName, name, description, ownerName, price } = eachEntry;
 
-  Object.assign(eachEntry, Type, Colony, urls, taggings);
+  Object.assign(eachEntry, Type, Colony, urls /*taggings*/);
 
   console.log(eachEntry);
 
@@ -244,9 +244,10 @@ const Create = (props) => {
                   </FormGroup>
 
                   <FormGroup className="form__input">
-                    <div className="TagsInput">
+                    <div className="TagsInput" disabled>
                       <Label for="actionType">Action Type*</Label>
                       <TagsInput
+                        disabled
                         value={tags}
                         onChange={setTags}
                         name="actionType"

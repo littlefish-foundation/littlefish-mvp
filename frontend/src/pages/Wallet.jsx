@@ -16,11 +16,14 @@ import Nami from "../assets/Nami.svg";
 import AbsentNamiWalletModal from "../components/UserInterface/Modal/AbsentNamiWalletModal";
 import NamiAddressModal from "../components/UserInterface/Modal/NamiAddressModal";
 import ConnectedMarker from "../components/Header/ConnectedMarker";
+import DisconnectedModal from "../components/UserInterface/Modal/DisconnectedModal";
 
 const Wallet = () => {
   const [namiAddr, setNamiAddr] = useState(false);
   const [account, setAccount] = useState(null);
   const [showModal, setShowModal] = useState(false);
+  const [showModalDisconnect, setShowModalDisconnect] = useState(false);
+
   const [namiCheck, setNamiCheck] = useState(null);
 
   // const idleButtonColor = { border: "3px solid blue" };
@@ -80,7 +83,6 @@ const Wallet = () => {
         //setNamiAddr(false);
         setAccount(addr);
         localStorage.setItem("walletID", addr);
-
       }
     }
     t();
@@ -105,6 +107,13 @@ const Wallet = () => {
 
     //setShowModal(false);
   };
+  console.log(localStorage.getItem("walletID"));
+
+  const namiCancelHandler = () => {
+    localStorage.removeItem("walletID");
+
+    setShowModalDisconnect(true);
+  };
   return (
     <div>
       <SubHeader assetName={"Connect Wallet"} />
@@ -123,18 +132,16 @@ const Wallet = () => {
                   <img src={Typhon} alt="" />
                 </span>
                 <h5>Typhon Wallet</h5>
+                <Button id="UncontrolledPopover" className="wallet_disconnect">
+                  Disconnect
+                </Button>
+                &nbsp; &nbsp; &nbsp;
                 <Button
                   id="UncontrolledPopover"
                   type="button"
-                  style={{
-                    backgroundColor: "#5142fc",
-                    borderRadius: "50px",
-                    color: "white",
-                    width: "400px",
-                    height: "35px",
-                  }}
+                  className="wallet_connect"
                 >
-                  Connect to Typhon Wallet
+                  Connect
                 </Button>
                 <UncontrolledPopover
                   placement="right"
@@ -160,22 +167,23 @@ const Wallet = () => {
                 <h5>Nami Wallet</h5>
                 <div>
                   <Button
-                    id="namiWallet"
-                    style={{
-                      backgroundColor: "#5142fc",
-                      borderRadius: "50px",
-                      color: "white",
-                      width: "400px",
-                      height: "35px",
-                    }}
-                    onClick={namiClickHandler}
+                    className="wallet_disconnect"
+                    onClick={namiCancelHandler}
                   >
-                    Connect to Nami Wallet
+                    Disconnect
+                  </Button>
+                  {namiCheck === null && showModalDisconnect && (
+                    <DisconnectedModal
+                      setShowModalDisconnect={setShowModalDisconnect}
+                    />
+                  )}
+                  &nbsp; &nbsp; &nbsp;
+                  <Button className="wallet_connect" onClick={namiClickHandler}>
+                    Connect
                   </Button>
                   {namiCheck === null && showModal && (
                     <AbsentNamiWalletModal setShowModal={setShowModal} />
                   )}
-
                   {namiCheck !== null && showModal && (
                     <NamiAddressModal
                       account={account}

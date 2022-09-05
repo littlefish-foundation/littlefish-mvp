@@ -11,7 +11,10 @@ const NamiAddressModal = ({ account, setShowModal }) => {
   //const account = account;
   const navigate = useNavigate();
 
-  const navigateGenerate = () => {
+  const navigateGenerate = (e) => {
+    window.location.reload();
+    e.preventDefault();
+
     navigate("/create");
   };
   return (
@@ -22,7 +25,7 @@ const NamiAddressModal = ({ account, setShowModal }) => {
             class="ri-close-line"
             onClick={() => {
               setShowModal(false);
-              //window.location.reload();
+              window.location.reload();
             }}
           ></i>
         </span>
@@ -35,7 +38,12 @@ const NamiAddressModal = ({ account, setShowModal }) => {
         <p>Your Wallet Address: {account}</p>
 
         <br />
-        <button className="place__bid-btn" onClick={navigateGenerate}>
+        <button
+          className="place__bid-btn"
+          onClick={() => {
+            navigate("/create");
+          }}
+        >
           Redirect to Generate Page
         </button>
       </div>

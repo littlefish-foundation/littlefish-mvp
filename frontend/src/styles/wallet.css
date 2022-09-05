@@ -33,3 +33,15 @@
   align-items: center;
   justify-content: center;
 }
+
+.wallet_disconnect {
+  background-color: rgb(239, 149, 149) !important;
+  width: 120px;
+  height: 40px;
+}
+
+.wallet_connect {
+  background-color: rgb(110, 221, 184) !important;
+  width: 120px;
+  height: 40px;
+}

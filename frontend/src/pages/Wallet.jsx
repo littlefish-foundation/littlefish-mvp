@@ -115,15 +115,20 @@ const Wallet = () => {
     setShowModalDisconnect(true);
   };
   return (
-    <div>
+    <div
+      onClick={() => {
+        showModal && setShowModal(false);
+        showModalDisconnect && setShowModalDisconnect(false);
+      }}
+    >
       <SubHeader assetName={"Connect Wallet"} />
       <section>
         <Container>
           <Row>
             <Col lg="12" className="mb-5 text-center">
-              <div className=" m-auto">
+              {/*<div className=" m-auto">
                 <h3 className="text-light">Connect your wallet</h3>
-              </div>
+  </div>*/}
             </Col>
 
             <Col>

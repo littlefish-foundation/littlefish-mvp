@@ -13,7 +13,7 @@ const DisconnectedModal = ({ setShowModalDisconnect }) => {
             class="ri-close-line"
             onClick={() => {
               setShowModalDisconnect(false);
-              //window.location.reload();
+              window.location.reload();
             }}
           ></i>
         </span>

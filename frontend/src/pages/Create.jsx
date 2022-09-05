@@ -154,7 +154,7 @@ const Create = (props) => {
   console.log(eachEntry);
 
   return (
-    <div>
+    <div onClick={() => showModal && setShowModal(false)}>
       <SubHeader assetName="Generate a New Action" />
 
       <section>

@@ -30,7 +30,7 @@ const NamiAddressModal = ({ account, setShowModal }) => {
           ></i>
         </span>
         <div>
-          <TbPlugConnected style={{ color: "blue", fontSize: 50 }} />
+          <TbPlugConnected style={{ color: "green", fontSize: 50 }} />
           <h6 className="text-center text-dark">
             Nami Wallet connected Successfully!
           </h6>

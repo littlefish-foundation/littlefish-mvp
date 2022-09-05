@@ -717,23 +717,31 @@
           "description": "Format of media",
           "example": "image/png"
         },
-        "youtubeLink": {
-          "type": "string",
-          "format": "url",
-          "description": "Youtube link",
-          "example": "https://www.youtube.com/watch?v=IYCS9kEr7vw"
-        },
-        "otherLink": {
-          "type": "string",
-          "format": "url",
-          "description": "Other Relevant link",
-          "example": "https://publish.obsidian.md/littlefish-foundation/Littlefish+Vault"
-        },
         "walletID": {
           "type": "string",
           "format": "Shelly address",
           "description": "wallet address of action owner",
           "example": "addr1q9fjzdqkar0fm.......lumhp9znnq66zcn5"
+        },
+        "links": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "url": {
+                "type": "string",
+                "format": "url",
+                "description": "url of link",
+                "example": "https://linktr.ee/littlefish.foundation"
+              },
+              "urlName": {
+                "type": "string",
+                "format": "name of link",
+                "description": "name of the link.",
+                "example": "Littlefish Foundation Linktree"
+              }
+            }
+          }
         }
       }
     }

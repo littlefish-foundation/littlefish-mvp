@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Container,
   Row,
@@ -9,6 +9,7 @@ import {
   Input,
   Label,
 } from "reactstrap";
+import { Tag } from "primereact/tag";
 
 import SubHeader from "../components/UserInterface/Sub-Header/SubHeader";
 import NftCard from "../components/UserInterface/Nft-card/NftCard";
@@ -20,6 +21,8 @@ import DynamicFields from "../components/UserInterface/DynamicFields/DynamicFiel
 import SuccessModal from "../components/UserInterface/Modal/SuccessModal";
 import ErrorModal from "../components/UserInterface/Modal/ErrorModal";
 import LoadingModal from "../components/UserInterface/Modal/LoadingModal";
+import AuthContext from "../store/auth-context";
+import { TagsInput } from "react-tag-input-component";
 
 const actionInitialState = {
   assetName: "Whitepaper",
@@ -44,6 +47,7 @@ const Create = (props) => {
   };
 
   const maxCount = 256;
+  const walletid = localStorage.getItem("walletID");
 
   const [showModal, setShowModal] = useState(false);
 
@@ -52,6 +56,35 @@ const Create = (props) => {
 
   const [colonyName1, setColonyName1] = useState("");
   const [postStatus, setPostStatus] = useState(null);
+  const [tags, setTags] = useState(["Research"]);
+
+  //* ************************************************************************************************************* *////
+  const [allUrls, setAllUrls] = useState([{ urlName: "", url: "" }]);
+
+  const handleAddLinks = () => {
+    const values = [...allUrls];
+    values.push({
+      urlName: "",
+      url: "",
+    });
+    setAllUrls(values);
+  };
+
+  const handleRemoveUrls = (index) => {
+    const values = [...allUrls];
+    values.pop();
+    setAllUrls(values);
+  };
+
+  const handleUrlInputChange = (index, event) => {
+    const values = [...allUrls];
+    const updatedValue = event.target.name;
+    values[index][updatedValue] = event.target.value;
+
+    setAllUrls(values);
+  };
+
+  ///* ************************************************************************************************************* *///
 
   const onChangeSelection = (e) => {
     setActionType1(e.target.value);
@@ -65,10 +98,13 @@ const Create = (props) => {
   console.log(Type);
 
   const Colony = { colonyName: colonyName1 };
+  const urls = { links: allUrls };
+  const taggings = { tags: tags };
 
   const { assetName, name, description, ownerName, price } = eachEntry;
 
-  Object.assign(eachEntry, Type, Colony);
+  Object.assign(eachEntry, Type, Colony, urls, taggings);
+
   console.log(eachEntry);
 
   const handleInputChange = (e) => {
@@ -81,9 +117,12 @@ const Create = (props) => {
         ?.split(":")
         ?.pop()
         ?.split(";")[0],
-      walletID: window.namiAddress,
+      walletID: walletid,
     });
   };
+  // ***************************************************************************************//
+
+  // ***************************************************************************************//
 
   const handleFinalSubmit = (e) => {
     e.preventDefault();
@@ -112,182 +151,253 @@ const Create = (props) => {
     setShowModal(true);
   };
 
+  console.log(eachEntry);
+
   return (
     <div>
-      <div>
-        <SubHeader assetName="Generate a New Action" />
+      <SubHeader assetName="Generate a New Action" />
 
-        <section>
-          <Container>
-            <Row>
-              <Col lg="3" md="4" sm="6">
-                <h5 className="mb-4 text-light">Example Action</h5>
-                <NftCard item={actionInitialState} />
-              </Col>
+      <section>
+        <Container>
+          <Row>
+            <Col lg="3" md="4" sm="6">
+              <h5 className="mb-4 text-light">Example Action</h5>
+              <NftCard item={actionInitialState} />
+            </Col>
 
-              <Col lg="8" md="8" sm="6">
-                <div className="create__item">
-                  <Form>
-                    <FormGroup className="form__input">
-                      <Label for="walletID">Wallet ID*</Label>
+            <Col lg="8" md="8" sm="6">
+              <div className="create__item">
+                <Form>
+                  <FormGroup className="form__input">
+                    <Label for="walletID">Wallet ID*</Label>
 
-                      <Input
-                        //required
-                        id="walletID"
-                        name="walletID"
-                        type="text"
-                        placeholder="Connect your wallet to fill this part"
-                        onChange={handleInputChange}
-                        value={window.namiAddress}
-                      ></Input>
-                      <PopOvers />
-                    </FormGroup>
-
-                    <Base64 />
-
-                    <FormGroup className="form__input">
-                      <Label for="ownerName">Action Producer*</Label>
-                      <Input
-                        //required
-                        id="ownerName"
-                        name="ownerName"
-                        type="text"
-                        placeholder="Enter the Name of the Producer"
-                        onChange={handleInputChange}
-                        value={ownerName}
-                      />
-                      <PopOvers />
-                    </FormGroup>
-
-                    <FormGroup className="form__input">
-                      <Label for="assetName">Action Name*</Label>
-                      <Input
-                        //required
-                        id="assetName"
-                        name="assetName"
-                        type="text"
-                        placeholder="Enter the Name of the Action"
-                        onChange={handleInputChange}
-                        value={assetName}
-                      />
-                      <PopOvers />
-                    </FormGroup>
-
-                    <FormGroup className="form__input">
-                      <Label for="name">Name*</Label>
-                      <Input
-                        //required
-                        id="name"
-                        name="name"
-                        type="text"
-                        placeholder="Enter the full Name of the Action"
-                        onChange={handleInputChange}
-                        value={name}
-                      />
-                      <PopOvers />
-                    </FormGroup>
-
-                    <FormGroup className="form__input">
-                      <Label for="actionType">Action Type*</Label>
-                      <Input
-                        //required
-                        id="actionType"
-                        type="select"
-                        name="actionType"
-                        onChange={onChangeSelection}
-                        value={actionType1}
-                      >
-                        <option></option>
-                        <option value="Software Developing">
-                          Sofware Developing
-                        </option>
-                        <option value="Research">Research</option>
-                        <option value="Community Help">Community Help</option>
-                        <option value="Plan & Strategy">Plan & Strategy</option>
-                      </Input>
-                      <PopOvers />
-                    </FormGroup>
-
-                    <FormGroup className="form__input">
-                      <Label for="description">Description*</Label>
-                      <Input
-                        //required
-                        id="description"
-                        type="textarea"
-                        name="description"
-                        rows="4"
-                        //minLength="50"
-                        maxLength="256"
-                        placeholder="Enter description"
-                        onChange={handleInputChange}
-                        value={description}
-                        className="w-90"
-                      ></Input>
-                      <div className="Char__counter">
-                        {description.length}/ {maxCount}
-                      </div>
-
-                      <PopOvers />
-                    </FormGroup>
-
-                    <FormGroup className="form__input">
-                      <Label for="colonyName">Colony Name*</Label>
-                      <Input
-                        //required
-                        id="colonyName"
-                        type="select"
-                        name="colonyName"
-                        onChange={onChangeColony}
-                        value={colonyName1}
-                      >
-                        <option>Choose your Colony</option>
-                        <option value="littlefish Foundation">
-                          littlefish Foundation
-                        </option>
-                      </Input>
-                      <PopOvers />
-                    </FormGroup>
-
-                    <FormGroup className="form__input">
-                      <Label for="price">Price*</Label>
-                      <Input
-                        //required
-                        id="price"
-                        name="price"
-                        type="number"
-                        placeholder="Please enter a price in ADA"
-                        onChange={handleInputChange}
-                        value={price}
-                      />
-
-                      <PopOvers />
-                    </FormGroup>
-
-                    <DynamicFields />
-
-                    <br />
-                    <Button
-                      style={{ backgroundColor: "#5142fc", width: "185px" }}
-                      onClick={handleFinalSubmit}
+                    <Input
+                      //required
+                      id="walletID"
+                      name="walletID"
+                      type="text"
+                      placeholder="Connect your wallet to fill this part"
+                      //onChange={handleInputChange}
+                      value={walletid}
+                    ></Input>
+                    <PopOvers />
+                  </FormGroup>
+                  <Base64 />
+                  <FormGroup className="form__input">
+                    <Label for="ownerName">Action Producer*</Label>
+                    <Input
+                      //required
+                      id="ownerName"
+                      name="ownerName"
+                      type="text"
+                      placeholder="Enter the Name of the Producer"
+                      onChange={handleInputChange}
+                      value={ownerName}
+                    />
+                    <PopOvers />
+                  </FormGroup>
+                  <FormGroup className="form__input">
+                    <Label for="assetName">Action Name*</Label>
+                    <Input
+                      //required
+                      id="assetName"
+                      name="assetName"
+                      type="text"
+                      placeholder="Enter the Name of the Action"
+                      onChange={handleInputChange}
+                      value={assetName}
+                    />
+                    <PopOvers />
+                  </FormGroup>
+                  <FormGroup className="form__input">
+                    <Label for="name">Name*</Label>
+                    <Input
+                      //required
+                      id="name"
+                      name="name"
+                      type="text"
+                      placeholder="Enter the full Name of the Action"
+                      onChange={handleInputChange}
+                      value={name}
+                    />
+                    <PopOvers />
+                  </FormGroup>
+                  <FormGroup className="form__input">
+                    <Label for="actionType">Action Type*</Label>
+                    <Input
+                      //required
+                      id="actionType"
+                      type="select"
+                      name="actionType"
+                      onChange={onChangeSelection}
+                      value={actionType1}
                     >
-                      Submit
+                      <option></option>
+                      <option value="Software Developing">
+                        Sofware Developing
+                      </option>
+                      <option value="Research">Research</option>
+                      <option value="Community Help">Community Help</option>
+                      <option value="Plan & Strategy">Plan & Strategy</option>
+                    </Input>
+                    <PopOvers />
+                  </FormGroup>
+
+                  <FormGroup className="form__input">
+                    <div className="TagsInput">
+                      <Label for="actionType">Action Type*</Label>
+                      <TagsInput
+                        value={tags}
+                        onChange={setTags}
+                        name="actionType"
+                        placeHolder="Enter Action Types"
+                      />
+
+                      <em
+                        style={{
+                          color: "#fff",
+                          display: "flex",
+                          alignContent: "end",
+                          justifyContent: "end",
+                        }}
+                      >
+                        Press enter to add new tag
+                      </em>
+                    </div>
+                  </FormGroup>
+
+                  <FormGroup className="form__input">
+                    <Label for="description">Description*</Label>
+                    <Input
+                      //required
+                      id="description"
+                      type="textarea"
+                      name="description"
+                      rows="4"
+                      //minLength="50"
+                      maxLength="256"
+                      placeholder="Enter description"
+                      onChange={handleInputChange}
+                      value={description}
+                      className="w-90"
+                    ></Input>
+                    <div className="Char__counter">
+                      {description.length}/ {maxCount}
+                    </div>
+
+                    <PopOvers />
+                  </FormGroup>
+                  <FormGroup className="form__input">
+                    <Label for="colonyName">Colony Name*</Label>
+                    <Input
+                      //required
+                      id="colonyName"
+                      type="select"
+                      name="colonyName"
+                      onChange={onChangeColony}
+                      value={colonyName1}
+                    >
+                      <option>Choose your Colony</option>
+                      <option value="littlefish Foundation">
+                        littlefish Foundation
+                      </option>
+                    </Input>
+                    <PopOvers />
+                  </FormGroup>
+                  <FormGroup className="form__input">
+                    <Label for="price">Price*</Label>
+                    <Input
+                      //required
+                      id="price"
+                      name="price"
+                      type="number"
+                      placeholder="Please enter a price in ADA"
+                      onChange={handleInputChange}
+                      value={price}
+                    />
+
+                    <PopOvers />
+                  </FormGroup>
+                  <div>
+                    {allUrls.length > 0 && (
+                      <>
+                        {allUrls.map((field, index) => (
+                          <div>
+                            {" "}
+                            <Row>
+                              <Col lg="4">
+                                <FormGroup className="form__input">
+                                  <Label for="linkName">Name of the URL</Label>
+
+                                  <Input
+                                    id="url"
+                                    type="text"
+                                    name="urlName"
+                                    placeholder="Enter the URL Name"
+                                    value={field.linkName}
+                                    onChange={(event) =>
+                                      handleUrlInputChange(index, event)
+                                    }
+                                  />
+                                </FormGroup>
+                              </Col>
+                              <Col lg="8">
+                                <FormGroup className="form__input">
+                                  <Label for="url">URL</Label>
+
+                                  <Input
+                                    id="url"
+                                    type="text"
+                                    name="url"
+                                    placeholder="Paste the URL"
+                                    value={field.url}
+                                    onChange={(event) =>
+                                      handleUrlInputChange(index, event)
+                                    }
+                                  />
+                                </FormGroup>
+                              </Col>
+                            </Row>
+                          </div>
+                        ))}
+                      </>
+                    )}
+                    <Button
+                      className="cancel-btn-first"
+                      onClick={() => handleRemoveUrls()}
+                    >
+                      Delete
                     </Button>
-                    {postStatus === "success" && showModal && (
-                      <SuccessModal setShowModal={setShowModal} />
-                    )}
-                    {postStatus === "error" && showModal && (
-                      <ErrorModal setShowModal={setShowModal} />
-                    )}
-                    {postStatus === null && showModal && (
-                      <LoadingModal setShowModal={setShowModal} />
-                    )}
-                  </Form>
-                </div>
-              </Col>
-            </Row>
-          </Container>
-        </section>
-      </div>
+                    &nbsp; &nbsp; &nbsp;
+                    <Button
+                      className="add-btn-second"
+                      onClick={() => handleAddLinks()}
+                    >
+                      Add
+                    </Button>
+                  </div>
+                  <br />
+                  <Button
+                    style={{ backgroundColor: "#5142fc", width: "185px" }}
+                    onClick={handleFinalSubmit}
+                  >
+                    Submit
+                  </Button>
+                  {postStatus === "success" && showModal && (
+                    <SuccessModal setShowModal={setShowModal} />
+                  )}
+                  {postStatus === "error" && showModal && (
+                    <ErrorModal setShowModal={setShowModal} />
+                  )}
+                  {postStatus === null && showModal && (
+                    <LoadingModal setShowModal={setShowModal} />
+                  )}
+                </Form>
+              </div>
+            </Col>
+          </Row>
+        </Container>
+      </section>
     </div>
   );
 };

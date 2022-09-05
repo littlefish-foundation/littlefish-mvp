@@ -18,7 +18,13 @@ const NamiAddressModal = ({ account, setShowModal }) => {
     <div className="modal__wrapper">
       <div className="single__modal">
         <span className="close__modal">
-          <i class="ri-close-line" onClick={() => setShowModal(false)}></i>
+          <i
+            class="ri-close-line"
+            onClick={() => {
+              setShowModal(false);
+              //window.location.reload();
+            }}
+          ></i>
         </span>
         <div>
           <TbPlugConnected style={{ color: "blue", fontSize: 50 }} />

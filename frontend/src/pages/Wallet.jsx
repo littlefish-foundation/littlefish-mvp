@@ -15,12 +15,16 @@ import Typhon from "../assets/typhon.svg";
 import Nami from "../assets/Nami.svg";
 import AbsentNamiWalletModal from "../components/UserInterface/Modal/AbsentNamiWalletModal";
 import NamiAddressModal from "../components/UserInterface/Modal/NamiAddressModal";
+import ConnectedMarker from "../components/Header/ConnectedMarker";
 
-const Wallet = (props) => {
+const Wallet = () => {
   const [namiAddr, setNamiAddr] = useState(false);
   const [account, setAccount] = useState(null);
   const [showModal, setShowModal] = useState(false);
   const [namiCheck, setNamiCheck] = useState(null);
+
+  // const idleButtonColor = { border: "3px solid blue" };
+  // const connectedButtonColor = { border: "3px solid green" };
 
   const connectTyphonWallet = () => {
     var typhon;
@@ -66,6 +70,7 @@ const Wallet = (props) => {
         window.cardano,
         "<blockfrost-api-key>"
       );
+      console.log(namiAddr);
 
       if (namiAddr) {
         await Nami.enable();
@@ -74,6 +79,8 @@ const Wallet = (props) => {
 
         //setNamiAddr(false);
         setAccount(addr);
+        localStorage.setItem("walletID", addr);
+
       }
     }
     t();
@@ -81,18 +88,25 @@ const Wallet = (props) => {
 
   console.log(namiCheck);
 
-  window.namiAddress = account;
+  //window.namiAddress = account;
+
+  //console.log(account);
+
+  console.log(window.walletIDStored);
 
   const namiClickHandler = (e) => {
+    e.preventDefault();
     if (namiCheck === null) {
       setShowModal(true);
+      setNamiAddr(false);
     }
     setNamiAddr(true);
+    window.walletIDStored = localStorage.getItem("walletID");
+
     //setShowModal(false);
   };
-
   return (
-    <>
+    <div>
       <SubHeader assetName={"Connect Wallet"} />
       <section>
         <Container>
@@ -174,7 +188,7 @@ const Wallet = (props) => {
           </Row>
         </Container>
       </section>
-    </>
+    </div>
   );
 };
 

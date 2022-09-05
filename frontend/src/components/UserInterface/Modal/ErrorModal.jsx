@@ -5,11 +5,9 @@ import { useNavigate } from "react-router-dom";
 import "./modal.css";
 
 const ErrorModal = ({ setShowModal }) => {
-
   const refreshPage = () => {
-    window.location.reload()
-  }
-  
+    window.location.reload();
+  };
 
   return (
     <div className="modal__wrapper">

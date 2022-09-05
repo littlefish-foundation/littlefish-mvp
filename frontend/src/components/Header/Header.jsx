@@ -1,12 +1,12 @@
-import React, { useRef, useEffect } from "react";
+import React, { useRef, useEffect, useState } from "react";
 import "./header.css";
 import { Container } from "reactstrap";
 import abstract from "../../assets/abstract.png";
+import FiberManualRecordIcon from "@mui/icons-material/FiberManualRecord";
 
 import { NavLink, Link } from "react-router-dom";
 
 const NAV__LINKS = [
-  
   {
     display: "Actions",
     url: "/action",
@@ -26,9 +26,14 @@ const NAV__LINKS = [
 ];
 
 const Header = () => {
+
   const headerRef = useRef(null);
 
   const menuRef = useRef(null);
+
+  let address = localStorage.length;
+  console.log(address);
+
 
   useEffect(() => {
     window.addEventListener("scroll", () => {
@@ -42,9 +47,7 @@ const Header = () => {
       }
     });
 
-    return () => {
-      window.removeEventListener("scroll");
-    };
+    return () => window.removeEventListener("scroll");
   }, []);
 
   const toggleMenu = () => menuRef.current.classList.toggle("active__menu");
@@ -85,15 +88,15 @@ const Header = () => {
             </ul>
           </div>
 
-
           <div className="nav__right d-flex align-items-center gap-5 ">
             <button className="btn d-flex gap-2 align-items-center">
               <span>
                 <i className="ri-wallet-line"></i>
               </span>
+
               <Link to="/wallet">Connect Wallet</Link>
             </button>
-
+            {address !== 0 && <FiberManualRecordIcon sx={{ color: "green" }} />}
             <span className="mobile__menu">
               <i className="ri-menu-line" onClick={toggleMenu}></i>
             </span>

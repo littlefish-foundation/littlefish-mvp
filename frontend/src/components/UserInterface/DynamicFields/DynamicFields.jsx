@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Row, Col, Button, FormGroup, Input, Label } from "reactstrap";
 import "../../../styles/create-item.css";
 import "./DynamicFields.css";
+import AuthContext from "../../../store/auth-context";
 
 const DynamicFields = () => {
   const [allUrls, setAllUrls] = useState([{ urlName: "", url: "" }]);
@@ -21,7 +22,7 @@ const DynamicFields = () => {
     setAllUrls(values);
   };
 
-  const handleInputChange = (index, event) => {
+  const handleUrlInputChange = (index, event) => {
     const values = [...allUrls];
     const updatedValue = event.target.name;
     values[index][updatedValue] = event.target.value;
@@ -44,13 +45,12 @@ const DynamicFields = () => {
                     <Label for="linkName">Name of the URL</Label>
 
                     <Input
-                      disabled
                       id="url"
                       type="text"
                       name="urlName"
                       placeholder="Enter the URL Name"
                       value={field.linkName}
-                      onChange={(event) => handleInputChange(index, event)}
+                      onChange={(event) => handleUrlInputChange(index, event)}
                     />
                   </FormGroup>
                 </Col>
@@ -59,13 +59,12 @@ const DynamicFields = () => {
                     <Label for="url">URL</Label>
 
                     <Input
-                      disabled
                       id="url"
                       type="text"
                       name="url"
                       placeholder="Paste the URL"
                       value={field.url}
-                      onChange={(event) => handleInputChange(index, event)}
+                      onChange={(event) => handleUrlInputChange(index, event)}
                     />
                   </FormGroup>
                 </Col>

@@ -25,7 +25,7 @@ const NftDetails = () => {
 
   return (
     <div>
-      <SubHeader assetName={singleNft?.assetName}></SubHeader>
+      <SubHeader assetName={singleNft?.assetName} />
 
       <section>
         <Container>

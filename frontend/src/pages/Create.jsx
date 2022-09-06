@@ -19,7 +19,7 @@ import PopOvers from "../components/UserInterface/popovers/PopOvers";
 import SuccessModal from "../components/UserInterface/Modal/SuccessModal";
 import ErrorModal from "../components/UserInterface/Modal/ErrorModal";
 import LoadingModal from "../components/UserInterface/Modal/LoadingModal";
-import AuthContext from "../store/auth-context";
+//import AuthContext from "../store/auth-context";
 import { TagsInput } from "react-tag-input-component";
 
 const actionInitialState = {

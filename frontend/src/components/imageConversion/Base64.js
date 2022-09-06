@@ -8,8 +8,6 @@ class Base64 extends React.Component {
     base64URL: "",
   };
 
-
-
   getBase64 = (file) => {
     return new Promise((resolve) => {
       let baseURL = "";
@@ -31,6 +29,7 @@ class Base64 extends React.Component {
   };
 
   handleFileInputChange = (e) => {
+    e.preventDefault();
     let { file } = this.state;
 
     file = e.target.files[0];
@@ -43,7 +42,7 @@ class Base64 extends React.Component {
 
         this.props.parentCallback(arr[0]);
 
-        //window.bas64Data = arr[0];
+        window.bas64Data = arr[0];
 
         this.setState({
           base64URL: result,

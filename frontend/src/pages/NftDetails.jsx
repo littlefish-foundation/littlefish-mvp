@@ -37,6 +37,7 @@ const NftDetails = () => {
                 className="w-100 single__nft-img"
               />
             </Col>
+
             <Col lg="6">
               <div>
                 <div className="nft__creator d-flex gap-3 align-items-center">

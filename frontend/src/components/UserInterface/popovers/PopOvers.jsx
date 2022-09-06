@@ -62,7 +62,7 @@ const PopOvers = (props) => {
       </UncontrolledPopover>
 
       {/* ******************************************************************** */}
-      <UncontrolledPopover
+     {/* <UncontrolledPopover
         placement="right"
         target="actionType"
         trigger="hover focus"
@@ -73,7 +73,7 @@ const PopOvers = (props) => {
           How would you categorize the type of your Action? What skills did you
           use to make this possible?
         </PopoverBody>
-      </UncontrolledPopover>
+      </UncontrolledPopover> */}
 
       {/* ******************************************************************** */}
 

@@ -1,12 +1,14 @@
 import React from "react";
 import { FormGroup, Input, Label } from "reactstrap";
-import PopOvers from "../components/UserInterface/popovers/PopOvers";
+import PopOvers from "../UserInterface/popovers/PopOvers";
 
 class Base64 extends React.Component {
   state = {
     file: null,
     base64URL: "",
   };
+
+
 
   getBase64 = (file) => {
     return new Promise((resolve) => {
@@ -39,7 +41,9 @@ class Base64 extends React.Component {
 
         var arr = Object.values(file);
 
-        window.bas64Data = arr[0];
+        this.props.parentCallback(arr[0]);
+
+        //window.bas64Data = arr[0];
 
         this.setState({
           base64URL: result,

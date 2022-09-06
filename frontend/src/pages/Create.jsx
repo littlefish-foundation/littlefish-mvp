@@ -15,7 +15,7 @@ import SubHeader from "../components/UserInterface/Sub-Header/SubHeader";
 import NftCard from "../components/UserInterface/Nft-card/NftCard";
 import img from "../assets/example.png";
 import "../styles/create-item.css";
-import Base64 from "../assets/Base64";
+import Base64 from "../components/imageConversion/Base64";
 import PopOvers from "../components/UserInterface/popovers/PopOvers";
 import DynamicFields from "../components/UserInterface/DynamicFields/DynamicFields";
 import SuccessModal from "../components/UserInterface/Modal/SuccessModal";
@@ -47,19 +47,27 @@ const Create = (props) => {
   };
 
   const maxCount = 256;
+
+  //const state = { imageConversion: "" };
+
   const walletid = localStorage.getItem("walletID");
 
   const [showModal, setShowModal] = useState(false);
+  const [imageData, setImageData] = useState("");
 
   const [eachEntry, setEachEntry] = useState(initialInputState);
-  const [actionType1, setActionType1] = useState("");
+  //const [actionType1, setActionType1] = useState("");
 
   const [colonyName1, setColonyName1] = useState("");
   const [postStatus, setPostStatus] = useState(null);
-  const [tags, setTags] = useState(["Research"]);
+  const [actionType, setActionType] = useState("");
 
   //* ************************************************************************************************************* *////
   const [allUrls, setAllUrls] = useState([{ urlName: "", url: "" }]);
+
+  const handleCallback = (childData) => {
+    setImageData(childData);
+  };
 
   const handleAddLinks = () => {
     const values = [...allUrls];
@@ -87,15 +95,15 @@ const Create = (props) => {
   ///* ************************************************************************************************************* *///
 
   const onChangeSelection = (e) => {
-    setActionType1(e.target.value);
+    e.preventDefault();
+    setActionType(e.target.value);
   };
-
   const onChangeColony = (e) => {
     setColonyName1(e.target.value);
   };
 
-  const Type = { actionType: actionType1 };
-  console.log(Type);
+  const Type = { actionType: actionType };
+  //console.log(Type);
 
   const Colony = { colonyName: colonyName1 };
   const urls = { links: allUrls };
@@ -111,12 +119,8 @@ const Create = (props) => {
     setEachEntry({
       ...eachEntry,
       [e.target.name]: e.target.value,
-      image: window.bas64Data?.split(",")[1],
-      mediaType: window.bas64Data
-        ?.split(",")[0]
-        ?.split(":")
-        ?.pop()
-        ?.split(";")[0],
+      image: imageData.split(",")[1],
+      mediaType: imageData?.split(",")[0]?.split(":")?.pop()?.split(";")[0],
       walletID: walletid,
     });
   };
@@ -146,7 +150,7 @@ const Create = (props) => {
     console.log(eachEntry);
     setEachEntry(initialInputState);
 
-    setActionType1("");
+    setActionType("");
     setColonyName1("");
     setShowModal(true);
   };
@@ -182,7 +186,9 @@ const Create = (props) => {
                     ></Input>
                     <PopOvers />
                   </FormGroup>
-                  <Base64 />
+
+                  <Base64 parentCallback={handleCallback} />
+
                   <FormGroup className="form__input">
                     <Label for="ownerName">Action Producer*</Label>
                     <Input
@@ -222,15 +228,17 @@ const Create = (props) => {
                     />
                     <PopOvers />
                   </FormGroup>
+
                   <FormGroup className="form__input">
                     <Label for="actionType">Action Type*</Label>
                     <Input
                       //required
+
                       id="actionType"
                       type="select"
                       name="actionType"
                       onChange={onChangeSelection}
-                      value={actionType1}
+                      value={actionType}
                     >
                       <option></option>
                       <option value="Software Developing">
@@ -240,19 +248,18 @@ const Create = (props) => {
                       <option value="Community Help">Community Help</option>
                       <option value="Plan & Strategy">Plan & Strategy</option>
                     </Input>
-                    <PopOvers />
                   </FormGroup>
 
-                  <FormGroup className="form__input">
-                    <div className="TagsInput" disabled>
+                  {/*<FormGroup className="form__input">
+                    <div className="TagsInput">
                       <Label for="actionType">Action Type*</Label>
                       <TagsInput
-                        disabled
-                        value={tags}
-                        onChange={setTags}
+                        //disabled
+                        value={actionType}
+                        //onChange={actionType[0]}
                         name="actionType"
                         placeHolder="Enter Action Types"
-                      />
+/>
 
                       <em
                         style={{
@@ -265,7 +272,7 @@ const Create = (props) => {
                         Press enter to add new tag
                       </em>
                     </div>
-                  </FormGroup>
+                  </FormGroup>*/}
 
                   <FormGroup className="form__input">
                     <Label for="description">Description*</Label>

@@ -1,12 +1,12 @@
 const ActionModel = require('../models/action');
 
 module.exports = class ActionDataAccess {
-  static async getActionByBlockchainId(chainID) {
-    return ActionModel.findOne({ chainID }).lean().exec();
+  static async getActionByBlockchainId(chainID, fields = '-__v') {
+    return ActionModel.findOne({ chainID }).select(fields).lean().exec();
   }
 
-  static async getActionById(id) {
-    return ActionModel.findById(id).lean().exec();
+  static async getActionById(id, fields = '-__v') {
+    return ActionModel.findById(id).select(fields).lean().exec();
   }
 
   static async createAction(action) {
@@ -27,7 +27,7 @@ module.exports = class ActionDataAccess {
     return ActionModel.findByIdAndUpdate(id, { status });
   }
 
-  static async getActions(colony, filter, sorter, page, limit) {
+  static async getActions(colony, filter, sorter, page, limit, fields = '-__v') {
     const {
       assetName, ownerName, minDate, maxDate, status,
     } = filter;
@@ -48,6 +48,7 @@ module.exports = class ActionDataAccess {
       .sort({
         ...(sortingField ? { sortingField: sortingOrder } : undefined),
       })
+      .select(fields)
       .lean()
       .exec();
   }

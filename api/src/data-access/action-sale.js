@@ -1,8 +1,8 @@
 const ActionSaleModel = require('../models/colony');
 
 module.exports = class ActionSaleAccess {
-  static async getSaleByActionId(actionId) {
-    return ActionSaleModel.findOne({ actionId }).lean().exec();
+  static async getSaleByActionId(actionId, fields = '-__v') {
+    return ActionSaleModel.findOne({ actionId }).select(fields).lean().exec();
   }
 
   static async createActionSale(sale) {

@@ -20,6 +20,12 @@ module.exports = {
     }),
   },
 
+  getPopularActionTypes: {
+    query: Joi.object({
+      limit: Joi.number().integer().positive().default(10),
+    }),
+  },
+
   createActionType: {
     query: Joi.object(
       {

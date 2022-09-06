@@ -1,10 +1,14 @@
 const actionService = require('./action');
 const userDataAccess = require('../data-access/user');
 const colonyDataAccess = require('../data-access/colony');
+const { NotFoundError } = require('../errors');
 
 module.exports = class ColonyService {
   static async getColony(name) {
     const colony = await colonyDataAccess.getColonyByName(name);
+    if (!colony) {
+      throw new NotFoundError(`The colony with name: ${name} is not found.`);
+    }
 
     const colonyMembers = await userDataAccess.getUsersByColony(colony._id);
     colony.members = colonyMembers;

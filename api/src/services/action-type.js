@@ -21,7 +21,7 @@ module.exports = class ActionTypeService {
 
   static async createActionType(actionType) {
     // TODO createActionType response
-    await actionTypeDataAccess.createActionType(actionType);
+    await actionTypeDataAccess.createActionType(actionType.name);
 
     return {
       success: true,
@@ -29,8 +29,15 @@ module.exports = class ActionTypeService {
   }
 
   static async getActionTypes(page, limit) {
-    // TODO resp
     const actionTypes = await actionTypeDataAccess.getActionTypes(page, limit);
+
+    return {
+      actionTypes,
+    };
+  }
+
+  static async getPopularActionTypes(limit) {
+    const actionTypes = await actionTypeDataAccess.getPopularActionTypes(limit);
 
     return {
       actionTypes,

@@ -29,4 +29,11 @@ module.exports = class ActionTypeController {
     const data = await actionTypeService.getActionTypes(page, limit);
     res.status(200).send(data);
   });
+
+  static getPopularActionTypes = catchAsync(async (req, res) => {
+    const { limit } = req.query;
+
+    const data = await actionTypeService.getPopularActionTypes(limit);
+    res.status(200).send(data);
+  });
 };

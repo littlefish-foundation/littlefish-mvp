@@ -43,6 +43,7 @@ actionSaleRouter.route('/:actionID').patch(validator(actionSaleSchemas.updateSal
 router.use('/action-sale', actionSaleRouter);
 
 const actionTypeRouter = express.Router();
+actionTypeRouter.route('/popular').get(validator(actionTypeSchemas.getPopularActionTypes), actionTypeController.getPopularActionTypes);
 actionTypeRouter.route('/:name').get(validator(actionTypeSchemas.getActionType), actionTypeController.getActionType);
 actionTypeRouter.route('/:name').delete(validator(actionTypeSchemas.deleteActionType), actionTypeController.deleteActionType);
 actionTypeRouter.route('/').get(validator(actionTypeSchemas.getActionTypes), actionTypeController.getActionTypes);

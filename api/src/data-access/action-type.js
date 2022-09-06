@@ -1,22 +1,26 @@
 const ActionTypeModel = require('../models/action-type');
 
 module.exports = class ActionTypeAccess {
-  static async getActionType(name) {
-    return ActionTypeModel.findOne({ name }).lean().exec();
+  static async getActionType(name, fields = '-__v') {
+    return ActionTypeModel.findOne({ name }).select(fields).lean().exec();
   }
 
-  static async getActionTypes(page, limit) {
-    return ActionTypeModel.find().skip(page * limit).limit(limit)
+  static async getPopularActionTypes(limit, fields = '-_id, -__v') {
+    return ActionTypeModel.find().sort({ count: 'desc' }).limit(limit).select(fields)
       .lean()
       .exec();
   }
 
-  static async createActionType(type) {
-    // TODO resp
+  static async getActionTypes(page, limit, fields = '-__v') {
+    return ActionTypeModel.find().skip(page * limit).limit(limit).select(fields)
+      .lean()
+      .exec();
+  }
 
+  static async createActionType(name) {
     return ActionTypeModel.create({
-      name: type,
-      count: 0,
+      name,
+      count: 1,
     });
   }
 

@@ -104,17 +104,17 @@ module.exports = class ActionService {
   }
 
   static async createActionCollection(walletAddress, assetName, collectionLinkAttributes) {
-    const collectionID = await tangocryptoClient.createCollection(walletAddress, assetName, collectionLinkAttributes);
-    return { collectionID };
+    const { collectionID } = await tangocryptoClient.createCollection(walletAddress, assetName, collectionLinkAttributes);
+    return collectionID;
   }
 
   static async mintAction(action) {
     const { actionLinks, collectionLinkAttributes } = actionLogic.prepareLinksToMint(action.links);
     const toMint = actionLogic.prepareActionToMint(action, actionLinks);
-    const { collectionID } = await this.createActionCollection(action.walletID, action.assetName, collectionLinkAttributes);
+    const collectionID = await this.createActionCollection(action.walletID, action.assetName, collectionLinkAttributes);
     const { mintedAction } = await tangocryptoClient.mintAction(toMint, collectionID);
 
-    const actionType = actionTypeDataAccess.getActionType(action.actionType);
+    const actionType = await actionTypeDataAccess.getActionType(action.actionType);
     if (actionType) {
       await actionTypeDataAccess.incrementActionType(actionType.name);
     } else {

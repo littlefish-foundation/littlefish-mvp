@@ -35,7 +35,10 @@ module.exports = class ActionLogic {
       const linkLength = Math.ceil(url.length / ACTION_MAX_ALLOWED_LENGTH);
 
       if (linkLength === 1) {
-        actionLinks[name] = url;
+        actionLinks.push({
+          tag: name,
+          value: url,
+        });
         collectionLinkAttributes[name] = `<${name}>`;
         return;
       }

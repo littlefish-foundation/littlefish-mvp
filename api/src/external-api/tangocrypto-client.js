@@ -46,10 +46,10 @@ module.exports = class TangocryptoClient {
       },
     };
 
-    const response = this.actionRequestSender(options, 201);
+    const response = await this.actionRequestSender(options, 201);
 
     return {
-      response,
+      collectionID: response.data.id,
     };
   }
 
@@ -63,7 +63,7 @@ module.exports = class TangocryptoClient {
       },
     };
 
-    const response = this.actionRequestSender(options, 200);
+    const response = await this.actionRequestSender(options, 200);
 
     return {
       success: response?.data?.deleted || false,
@@ -80,7 +80,7 @@ module.exports = class TangocryptoClient {
       },
     };
 
-    const response = this.actionRequestSender(options, 200);
+    const response = await this.actionRequestSender(options, 200);
 
     return {
       sale: response.data,
@@ -97,7 +97,7 @@ module.exports = class TangocryptoClient {
       },
     };
 
-    const response = this.actionRequestSender(options, 200);
+    const response = await this.actionRequestSender(options, 200);
 
     return {
       action: response.data,
@@ -115,7 +115,7 @@ module.exports = class TangocryptoClient {
       data: action,
     };
 
-    const response = this.actionRequestSender(options, 201);
+    const response = await this.actionRequestSender(options, 201);
 
     return {
       mintedAction: response.data.data[0],
@@ -138,7 +138,7 @@ module.exports = class TangocryptoClient {
       },
     };
 
-    const response = this.actionRequestSender(options, 201);
+    const response = await this.actionRequestSender(options, 201);
 
     return {
       createdSale: response.data,

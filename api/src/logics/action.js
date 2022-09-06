@@ -30,8 +30,8 @@ module.exports = class ActionLogic {
       if (!link.urlName || !link.url) {
         return;
       }
-      const name = link.urlName.toLower();
-      const url = link.url.toLower();
+      const name = link.urlName.toLowerCase();
+      const url = link.url.toLowerCase();
       const linkLength = Math.ceil(url.length / ACTION_MAX_ALLOWED_LENGTH);
 
       if (linkLength === 1) {

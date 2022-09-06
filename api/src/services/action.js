@@ -114,7 +114,7 @@ module.exports = class ActionService {
     const collectionID = await this.createActionCollection(action.walletID, action.assetName, collectionLinkAttributes);
     const { mintedAction } = await tangocryptoClient.mintAction(toMint, collectionID);
 
-    // TODO promise all
+    // TODO change to promise all
     for (let i = 0; i < action.actionTypes.length; i++) {
       // eslint-disable-next-line no-await-in-loop
       const actionType = await actionTypeDataAccess.getActionType(action.actionTypes[i]);
@@ -134,7 +134,7 @@ module.exports = class ActionService {
       name: mintedAction.name,
       producer: action.ownerName,
       ownerName: action.ownerName,
-      colonyName: action.colonyName,
+      colony: action.colonyName,
       fingerprint: mintedAction.fingerprint,
       description: action.description,
       mediaType: mintedAction.media_type,

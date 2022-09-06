@@ -16,7 +16,7 @@ const Action = new mongoose.Schema({
   links: { type: Array },
   files: { type: Array },
   price: { type: Number },
-  colony: { ref: 'Colony', type: mongoose.Schema.Types.ObjectId },
+  colony: { type: String },
   nftFormat: { type: Object, required: true },
   createdAt: { type: Date, default: Date.now },
   updatedAt: { type: Date, default: Date.now },

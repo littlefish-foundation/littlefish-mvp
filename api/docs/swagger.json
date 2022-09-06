@@ -481,7 +481,7 @@
         "summary": "Get the specified action",
         "parameters": [
           {
-            "name": "actionID",
+            "name": "id",
             "in": "path",
             "description": "Action ID",
             "required": true,
@@ -501,7 +501,7 @@
         "summary": "Delete the specified action",
         "parameters": [
           {
-            "name": "actionID",
+            "name": "id",
             "in": "path",
             "description": "Action ID",
             "required": true,

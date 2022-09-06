@@ -1,6 +1,5 @@
 import React from "react";
 import { Container, Row, Col } from "reactstrap";
-import { Link } from "react-router-dom";
 import "./about-section.css";
 
 import heroImg from "../../assets/avatarsAndImages/proofOfActivity.png";

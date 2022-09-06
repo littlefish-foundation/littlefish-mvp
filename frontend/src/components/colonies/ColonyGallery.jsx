@@ -1,13 +1,10 @@
-import React, { useState } from "react";
-
-import SubHeader from "../UserInterface/Sub-Header/SubHeader";
+import React from "react";
 import NftCard from "../UserInterface/Nft-card/NftCard";
-
 import useFetch from "../../Hooks/useFetch";
 import { Container, Row, Col } from "reactstrap";
-
 import "../../styles/actions.css";
 import "../../components/UserInterface/Live-auction/live-auction.css";
+
 
 // import LiveAuction from "../components/ui/Live-auction/LiveAuction";
 
@@ -15,66 +12,6 @@ const ColonyGallery = () => {
   const { NFT__DATA } = useFetch(
     "https://api.littlefish.foundation/colony/Littlefish%20Foundation/actions/"
   );
-  // const [data, setData] = useState([]);
-
-  // const handleCategory = () => {};
-
-  // const handleSort = (e) => {
-  //   const filterValue = e.target.value;
-  //   console.log( { filterValue})
-  //   if (filterValue === "newest") {
-  //     const filterData = NFT__DATA.sort((tokenId1, tokenId2) =>
-  //       tokenId1.tokenId < tokenId2.tokenId
-  //         ? 1
-  //         : tokenId1.tokenId > tokenId2.tokenId
-  //         ? -1
-  //         : 0
-  //     );
-  //     console.log(filterData);
-
-  //     setData(filterData);
-
-  //   }
-
-  //   if (filterValue === "oldest") {
-  //     const filterData = NFT__DATA.sort((tokenId1, tokenId2) =>
-  //       tokenId1.tokenId > tokenId2.tokenId
-  //         ? 1
-  //         : tokenId1.tokenId < tokenId2.tokenId
-  //         ? -1
-  //         : 0
-  //     );
-  //     // console.log(filterData);
-
-  //     setData(filterData);
-  //   }
-
-  //   if (filterValue === "Z->A") {
-  //     const filterData = NFT__DATA.sort((name1, name2) =>
-  //       name1.assetName < name2.assetName
-  //         ? 1
-  //         : name1.assetName > name2.assetName
-  //         ? -1
-  //         : 0
-  //     );
-
-  //     setData(filterData);
-  //   }
-
-  //   if (filterValue === "A->Z") {
-  //     const filterData = NFT__DATA.sort((name1, name2) =>
-  //       name1.assetName > name2.assetName
-  //         ? 1
-  //         : name1.assetName < name2.assetName
-  //         ? -1
-  //         : 0
-  //     );
-
-  //     setData(filterData);
-  //   }
-
-  //   //xsetData("default");
-  // };
 
   return (
     <>
@@ -83,7 +20,7 @@ const ColonyGallery = () => {
           <Row>
             <div className="seller__section-title">
               <h3>Actions of the Colony</h3>
-              <br/>
+              <br />
             </div>
             {NFT__DATA?.map((item) => (
               <Col lg="3" md="4" sm="6" className="mb-4" key={item.tokenId}>

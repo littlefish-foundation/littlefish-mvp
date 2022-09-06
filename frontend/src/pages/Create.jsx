@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import {
   Container,
   Row,
@@ -9,7 +9,6 @@ import {
   Input,
   Label,
 } from "reactstrap";
-import { Tag } from "primereact/tag";
 
 import SubHeader from "../components/UserInterface/Sub-Header/SubHeader";
 import NftCard from "../components/UserInterface/Nft-card/NftCard";
@@ -17,7 +16,6 @@ import img from "../assets/avatarsAndImages/example.png";
 import "../styles/create-item.css";
 import Base64 from "../components/imageConversion/Base64";
 import PopOvers from "../components/UserInterface/popovers/PopOvers";
-import DynamicFields from "../components/UserInterface/DynamicFields/DynamicFields";
 import SuccessModal from "../components/UserInterface/Modal/SuccessModal";
 import ErrorModal from "../components/UserInterface/Modal/ErrorModal";
 import LoadingModal from "../components/UserInterface/Modal/LoadingModal";

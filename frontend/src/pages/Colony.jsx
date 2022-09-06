@@ -1,6 +1,5 @@
 import React from "react";
 import useFetch2 from "../Hooks/useFetch2";
-import { Row } from "reactstrap";
 import ColonyCard from "../components/colonies/ColonyCard";
 import SubHeader from "../components/UserInterface/Sub-Header/SubHeader";
 

@@ -1,8 +1,7 @@
-import React, { useRef, useEffect, useState } from "react";
+import React, { useRef, useEffect } from "react";
 import "./header.css";
 import { Container } from "reactstrap";
 import abstract from "../../assets/avatarsAndImages/abstract.png";
-import FiberManualRecordIcon from "@mui/icons-material/FiberManualRecord";
 
 import { NavLink, Link } from "react-router-dom";
 

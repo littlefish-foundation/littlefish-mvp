@@ -15,7 +15,6 @@ import Typhon from "../assets/avatarsAndImages/typhon.svg";
 import Nami from "../assets/avatarsAndImages/Nami.svg";
 import AbsentNamiWalletModal from "../components/UserInterface/Modal/AbsentNamiWalletModal";
 import NamiAddressModal from "../components/UserInterface/Modal/NamiAddressModal";
-import ConnectedMarker from "../components/Header/ConnectedMarker";
 import DisconnectedModal from "../components/UserInterface/Modal/DisconnectedModal";
 
 const Wallet = () => {

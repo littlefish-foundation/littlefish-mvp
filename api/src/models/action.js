@@ -11,7 +11,7 @@ const Action = new mongoose.Schema({
   mediaType: { type: String, required: true },
   image: { type: String, required: true },
   status: { type: String, required: true },
-  actionType: { type: String, required: true },
+  actionTypes: { type: Array, required: true },
   actionCollection: { type: String, required: true },
   links: { type: Array },
   files: { type: Array },

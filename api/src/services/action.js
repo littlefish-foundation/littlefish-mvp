@@ -114,13 +114,18 @@ module.exports = class ActionService {
     const collectionID = await this.createActionCollection(action.walletID, action.assetName, collectionLinkAttributes);
     const { mintedAction } = await tangocryptoClient.mintAction(toMint, collectionID);
 
-    const actionType = await actionTypeDataAccess.getActionType(action.actionType);
-    if (actionType) {
-      await actionTypeDataAccess.incrementActionType(actionType.name);
-    } else {
-      await actionTypeDataAccess.createActionType(action.actionType);
+    // TODO promise all
+    for (let i = 0; i < action.actionTypes.length; i++) {
+      // eslint-disable-next-line no-await-in-loop
+      const actionType = await actionTypeDataAccess.getActionType(action.actionTypes[i]);
+      if (actionType) {
+        // eslint-disable-next-line no-await-in-loop
+        await actionTypeDataAccess.incrementActionType(actionType.name);
+      } else {
+        // eslint-disable-next-line no-await-in-loop
+        await actionTypeDataAccess.createActionType(action.actionTypes[i]);
+      }
     }
-
     const preparedFiles = actionLogic.prepareAllImageURLsInFile(mintedAction.files);
 
     await actionDataAccess.createAction({
@@ -136,7 +141,7 @@ module.exports = class ActionService {
       links: action.links,
       image: actionLogic.prepareImageURL(mintedAction.image),
       status: mintedAction.status,
-      actionType: action.actionType,
+      actionTypes: action.actionTypes,
       files: preparedFiles,
       nftFormat: mintedAction,
       custom_attributes: mintedAction.custom_attributes,

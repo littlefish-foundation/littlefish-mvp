@@ -53,7 +53,7 @@ module.exports = {
         name: Joi.string().max(ACTION_MAX_ALLOWED_LENGTH).required(),
         assetName: Joi.string().max(ACTION_MAX_ALLOWED_LENGTH).required(),
         ownerName: Joi.string().max(ACTION_MAX_ALLOWED_LENGTH).required(),
-        actionType: Joi.string().max(ACTION_MAX_ALLOWED_LENGTH).required(),
+        actionTypes: Joi.array().required(),
         description: Joi.string().max(ACTION_MAX_ALLOWED_LENGTH * 4).required(),
         mediaType: Joi.string().max(ACTION_MAX_ALLOWED_LENGTH).required(),
         image: Joi.string().base64().required(),

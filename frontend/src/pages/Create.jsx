@@ -186,7 +186,7 @@ const Create = (props) => {
                   <FormGroup className="form__input">
                     <Label for="assetName">Action Name*</Label>
                     <Input
-                      //required
+                      required
                       id="assetName"
                       name="assetName"
                       type="text"
@@ -214,6 +214,7 @@ const Create = (props) => {
                     <div className="TagsInput">
                       <Label for="actionTypes">Action Type*</Label>
                       <TagsInput
+                        required
                         value={actionTypes}
                         onChange={setActionTypes}
                         name="actionTypes"
@@ -273,7 +274,7 @@ const Create = (props) => {
                   <FormGroup className="form__input">
                     <Label for="price">Price*</Label>
                     <Input
-                      //required
+                      required
                       id="price"
                       name="price"
                       type="number"

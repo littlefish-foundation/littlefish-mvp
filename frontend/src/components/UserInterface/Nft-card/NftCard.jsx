@@ -11,7 +11,7 @@ const NftCard = (props) => {
   const [showModal, setShowModal] = useState(false);
 
   return (
-    <Link to={`/action/${assetName}`} style={{ textDecoration: "none" }}>
+    <Link to={`/action/${assetName}`} style={{ textDecoration: "none", color:"white" }}>
       <div className="single__nft__card">
         <div className="nft__img">
           <img src={image} alt="" className="w-100" />

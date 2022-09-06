@@ -1,4 +1,4 @@
-const ActionTypeModel = require('../models/colony');
+const ActionTypeModel = require('../models/action-type');
 
 module.exports = class ActionTypeAccess {
   static async getActionType(name) {
@@ -15,7 +15,7 @@ module.exports = class ActionTypeAccess {
     // TODO resp
 
     return ActionTypeModel.create({
-      ...type,
+      name: type,
       count: 0,
     });
   }

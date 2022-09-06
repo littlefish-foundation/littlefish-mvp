@@ -10,7 +10,7 @@ import Colony from "../pages/Colony";
 
 import NftDetails from "../pages/NftDetails";
 import ColonyDetails from "../pages/ColonyDetails";
-import MemberForm from "../pages/colonies/MemberForm";
+import MemberForm from "../components/colonies/MemberForm";
 
 const Routers = () => {
   return (

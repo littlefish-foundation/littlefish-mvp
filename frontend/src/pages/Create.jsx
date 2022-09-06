@@ -52,10 +52,10 @@ const Create = (props) => {
   const [eachEntry, setEachEntry] = useState(initialInputState);
   const [colonyName1, setColonyName1] = useState("");
   const [postStatus, setPostStatus] = useState(null);
-  const [actionType, setActionType] = useState("");
+  const [actionTypes, setActionTypes] = useState(["Research"]);
   const [allUrls, setAllUrls] = useState([{ urlName: "", url: "" }]);
 
-  ///* ************************************************************************************************************* *////
+///* *********************************************************************************************************************************** *////
 
   const handleCallback = (childData) => {
     setImageData(childData);
@@ -83,20 +83,15 @@ const Create = (props) => {
     setAllUrls(values);
   };
 
-  const onChangeSelection = (e) => {
-    e.preventDefault();
-    setActionType(e.target.value);
-  };
   const onChangeColony = (e) => {
     setColonyName1(e.target.value);
   };
 
-  const Type = { actionType: actionType };
+  const Type = { actionTypes: actionTypes };
   const Colony = { colonyName: colonyName1 };
   const urls = { links: allUrls };
   const { assetName, name, description, ownerName, price } = eachEntry;
   Object.assign(eachEntry, Type, Colony, urls);
-  console.log(eachEntry);
 
   const handleInputChange = (e) => {
     setEachEntry({
@@ -108,7 +103,9 @@ const Create = (props) => {
     });
   };
 
-  ///* ************************************************************************************************************* *///
+  console.log(eachEntry);
+
+///* ************************************************************************************************************************************ *///
 
   const handleFinalSubmit = (e) => {
     e.preventDefault();
@@ -121,6 +118,7 @@ const Create = (props) => {
       .then((response) => response.json())
 
       .then((data) => {
+        console.log(data);
         setPostStatus(Object.entries(data)[0][0]);
 
         console.log(Object.entries(data)[0][0]);
@@ -132,12 +130,12 @@ const Create = (props) => {
     console.log(eachEntry);
     setEachEntry(initialInputState);
 
-    setActionType("");
+    setActionTypes([""]);
     setColonyName1("");
     setShowModal(true);
   };
 
-  ///* ************************************************************************************************************* *///
+///* ************************************************************************************************************************************ *///
 
   console.log(eachEntry);
 
@@ -160,7 +158,7 @@ const Create = (props) => {
                     <Label for="walletID">Wallet ID*</Label>
 
                     <Input
-                      //required
+                      required
                       id="walletID"
                       name="walletID"
                       type="text"
@@ -175,7 +173,7 @@ const Create = (props) => {
                   <FormGroup className="form__input">
                     <Label for="ownerName">Action Producer*</Label>
                     <Input
-                      //required
+                      required
                       id="ownerName"
                       name="ownerName"
                       type="text"
@@ -201,7 +199,7 @@ const Create = (props) => {
                   <FormGroup className="form__input">
                     <Label for="name">Name*</Label>
                     <Input
-                      //required
+                      required
                       id="name"
                       name="name"
                       type="text"
@@ -213,36 +211,14 @@ const Create = (props) => {
                   </FormGroup>
 
                   <FormGroup className="form__input">
-                    <Label for="actionType">Action Type*</Label>
-                    <Input
-                      //required
-
-                      id="actionType"
-                      type="select"
-                      name="actionType"
-                      onChange={onChangeSelection}
-                      value={actionType}
-                    >
-                      <option></option>
-                      <option value="Software Developing">
-                        Sofware Developing
-                      </option>
-                      <option value="Research">Research</option>
-                      <option value="Community Help">Community Help</option>
-                      <option value="Plan & Strategy">Plan & Strategy</option>
-                    </Input>
-                  </FormGroup>
-
-                  {/*<FormGroup className="form__input">
                     <div className="TagsInput">
-                      <Label for="actionType">Action Type*</Label>
+                      <Label for="actionTypes">Action Type*</Label>
                       <TagsInput
-                        //disabled
-                        value={actionType}
-                        //onChange={actionType[0]}
-                        name="actionType"
+                        value={actionTypes}
+                        onChange={setActionTypes}
+                        name="actionTypes"
                         placeHolder="Enter Action Types"
-/>
+                      />
 
                       <em
                         style={{
@@ -255,12 +231,12 @@ const Create = (props) => {
                         Press enter to add new tag
                       </em>
                     </div>
-                  </FormGroup>*/}
+                  </FormGroup>
 
                   <FormGroup className="form__input">
                     <Label for="description">Description*</Label>
                     <Input
-                      //required
+                      required
                       id="description"
                       type="textarea"
                       name="description"
@@ -280,7 +256,7 @@ const Create = (props) => {
                   <FormGroup className="form__input">
                     <Label for="colonyName">Colony Name*</Label>
                     <Input
-                      //required
+                      required
                       id="colonyName"
                       type="select"
                       name="colonyName"

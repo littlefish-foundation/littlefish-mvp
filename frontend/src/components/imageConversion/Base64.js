@@ -65,6 +65,7 @@ class Base64 extends React.Component {
         <Label for="image">Upload Cover Image</Label>
 
         <Input
+          required
           id="image"
           type="file"
           url="https://api.littlefish.foundation/action/"

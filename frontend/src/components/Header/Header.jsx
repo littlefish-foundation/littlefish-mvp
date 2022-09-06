@@ -97,7 +97,7 @@ const Header = () => {
               </span>
 
               <Link to="/wallet">
-                {address !== 0 ? "Wallet Connected" : "ConnectWallet"}
+                {address !== 0 ? "Wallet Connected" : "Connect Wallet"}
               </Link>
             </button>
 

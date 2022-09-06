@@ -42,10 +42,10 @@ module.exports = class ActionService {
   }
 
   static async syncActionStatus(id) {
-    const { actionId, actionCollection } = await this.getActionById(id);
+    const { chainID, actionCollection } = await this.getActionById(id);
 
     // TODO action response obj
-    const { action } = await tangocryptoClient.getAction(actionId, actionCollection);
+    const { action } = await tangocryptoClient.getAction(chainID, actionCollection);
 
     await actionDataAccess.syncActionStatus(id, action.status);
 

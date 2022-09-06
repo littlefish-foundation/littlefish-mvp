@@ -419,7 +419,7 @@
           {
             "name": "assetName",
             "in": "query",
-            "description": "aciton asset name to filter",
+            "description": "action asset name to filter",
             "required": false,
             "type": "string"
           },
@@ -473,7 +473,7 @@
         }
       }
     },
-    "/action/{assetName}/": {
+    "/action/{id}/": {
       "get": {
         "tags": [
           "action"
@@ -481,9 +481,9 @@
         "summary": "Get the specified action",
         "parameters": [
           {
-            "name": "assetName",
+            "name": "actionID",
             "in": "path",
-            "description": "Asset name",
+            "description": "Action ID",
             "required": true,
             "type": "string"
           }
@@ -501,9 +501,9 @@
         "summary": "Delete the specified action",
         "parameters": [
           {
-            "name": "assetName",
+            "name": "actionID",
             "in": "path",
-            "description": "Asset name",
+            "description": "Action ID",
             "required": true,
             "type": "string"
           }
@@ -515,7 +515,7 @@
         }
       }
     },
-    "/action/{assetName}/sync-status": {
+    "/action/{id}/sync-status": {
       "patch": {
         "tags": [
           "action"
@@ -523,7 +523,7 @@
         "summary": "sync specified action with chain",
         "parameters": [
           {
-            "name": "assetName",
+            "name": "id",
             "in": "path",
             "description": "Asset name",
             "required": true,

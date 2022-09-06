@@ -21,11 +21,11 @@ actionRouter.route('/:id').delete(validator(actionSchemas.deleteAction), actionC
 router.use('/action', actionRouter);
 
 const colonyRouter = express.Router();
+colonyRouter.route('/').get(validator(colonySchemas.getColonies), colonyController.getColonies);
+colonyRouter.route('/').post(validator(colonySchemas.createColony), colonyController.createColony);
 colonyRouter.route('/:colonyName').get(validator(colonySchemas.getColony), colonyController.getColony);
 colonyRouter.route('/:colonyName').delete(validator(colonySchemas.deleteColony), colonyController.deleteColony);
-colonyRouter.route('/').get(validator(colonySchemas.getColonies), colonyController.getColonies);
 colonyRouter.route('/:colonyName/actions').get(validator(colonySchemas.getColonyActions), colonyController.getColonyActions);
-colonyRouter.route('/').post(validator(colonySchemas.createColony), colonyController.createColony);
 router.use('/colony', colonyRouter);
 
 const userRouter = express.Router();
@@ -38,8 +38,8 @@ router.use('/user', userRouter);
 const actionSaleRouter = express.Router();
 actionSaleRouter.route('/:actionID').get(validator(actionSaleSchemas.getSaleByActionId), actionSaleController.getSaleByActionId);
 actionSaleRouter.route('/:actionID').delete(validator(actionSaleSchemas.deleteSaleByActionId), actionSaleController.deleteActionSaleByActionId);
-actionSaleRouter.route('/').post(validator(actionSaleSchemas.createActionSale), actionSaleController.createActionSale);
 actionSaleRouter.route('/:actionID').patch(validator(actionSaleSchemas.updateSaleByActionId), actionSaleController.updateActionSaleByActionId);
+actionSaleRouter.route('/').post(validator(actionSaleSchemas.createActionSale), actionSaleController.createActionSale);
 router.use('/action-sale', actionSaleRouter);
 
 const actionTypeRouter = express.Router();

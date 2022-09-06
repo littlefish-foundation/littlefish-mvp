@@ -198,6 +198,28 @@
         }
       }
     },
+    "/action-type/popular": {
+      "get": {
+        "tags": [
+          "action-type"
+        ],
+        "summary": "Get popular action types",
+        "parameters": [
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "Count of popular types default is 10",
+            "required": false,
+            "type": "number"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response with popular action types"
+          }
+        }
+      }
+    },
     "/user/{walletAddress}/": {
       "get": {
         "tags": [
@@ -489,6 +511,28 @@
         "responses": {
           "200": {
             "description": "Successful deletion"
+          }
+        }
+      }
+    },
+    "/action/{assetName}/sync-status": {
+      "patch": {
+        "tags": [
+          "action"
+        ],
+        "summary": "sync specified action with chain",
+        "parameters": [
+          {
+            "name": "assetName",
+            "in": "path",
+            "description": "Asset name",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success of sync operation"
           }
         }
       }

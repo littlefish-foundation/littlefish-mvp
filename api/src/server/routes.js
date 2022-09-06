@@ -15,7 +15,7 @@ const router = express.Router();
 const actionRouter = express.Router();
 actionRouter.route('/').get(validator(actionSchemas.getActions), actionController.getActions);
 actionRouter.route('/').post(validator(actionSchemas.mintAction), actionController.mintAction);
-actionRouter.route('/:id/sync-status').get(validator(actionSchemas.syncActionStatus), actionController.syncActionStatus);
+actionRouter.route('/:id/sync-status').patch(validator(actionSchemas.syncActionStatus), actionController.syncActionStatus);
 actionRouter.route('/:id').get(validator(actionSchemas.getAction), actionController.getAction);
 actionRouter.route('/:id').delete(validator(actionSchemas.deleteAction), actionController.deleteAction);
 router.use('/action', actionRouter);

@@ -9,7 +9,6 @@ const Colony = (props) => {
   const { COLONY__DATA } = useFetch2(
     "https://api.littlefish.foundation/colony/"
   );
-
   return (
     <div>
       <SubHeader assetName={"Colonies"} />

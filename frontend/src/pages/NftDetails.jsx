@@ -2,7 +2,6 @@ import React from "react";
 import SubHeader from "../components/UserInterface/Sub-Header/SubHeader";
 import { useParams } from "react-router-dom";
 import { Container, Row, Col } from "reactstrap";
-//import NFT__DATA from "../assets/data/NFT__DATA";
 import useFetch from "../Hooks/useFetch";
 import useFetch3 from "../Hooks/useFetch3";
 import { FaUserAlt } from "react-icons/fa";
@@ -10,15 +9,11 @@ import { IoMdPricetags } from "react-icons/io";
 import { BsCalendarDateFill } from "react-icons/bs";
 import { MdDescription } from "react-icons/md";
 import { GiSchoolOfFish } from "react-icons/gi";
-
-
 import "../styles/nft-details.css";
-//import { Link } from "react-router-dom";
 
 const NftDetails = () => {
   const { assetName } = useParams();
   const { NFT__DATA } = useFetch("https://api.littlefish.foundation/action/");
-
 
   const singleNft = NFT__DATA?.find((item) => item.assetName === assetName);
   const { paymentLink } = useFetch3(
@@ -28,11 +23,9 @@ const NftDetails = () => {
     singleNft?.actionCollection
   );
 
-  //console.log(paymentLink);
-
   return (
     <div>
-      <SubHeader assetName={singleNft?.assetName} />
+      <SubHeader assetName={singleNft?.assetName}></SubHeader>
 
       <section>
         <Container>
@@ -93,6 +86,7 @@ const NftDetails = () => {
                 </div>
 
                 <br />
+
                 <div className="nft__creator d-flex gap-3 align-items-center">
                   <div className="creator__detail">
                     <MdDescription
@@ -105,20 +99,23 @@ const NftDetails = () => {
                   </div>
                 </div>
               </div>
+
               <br />
-                <div className="nft__creator d-flex gap-3 align-items-center">
-                  <GiSchoolOfFish
-                    style={{
-                      color: "white",
-                      fontSize: "3rem",
-                    }}
-                  ></GiSchoolOfFish>
-                  <div className="creator__detail">
-                    <p>littlefish Foundation</p>{" "}
-                    {/*this is temporary until ready from backend*/}
-                  </div>
+
+              <div className="nft__creator d-flex gap-3 align-items-center">
+                <GiSchoolOfFish
+                  style={{
+                    color: "white",
+                    fontSize: "3rem",
+                  }}
+                ></GiSchoolOfFish>
+                <div className="creator__detail">
+                  <p>littlefish Foundation</p>{" "}
+                  {/*this is temporary until ready from backend*/}
                 </div>
-                <br/>
+              </div>
+
+              <br />
 
               <div>
                 <button className="singleNft-btn d-flex align-items-center gap-1">

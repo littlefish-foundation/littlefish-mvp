@@ -45,23 +45,17 @@ const Create = (props) => {
   };
 
   const maxCount = 256;
-
-  //const state = { imageConversion: "" };
-
   const walletid = localStorage.getItem("walletID");
 
   const [showModal, setShowModal] = useState(false);
   const [imageData, setImageData] = useState("");
-
   const [eachEntry, setEachEntry] = useState(initialInputState);
-  //const [actionType1, setActionType1] = useState("");
-
   const [colonyName1, setColonyName1] = useState("");
   const [postStatus, setPostStatus] = useState(null);
   const [actionType, setActionType] = useState("");
-
-  //* ************************************************************************************************************* *////
   const [allUrls, setAllUrls] = useState([{ urlName: "", url: "" }]);
+
+  ///* ************************************************************************************************************* *////
 
   const handleCallback = (childData) => {
     setImageData(childData);
@@ -86,11 +80,8 @@ const Create = (props) => {
     const values = [...allUrls];
     const updatedValue = event.target.name;
     values[index][updatedValue] = event.target.value;
-
     setAllUrls(values);
   };
-
-  ///* ************************************************************************************************************* *///
 
   const onChangeSelection = (e) => {
     e.preventDefault();
@@ -101,16 +92,10 @@ const Create = (props) => {
   };
 
   const Type = { actionType: actionType };
-  //console.log(Type);
-
   const Colony = { colonyName: colonyName1 };
   const urls = { links: allUrls };
-  //const taggings = { tags: tags };
-
   const { assetName, name, description, ownerName, price } = eachEntry;
-
-  Object.assign(eachEntry, Type, Colony, urls /*taggings*/);
-
+  Object.assign(eachEntry, Type, Colony, urls);
   console.log(eachEntry);
 
   const handleInputChange = (e) => {
@@ -122,9 +107,8 @@ const Create = (props) => {
       walletID: walletid,
     });
   };
-  // ***************************************************************************************//
 
-  // ***************************************************************************************//
+  ///* ************************************************************************************************************* *///
 
   const handleFinalSubmit = (e) => {
     e.preventDefault();
@@ -153,6 +137,8 @@ const Create = (props) => {
     setShowModal(true);
   };
 
+  ///* ************************************************************************************************************* *///
+
   console.log(eachEntry);
 
   return (
@@ -179,7 +165,6 @@ const Create = (props) => {
                       name="walletID"
                       type="text"
                       placeholder="Connect your wallet to fill this part"
-                      //onChange={handleInputChange}
                       value={walletid}
                     ></Input>
                     <PopOvers />
@@ -280,7 +265,6 @@ const Create = (props) => {
                       type="textarea"
                       name="description"
                       rows="4"
-                      //minLength="50"
                       maxLength="256"
                       placeholder="Enter description"
                       onChange={handleInputChange}

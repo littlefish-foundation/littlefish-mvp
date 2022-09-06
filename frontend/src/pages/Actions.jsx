@@ -1,17 +1,10 @@
 import React, { useState } from "react";
-
 import SubHeader from "../components/UserInterface/Sub-Header/SubHeader";
-
 import NftCard from "../components/UserInterface/Nft-card/NftCard";
-
 import useFetch from "../Hooks/useFetch";
-
 import { Container, Row, Col } from "reactstrap";
-
 import "../styles/actions.css";
 import "../components/UserInterface/Live-auction/live-auction.css";
-
-// import LiveAuction from "../components/ui/Live-auction/LiveAuction";
 
 const Actions = () => {
   const { NFT__DATA } = useFetch("https://api.littlefish.foundation/action/");
@@ -22,7 +15,7 @@ const Actions = () => {
 
   const handleSort = (e) => {
     const filterValue = e.target.value;
-    console.log( { filterValue})
+    console.log({ filterValue });
 
     if (filterValue === "newest") {
       const filterData = NFT__DATA.sort((tokenId1, tokenId2) =>
@@ -32,7 +25,6 @@ const Actions = () => {
           ? -1
           : 0
       );
-      // console.log(filterData);
 
       setData(filterData);
     }
@@ -48,9 +40,7 @@ const Actions = () => {
       console.log(filterData);
 
       setData(filterData);
- 
     }
-
 
     if (filterValue === "Z->A") {
       const filterData = NFT__DATA.sort((name1, name2) =>
@@ -72,17 +62,12 @@ const Actions = () => {
           ? -1
           : 0
       );
-
       setData(filterData);
     }
-
-    //xsetData("default");
   };
-
   return (
-    <>
+    <div>
       <SubHeader assetName={"Actions"} />
-
       <section>
         <Container>
           <Row>
@@ -123,7 +108,7 @@ const Actions = () => {
           </Row>
         </Container>
       </section>
-    </>
+    </div>
   );
 };
 

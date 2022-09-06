@@ -12,13 +12,10 @@ const ColonyDetails = () => {
   const { COLONY__DATA } = useFetch2(
     "https://api.littlefish.foundation/colony/"
   );
-
   const singleColony = COLONY__DATA?.find((item) => item.name === name);
-
   return (
     <div>
       <SubHeader assetName={singleColony?.name} />
-
       <section>
         <Container>
           <Row>
@@ -35,14 +32,12 @@ const ColonyDetails = () => {
             <Col lg="6" md="6" sm="6">
               <div className="single__colony__content">
                 <h2>{singleColony?.name}</h2>
-
                 <div className="colony__creator d-flex gap-3 align-items-center">
                   <div className="owner__detail">
                     <p>wallet Address:</p>
                     <h6>{singleColony?.walletAddress}</h6>
                   </div>
                 </div>
-
                 <p className="my-4">{singleColony?.description}</p>
               </div>
             </Col>

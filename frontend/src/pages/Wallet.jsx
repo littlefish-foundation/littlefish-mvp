@@ -10,7 +10,6 @@ import {
   Button,
 } from "reactstrap";
 import "../styles/wallet.css";
-//import WalletConnect from "./walletConnect/WalletConnect";
 import Typhon from "../assets/avatarsAndImages/typhon.svg";
 import Nami from "../assets/avatarsAndImages/Nami.svg";
 import AbsentNamiWalletModal from "../components/UserInterface/Modal/AbsentNamiWalletModal";
@@ -22,35 +21,23 @@ const Wallet = () => {
   const [account, setAccount] = useState(null);
   const [showModal, setShowModal] = useState(false);
   const [showModalDisconnect, setShowModalDisconnect] = useState(false);
-
   const [namiCheck, setNamiCheck] = useState(null);
-
-  // const idleButtonColor = { border: "3px solid blue" };
-  // const connectedButtonColor = { border: "3px solid green" };
 
   const connectTyphonWallet = () => {
     var typhon;
-
     window.onload = () => {
       typhon = window.cardano.typhon;
-
       if (!typhon) {
         console.log("Typhon is NOT installed!");
       }
     };
-
     async function enable() {
       const isEnabledResponse = await typhon.isEnabled();
-
       if (isEnabledResponse.data === true) {
-        // site is already whitlisted, continue using APIs
       } else {
         const enableResponse = await typhon.enable();
-
         if (enableResponse.status === true) {
-          // Site whitelisted
         } else {
-          // User rejected the whitelisting permission
         }
       }
     }
@@ -58,12 +45,6 @@ const Wallet = () => {
   };
 
   var nami;
-  // window.onLoad = () => {
-  //   nami = window.cardano.nami;
-  //   if (!nami) {
-  //     console.log("Nami is NOT installed!");
-  //   }
-  // };
 
   useEffect(() => {
     async function t() {
@@ -79,7 +60,6 @@ const Wallet = () => {
         let addr = await Nami.getAddress();
         setNamiCheck(Nami.enable);
 
-        //setNamiAddr(false);
         setAccount(addr);
         localStorage.setItem("walletID", addr);
       }
@@ -88,13 +68,7 @@ const Wallet = () => {
   }, [namiAddr]);
 
   console.log(namiCheck);
-
-  //window.namiAddress = account;
-
-  //console.log(account);
-
   console.log(window.walletIDStored);
-
   const namiClickHandler = (e) => {
     e.preventDefault();
     if (namiCheck === null) {
@@ -103,8 +77,6 @@ const Wallet = () => {
     }
     setNamiAddr(true);
     window.walletIDStored = localStorage.getItem("walletID");
-
-    //setShowModal(false);
   };
   console.log(localStorage.getItem("walletID"));
 
@@ -124,11 +96,7 @@ const Wallet = () => {
       <section>
         <Container>
           <Row>
-            <Col lg="12" className="mb-5 text-center">
-              {/*<div className=" m-auto">
-                <h3 className="text-light">Connect your wallet</h3>
-  </div>*/}
-            </Col>
+            <Col lg="12" className="mb-5 text-center"></Col>
 
             <Col>
               <div className="wallet__item">

@@ -1,7 +1,7 @@
 import React from "react";
 import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
 import { useNavigate } from "react-router-dom";
-import useFetch from "../../../assets/data/useFetch";
+import useFetch from "../../../Hooks/useFetch";
 
 import "./modal.css";
 import ActionModal from "../../actionModal/actionModal";

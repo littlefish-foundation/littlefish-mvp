@@ -2,7 +2,7 @@ import React from "react";
 import { Container, Row, Col } from "reactstrap";
 
 import "./trending.css";
-import useFetch from "../../../assets/data/useFetch";
+import useFetch from "../../../Hooks/useFetch";
 import NftCard from "../Nft-card/NftCard";
 
 const Trending = () => {

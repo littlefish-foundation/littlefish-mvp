@@ -6,10 +6,10 @@ import About from "../pages/About";
 import Actions from "../pages/Actions";
 import Create from "../pages/Create";
 import Wallet from "../pages/Wallet";
-import Colony from "../pages/colonies/Colony";
+import Colony from "../pages/Colony";
 
 import NftDetails from "../pages/NftDetails";
-import ColonyDetails from "../pages/colonies/ColonyDetails";
+import ColonyDetails from "../pages/ColonyDetails";
 import MemberForm from "../pages/colonies/MemberForm";
 
 const Routers = () => {

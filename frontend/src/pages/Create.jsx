@@ -13,7 +13,7 @@ import { Tag } from "primereact/tag";
 
 import SubHeader from "../components/UserInterface/Sub-Header/SubHeader";
 import NftCard from "../components/UserInterface/Nft-card/NftCard";
-import img from "../assets/example.png";
+import img from "../assets/avatarsAndImages/example.png";
 import "../styles/create-item.css";
 import Base64 from "../components/imageConversion/Base64";
 import PopOvers from "../components/UserInterface/popovers/PopOvers";

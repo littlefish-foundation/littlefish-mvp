@@ -1,5 +1,5 @@
 import React from "react";
-import abstract from "../../assets/abstract.png";
+import abstract from "../../assets/avatarsAndImages/abstract.png";
 
 import { Container, Row, Col, ListGroup, ListGroupItem } from "reactstrap";
 import "./footer.css";

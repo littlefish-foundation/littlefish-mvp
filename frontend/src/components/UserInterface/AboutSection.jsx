@@ -3,8 +3,8 @@ import { Container, Row, Col } from "reactstrap";
 import { Link } from "react-router-dom";
 import "./about-section.css";
 
-import heroImg from "../../assets/proofOfActivity.png";
-import fishColony from "../../assets/fishColony.jpeg";
+import heroImg from "../../assets/avatarsAndImages/proofOfActivity.png";
+import fishColony from "../../assets/avatarsAndImages/fishColony.jpeg";
 
 const AboutSection = () => {
   return (
@@ -124,15 +124,6 @@ const AboutSection = () => {
           </Col>
         </Row>
       </Container>
-      <div className="hero__btns d-flex align-items-center gap-4">
-        <button className=" explore__btn d-flex align-items-center gap-2">
-          <i className="ri-rocket-line"></i> <Link to="/market">Explore</Link>
-        </button>
-        <button className=" create__btn d-flex align-items-center gap-2">
-          <i className="ri-ball-pen-line"></i>
-          <Link to="/create">Generate</Link>
-        </button>
-      </div>
     </section>
   );
 };

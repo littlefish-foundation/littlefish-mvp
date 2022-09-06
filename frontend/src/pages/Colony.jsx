@@ -1,10 +1,10 @@
 import React from "react";
-import useFetch2 from "../../assets/data/useFetch2";
+import useFetch2 from "../Hooks/useFetch2";
 import { Row } from "reactstrap";
-import ColonyCard from "./ColonyCard";
-import SubHeader from "../../components/UserInterface/Sub-Header/SubHeader";
+import ColonyCard from "../components/colonies/ColonyCard";
+import SubHeader from "../components/UserInterface/Sub-Header/SubHeader";
 
-import "./Colony.css";
+import "../styles/Colony.css";
 
 const Colony = (props) => {
   const { COLONY__DATA } = useFetch2(

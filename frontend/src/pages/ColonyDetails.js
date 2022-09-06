@@ -1,11 +1,11 @@
 import React from "react";
-import SubHeader from "../../components/UserInterface/Sub-Header/SubHeader";
+import SubHeader from "../components/UserInterface/Sub-Header/SubHeader";
 import { useParams } from "react-router-dom";
 import { Container, Row, Col } from "reactstrap";
-import useFetch2 from "../../assets/data/useFetch2";
-import "./ColonyDetails.css";
-import ColonyMembership from "./ColonyMembership";
-import ColonyGallery from "./ColonyGallery";
+import useFetch2 from "../Hooks/useFetch2";
+import "../styles/ColonyDetails.css";
+import ColonyMembership from "../components/colonies/ColonyMembership";
+import ColonyGallery from "../components/colonies/ColonyGallery";
 
 const ColonyDetails = () => {
   const { name } = useParams();

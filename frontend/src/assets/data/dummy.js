@@ -1,9 +1,9 @@
-import bb8 from "../avatars/bb8.png"
-import c3po from "../avatars/c3po.png"
-import darth from "../avatars/darth.png"
-import mando from "../avatars/mando.png"
-import r2d2 from "../avatars/r2d2.png"
-import storm from "../avatars/storm.png"
+import bb8 from "../avatarsAndImages/bb8.png"
+import c3po from "../avatarsAndImages/c3po.png"
+import darth from "../avatarsAndImages/darth.png"
+import mando from "../avatarsAndImages/mando.png"
+import r2d2 from "../avatarsAndImages/r2d2.png"
+import storm from "../avatarsAndImages/storm.png"
 
 
 export const MEMBER__DATA = [

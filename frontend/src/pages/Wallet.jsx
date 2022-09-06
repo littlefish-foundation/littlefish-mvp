@@ -11,8 +11,8 @@ import {
 } from "reactstrap";
 import "../styles/wallet.css";
 //import WalletConnect from "./walletConnect/WalletConnect";
-import Typhon from "../assets/typhon.svg";
-import Nami from "../assets/Nami.svg";
+import Typhon from "../assets/avatarsAndImages/typhon.svg";
+import Nami from "../assets/avatarsAndImages/Nami.svg";
 import AbsentNamiWalletModal from "../components/UserInterface/Modal/AbsentNamiWalletModal";
 import NamiAddressModal from "../components/UserInterface/Modal/NamiAddressModal";
 import ConnectedMarker from "../components/Header/ConnectedMarker";

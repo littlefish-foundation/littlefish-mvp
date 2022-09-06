@@ -4,7 +4,7 @@ import SubHeader from "../components/UserInterface/Sub-Header/SubHeader";
 
 import NftCard from "../components/UserInterface/Nft-card/NftCard";
 
-import useFetch from "../assets/data/useFetch";
+import useFetch from "../Hooks/useFetch";
 
 import { Container, Row, Col } from "reactstrap";
 

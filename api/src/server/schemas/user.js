@@ -1,42 +1,42 @@
 const Joi = require('joi');
 
-const walletNameParams = {
+const nameParams = {
   params: Joi.object(
     {
-      walletAddress: Joi.string().required(),
+      name: Joi.string().required(),
     },
   ),
 };
 
 module.exports = {
   getUser: {
-    ...walletNameParams,
+    ...nameParams,
   },
 
   deleteUser: {
-    ...walletNameParams,
+    ...nameParams,
   },
 
   getUsersByColony: {
     query: Joi.object({
       colonyName: Joi.string().required(),
-      page: Joi.number().integer().default(0),
+      page: Joi.number().integer().default(1),
       limit: Joi.number().integer().positive().default(20),
     }),
   },
   createUser: {
     body: Joi.object(
       {
-        name: Joi.string(),
+        name: Joi.string().required(),
         walletAddress: Joi.string().required(),
-        colonyName: Joi.string(),
-        avatar: Joi.string().uri(),
+        colonyName: Joi.string().required(),
+        avatar: Joi.string().required(),
       },
     ),
   },
 
   updateUserColony: {
-    ...walletNameParams,
+    ...nameParams,
     query: Joi.object(
       {
         colonyName: Joi.string().required(),

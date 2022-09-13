@@ -53,10 +53,10 @@ module.exports = class TangocryptoClient {
     };
   }
 
-  static async deleteAction(actionId, collectionID) {
+  static async deleteAction(actionID, collectionID) {
     const options = {
       method: 'DELETE',
-      url: `${config.actionServiceClient.url}v1/nft/collections/${collectionID}/tokens/${actionId}`,
+      url: `${config.actionServiceClient.url}v1/nft/collections/${collectionID}/tokens/${actionID}`,
       headers: {
         'Content-Type': 'application/json',
         'x-api-key': config.actionServiceClient.apiKey,
@@ -70,10 +70,10 @@ module.exports = class TangocryptoClient {
     };
   }
 
-  static async getSale(actionId, collectionID) {
+  static async getSale(actionID, collectionID) {
     const options = {
       method: 'GET',
-      url: `${config.actionServiceClient.url}v1/nft/collections/${collectionID}/sales/${actionId}`,
+      url: `${config.actionServiceClient.url}v1/nft/collections/${collectionID}/sales/${actionID}`,
       headers: {
         'Content-Type': 'application/json',
         'x-api-key': config.actionServiceClient.apiKey,
@@ -87,10 +87,10 @@ module.exports = class TangocryptoClient {
     };
   }
 
-  static async getAction(actionId, collectionID) {
+  static async getAction(actionID, collectionID) {
     const options = {
       method: 'GET',
-      url: `${config.actionServiceClient.url}v1/nft/collections/${collectionID}/tokens/${actionId}`,
+      url: `${config.actionServiceClient.url}v1/nft/collections/${collectionID}/tokens/${actionID}`,
       headers: {
         'Content-Type': 'application/json',
         'x-api-key': config.actionServiceClient.apiKey,
@@ -122,7 +122,7 @@ module.exports = class TangocryptoClient {
     };
   }
 
-  static async createActionSale(actionId, price, collectionID) {
+  static async createActionSale(actionID, price, collectionID) {
     const options = {
       method: 'POST',
       url: `${config.actionServiceClient.url}v1/nft/collections/${collectionID}/sales`,
@@ -133,13 +133,13 @@ module.exports = class TangocryptoClient {
       data: {
         type: 'fixed',
         price,
-        tokens: [actionId],
+        tokens: [actionID],
         reservation_time: 900,
       },
     };
 
     const response = await this.actionRequestSender(options, 201);
-
+    console.log({ response });
     return {
       createdSale: response.data,
     };
@@ -152,10 +152,9 @@ module.exports = class TangocryptoClient {
     } catch (e) {
       const error = e?.response?.data || {
         statusCode: 500,
-        message: ['Tangocrypto server error.'],
+        message: 'Tangocrypto server error.',
       };
-
-      throw new ApiError(error.message.join('\n'), error.statusCode);
+      throw new ApiError((Array.isArray(error.message) && error.message.join('\n')) || error.message, error?.statusCode || 500);
     }
 
     if (response && response.status !== expectedCode) {

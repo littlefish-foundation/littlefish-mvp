@@ -19,12 +19,16 @@
       }
     },
     {
-      "name": "colony",
-      "description": "Colonies of littlefishes"
-    },
-    {
       "name": "user",
       "description": "Users are members of the colonies and create actions"
+    },
+    {
+      "name": "auth",
+      "description": "Authentication related endpoints."
+    },
+    {
+      "name": "colony",
+      "description": "Colonies of littlefishes"
     },
     {
       "name": "action-sale",
@@ -36,6 +40,30 @@
     }
   ],
   "paths": {
+    "/login/": {
+      "post": {
+        "tags": [
+          "auth"
+        ],
+        "summary": "Login with badge",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Login body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/login"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful login with token"
+          }
+        }
+      }
+    },
     "/action-sale/{actionID}/": {
       "get": {
         "tags": [
@@ -54,6 +82,35 @@
         "responses": {
           "200": {
             "description": "Successful response with the specified action sale"
+          }
+        }
+      },
+      "patch": {
+        "tags": [
+          "action-sale"
+        ],
+        "summary": "Update the specified action sale",
+        "parameters": [
+          {
+            "name": "actionID",
+            "in": "path",
+            "description": "ID of the action",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "description": "Fields to update",
+            "required": true,
+            "schema": {
+              "type": "object"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful update"
           }
         }
       },
@@ -103,6 +160,28 @@
         "responses": {
           "201": {
             "description": "Successful action sale creation"
+          }
+        }
+      }
+    },
+    "/action-type/popular": {
+      "get": {
+        "tags": [
+          "action-type"
+        ],
+        "summary": "Get popular action types",
+        "parameters": [
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "Count of the types in the page",
+            "required": false,
+            "type": "number"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response with popular action types"
           }
         }
       }
@@ -198,29 +277,7 @@
         }
       }
     },
-    "/action-type/popular": {
-      "get": {
-        "tags": [
-          "action-type"
-        ],
-        "summary": "Get popular action types",
-        "parameters": [
-          {
-            "name": "limit",
-            "in": "query",
-            "description": "Count of popular types default is 10",
-            "required": false,
-            "type": "number"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Successful response with popular action types"
-          }
-        }
-      }
-    },
-    "/user/{walletAddress}/": {
+    "/user/{name}/": {
       "get": {
         "tags": [
           "user"
@@ -228,9 +285,9 @@
         "summary": "Get the specified user",
         "parameters": [
           {
-            "name": "walletAddress",
+            "name": "name",
             "in": "path",
-            "description": "Wallet address of the user",
+            "description": "Name of the user",
             "required": true,
             "type": "string"
           }
@@ -248,9 +305,9 @@
         "summary": "Delete the specified user",
         "parameters": [
           {
-            "name": "walletAddress",
+            "name": "name",
             "in": "path",
-            "description": "Wallet address of the user",
+            "description": "Name of the user",
             "required": true,
             "type": "string"
           }
@@ -262,7 +319,7 @@
         }
       }
     },
-    "/user/{walletAddress}/colony": {
+    "/user/{name}/colony": {
       "get": {
         "tags": [
           "user"
@@ -270,9 +327,9 @@
         "summary": "Update the colony of user",
         "parameters": [
           {
-            "name": "walletAddress",
+            "name": "name",
             "in": "path",
-            "description": "Wallet address of the user",
+            "description": "Name of the user",
             "required": true,
             "type": "string"
           },
@@ -639,6 +696,36 @@
     }
   },
   "definitions": {
+    "login": {
+      "properties": {
+        "assets": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "policyID": {
+                "type": "string",
+                "format": "id",
+                "description": "id of asset",
+                "example": "4102a267fc0f3257c9274af2fed27301f45beab3b248c5686c2392b0"
+              },
+              "name": {
+                "type": "string",
+                "format": "name of asset",
+                "description": "name of the asset.",
+                "example": "Littlefish Foundation Linktree"
+              }
+            }
+          }
+        },
+        "walletAddress": {
+          "type": "string",
+          "format": "wallet address",
+          "description": "wallet address of the user",
+          "example": "addr1q9fjzdqkar0fm.......lumhp9znnq66zcn5"
+        }
+      }
+    },
     "createUser": {
       "properties": {
         "walletAddress": {

@@ -9,17 +9,19 @@ module.exports = class ActionLogic {
   }
 
   static prepareAllImageURLsInFile(files) {
-    return ([] || files).map((file) => {
-      const fileToMap = JSON.parse(JSON.stringify(file));
-      if (fileToMap.metadata_attributes[ACTION_FILE_INDEXES.MIME_TYPE].tag === ACTION_METADATA_ATTRIBUTES.MIME_TYPE
-          && fileToMap.metadata_attributes[ACTION_FILE_INDEXES.MIME_TYPE].value.includes(ACTION_METADATA_ATTRIBUTES.IMAGE)
-          && fileToMap.metadata_attributes[ACTION_FILE_INDEXES.SOURCE].tag === ACTION_METADATA_ATTRIBUTES.SOURCE) {
-        fileToMap.metadata_attributes[ACTION_FILE_INDEXES.SOURCE].value = this.prepareImageURL(
-          fileToMap.metadata_attributes[ACTION_FILE_INDEXES.SOURCE].value,
-        );
+    const preparedFiles = [];
+
+    ([] || files).forEach((file) => {
+      if (file.metadata_attributes[ACTION_FILE_INDEXES.MIME_TYPE].tag === ACTION_METADATA_ATTRIBUTES.MIME_TYPE
+          && file.metadata_attributes[ACTION_FILE_INDEXES.SOURCE].tag === ACTION_METADATA_ATTRIBUTES.SOURCE) {
+        preparedFiles.push({
+          src: this.prepareImageURL(file.metadata_attributes[ACTION_FILE_INDEXES.SOURCE].value),
+          type: file.metadata_attributes[ACTION_FILE_INDEXES.MIME_TYPE].value,
+        });
       }
-      return fileToMap;
     });
+
+    return preparedFiles;
   }
 
   static prepareLinksToMint(links) {

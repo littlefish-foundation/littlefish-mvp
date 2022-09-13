@@ -1,24 +1,24 @@
 const Joi = require('joi');
 
-const actionIdParams = {
+const actionIDParams = {
   params: Joi.object(
     {
-      actionId: Joi.string().required(),
+      actionID: Joi.string().required(),
     },
   ),
 };
 
 module.exports = {
-  getSaleByActionId: {
-    ...actionIdParams,
+  getSaleByActionID: {
+    ...actionIDParams,
   },
 
-  deleteSaleByActionId: {
-    ...actionIdParams,
+  deleteSaleByActionID: {
+    ...actionIDParams,
   },
 
-  updateSaleByActionId: {
-    ...actionIdParams,
+  updateSaleByActionID: {
+    ...actionIDParams,
     body: Joi.object(),
   },
 
@@ -26,7 +26,7 @@ module.exports = {
     query: Joi.object(
       {
         price: Joi.number(),
-        actionId: Joi.string().required(),
+        actionID: Joi.string().required(),
       },
     ),
   },

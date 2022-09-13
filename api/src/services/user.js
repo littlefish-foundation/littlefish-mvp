@@ -3,25 +3,27 @@ const colonyDataAccess = require('../data-access/colony');
 const { NotFoundError } = require('../errors');
 
 module.exports = class UserService {
-  static async getUserByWalletAddress(walletAddress) {
-    const user = await userDataAccess.getUserByWalletAddress(walletAddress);
+  static async getUserByName(name) {
+    const user = await userDataAccess.getUserByName(name);
 
     if (!user) {
-      throw new NotFoundError(`User with wallet address: ${walletAddress} not found.`);
+      throw new NotFoundError(`User with name: ${name} not found.`);
     }
     return user;
   }
 
-  static async deleteUserByWalletAddress(walletAddress) {
-    const success = await userDataAccess.deleteUserByWalletName(walletAddress);
+  static async deleteUserByName(name) {
+    const success = await userDataAccess.deleteUserByName(name);
 
     return {
       success,
     };
   }
 
-  static async getUsersByColony(colonyName) {
-    const users = await userDataAccess.getUsersByColony(colonyName);
+  static async getUsersByColony(colonyName, page, limit) {
+    const colony = await colonyDataAccess.getColonyByName(colonyName);
+
+    const users = await userDataAccess.getUsersByColony(colony._id, page, limit);
 
     return {
       users,
@@ -44,14 +46,14 @@ module.exports = class UserService {
     };
   }
 
-  static async updateUserColony(walletAddress, colonyName) {
+  static async updateUserColony(name, colonyName) {
     const colony = colonyDataAccess.getColonyByName(colonyName);
 
     if (!colony) {
       throw new NotFoundError(`Colony with name:${colonyName} is not found.`);
     }
     // TODO findOneAndUpdate response if fails throw exception
-    await userDataAccess.updateUserColony(walletAddress, colony._id);
+    await userDataAccess.updateUserColony(name, colony._id);
 
     return {
       success: true,

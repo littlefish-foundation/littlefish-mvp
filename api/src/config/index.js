@@ -4,6 +4,7 @@ dotenv.config();
 
 module.exports = {
   runningEnvironment: process.env.NODE_ENV,
+  disableAuth: process.env.DISABLE_AUTH === 'true',
   dbConnectionUri: process.env.DB_CONNECTION_STRING,
   port: process.env.PORT,
   actionServiceClient: {
@@ -11,4 +12,5 @@ module.exports = {
     baseCollectionId: process.env.ACTION_BASE_COLLECTION_ID,
     apiKey: process.env.API_KEY,
   },
+  jwtSecret: process.env.JWT_SECRET,
 };

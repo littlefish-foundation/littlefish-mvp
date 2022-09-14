@@ -1,9 +1,9 @@
 import React from "react";
 import SubHeader from "../components/UserInterface/Sub-Header/SubHeader";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { Container, Row, Col } from "reactstrap";
-import useFetch from "../Hooks/useFetch";
-import useFetch3 from "../Hooks/useFetch3";
+import useFetchByActionID from "../Hooks/getActionByID";
+import useFetch from "../Hooks/useFetch3";
 import { FaUserAlt } from "react-icons/fa";
 import { IoMdPricetags } from "react-icons/io";
 import { BsCalendarDateFill } from "react-icons/bs";
@@ -12,27 +12,30 @@ import { GiSchoolOfFish } from "react-icons/gi";
 import "../styles/nft-details.css";
 
 const NftDetails = () => {
-  const { assetName } = useParams();
-  const { NFT__DATA } = useFetch("https://api.littlefish.foundation/action/");
+  const { _id } = useParams();
 
-  const singleNft = NFT__DATA?.find((item) => item.assetName === assetName);
-  const { paymentLink } = useFetch3(
-    NFT__DATA,
-    assetName,
-    singleNft?.price,
-    singleNft?.actionCollection
+  const { actionData } = useFetchByActionID(
+    `https://api.littlefish.foundation/action/${_id}`
   );
 
+  /*"https://buy.tangocrypto.com?q=test_eyJjb2xsZWN0aW9uX2lkIjoiMDFnYzk2Z2thZmpycjE4NGhiYTE3cjdldjgiLCJwcmljZSI6MTIzNDAwMDAwMCwicmVzZXJ2YXRpb25fdGltZSI6MzAwMDAwLCJzYWxlX2lkIjoiMDFnY2M2NmhiamZlNGVjZzRyczlxOW5qbmYiLCJzdXBwbHkiOjEsImFzc2V0X25hbWUiOiJtYW55IGZpc2ggaW4gdGhlIG9jZWFuIiwiaW1hZ2UiOiJpcGZzOi8vUW1TclBwZlZkaEdGenNGYjFmeTR2TXpxSmpMd241RGtvZHlGZ1RqWURnWWtOYSIsInF1YW50aXR5IjoxLCJydWxlcyI6W10sInR5cGUiOiJTYWxlIiwiaXNfcmFuZG9tIjpmYWxzZSwidGl0bGUiOiJtYW55IGZpc2ggaW4gdGhlIG9jZWFuQ29sbGVjdGlvbiIsInRjYyI6InFYK3BnSVJtNEJuYlVUdlJxc3hrSzdIMFV2OXdVaU5PekdDdDE3S0YzNXFSSlFIYnFqRmh2ZVlpVkhsdGFLL1FKUVBHekhVVXZvQXRHT21Nbk9jV2RuL0FQQlB1aFJkb2J4YXJ2TStwVXNRaWo3MUlrbjRoeEVqVVVGRFZBZz09IiwibWF4X3R4X2ZlZSI6ODc2Mjc3LCJuZnRfY29zdCI6MzQ0ODJ9"*/
+
+  console.log(actionData);
+
+  //const singleNft = NFT__DATA?.find((item) => item._id === _id);
+  const { paymentLink } = useFetch(actionData?.chainID, actionData?.price, actionData?.actionCollection);
+
+  console.log(actionData);
   return (
     <div>
-      <SubHeader assetName={singleNft?.assetName} />
+      <SubHeader assetName={actionData?.assetName} />
 
       <section>
         <Container>
           <Row>
             <Col lg="6">
               <img
-                src={singleNft?.image}
+                src={actionData?.image}
                 alt=""
                 className="w-100 single__nft-img"
               />
@@ -49,7 +52,7 @@ const NftDetails = () => {
                     }}
                   />{" "}
                   <div className="creator__detail">
-                    <h6>Created By: {singleNft?.ownerName} </h6>
+                    <h6>Created By: {actionData?.ownerName} </h6>
                   </div>
                 </div>
 
@@ -64,7 +67,7 @@ const NftDetails = () => {
                     }}
                   />
                   <div className="creator__detail">
-                    <h6>Price: {singleNft?.price} ADA</h6>
+                    <h6>Price: {actionData?.price} ADA</h6>
                   </div>
                 </div>
 
@@ -81,7 +84,7 @@ const NftDetails = () => {
 
                   <div className="creator__detail">
                     <h6>
-                      Creation Date: {singleNft?.createdAt.substring(0, 10)}
+                      Creation Date: {actionData?.createdAt.substring(0, 10)}
                     </h6>
                   </div>
                 </div>
@@ -96,32 +99,37 @@ const NftDetails = () => {
                         fontSize: "3rem",
                       }}
                     ></MdDescription>
-                    <p>{singleNft?.description}</p>
+                    <p>{actionData?.description}</p>
                   </div>
                 </div>
               </div>
 
               <br />
 
-              <div className="nft__creator d-flex gap-3 align-items-center">
-                <GiSchoolOfFish
-                  style={{
-                    color: "white",
-                    fontSize: "3rem",
-                  }}
-                ></GiSchoolOfFish>
-                <div className="creator__detail">
-                  <p>littlefish Foundation</p>{" "}
-                  {/*this is temporary until ready from backend*/}
+              <Link
+                to={`/colony/Littlefish%20Foundation`}
+                style={{ textDecoration: "none", color: "white" }}
+              >
+                <div className="nft__creator d-flex gap-3 align-items-center">
+                  <GiSchoolOfFish
+                    style={{
+                      color: "white",
+                      fontSize: "3rem",
+                    }}
+                  ></GiSchoolOfFish>
+                  <div className="creator__detail">
+                    <p>littlefish Foundation</p>{" "}
+                    {/* Temporarily Adjusted. This will change when depending on backend */}
+                  </div>
                 </div>
-              </div>
+              </Link>
 
               <br />
 
               <div>
                 <button className="singleNft-btn d-flex align-items-center gap-1">
                   <i className="ri-shopping-bag-line"></i>
-                  <a href={paymentLink} target="_blank" rel="noreferrer">
+                  <a href={ paymentLink } target="_blank" rel="noreferrer">
                     Reward This Action
                   </a>
                 </button>

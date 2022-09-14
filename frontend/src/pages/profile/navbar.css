@@ -1,0 +1,7 @@
+.nav {
+  color: #000 !important;
+  --bs-nav-link-color: #fff !important;
+  --bs-nav-link-hover-color: #fff !important;
+  font-weight: 600;
+}
+

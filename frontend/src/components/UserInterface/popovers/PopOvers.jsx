@@ -41,8 +41,9 @@ const PopOvers = (props) => {
       >
         <PopoverHeader className="pop-headerStyle">Hint!</PopoverHeader>
         <PopoverBody className="pop-bodyStyle">
-          Name your action. This name will be the main identifier of your
-          action!
+          The asset name is written to the blockchain cannot be readjusted. Your
+          action will be identified by this name. For example, when you list
+          your action on the marketplace this name will be displayed.
         </PopoverBody>
       </UncontrolledPopover>
 
@@ -57,12 +58,13 @@ const PopOvers = (props) => {
         <PopoverHeader className="pop-headerStyle">Hint!</PopoverHeader>
         <PopoverBody className="pop-bodyStyle">
           This generally is the same with Action Name. However you can provide a
-          more detailed name in this part.
+          more detailed name in this part. This name is added to the action's
+          it’s metadata.
         </PopoverBody>
       </UncontrolledPopover>
 
       {/* ******************************************************************** */}
-     {/* <UncontrolledPopover
+      {/* <UncontrolledPopover
         placement="right"
         target="actionType"
         trigger="hover focus"
@@ -133,8 +135,6 @@ const PopOvers = (props) => {
       </UncontrolledPopover>
 
       {/* ******************************************************************** */}
-
-  
     </div>
   );
 };

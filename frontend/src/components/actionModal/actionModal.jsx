@@ -3,12 +3,12 @@ import { Link } from "react-router-dom";
 import "../UserInterface/Nft-card/nft-card.css";
 
 const ActionModal = (props) => {
-  const { assetName, ownerName, price, createdAt } = props.item;
+  const { _id ,assetName, ownerName, price, createdAt } = props.item;
   const image64 = window.bas64Data;
   const createdat = createdAt?.substring(0, 10);
 
   return (
-    <Link to={`/action/${assetName}`} style={{ textDecoration: "none" }}>
+    <Link to={`/action/${_id}`} style={{ textDecoration: "none" }}>
       <div className="single__nft__card">
         <div className="nft__img">
           <img src={image64} alt="" className="w-100" />

@@ -10,6 +10,9 @@ import {
   Label,
 } from "reactstrap";
 
+import useBase64Converter from "../Hooks/useBase64Converter";
+import Tags from "../components/tags/Tags";
+
 import SubHeader from "../components/UserInterface/Sub-Header/SubHeader";
 import NftCard from "../components/UserInterface/Nft-card/NftCard";
 import img from "../assets/avatarsAndImages/example.png";
@@ -19,7 +22,8 @@ import PopOvers from "../components/UserInterface/popovers/PopOvers";
 import SuccessModal from "../components/UserInterface/Modal/SuccessModal";
 import ErrorModal from "../components/UserInterface/Modal/ErrorModal";
 import LoadingModal from "../components/UserInterface/Modal/LoadingModal";
-//import AuthContext from "../store/auth-context";
+import useFetchForPopularActionType from "../Hooks/getPopularActionType";
+import "../components/tags/Tags.css";
 import { TagsInput } from "react-tag-input-component";
 
 const actionInitialState = {
@@ -44,17 +48,52 @@ const Create = (props) => {
     price: "",
   };
 
+  const { popularActionType } = useFetchForPopularActionType(
+    "https://api.littlefish.foundation/action-type/popular"
+  );
+
+  const { imgBase64, onChangeImgFile} = useBase64Converter();
+
+  console.log(imgBase64);
+  //console.log(Array.isArray(defaultTypes));    []?.push(defaultTypes)
+  //console.log(defaultTypes);
+
   const maxCount = 256;
   const walletid = localStorage.getItem("walletID");
+
+  const [newPopularActionType, setNewPopularActionType] =
+    useState(popularActionType);
+
+  const [selectedType, setSelectedType] = useState([]);
 
   const [showModal, setShowModal] = useState(false);
   const [imageData, setImageData] = useState("");
   const [eachEntry, setEachEntry] = useState(initialInputState);
   const [colonyName1, setColonyName1] = useState("");
   const [postStatus, setPostStatus] = useState(null);
-  const [actionTypes, setActionTypes] = useState(["Research"]);
+  const [actionTypes, setActionTypes] = useState(["research"]);
   const [allUrls, setAllUrls] = useState([{ urlName: "", url: "" }]);
 
+  console.log(actionTypes);
+  ///* *********************************************************************************************************************************** *////
+  ///* *********************************************************************************************************************************** *////
+
+  const onCheckboxBtnClick = (selected) => {
+    const index = selectedType.indexOf(selected);
+    if (index < 0) {
+      selectedType.push(selected);
+    } else {
+      selectedType.splice(index, 1);
+    }
+    setSelectedType([...selectedType]);
+  };
+
+  const handleAddType = () => {
+    const values = [...selectedType];
+    values.push();
+    setSelectedType(values);
+  };
+  ///* *********************************************************************************************************************************** *////
   ///* *********************************************************************************************************************************** *////
 
   const handleCallback = (childData) => {
@@ -130,7 +169,7 @@ const Create = (props) => {
     console.log(eachEntry);
     setEachEntry(initialInputState);
 
-    setActionTypes([""]);
+    //setActionTypes(actionTypes);
     setColonyName1("");
     setShowModal(true);
   };
@@ -154,63 +193,107 @@ const Create = (props) => {
             <Col lg="8" md="8" sm="6">
               <div className="create__item">
                 <Form>
-                  <FormGroup className="form__input">
-                    <Label for="walletID">Wallet ID*</Label>
+                  <h2>Basic Information</h2>
+                  <FormGroup className="metadata_basic_section">
+                    <FormGroup className="form__input">
+                      <Label for="walletID">Wallet ID*</Label>
 
-                    <Input
-                      required
-                      id="walletID"
-                      name="walletID"
-                      type="text"
-                      placeholder="Connect your wallet to fill this part"
-                      value={walletid}
-                    ></Input>
-                    <PopOvers />
-                  </FormGroup>
+                      <Input
+                        required="true"
+                        id="walletID"
+                        name="walletID"
+                        type="text"
+                        placeholder="Connect your wallet to fill this part"
+                        value={walletid}
+                      ></Input>
+                      <PopOvers />
+                    </FormGroup>
 
-                  <Base64 parentCallback={handleCallback} />
+                    <Base64 parentCallback={handleCallback} />
 
-                  <FormGroup className="form__input">
-                    <Label for="ownerName">Action Producer*</Label>
-                    <Input
-                      required
-                      id="ownerName"
-                      name="ownerName"
-                      type="text"
-                      placeholder="Enter the Name of the Producer"
-                      onChange={handleInputChange}
-                      value={ownerName}
-                    />
-                    <PopOvers />
-                  </FormGroup>
-                  <FormGroup className="form__input">
-                    <Label for="assetName">Action Name*</Label>
-                    <Input
-                      required
-                      id="assetName"
-                      name="assetName"
-                      type="text"
-                      placeholder="Enter the Name of the Action"
-                      onChange={handleInputChange}
-                      value={assetName}
-                    />
-                    <PopOvers />
-                  </FormGroup>
-                  <FormGroup className="form__input">
-                    <Label for="name">Name*</Label>
-                    <Input
-                      required
-                      id="name"
-                      name="name"
-                      type="text"
-                      placeholder="Enter the full Name of the Action"
-                      onChange={handleInputChange}
-                      value={name}
-                    />
-                    <PopOvers />
-                  </FormGroup>
+                    <FormGroup className="form__input">
+                      <Label for="ownerName">Action Producer*</Label>
+                      <Input
+                        required
+                        id="ownerName"
+                        name="ownerName"
+                        type="text"
+                        placeholder="Enter the Name of the Producer"
+                        onChange={handleInputChange}
+                        value={ownerName}
+                      />
+                      <PopOvers />
+                    </FormGroup>
+                    <FormGroup className="form__input">
+                      <Label for="assetName">Action Name*</Label>
+                      <Input
+                        required
+                        id="assetName"
+                        name="assetName"
+                        type="text"
+                        placeholder="Enter the Name of the Action"
+                        onChange={handleInputChange}
+                        value={assetName}
+                      />
+                      <PopOvers />
+                    </FormGroup>
 
-                  <FormGroup className="form__input">
+                    <FormGroup className="form__input">
+                      <Label for="description">Description*</Label>
+                      <Input
+                        required
+                        id="description"
+                        type="textarea"
+                        name="description"
+                        rows="4"
+                        maxLength="256"
+                        placeholder="Enter description"
+                        onChange={handleInputChange}
+                        value={description}
+                        className="w-90"
+                      ></Input>
+                      <div className="Char__counter">
+                        {description.length}/ {maxCount}
+                      </div>
+
+                      <PopOvers />
+                    </FormGroup>
+                  </FormGroup>
+                  <br />
+
+                  <h2>Metadata Information</h2>
+                  <FormGroup className="metadata_basic_section">
+                    <FormGroup className="form__input" required>
+                      <Label for="name">Name*</Label>
+                      <Input
+                        id="name"
+                        name="name"
+                        type="text"
+                        placeholder="Enter the full Name of the Action"
+                        onChange={handleInputChange}
+                        value={name}
+                      />
+                      <PopOvers />
+                    </FormGroup>
+
+                    <FormGroup className="form__input">
+                      <Label for="additionalImages">
+                        Upload Additional Images
+                      </Label>
+
+                      <Input
+                        required
+                        id="additionalImages"
+                        type="file"
+                        url="https://api.littlefish.foundation/action/"
+                        name="additionalImages"
+                        onChange={(e) => onChangeImgFile(e)}
+                        accept="*/*"
+                        multiple
+                      />
+                    </FormGroup>
+
+                    {/*<FormGroup className="form__input">
                     <div className="TagsInput">
                       <Label for="actionTypes">Action Type*</Label>
                       <TagsInput
@@ -232,117 +315,152 @@ const Create = (props) => {
                         Press enter to add new tag
                       </em>
                     </div>
-                  </FormGroup>
+                      </FormGroup>*/}
 
-                  <FormGroup className="form__input">
-                    <Label for="description">Description*</Label>
-                    <Input
-                      required
-                      id="description"
-                      type="textarea"
-                      name="description"
-                      rows="4"
-                      maxLength="256"
-                      placeholder="Enter description"
-                      onChange={handleInputChange}
-                      value={description}
-                      className="w-90"
-                    ></Input>
-                    <div className="Char__counter">
-                      {description.length}/ {maxCount}
+                    <br />
+                    <div>
+                      <h6 style={{ color: "white" }}>Action Type*</h6>
+
+                      <FormGroup className="form__tag">
+                        {popularActionType?.actionTypes?.map((item) => (
+                          <Button
+                            id="tag_button"
+                            value={item.name}
+                            style={{
+                              //backgroundColor: "transparent",
+                              color: "inherit",
+
+                              marginRight: "3px",
+                              marginBottom: "3px",
+                              marginTop: "3px",
+                              fontWeight: "300",
+                              fontSize: "0.8rem",
+                            }}
+                            color="secondary"
+                            outline
+                            onClick={() => onCheckboxBtnClick(item.name)}
+                            active={selectedType?.includes(item.name)}
+                          >
+                            {item.name}
+                          </Button>
+                        ))}
+                        <Button
+                          style={{
+                            backgroundColor: "transparent",
+                            marginRight: "3px",
+                            marginBottom: "3px",
+                            fontWeight: "700",
+                          }}
+                          onClick={() => handleAddType()}
+                        >
+                          {" "}
+                          + {name}
+                        </Button>
+                        <p
+                          style={{
+                            marginBottom: "3px",
+                            color: "inherit",
+                            fontWeight: "300",
+                            fontSize: "0.8rem",
+                          }}
+                        >
+                          Selected: {JSON.stringify(selectedType)}
+                        </p>
+                      </FormGroup>
                     </div>
 
-                    <PopOvers />
-                  </FormGroup>
-                  <FormGroup className="form__input">
-                    <Label for="colonyName">Colony Name*</Label>
-                    <Input
-                      required
-                      id="colonyName"
-                      type="select"
-                      name="colonyName"
-                      onChange={onChangeColony}
-                      value={colonyName1}
-                    >
-                      <option>Choose your Colony</option>
-                      <option value="littlefish Foundation">
-                        littlefish Foundation
-                      </option>
-                    </Input>
-                    <PopOvers />
-                  </FormGroup>
-                  <FormGroup className="form__input">
-                    <Label for="price">Price*</Label>
-                    <Input
-                      required
-                      id="price"
-                      name="price"
-                      type="number"
-                      placeholder="Please enter a price in ADA"
-                      onChange={handleInputChange}
-                      value={price}
-                    />
+                    <FormGroup className="form__input">
+                      <Label for="colonyName">Colony Name*</Label>
+                      <Input
+                        required
+                        id="colonyName"
+                        type="select"
+                        name="colonyName"
+                        onChange={onChangeColony}
+                        value={colonyName1}
+                      >
+                        <option>Choose your Colony</option>
+                        <option value="littlefish Foundation">
+                          littlefish Foundation
+                        </option>
+                      </Input>
+                      <PopOvers />
+                    </FormGroup>
+                    <FormGroup className="form__input">
+                      <Label for="price">Price*</Label>
+                      <Input
+                        required
+                        id="price"
+                        name="price"
+                        type="number"
+                        placeholder="Please enter a price in ADA"
+                        onChange={handleInputChange}
+                        value={price}
+                      />
 
-                    <PopOvers />
+                      <PopOvers />
+                    </FormGroup>
+                    <div>
+                      {allUrls.length > 0 && (
+                        <>
+                          {allUrls.map((field, index) => (
+                            <div>
+                              {" "}
+                              <Row>
+                                <Col lg="4">
+                                  <FormGroup className="form__input">
+                                    <Label for="linkName">
+                                      Name of the URL
+                                    </Label>
+
+                                    <Input
+                                      id="url"
+                                      type="text"
+                                      name="urlName"
+                                      placeholder="Enter the URL Name"
+                                      value={field.linkName}
+                                      onChange={(event) =>
+                                        handleUrlInputChange(index, event)
+                                      }
+                                    />
+                                  </FormGroup>
+                                </Col>
+                                <Col lg="8">
+                                  <FormGroup className="form__input">
+                                    <Label for="url">URL</Label>
+
+                                    <Input
+                                      id="url"
+                                      type="text"
+                                      name="url"
+                                      placeholder="Paste the URL"
+                                      value={field.url}
+                                      onChange={(event) =>
+                                        handleUrlInputChange(index, event)
+                                      }
+                                    />
+                                  </FormGroup>
+                                </Col>
+                              </Row>
+                            </div>
+                          ))}
+                        </>
+                      )}
+                      <Button
+                        className="cancel-btn-first"
+                        onClick={() => handleRemoveUrls()}
+                      >
+                        Delete
+                      </Button>
+                      &nbsp; &nbsp; &nbsp;
+                      <Button
+                        className="add-btn-second"
+                        onClick={() => handleAddLinks()}
+                      >
+                        Add
+                      </Button>
+                    </div>
                   </FormGroup>
-                  <div>
-                    {allUrls.length > 0 && (
-                      <>
-                        {allUrls.map((field, index) => (
-                          <div>
-                            {" "}
-                            <Row>
-                              <Col lg="4">
-                                <FormGroup className="form__input">
-                                  <Label for="linkName">Name of the URL</Label>
-
-                                  <Input
-                                    id="url"
-                                    type="text"
-                                    name="urlName"
-                                    placeholder="Enter the URL Name"
-                                    value={field.linkName}
-                                    onChange={(event) =>
-                                      handleUrlInputChange(index, event)
-                                    }
-                                  />
-                                </FormGroup>
-                              </Col>
-                              <Col lg="8">
-                                <FormGroup className="form__input">
-                                  <Label for="url">URL</Label>
-
-                                  <Input
-                                    id="url"
-                                    type="text"
-                                    name="url"
-                                    placeholder="Paste the URL"
-                                    value={field.url}
-                                    onChange={(event) =>
-                                      handleUrlInputChange(index, event)
-                                    }
-                                  />
-                                </FormGroup>
-                              </Col>
-                            </Row>
-                          </div>
-                        ))}
-                      </>
-                    )}
-                    <Button
-                      className="cancel-btn-first"
-                      onClick={() => handleRemoveUrls()}
-                    >
-                      Delete
-                    </Button>
-                    &nbsp; &nbsp; &nbsp;
-                    <Button
-                      className="add-btn-second"
-                      onClick={() => handleAddLinks()}
-                    >
-                      Add
-                    </Button>
-                  </div>
                   <br />
                   <Button
                     style={{ backgroundColor: "#5142fc", width: "185px" }}

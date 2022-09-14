@@ -1,0 +1,37 @@
+.single__user__card {
+  padding: 5px;
+  background: #343444;
+  border-radius: 10px;
+  /*height: 250px;
+  width: 150px; */
+}
+
+.user__img img {
+  border-radius: 5px;
+  height: 150px;
+  max-width: 185px;
+  object-fit: contain;
+}
+
+.user__img {
+  border-radius: 5px;
+  margin-bottom: 15px;
+  height: 150px;
+  object-fit: contain;
+  background: #000000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.user__title {
+  margin-top: 7px;
+  font-size: 0.8rem;
+  color: #fff;
+}
+
+.user__title a {
+  color: #fff;
+  font-size: 0.3rem;
+  text-decoration: none;
+}

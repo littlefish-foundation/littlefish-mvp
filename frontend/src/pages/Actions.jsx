@@ -101,7 +101,7 @@ const Actions = () => {
             </Col>
 
             {NFT__DATA?.map((item) => (
-              <Col lg="3" md="4" sm="6" className="mb-4" key={item.tokenId}>
+              <Col lg="3" md="4" sm="6" className="mb-4" key={item._id}>
                 <NftCard item={item} />
               </Col>
             ))}

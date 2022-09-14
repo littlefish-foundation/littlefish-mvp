@@ -1,16 +1,11 @@
 .header {
   width: 100%;
-  height: 100px;
+  height: 70px;
   line-height: 70px;
   position: fixed;
   top: 0;
   left: 0;
   z-index: 111111;
-}
-
-.abstractLogo {
-  width: 50px;
-  height: 50px;
 }
 
 .header__shrink {
@@ -41,8 +36,9 @@
   color: #fff;
 }
 
-.active {
+.active__header {
   color: #2037e4 !important;
+  
 }
 
 .logo h2 {
@@ -78,6 +74,11 @@
   color: #fff;
   font-size: 1.3rem;
   display: none;
+}
+
+.abstractLogo {
+  width: 50px;
+  height: 50px;
 }
 
 @media only screen and (max-width: 768px) {

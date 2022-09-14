@@ -6,6 +6,7 @@ import useFetch2 from "../Hooks/useFetch2";
 import "../styles/ColonyDetails.css";
 import ColonyMembership from "../components/colonies/ColonyMembership";
 import ColonyGallery from "../components/colonies/ColonyGallery";
+import ColonyMemberSection from "../components/userProfileCard/ColonyMemberSection";
 
 const ColonyDetails = () => {
   const { name } = useParams();
@@ -76,7 +77,8 @@ const ColonyDetails = () => {
           </Row>
         </Container>
       </section>
-      <ColonyMembership name={name} />
+  {/*<ColonyMembership name={name} />*/}
+      <ColonyMemberSection />
       <ColonyGallery />
     </div>
   );

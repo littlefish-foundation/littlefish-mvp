@@ -11,6 +11,7 @@ import Colony from "../pages/Colony";
 import NftDetails from "../pages/NftDetails";
 import ColonyDetails from "../pages/ColonyDetails";
 import MemberForm from "../components/colonies/MemberForm";
+import MemberProfile from "../pages/profile/MemberProfile";
 
 const Routers = () => {
   return (
@@ -25,8 +26,9 @@ const Routers = () => {
       <Route path="/colony" element={<Colony />} />
       <Route path="/colony/:name" element={<ColonyDetails />} />
       <Route path="/colony/:name/MemberForm" element={<MemberForm />} />
+      <Route path="/profile" element={<MemberProfile/>} />
 
-      <Route path="/action/:assetName" element={<NftDetails />} />
+      <Route path="/action/:_id" element={<NftDetails />} />
     </Routes>
   );
 };

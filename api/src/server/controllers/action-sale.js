@@ -2,17 +2,17 @@ const actionSaleService = require('../../services/action-sale');
 const catchAsync = require('../../utils/catch-async');
 
 module.exports = class ActionSaleController {
-  static getSaleByActionId = catchAsync(async (req, res) => {
-    const { actionId } = req.params;
+  static getSaleByActionID = catchAsync(async (req, res) => {
+    const { actionID } = req.params;
 
-    const data = await actionSaleService.getSaleByActionId(actionId);
+    const data = await actionSaleService.getSaleByActionID(actionID);
     res.status(200).send(data);
   });
 
-  static deleteActionSaleByActionId = catchAsync(async (req, res) => {
-    const { actionId } = req.params;
+  static deleteActionSaleByActionID = catchAsync(async (req, res) => {
+    const { actionID } = req.params;
 
-    const data = await actionSaleService.deleteActionSaleByActionId(actionId);
+    const data = await actionSaleService.deleteActionSaleByActionID(actionID);
     res.status(200).send(data);
   });
 
@@ -23,11 +23,11 @@ module.exports = class ActionSaleController {
     res.status(201).send(data);
   });
 
-  static updateActionSaleByActionId = catchAsync(async (req, res) => {
-    const { actionId } = req.params;
+  static updateActionSaleByActionID = catchAsync(async (req, res) => {
+    const { actionID } = req.params;
     const actionSale = req.body;
 
-    const result = await actionSaleService.updateActionSaleByActionId(actionId, actionSale);
+    const result = await actionSaleService.updateActionSaleByActionID(actionID, actionSale);
     res.status(200).send(result);
   });
 };

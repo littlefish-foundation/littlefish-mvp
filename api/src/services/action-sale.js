@@ -5,8 +5,8 @@ const tangocryptoClient = require('../external-api/tangocrypto-client');
 const { ADA_TO_LOVELACE_CONVERSION } = require('../constants');
 
 module.exports = class ActionSaleService {
-  static async getSaleByActionId(id) {
-    const actionSale = await actionSaleDataAccess.getSaleByActionId(id);
+  static async getSaleByActionID(id) {
+    const actionSale = await actionSaleDataAccess.getSaleByActionID(id);
 
     if (!actionSale) {
       throw new NotFoundError(`Sale for action id: ${id} is not found.`);
@@ -14,8 +14,8 @@ module.exports = class ActionSaleService {
     return actionSale;
   }
 
-  static async deleteActionSaleByActionId(id) {
-    const success = await actionSaleDataAccess.deleteActionSaleByActionId(id);
+  static async deleteActionSaleByActionID(id) {
+    const success = await actionSaleDataAccess.deleteActionSaleByActionID(id);
 
     return {
       success,
@@ -24,21 +24,22 @@ module.exports = class ActionSaleService {
 
   static async createActionSale(actionSale) {
     const [sale, action] = await Promise.all(
-      [actionSaleDataAccess.getSaleByActionId(actionSale.actionId),
-        actionService.getActionById(actionSale.actionId),
+      [actionSaleDataAccess.getSaleByActionID(actionSale.actionID),
+        actionService.getActionById(actionSale.actionID),
       ],
     );
+
     if (sale) {
       return sale;
     }
 
     const price = (actionSale.price || action.price) * ADA_TO_LOVELACE_CONVERSION;
-    const { createdSale } = await tangocryptoClient.createActionSale(action.actionId, price, action.actionCollection);
+    const { createdSale } = await tangocryptoClient.createActionSale(action.chainID, price, action.actionCollection);
+    console.log({ createdSale });
 
-    // TODO createActionSale response
     await actionSaleDataAccess.createActionSale({
       saleId: createdSale.id,
-      chainActionId: action.actionId,
+      chainActionID: action.chainID,
       paymentLink: createdSale.payment_link,
       paymentAddress: createdSale.payment_address,
       colony: action.colony,
@@ -52,9 +53,8 @@ module.exports = class ActionSaleService {
     };
   }
 
-  static async updateActionSaleByActionId(id, updates) {
-    // TODO resp
-    await actionSaleDataAccess.updateActionSaleByActionId(id, updates);
+  static async updateActionSaleByActionID(id, updates) {
+    await actionSaleDataAccess.updateActionSaleByActionID(id, updates);
 
     return {
       success: true,

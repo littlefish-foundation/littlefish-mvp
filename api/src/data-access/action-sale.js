@@ -1,8 +1,8 @@
-const ActionSaleModel = require('../models/colony');
+const ActionSaleModel = require('../models/action-sale');
 
 module.exports = class ActionSaleAccess {
-  static async getSaleByActionId(actionId, fields = '-__v') {
-    return ActionSaleModel.findOne({ actionId }).select(fields).lean().exec();
+  static async getSaleByActionID(actionID, fields = '-__v') {
+    return ActionSaleModel.findOne({ actionID }).select(fields).lean().exec();
   }
 
   static async createActionSale(sale) {
@@ -10,16 +10,16 @@ module.exports = class ActionSaleAccess {
     return ActionSaleModel.create(sale);
   }
 
-  static async deleteActionSaleByActionId(actionId) {
-    const { ok } = await ActionSaleModel.deleteOne({ actionId });
+  static async deleteActionSaleByActionID(actionID) {
+    const { ok } = await ActionSaleModel.deleteOne({ actionID });
     if (ok === 1) {
       return true;
     }
     return false;
   }
 
-  static async updateActionSaleByActionId(actionId, updates) {
+  static async updateActionSaleByActionID(actionID, updates) {
     // TODO resp
-    await ActionSaleModel.findOneAndUpdate({ actionId }, updates);
+    await ActionSaleModel.findOneAndUpdate({ actionID }, updates);
   }
 };

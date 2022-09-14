@@ -29,10 +29,10 @@ module.exports = class ActionService {
   }
 
   static async deleteAction(id) {
-    const { actionId, actionCollection } = await this.getActionById(id);
+    const { actionID, actionCollection } = await this.getActionById(id);
 
     // TODO action response obj
-    await tangocryptoClient.deleteAction(actionId, actionCollection);
+    await tangocryptoClient.deleteAction(actionID, actionCollection);
 
     const success = await actionDataAccess.deleteActionById(id);
 
@@ -43,7 +43,7 @@ module.exports = class ActionService {
 
   static async syncActionStatus(id) {
     const { chainID, actionCollection } = await this.getActionById(id);
-
+    console.log({ chainID, actionCollection });
     // TODO action response obj
     const { action } = await tangocryptoClient.getAction(chainID, actionCollection);
 
@@ -87,7 +87,7 @@ module.exports = class ActionService {
 
     const priceInLovelace = ADA_TO_LOVELACE_CONVERSION * action.price;
     try {
-      const paymentLink = await tangocryptoClient.createActionSale(action.actionId, priceInLovelace, actionCollection);
+      const paymentLink = await tangocryptoClient.createActionSale(action.actionID, priceInLovelace, actionCollection);
       if (paymentLink !== '') {
         return {
           link: paymentLink,

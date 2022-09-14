@@ -2,24 +2,24 @@ const userService = require('../../services/user');
 const catchAsync = require('../../utils/catch-async');
 
 module.exports = class UserController {
-  static getUserByWalletAddress = catchAsync(async (req, res) => {
-    const { walletAddress } = req.params;
+  static getUserByName = catchAsync(async (req, res) => {
+    const { name } = req.params;
 
-    const data = await userService.getUserByWalletAddress(walletAddress);
+    const data = await userService.getUserByName(name);
     res.status(200).send(data);
   });
 
-  static deleteUserByWalletAddress = catchAsync(async (req, res) => {
-    const { walletAddress } = req.params;
+  static deleteUserByName = catchAsync(async (req, res) => {
+    const { name } = req.params;
 
-    const data = await userService.deleteUserByWalletAddress(walletAddress);
+    const data = await userService.deleteUserByName(name);
     res.status(200).send(data);
   });
 
   static getUsersByColony = catchAsync(async (req, res) => {
-    const { colonyName } = req.query;
+    const { colonyName, page, limit } = req.query;
 
-    const data = await userService.getUsersByColony(colonyName);
+    const data = await userService.getUsersByColony(colonyName, page, limit);
     res.status(200).send(data);
   });
 
@@ -30,10 +30,10 @@ module.exports = class UserController {
   });
 
   static updateUserColony = catchAsync(async (req, res) => {
-    const { walletAddress } = req.params;
+    const { name } = req.params;
     const { colonyName } = req.query;
 
-    const result = await userService.updateUserColony(walletAddress, colonyName);
+    const result = await userService.updateUserColony(name, colonyName);
     res.status(200).send(result);
   });
 };

@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 
 const ActionSale = new mongoose.Schema({
   saleId: { type: String, required: true },
-  chainActionId: { type: String, required: true },
+  chainActionID: { type: String, required: true },
   status: { type: String, required: true },
   paymentLink: { type: String, required: true },
   paymentAddress: { type: String, required: true },

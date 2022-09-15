@@ -31,6 +31,7 @@ module.exports = {
         walletAddress: Joi.string().required(),
         colonyName: Joi.string().required(),
         avatar: Joi.string().required(),
+        bio: Joi.string(),
       },
     ),
   },

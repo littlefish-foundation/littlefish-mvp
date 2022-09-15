@@ -35,7 +35,7 @@ module.exports = class UserService {
     if (!colony) {
       throw new NotFoundError(`Colony with name:${user.colonyName} is not found.`);
     }
-    // TODO createUser response
+
     await userDataAccess.createUser({
       ...user,
       colony: colony._id,

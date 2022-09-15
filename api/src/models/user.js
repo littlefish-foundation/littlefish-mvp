@@ -5,6 +5,7 @@ const user = new mongoose.Schema({
   walletAddress: { type: String, required: true, unique: true },
   colony: { ref: 'Colony', type: mongoose.Schema.Types.ObjectId },
   avatar: { type: String, required: true },
+  bio: { type: String },
   createdAt: { type: Date, default: Date.now },
   updatedAt: { type: Date, default: Date.now },
 });

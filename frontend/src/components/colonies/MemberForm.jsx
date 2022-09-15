@@ -19,7 +19,6 @@ const MemberForm = () => {
       ...base,
       borderRadius: 0,
       marginTop: 0,
-
     }),
     menuList: (base) => ({
       ...base,
@@ -114,12 +113,28 @@ const MemberForm = () => {
       <section>
         <Container>
           <Row>
-            <Col lg="6" md="6" className="m-auto text-center">
+            <Col lg="3" md="4" sm="6">
+              <h5 className="mb-4 text-light"></h5>
+            </Col>
+            <Col lg="8" md="8" sm="6">
               <h2>Apply for Colony Membership</h2>
 
-              <div className="contact mt-4">
+              <div className="create__item">
                 <Form>
                   <FormGroup className="form__input">
+                    <Label for="image">Upload Profile Image</Label>
+
+                    <Input
+                      id="image"
+                      type="file"
+                      url="https://api.littlefish.foundation/action/"
+                      name="image"
+                      //onChange={this.handleFileInputChange}
+                      accept="*/*"
+                    />
+                  </FormGroup>
+                  <FormGroup className="form__input">
+                    <Label for="name">Enter Your Name</Label>
                     <Input
                       name="name"
                       type="text"
@@ -130,6 +145,8 @@ const MemberForm = () => {
                   </FormGroup>
 
                   <FormGroup className="form__input">
+                    <Label for="colonyName">Enter Colony Name</Label>
+
                     <Input
                       name="colonyName"
                       type="text"
@@ -140,6 +157,8 @@ const MemberForm = () => {
                   </FormGroup>
 
                   <FormGroup className="form__input">
+                    <Label for="walletAddress">Enter Your WalletID</Label>
+
                     <Input
                       type="text"
                       name="walletAddress"
@@ -149,24 +168,19 @@ const MemberForm = () => {
                   </FormGroup>
 
                   <FormGroup className="form__input">
-                    <Select
-                      placeholder="Choose an Avatar"
-                      styles={customStyles}
-                      name="avatar"
-                      options={avatars}
-                      value={selected}
-                      onChange={onChangeSelection}
-                      getOptionLabel={(e) => (
-                        <div
-                          style={{
-                            display: "fit",
-                            alignItems: "center",
-                          }}
-                        >
-                          {e.avatar}
-                        </div>
-                      )}
-                    ></Select>
+                    <Label for="description">Bio</Label>
+                    <Input
+                      required
+                      id="description"
+                      type="textarea"
+                      name="description"
+                      rows="4"
+                      maxLength="256"
+                      placeholder="Enter a short Bio about yourself"
+                      //onChange={handleInputChange}
+                      //value={description}
+                      className="w-90"
+                    ></Input>
                   </FormGroup>
 
                   <Button

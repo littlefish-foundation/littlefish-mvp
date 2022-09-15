@@ -1,0 +1,17 @@
+.form__tag {
+  width: 100%;
+  padding: 7px 25px;
+  color: #fff;
+  font-size: 0.8rem;
+  background: transparent;
+  border: 2px solid rgba(221, 221, 221, 0.171);
+  outline: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.form__tag label {
+  color: #fff;
+  margin-bottom: 10px;
+  font-size: 1rem;
+}

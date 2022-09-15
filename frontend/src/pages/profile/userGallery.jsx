@@ -1,14 +1,14 @@
 import React from "react";
-import NftCard from "../UserInterface/Nft-card/NftCard";
+import NftCard from "../../components/UserInterface/Nft-card/NftCard";
 import useFetch from "../../Hooks/useFetch";
 import { Container, Row, Col } from "reactstrap";
 import "../../styles/actions.css";
 import "../../components/UserInterface/Live-auction/live-auction.css";
-
+import { BsDownload } from "react-icons/bs";
 
 // import LiveAuction from "../components/ui/Live-auction/LiveAuction";
 
-const ColonyGallery = () => {
+const UserGallery = () => {
   const { NFT__DATA } = useFetch(
     "https://api.littlefish.foundation/colony/{colonyName}/actions/"
   );
@@ -16,15 +16,13 @@ const ColonyGallery = () => {
   return (
     <>
       <section>
-        <Container>
+        <Container  style={{ backgroundColor:"transparent !important" }}>
           <Row>
-            <div className="seller__section-title">
-              <h3>Actions of the Colony</h3>
-              <br />
-            </div>
             {NFT__DATA?.map((item) => (
-              <Col lg="3" md="4" sm="6" className="mb-4" key={item?.tokenId}>
-                <NftCard item={item} />
+              <Col lg="6" md="4" sm="6" className="mb-4" key={item.ownerName}>
+                {item.ownerName === "donald.littlefish" && (
+                  <NftCard item={item} />
+                )}
               </Col>
             ))}
           </Row>
@@ -34,4 +32,4 @@ const ColonyGallery = () => {
   );
 };
 
-export default ColonyGallery;
+export default UserGallery;

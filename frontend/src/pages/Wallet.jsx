@@ -16,8 +16,33 @@ import AbsentNamiWalletModal from "../components/UserInterface/Modal/AbsentNamiW
 import NamiAddressModal from "../components/UserInterface/Modal/NamiAddressModal";
 import DisconnectedModal from "../components/UserInterface/Modal/DisconnectedModal";
 
+const dummyBadgeData = [
+  {
+    unit: "daed3e9e7a24b07f417aec24956dc5a00ac28efec88bb4fd5d3038ac.Frontend V",
+    quantity: "1",
+  },
+  {
+    unit: "c6d944cf092f89ac4694ebfcf28163b14729ac5f3f91289f8745ca6c.The Genesis",
+    quantity: "1",
+  },
+  {
+    unit: "43d0fdf3a1fbda50b3db584d14e6a6b63d0781cf0666ad289be0cb70.TheForge",
+    quantity: "1",
+  },
+  {
+    unit: "fdbff441598ae14daa5333a3ebdad9c607986191d976226e4d86a698.TheGenesis",
+    quantity: "1",
+  },
+];
+
 const Wallet = () => {
   const [namiAddr, setNamiAddr] = useState(false);
+
+  const [nfts, setNfts] = useState([]);
+  const [policy, setPolicy] = useState();
+  const [connected, setConnected] = useState();
+  const [balance, setBalance] = useState();
+
   const [account, setAccount] = useState(null);
   const [showModal, setShowModal] = useState(false);
   const [showModalDisconnect, setShowModalDisconnect] = useState(false);
@@ -58,17 +83,19 @@ const Wallet = () => {
       if (namiAddr) {
         await Nami.enable();
         let addr = await Nami.getAddress();
+        let assets = await Nami.getAssets();
         setNamiCheck(Nami.enable);
-
         setAccount(addr);
+        setNfts(assets);
         localStorage.setItem("walletID", addr);
       }
     }
     t();
   }, [namiAddr]);
 
-  console.log(namiCheck);
-  console.log(window.walletIDStored);
+
+ 
+
   const namiClickHandler = (e) => {
     e.preventDefault();
     if (namiCheck === null) {
@@ -85,6 +112,25 @@ const Wallet = () => {
 
     setShowModalDisconnect(true);
   };
+
+   ///* *********************************************************************************************************************************** *////
+ ///* *********************************************************************************************************************************** *////
+  let walletAssetsObject = { assets: [], walletAddress:"" };
+  let nameAndPolicyObj = {} ;
+
+ 
+  const arrPolicyAndName = nfts.map(nft => {
+    return {...nameAndPolicyObj, policyID:nft.unit.split(".")[0] , name:nft.unit.split(".")[1]};
+  });
+
+  walletAssetsObject.walletAddress = account;
+  walletAssetsObject.assets = arrPolicyAndName;
+
+  console.log(nfts);
+  console.log(walletAssetsObject);
+ ///* *********************************************************************************************************************************** *////
+ ///* *********************************************************************************************************************************** *////
+
   return (
     <div
       onClick={() => {

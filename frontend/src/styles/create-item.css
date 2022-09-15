@@ -11,7 +11,20 @@ html {
   color: #fff;
   font-size: 0.8rem;
   background: transparent;
-  border: 1px solid rgba(221, 221, 221, 0.171);
+  border: 2px solid rgba(221, 221, 221, 0.171);
+  outline: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+
+.metadata_basic_section {
+  width: 100%;
+  padding: 7px 25px;
+  color: #fff;
+  font-size: 0.8rem;
+  background: transparent;
+  border: 2px solid rgba(221, 221, 221, 0.171);
   outline: none;
   border-radius: 5px;
   cursor: pointer;
@@ -30,13 +43,7 @@ html {
   width: 100%;
 }
 
-.rti--container {
-  --rti-bg: #ffc107 !important;
-  --rti-tag: #ffc107 !important;
-  --rti-s: 0.3rem !important;
-  padding: 0% !important;
-  --rti-border: transparent !important;
-}
+
 
 .form__input {
   margin-bottom: 15px;
@@ -79,6 +86,7 @@ html {
   width: 80px;
   height: 40px;
 }
+
 
 @media only screen and (max-width: 576px) {
   .create__item {

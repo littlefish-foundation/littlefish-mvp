@@ -5,13 +5,18 @@ import "./nft-card.css";
 import Modal from "../Modal/SuccessModal";
 
 const NftCard = (props) => {
-  const { assetName, image, ownerName, price, createdAt } = props.item;
+  const { _id, chainID, assetName, image, ownerName, price, createdAt, colonyName } =
+    props.item;
+
   const createdat = createdAt?.substring(0, 10);
   console.log(createdat);
   const [showModal, setShowModal] = useState(false);
 
   return (
-    <Link to={`/action/${assetName}`} style={{ textDecoration: "none", color:"white" }}>
+    <Link
+      to={`/action/${ _id}`}
+      style={{ textDecoration: "none", color: "white" }}
+    >
       <div className="single__nft__card">
         <div className="nft__img">
           <img src={image} alt="" className="w-100" />

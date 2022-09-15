@@ -37,6 +37,7 @@ const syncAction = async (actionID) => {
     let response
     try {
         response = await axios.request(options)
+        console.log(response.data)
     } catch(e) {
         console.log(`${e?.message} has occurred, err: ${e}`)
     }

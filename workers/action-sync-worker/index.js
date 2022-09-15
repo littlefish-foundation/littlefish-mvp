@@ -2,7 +2,7 @@ const cron = require('node-cron')
 const worker = require('./worker')
 
 
-cron.schedule('*/1 * * * *', () => {
+cron.schedule('*/10 * * * *', () => {
     console.log('CRON job scheduled.')
     worker().then(res => {
         console.log('CRON job successfully finished.')

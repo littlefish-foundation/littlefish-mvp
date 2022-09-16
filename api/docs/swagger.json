@@ -503,6 +503,13 @@
             "type": "string"
           },
           {
+            "name": "type",
+            "in": "query",
+            "description": "type of action",
+            "required": false,
+            "type": "string"
+          },
+          {
             "name": "ownerName",
             "in": "query",
             "description": "action owner name to filter",

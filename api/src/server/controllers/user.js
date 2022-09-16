@@ -24,7 +24,7 @@ module.exports = class UserController {
   });
 
   static createUser = catchAsync(async (req, res) => {
-    const { user } = req.body;
+    const user = req.body;
     const result = await userService.createUser(user);
     res.status(201).send(result);
   });

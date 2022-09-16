@@ -58,6 +58,7 @@ module.exports = {
         mediaType: Joi.string().max(ACTION_MAX_ALLOWED_LENGTH).required(),
         image: Joi.string().base64().required(),
         links: Joi.array(),
+        files: Joi.array(),
         colonyName: Joi.string().required(),
         walletID: Joi.string().required(),
         price: Joi.number().required(),

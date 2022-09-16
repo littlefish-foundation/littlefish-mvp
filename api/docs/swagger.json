@@ -746,6 +746,12 @@
           "description": "user name",
           "example": "burak.littlefish"
         },
+        "bio": {
+          "type": "string",
+          "format": "text",
+          "description": "Small biography of the user",
+          "example": "Hello, I'm burak.littlefish. I'm a backend developer. ..."
+        },
         "avatar": {
           "type": "string",
           "format": "uri",
@@ -872,6 +878,12 @@
                 "example": "Littlefish Foundation Linktree"
               }
             }
+          }
+        }   ,
+        "files": {
+          "type": "array",
+          "items": {
+            "type": "string"
           }
         }
       }

@@ -35,6 +35,7 @@ colonyRouter.route('/:colonyName/actions').get(validator(colonySchemas.getColony
 router.use('/colony', colonyRouter);
 
 const userRouter = express.Router();
+userRouter.route('/').get(validator(userSchemas.getUsers), userController.getUsers);
 userRouter.route('/:name').get(validator(userSchemas.getUser), userController.getUserByName);
 userRouter.route('/:name').delete(validator(userSchemas.deleteUser), userController.deleteUserByName);
 userRouter.route('/:name/colony').post(validator(userSchemas.updateUserColony), userController.updateUserColony);

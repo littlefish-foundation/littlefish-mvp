@@ -59,4 +59,8 @@ module.exports = class UserService {
       success: true,
     };
   }
+
+  static async getUsers(page, limit) {
+    return userDataAccess.getUsers(page, limit);
+  }
 };

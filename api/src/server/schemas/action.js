@@ -32,8 +32,14 @@ module.exports = {
   getActions: {
     query: Joi.object(
       {
-        filter: Joi.object().default({}),
-        sorter: Joi.object().default({}),
+        assetName: Joi.string(),
+        ownerName: Joi.string(),
+        status: Joi.string(),
+        type: Joi.string(),
+        minDate: Joi.date(),
+        maxDate: Joi.date(),
+        sortingOrder: Joi.string().valid('asc', 'desc').default('desc'),
+        sortingField: Joi.string(),
         page: Joi.number().integer().default(0),
         limit: Joi.number().integer().positive().default(20),
       },

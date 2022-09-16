@@ -24,6 +24,7 @@ module.exports = {
       limit: Joi.number().integer().positive().default(20),
     }),
   },
+
   createUser: {
     body: Joi.object(
       {
@@ -41,6 +42,15 @@ module.exports = {
     query: Joi.object(
       {
         colonyName: Joi.string().required(),
+      },
+    ),
+  },
+
+  getUsers: {
+    query: Joi.object(
+      {
+        page: Joi.number().integer().default(1),
+        limit: Joi.number().integer().positive().default(20),
       },
     ),
   },

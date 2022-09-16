@@ -143,18 +143,13 @@
         "summary": "Create the sale for specified action",
         "parameters": [
           {
-            "name": "actionID",
-            "in": "query",
-            "description": "ID of the action",
+            "in": "body",
+            "name": "body",
+            "description": "Action sale body",
             "required": true,
-            "type": "string"
-          },
-          {
-            "name": "price",
-            "in": "query",
-            "description": "Price of the action",
-            "required": false,
-            "type": "string"
+            "schema": {
+              "$ref": "#/definitions/actionSale"
+            }
           }
         ],
         "responses": {
@@ -723,6 +718,22 @@
           "format": "wallet address",
           "description": "wallet address of the user",
           "example": "addr1q9fjzdqkar0fm.......lumhp9znnq66zcn5"
+        }
+      }
+    },
+    "actionSale": {
+      "properties": {
+        "actionID": {
+          "type": "string",
+          "format": "id",
+          "description": "id of action",
+          "example": "4102a267fc0f3257c9274af2fed27301f45beab3b248c5686c2392b0"
+        },
+        "price": {
+          "type": "number",
+          "format": "ADA",
+          "description": "ADA price to sell action",
+          "example": 10
         }
       }
     },

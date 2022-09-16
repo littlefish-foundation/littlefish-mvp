@@ -17,7 +17,7 @@ module.exports = class ActionSaleController {
   });
 
   static createActionSale = catchAsync(async (req, res) => {
-    const actionSale = req.query;
+    const actionSale = req.body;
 
     const data = await actionSaleService.createActionSale(actionSale);
     res.status(201).send(data);

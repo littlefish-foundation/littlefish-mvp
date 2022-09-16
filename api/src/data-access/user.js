@@ -16,7 +16,7 @@ module.exports = class UserDataAccess {
   }
 
   static async createUser(user) {
-    return UserModel.create({ user });
+    return UserModel.create(user);
   }
 
   static async deleteUserByName(name) {

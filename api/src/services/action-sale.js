@@ -23,21 +23,11 @@ module.exports = class ActionSaleService {
   }
 
   static async createActionSale(actionSale) {
-    const [sale, action] = await Promise.all(
-      [actionSaleDataAccess.getSaleByActionID(actionSale.actionID),
-        actionService.getActionById(actionSale.actionID),
-      ],
-    );
-
-    if (sale) {
-      return sale;
-    }
-
+    const action = actionService.getActionById(actionSale.actionID);
     const price = (actionSale.price || action.price) * ADA_TO_LOVELACE_CONVERSION;
     const { createdSale } = await tangocryptoClient.createActionSale(action.chainID, price, action.actionCollection);
-    console.log({ createdSale });
 
-    await actionSaleDataAccess.createActionSale({
+    const sale = {
       saleId: createdSale.id,
       chainActionID: action.chainID,
       paymentLink: createdSale.payment_link,
@@ -46,10 +36,11 @@ module.exports = class ActionSaleService {
       action: action._id,
       status: createdSale.status,
       price,
-    });
+    };
+    await actionSaleDataAccess.createActionSale(sale);
 
     return {
-      success: true,
+      sale,
     };
   }
 

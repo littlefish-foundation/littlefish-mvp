@@ -35,11 +35,11 @@ module.exports = class UserService {
     if (!colony) {
       throw new NotFoundError(`Colony with name:${user.colonyName} is not found.`);
     }
-
-    await userDataAccess.createUser({
+    const userWithColony = {
       ...user,
       colony: colony._id,
-    });
+    };
+    await userDataAccess.createUser(userWithColony);
 
     return {
       success: true,

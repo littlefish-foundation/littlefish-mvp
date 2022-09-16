@@ -5,6 +5,7 @@ import SubHeader from "../../components/UserInterface/Sub-Header/SubHeader";
 import { Container, Row, Col } from "reactstrap";
 import { Button, Form, FormGroup, Input, Label, FormText } from "reactstrap";
 import "./MemberForm.css";
+import useBase64Converter from "../../Hooks/useBase64Converter";
 
 const MemberForm = () => {
   const customStyles = {
@@ -26,63 +27,22 @@ const MemberForm = () => {
     }),
   };
 
-  const avatars = [
-    {
-      value:
-        "https://littlefish-mvp.s3.eu-central-1.amazonaws.com/avatar_vader.jpeg",
-      avatar: (
-        <img src="https://littlefish-mvp.s3.eu-central-1.amazonaws.com/avatar_vader.jpeg" />
-      ),
-    },
-    {
-      value:
-        "https://littlefish-mvp.s3.eu-central-1.amazonaws.com/avatar_fett.jpeg",
-      avatar: (
-        <img src="https://littlefish-mvp.s3.eu-central-1.amazonaws.com/avatar_fett.jpeg" />
-      ),
-    },
-    {
-      value:
-        "https://littlefish-mvp.s3.eu-central-1.amazonaws.com/avatar_3cpo.jpeg",
-      avatar: (
-        <img src="https://littlefish-mvp.s3.eu-central-1.amazonaws.com/avatar_3cpo.jpeg" />
-      ),
-    },
-    {
-      value:
-        "https://littlefish-mvp.s3.eu-central-1.amazonaws.com/avatar_r2d2.jpeg",
-      avatar: (
-        <img src="https://littlefish-mvp.s3.eu-central-1.amazonaws.com/avatar_r2d2.jpeg" />
-      ),
-    },
-    {
-      value:
-        "https://littlefish-mvp.s3.eu-central-1.amazonaws.com/avatar_bb8.jpeg",
-      avatar: (
-        <img src="https://littlefish-mvp.s3.eu-central-1.amazonaws.com/avatar_bb8.jpeg" />
-      ),
-    },
-  ];
-
   const initialInput = {
     walletAddress: "",
     name: "",
-    colonyName: "Littlefish Foundation",
-    avatar: null,
+    colonyName: "",
+    avatar: "",
+    //bio: "",
   };
 
   const [eachField, setEachField] = useState(initialInput);
-  const [selected, setSelected] = useState(null);
 
-  const onChangeSelection = (e) => {
-    setSelected(e);
-    setSelected(e.value);
-  };
+  const { singleImgBase64, uploadImage } = useBase64Converter();
+  const walletid = sessionStorage.getItem("walletID");
+
+  console.log(singleImgBase64);
 
   const { name, colonyName } = eachField;
-  const Avatars = { avatar: selected };
-
-  Object.assign(eachField, Avatars);
 
   console.log(eachField);
 
@@ -90,7 +50,8 @@ const MemberForm = () => {
     setEachField({
       ...eachField,
       [e.target.name]: e.target.value,
-      walletAddress: window.namiAddress,
+      walletAddress: walletid,
+      avatar: singleImgBase64,
     });
   };
 
@@ -101,8 +62,15 @@ const MemberForm = () => {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(eachField),
-    }).then(() => {});
+    })
+      .then((response) => response.json())
 
+      .then((data) => {
+        console.log(data);
+      })
+      .catch((err) => {
+        console.log("Error:", err.message);
+      });
     console.log(eachField);
     setEachField(initialInput);
   };
@@ -122,20 +90,20 @@ const MemberForm = () => {
               <div className="create__item">
                 <Form>
                   <FormGroup className="form__input">
-                    <Label for="image">Upload Profile Image</Label>
+                    <Label for="avatar">Upload Profile Image</Label>
 
                     <Input
-                      id="image"
+                      id="avatar"
                       type="file"
-                      url="https://api.littlefish.foundation/action/"
-                      name="image"
-                      //onChange={this.handleFileInputChange}
+                      name="avatar"
+                      onChange={(e) => uploadImage(e)}
                       accept="*/*"
                     />
                   </FormGroup>
                   <FormGroup className="form__input">
                     <Label for="name">Enter Your Name</Label>
                     <Input
+                      id="name"
                       name="name"
                       type="text"
                       placeholder="Enter your name or nickname"
@@ -145,9 +113,10 @@ const MemberForm = () => {
                   </FormGroup>
 
                   <FormGroup className="form__input">
-                    <Label for="colonyName">Enter Colony Name</Label>
+                    <Label for="colony">Enter Colony Name</Label>
 
                     <Input
+                      id="colonyName"
                       name="colonyName"
                       type="text"
                       placeholder="Enter the name of your colony."
@@ -160,25 +129,26 @@ const MemberForm = () => {
                     <Label for="walletAddress">Enter Your WalletID</Label>
 
                     <Input
+                      id="walletAddress"
                       type="text"
                       name="walletAddress"
                       placeholder="Enter you wallet address"
-                      value={window.namiAddress}
+                      value={walletid}
                     />
                   </FormGroup>
 
                   <FormGroup className="form__input">
-                    <Label for="description">Bio</Label>
+                    <Label for="bio">Bio</Label>
                     <Input
                       required
-                      id="description"
+                      id="bio"
                       type="textarea"
-                      name="description"
+                      name="bio"
                       rows="4"
                       maxLength="256"
                       placeholder="Enter a short Bio about yourself"
-                      //onChange={handleInputChange}
-                      //value={description}
+                      //onChange={handleChange}
+                      //value={bio}
                       className="w-90"
                     ></Input>
                   </FormGroup>

@@ -29,7 +29,7 @@ const Header = () => {
 
   const menuRef = useRef(null);
 
-  let address = localStorage.length;
+  let address = sessionStorage.length;
   console.log(address);
 
   useEffect(() => {

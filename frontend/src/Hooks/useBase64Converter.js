@@ -2,6 +2,29 @@ import React, { useState } from "react";
 
 function useBase64Converter() {
   const [imgBase64, setImgBase64] = useState([]);
+  const [singleImgBase64, setSingleImgBase64] = useState("");
+
+  const uploadImage = async (e) => {
+    const file = e.target.files[0];
+    const base64 = await convertBase64(file);
+    setSingleImgBase64(base64);
+  };
+
+  const convertBase64 = (file) => {
+    return new Promise((resolve, reject) => {
+      const fileReader = new FileReader();
+      fileReader.readAsDataURL(file);
+
+      fileReader.onload = () => {
+        resolve(fileReader.result);
+      };
+
+      fileReader.onerror = (error) => {
+        reject(error);
+      };
+    });
+  };
+
 
   const onChangeImgFile = (e) => {
     const imgFileAry = e.target.files;
@@ -27,7 +50,7 @@ function useBase64Converter() {
     }
   };
 
-  return { imgBase64, onChangeImgFile };
+  return { imgBase64, onChangeImgFile, singleImgBase64, uploadImage };
 }
 
 export default useBase64Converter;

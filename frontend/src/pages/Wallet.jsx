@@ -15,38 +15,25 @@ import Nami from "../assets/avatarsAndImages/Nami.svg";
 import AbsentNamiWalletModal from "../components/UserInterface/Modal/AbsentNamiWalletModal";
 import NamiAddressModal from "../components/UserInterface/Modal/NamiAddressModal";
 import DisconnectedModal from "../components/UserInterface/Modal/DisconnectedModal";
-
-const dummyBadgeData = [
-  {
-    unit: "daed3e9e7a24b07f417aec24956dc5a00ac28efec88bb4fd5d3038ac.Frontend V",
-    quantity: "1",
-  },
-  {
-    unit: "c6d944cf092f89ac4694ebfcf28163b14729ac5f3f91289f8745ca6c.The Genesis",
-    quantity: "1",
-  },
-  {
-    unit: "43d0fdf3a1fbda50b3db584d14e6a6b63d0781cf0666ad289be0cb70.TheForge",
-    quantity: "1",
-  },
-  {
-    unit: "fdbff441598ae14daa5333a3ebdad9c607986191d976226e4d86a698.TheGenesis",
-    quantity: "1",
-  },
-];
+import { setAuthToken } from "../helpers/setAuthToken";
+import axios from "axios";
 
 const Wallet = () => {
   const [namiAddr, setNamiAddr] = useState(false);
-
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
   const [nfts, setNfts] = useState([]);
-  const [policy, setPolicy] = useState();
   const [connected, setConnected] = useState();
   const [balance, setBalance] = useState();
-
-  const [account, setAccount] = useState(null);
+  const [account, setAccount] = useState("");
   const [showModal, setShowModal] = useState(false);
   const [showModalDisconnect, setShowModalDisconnect] = useState(false);
   const [namiCheck, setNamiCheck] = useState(null);
+  const [policy, setPolicy] = useState("");
+  const [postStatus, setPostStatus] = useState(null);
+
+  const [assets, setAssets] = useState([]);
+  const [walletAddress, setWalletAddress] = useState("");
 
   const connectTyphonWallet = () => {
     var typhon;
@@ -87,49 +74,71 @@ const Wallet = () => {
         setNamiCheck(Nami.enable);
         setAccount(addr);
         setNfts(assets);
-        localStorage.setItem("walletID", addr);
       }
     }
     t();
+
+    setNamiAddr(true);
   }, [namiAddr]);
 
+  ///* *********************************************************************************************************************************** *////
+  ///* *********************************************************************************************************************************** *////
+  let walletAssetsObject = { assets: [], walletAddress: "" };
+  let nameAndPolicyObj = {};
 
- 
-
-  const namiClickHandler = (e) => {
-    e.preventDefault();
-    if (namiCheck === null) {
-      setShowModal(true);
-      setNamiAddr(false);
-    }
-    setNamiAddr(true);
-    window.walletIDStored = localStorage.getItem("walletID");
-  };
-  console.log(localStorage.getItem("walletID"));
-
-  const namiCancelHandler = () => {
-    localStorage.removeItem("walletID");
-
-    setShowModalDisconnect(true);
-  };
-
-   ///* *********************************************************************************************************************************** *////
- ///* *********************************************************************************************************************************** *////
-  let walletAssetsObject = { assets: [], walletAddress:"" };
-  let nameAndPolicyObj = {} ;
-
- 
-  const arrPolicyAndName = nfts.map(nft => {
-    return {...nameAndPolicyObj, policyID:nft.unit.split(".")[0] , name:nft.unit.split(".")[1]};
+  const arrPolicyAndName = nfts.map((nft) => {
+    return {
+      ...nameAndPolicyObj,
+      policyID: nft.unit.split(".")[0],
+      name: nft.unit.split(".")[1],
+    };
   });
 
   walletAssetsObject.walletAddress = account;
   walletAssetsObject.assets = arrPolicyAndName;
 
-  console.log(nfts);
   console.log(walletAssetsObject);
- ///* *********************************************************************************************************************************** *////
- ///* *********************************************************************************************************************************** *////
+  console.log(arrPolicyAndName);
+  ///* *********************************************************************************************************************************** *////
+  ///* *********************************************************************************************************************************** *////
+
+  const namiClickHandler = (e) => {
+    e.preventDefault();
+    sessionStorage.setItem("walletID", account);
+    window.walletIDStored = sessionStorage.getItem("walletID");
+
+    axios
+      .post("https://api.littlefish.foundation/login/", walletAssetsObject)
+      .then((response) => {
+        const token = response.data.token;
+        const name = response.data.name;
+
+        localStorage.setItem("token", token);
+        localStorage.setItem("name", name);
+        setAuthToken(token);
+      })
+      .catch((err) => {
+        console.log({ err });
+        setError(err);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
+
+    if (namiCheck === false || namiCheck === null) {
+      setShowModal(true);
+      setNamiAddr(false);
+    }
+    setShowModal(true);
+    setNamiAddr(true);
+  };
+
+  const namiCancelHandler = () => {
+    sessionStorage.removeItem("walletID");
+
+    setNamiAddr(false);
+    setShowModalDisconnect(true);
+  };
 
   return (
     <div
@@ -190,7 +199,7 @@ const Wallet = () => {
                   >
                     Disconnect
                   </Button>
-                  {namiCheck === null && showModalDisconnect && (
+                  {namiCheck && showModalDisconnect && (
                     <DisconnectedModal
                       setShowModalDisconnect={setShowModalDisconnect}
                     />

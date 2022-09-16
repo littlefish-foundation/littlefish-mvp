@@ -52,14 +52,14 @@ const Create = (props) => {
     "https://api.littlefish.foundation/action-type/popular"
   );
 
-  const { imgBase64, onChangeImgFile} = useBase64Converter();
+  const { imgBase64, onChangeImgFile } = useBase64Converter();
 
   console.log(imgBase64);
   //console.log(Array.isArray(defaultTypes));    []?.push(defaultTypes)
   //console.log(defaultTypes);
 
   const maxCount = 256;
-  const walletid = localStorage.getItem("walletID");
+  const walletid = sessionStorage.getItem("walletID");
 
   const [newPopularActionType, setNewPopularActionType] =
     useState(popularActionType);
@@ -177,6 +177,7 @@ const Create = (props) => {
   ///* ************************************************************************************************************************************ *///
 
   console.log(eachEntry);
+  console.log(postStatus);
 
   return (
     <div onClick={() => showModal && setShowModal(false)}>

@@ -11,6 +11,19 @@
   border-radius: 5px;
 }
 
+.bar-styling {
+  width: 25rem;
+  border-radius: 5px;
+  cursor: pointer;
+  outline: none;
+  background: #343444;
+  border: none;
+  padding: 8px 25px;
+  color: #fff;
+  font-size: 0.9rem;
+  padding-left: 40px;
+}
+
 @media only screen and (max-width: 768px) {
   .all__category__filter select,
   .all__items__filter select,

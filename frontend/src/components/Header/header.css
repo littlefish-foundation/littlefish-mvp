@@ -38,7 +38,6 @@
 
 .active__header {
   color: #2037e4 !important;
-  
 }
 
 .logo h2 {
@@ -59,15 +58,19 @@
 .nav__right .btn a {
   color: #fff;
   text-decoration: none;
-  font-size: 0.8rem;
+  font-size: 32px;
   font-weight: 900;
 }
-.nav__right .btn span i {
-  color: #fff;
+.nav__right .btn span a {
+  color: #fff !important;
+  font-size: 32px !important;
+  font-weight: normal !important;
 }
 
 .nav__right .btn a:hover {
   color: #fff;
+  font-size: 32px;
+  font-weight: normal;
 }
 
 .mobile__menu {

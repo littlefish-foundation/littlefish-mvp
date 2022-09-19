@@ -3,7 +3,8 @@ import SubHeader from "../components/UserInterface/Sub-Header/SubHeader";
 import { Link, useParams } from "react-router-dom";
 import { Container, Row, Col } from "reactstrap";
 import useFetchByActionID from "../Hooks/getActionByID";
-import useFetch from "../Hooks/useFetch3";
+import useCreatePaymentLink from "../Hooks/createPaymentLink";
+import useGetPaymentLink from "../Hooks/getPaymentLink";
 import { FaUserAlt } from "react-icons/fa";
 import { IoMdPricetags } from "react-icons/io";
 import { BsCalendarDateFill } from "react-icons/bs";
@@ -12,7 +13,7 @@ import { GiSchoolOfFish } from "react-icons/gi";
 import "../styles/nft-details.css";
 
 const NftDetails = () => {
-  const { _id } = useParams();
+  const { _id, price, actionCollection } = useParams();
 
   const { actionData } = useFetchByActionID(
     `https://api.littlefish.foundation/action/${_id}`
@@ -23,9 +24,15 @@ const NftDetails = () => {
   console.log(actionData);
 
   //const singleNft = NFT__DATA?.find((item) => item._id === _id);
-  const { paymentLink } = useFetch(actionData?.chainID, actionData?.price, actionData?.actionCollection);
 
-  console.log(actionData);
+  const { paymentLink } = useCreatePaymentLink(
+    actionData?._id,
+    actionData?.price
+  );
+
+  const { paymentLink1 } = useGetPaymentLink(actionData?._id);
+
+  console.log(paymentLink);
   return (
     <div>
       <SubHeader assetName={actionData?.assetName} />
@@ -129,7 +136,11 @@ const NftDetails = () => {
               <div>
                 <button className="singleNft-btn d-flex align-items-center gap-1">
                   <i className="ri-shopping-bag-line"></i>
-                  <a href={ paymentLink } target="_blank" rel="noreferrer">
+                  <a
+                    href={paymentLink || paymentLink1}
+                    target="_blank"
+                    rel="noreferrer"
+                  >
                     Reward This Action
                   </a>
                 </button>

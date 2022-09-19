@@ -42,7 +42,7 @@ const MemberForm = () => {
 
   console.log(singleImgBase64);
 
-  const { name, colonyName } = eachField;
+  const { name, colonyName, bio } = eachField;
 
   console.log(eachField);
 
@@ -147,8 +147,8 @@ const MemberForm = () => {
                       rows="4"
                       maxLength="256"
                       placeholder="Enter a short Bio about yourself"
-                      //onChange={handleChange}
-                      //value={bio}
+                      onChange={handleChange}
+                      value={bio}
                       className="w-90"
                     ></Input>
                   </FormGroup>

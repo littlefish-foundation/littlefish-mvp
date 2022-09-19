@@ -19,7 +19,7 @@ const UserGallery = () => {
         <Container  style={{ backgroundColor:"transparent !important" }}>
           <Row>
             {NFT__DATA?.map((item) => (
-              <Col lg="6" md="4" sm="6" className="mb-4" key={item.ownerName}>
+              <Col lg="3" md="4" sm="6" className="mb-4" key={item.ownerName}>
                 {item.ownerName === "donald.littlefish" && (
                   <NftCard item={item} />
                 )}

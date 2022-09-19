@@ -1,6 +1,8 @@
 import React from "react";
 
-const AuthContext = React.createContext({
-});
+const SearchOwnerNameContext = React.createContext();
 
-export default AuthContext;
+export const SearchOwnerNameProvider = SearchOwnerNameContext.Provider
+export const SearchOwnerNameConsumer = SearchOwnerNameContext.Consumer
+
+export default SearchOwnerNameContext;

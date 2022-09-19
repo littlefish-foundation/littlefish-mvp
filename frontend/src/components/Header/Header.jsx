@@ -30,7 +30,7 @@ const Header = () => {
   const menuRef = useRef(null);
 
   let address = sessionStorage.length;
-  console.log(address);
+  //console.log(address);
 
   useEffect(() => {
     window.addEventListener("scroll", () => {
@@ -86,20 +86,28 @@ const Header = () => {
           </div>
 
           <div className="nav__right d-flex align-items-center gap-5 ">
-            <button
-              style={{
-                border: address !== 0 ? "3px solid green" : "3px solid #2037e4",
-              }}
-              className="btn d-flex gap-2 align-items-center"
-            >
+            <Link to="/wallet" style={{ textDecoration: "none" }}>
+              {/*<button
+                style={{
+                  border:
+                    address !== 0 ? "3px solid green" : "3px solid #2037e4",
+                }}
+                className="btn d-flex gap-2 align-items-center"
+              >*/}
               <span>
-                <i className="ri-wallet-line" color="success"></i>
+                <i
+                  className="ri-wallet-line"
+                  style={{
+                    fontSize: "30px",
+                    textDecoration: "none",
+                    color: address !== 0 ? "rgb(110, 221, 184)" : "white",
+                  }}
+                ></i>
               </span>
 
-              <Link to="/wallet">
-                {address !== 0 ? "Wallet Connected" : "Connect Wallet"}
-              </Link>
-            </button>
+              {/*{address !== 0 ? "Wallet Connected" : "Connect Wallet"}*/}
+              {/*{</button>*/}
+            </Link>
 
             <span className="mobile__menu">
               <i className="ri-menu-line" onClick={toggleMenu}></i>

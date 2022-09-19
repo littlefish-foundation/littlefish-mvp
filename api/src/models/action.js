@@ -10,7 +10,7 @@ const Action = new mongoose.Schema({
   description: { type: String, required: true },
   mediaType: { type: String, required: true },
   image: { type: String, required: true },
-  imageBase64: { type: String, required: true },
+  imageBase64: { type: String },
   status: { type: String, required: true },
   actionTypes: { type: Array, required: true },
   actionCollection: { type: String, required: true },

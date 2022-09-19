@@ -26,4 +26,10 @@ module.exports = class UserDataAccess {
     }
     return false;
   }
+
+  static async getUsers(page, limit, fields = '-__v') {
+    return UserModel.find().skip((page - 1) * limit).limit(limit).select(fields)
+      .lean()
+      .exec();
+  }
 };

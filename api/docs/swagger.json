@@ -344,6 +344,33 @@
       }
     },
     "/user/": {
+      "get": {
+        "tags" : [
+          "user"
+        ],
+        "summary" : "Get users", 
+        "parameters" : [
+          {
+            "name" : "page",
+            "in" : "query",
+            "description" : "Page of the response",
+            "required" : false,
+            "type" : "number"
+          },
+          {
+            "name" : "limit",
+            "in" : "query",
+            "description" : "Count of the users in the page",
+            "required" : false,
+            "type" : "number"
+          }
+        ],
+        "responses" : {
+          "200" : {
+            "description" : "Successful response with users"
+          }
+        }
+      },
       "post": {
         "tags": [
           "user"
@@ -472,6 +499,13 @@
             "name": "assetName",
             "in": "query",
             "description": "action asset name to filter",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "type",
+            "in": "query",
+            "description": "type of action",
             "required": false,
             "type": "string"
           },
@@ -613,7 +647,14 @@
           {
             "name": "assetName",
             "in": "query",
-            "description": "aciton asset name to filter",
+            "description": "action asset name to filter",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "type",
+            "in": "query",
+            "description": "action type to filter",
             "required": false,
             "type": "string"
           },

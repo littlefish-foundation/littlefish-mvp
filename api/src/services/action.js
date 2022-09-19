@@ -80,32 +80,19 @@ module.exports = class ActionService {
     };
   }
 
-  static async createActionSale(id) {
-    const action = await actionDataAccess.getActionById(id);
-    const { actionCollection } = action;
-    console.log({ id, actionCollection });
-
-    const priceInLovelace = ADA_TO_LOVELACE_CONVERSION * action.price;
-    try {
-      const paymentLink = await tangocryptoClient.createActionSale(action.actionID, priceInLovelace, actionCollection);
-      if (paymentLink !== '') {
-        return {
-          link: paymentLink,
-        };
-      }
-    } catch {
-      console.log('Sale can not be created, but maybe already exists.');
-    }
-    console.log({ action });
-    const sale = await tangocryptoClient.getSales(10, actionCollection);
-    return {
-      link: sale?.data?.data?.[0]?.payment_link,
-    };
-  }
-
   static async createActionCollection(walletAddress, assetName, collectionLinkAttributes) {
     const { collectionID } = await tangocryptoClient.createCollection(walletAddress, assetName, collectionLinkAttributes);
     return collectionID;
+  }
+
+  static async handleMintActionTypes(type) {
+    const actionType = await actionTypeDataAccess.getActionType(type);
+
+    if (actionType) {
+      await actionTypeDataAccess.incrementActionType(actionType.name);
+      return;
+    }
+    await actionTypeDataAccess.createActionType(type);
   }
 
   static async mintAction(action) {
@@ -114,18 +101,12 @@ module.exports = class ActionService {
     const collectionID = await this.createActionCollection(action.walletID, action.assetName, collectionLinkAttributes);
     const { mintedAction } = await tangocryptoClient.mintAction(toMint, collectionID);
 
-    // TODO change to promise all
+    const actionTypePromises = [];
     for (let i = 0; i < action.actionTypes.length; i++) {
-      // eslint-disable-next-line no-await-in-loop
-      const actionType = await actionTypeDataAccess.getActionType(action.actionTypes[i]);
-      if (actionType) {
-        // eslint-disable-next-line no-await-in-loop
-        await actionTypeDataAccess.incrementActionType(actionType.name);
-      } else {
-        // eslint-disable-next-line no-await-in-loop
-        await actionTypeDataAccess.createActionType(action.actionTypes[i]);
-      }
+      actionTypePromises.push(this.handleMintActionTypes(action.actionTypes[i]));
     }
+    await Promise.all(actionTypePromises);
+
     const preparedFiles = actionLogic.prepareAllImageURLsInFile(mintedAction.files);
 
     await actionDataAccess.createAction({
@@ -146,7 +127,7 @@ module.exports = class ActionService {
       nftFormat: mintedAction,
       custom_attributes: mintedAction.custom_attributes,
       actionCollection: collectionID,
-      price: action.price,
+      minimumPrice: action.price,
     });
 
     return {

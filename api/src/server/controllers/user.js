@@ -36,4 +36,11 @@ module.exports = class UserController {
     const result = await userService.updateUserColony(name, colonyName);
     res.status(200).send(result);
   });
+
+  static getUsers = catchAsync(async (req, res) => {
+    const { page, limit } = req.query;
+
+    const data = await userService.getUsers(page, limit);
+    res.status(200).send(data);
+  });
 };

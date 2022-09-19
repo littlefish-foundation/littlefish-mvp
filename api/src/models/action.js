@@ -17,7 +17,7 @@ const Action = new mongoose.Schema({
   links: { type: Array },
   files: { type: Array },
   filesBase64: { type: Array },
-  price: { type: Number },
+  minimumPrice: { type: Number, default: 0 },
   colony: { type: String },
   nftFormat: { type: Object, required: true },
   createdAt: { type: Date, default: Date.now },

@@ -25,7 +25,7 @@ module.exports = {
   createActionSale: {
     body: Joi.object(
       {
-        price: Joi.number(),
+        price: Joi.number().required(),
         actionID: Joi.string().required(),
       },
     ),

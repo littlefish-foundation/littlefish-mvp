@@ -25,6 +25,7 @@ module.exports = class ActionSaleService {
 
   static async createActionSale({ actionID, price }) {
     const action = await actionService.getActionById(actionID);
+
     if (price <= action.minimumPrice) {
       throw new BadRequestError(`Price should be equal to or greater than ${action.minimumPrice}`);
     }

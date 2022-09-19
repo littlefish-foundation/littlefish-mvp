@@ -1,4 +1,4 @@
-import "./app.css";
+import "./App.css";
 import Layout from "./components/Layout/Layout";
 import { setAuthToken } from "./helpers/setAuthToken";
 

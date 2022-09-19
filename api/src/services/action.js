@@ -5,7 +5,6 @@ const actionTypeDataAccess = require('../data-access/action-type');
 const actionLogic = require('../logics/action');
 const { formatActions } = require('../formatters/action');
 const { NotFoundError } = require('../errors');
-const { ADA_TO_LOVELACE_CONVERSION } = require('../constants');
 
 module.exports = class ActionService {
   static async getActionById(id) {
@@ -64,22 +63,6 @@ module.exports = class ActionService {
     return formatActions(actions);
   }
 
-  static async getSale(assetName) {
-    const { sales } = await this.getSales();
-    let sale;
-
-    for (let i = 0; i < sales?.length; i++) {
-      if (sales[i].status !== 'EXPIRED' && sales[i]?.tokens?.[0].asset_name === assetName) {
-        sale = sales[i];
-        break;
-      }
-    }
-
-    return {
-      sale,
-    };
-  }
-
   static async createActionCollection(walletAddress, assetName, collectionLinkAttributes) {
     const { collectionID } = await tangocryptoClient.createCollection(walletAddress, assetName, collectionLinkAttributes);
     return collectionID;
@@ -100,16 +83,13 @@ module.exports = class ActionService {
     const toMint = actionLogic.prepareActionToMint(action, actionLinks);
     const collectionID = await this.createActionCollection(action.walletID, action.assetName, collectionLinkAttributes);
     const { mintedAction } = await tangocryptoClient.mintAction(toMint, collectionID);
-
-    const actionTypePromises = [];
-    for (let i = 0; i < action.actionTypes.length; i++) {
-      actionTypePromises.push(this.handleMintActionTypes(action.actionTypes[i]));
-    }
-    await Promise.all(actionTypePromises);
-
     const preparedFiles = actionLogic.prepareAllImageURLsInFile(mintedAction.files);
 
-    await actionDataAccess.createAction({
+    const promises = [];
+    for (let i = 0; i < action.actionTypes.length; i++) {
+      promises.push(this.handleMintActionTypes(action.actionTypes[i]));
+    }
+    promises.push(actionDataAccess.createAction({
       assetName: mintedAction.asset_name,
       chainID: mintedAction.id,
       name: mintedAction.name,
@@ -121,6 +101,8 @@ module.exports = class ActionService {
       mediaType: mintedAction.media_type,
       links: action.links,
       image: actionLogic.prepareImageURL(mintedAction.image),
+      imageBase64: action.image,
+      filesBase64: action.files,
       status: mintedAction.status,
       actionTypes: action.actionTypes,
       files: preparedFiles,
@@ -128,8 +110,9 @@ module.exports = class ActionService {
       custom_attributes: mintedAction.custom_attributes,
       actionCollection: collectionID,
       minimumPrice: action.price,
-    });
+    }));
 
+    await Promise.all(promises);
     return {
       success: true,
     };

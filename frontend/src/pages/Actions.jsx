@@ -15,7 +15,7 @@ const Actions = () => {
   const [assetName, setAssetName] = useState("");
   const [tags, setTags] = useState(null);
   const [term, setTerm] = useState("");
-  const [searchCategory, setSearchCategory] = useState(null);
+  const [searchCategory, setSearchCategory] = useState("assetName");
   const [data, setData] = useState([]);
 
   const { NFT__DATA } = useFetch("https://api.littlefish.foundation/action/");
@@ -82,7 +82,7 @@ const Actions = () => {
                       onChange={(e) => setTags(e.target.value)}
                       value={tags}
                     >
-                      <option>All Categories</option>
+                      <option value="null">All categories</option>
                       {popularActionType?.actionTypes?.map((item) => (
                         <option value={item.name}>{item.name}</option>
                       ))}

@@ -54,17 +54,3 @@ function useBase64Converter() {
 }
 
 export default useBase64Converter;
-
-// const [imgsSrc, setImgsSrc] = useState([]);
-// const onChange = (e) => {
-//   for (const file of e.target.files) {
-//     const reader = new FileReader();
-//     reader.readAsDataURL(file);
-//     reader.onload = () => {
-//       setImgsSrc((imgs) => [...imgs, reader.result]);
-//     };
-//     reader.onerror = () => {
-//       console.log(reader.error);
-//     };
-//   }
-// };

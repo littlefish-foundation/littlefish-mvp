@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 
-function useGetSearchOwnerName(url, query) {
-  const [actionSearched, setActionSearched] = useState([]);
+function useGetSortByType(url, queryFilter) {
+  const [filteredType, setFilteredType] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
@@ -11,11 +11,11 @@ function useGetSearchOwnerName(url, query) {
 
     axios
       .get(url, {
-        params: { ownerName: query },
+        params: { type: queryFilter },
       })
 
       .then((response) => {
-        setActionSearched(response.data);
+        setFilteredType(response.data);
       })
       .catch((err) => {
         console.log({ err });
@@ -24,8 +24,8 @@ function useGetSearchOwnerName(url, query) {
       .finally(() => {
         setLoading(false);
       });
-  }, [url, query]);
+  }, [url, queryFilter]);
 
-  return { actionSearched, loading, error };
+  return { filteredType, loading, error };
 }
-export default useGetSearchOwnerName;
+export default useGetSortByType;

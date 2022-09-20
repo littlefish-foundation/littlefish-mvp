@@ -7,111 +7,66 @@ import "../styles/actions.css";
 import "../components/UserInterface/Live-auction/live-auction.css";
 import useGetSearchOwnerName from "../Hooks/getSearchActionOwner";
 import useGetSearchAssetName from "../Hooks/getSearchActionAssetName";
+import useGetSortByType from "../Hooks/getSortByType";
+import useFetchForPopularActionType from "../Hooks/getPopularActionType";
 
 const Actions = () => {
+  const [ownerName, setOwnerName] = useState("");
+  const [assetName, setAssetName] = useState("");
+  const [tags, setTags] = useState(null);
   const [term, setTerm] = useState("");
-
-  const { NFT__DATA } = useFetch("https://api.littlefish.foundation/action/");
-
-  const { actionSearched } = useGetSearchOwnerName(
-    `https://api.littlefish.foundation/action/?ownerName=${term}` /*&&
-      `https://api.littlefish.foundation/action/?assetName=${term}`*/
-  );
-
-  const { actionSearchedByName } = useGetSearchAssetName(
-    `https://api.littlefish.foundation/action/?assetName=${term}`
-  );
-
-  //const [actionData, setActionData] = useState(NFT__DATA);
-
-  console.log(term);
-
+  const [searchCategory, setSearchCategory] = useState(null);
   const [data, setData] = useState([]);
 
-  const handleSearch = (e) => {
-    e.preventDefault();
-    setTerm(e.target.value);
-  };
-
-  // if(term !== ""){
-
-  //     const NFT__DATA = await fetch(
-  //       `https://api.littlefish.foundation/action/?assetName=${term}`
-  //     );
-  //     const actionArray = await NFT__DATA.json();
-  //     setData(actionArray);
+  const { NFT__DATA } = useFetch("https://api.littlefish.foundation/action/");
+  const { actionSearched } = useGetSearchOwnerName(
+    `https://api.littlefish.foundation/action/?ownerName=${ownerName}`
+  );
+  const { actionSearchedByName } = useGetSearchAssetName(
+    `https://api.littlefish.foundation/action/?assetName=${assetName}`
+  );
+  const { filteredType } = useGetSortByType(
+    `https://api.littlefish.foundation/action/?type=${tags}`
+  );
+  const { popularActionType } = useFetchForPopularActionType(
+    "https://api.littlefish.foundation/action-type/popular"
+  );
 
   // };
 
   //const [ownerName, setOwnerName] = useState("");
 
-  const handleCategory = () => {};
+  const handleTypeFiltering = (e) => {
+    console.log(tags);
+  };
+
+  useEffect(() => {
+    handleTypeFiltering();
+  }, [tags]);
+
+  const handleSearchCategory = (e) => {
+    e.preventDefault();
+    setSearchCategory(e.target.value);
+  };
+
+  console.log(searchCategory);
+
+  const handleSearch = (e) => {
+    console.log(term);
+
+    searchCategory === "ownerName"
+      ? setOwnerName(term) && setAssetName("")
+      : setAssetName(term) && setOwnerName("");
+  };
+
+  useEffect(() => {
+    handleSearch();
+  }, [term]);
 
   const handleSort = (e) => {
     const filterValue = e.target.value;
   };
 
-  //   if (filterValue === "newest") {
-  //     const filterData = NFT__DATA.sort((tokenId1, tokenId2) =>
-  //       tokenId1.tokenId > tokenId2.tokenId
-  //         ? 1
-  //         : tokenId1.tokenId < tokenId2.tokenId
-  //         ? -1
-  //         : 0
-  //     );
-
-  //     setData(filterData);
-  //   }
-
-  //   if (filterValue === "oldest") {
-  //     const filterData = NFT__DATA.sort((tokenId1, tokenId2) =>
-  //       tokenId1.tokenId < tokenId2.tokenId
-  //         ? 1
-  //         : tokenId1.tokenId > tokenId2.tokenId
-  //         ? -1
-  //         : 0
-  //     );
-  //     //console.log(filterData);
-
-  //     setData(filterData);
-  //   }
-
-  //   if (filterValue === "Z->A") {
-  //     const filterData = NFT__DATA.sort((name1, name2) =>
-  //       name1.assetName < name2.assetName
-  //         ? 1
-  //         : name1.assetName > name2.assetName
-  //         ? -1
-  //         : 0
-  //     );
-
-  //     setData(filterData);
-  //   }
-
-  //   if (filterValue === "A->Z") {
-  //     const filterData = NFT__DATA.sort((name1, name2) =>
-  //       name1.assetName > name2.assetName
-  //         ? 1
-  //         : name1.assetName < name2.assetName
-  //         ? -1
-  //         : 0
-  //     );
-  //     setData(filterData);
-  //   }
-
-  // const assetNameVsOwnerName = () => {
-  //   term !== "" && actionSearched.length === 0
-  //     ? actionSearchedByName?.map((item) => (
-  //         <Col lg="3" md="4" sm="6" className="mb-4">
-  //           <NftCard item={item} />
-  //         </Col>
-  //       ))
-  //     : actionSearched?.map((item) => (
-  //         <Col lg="3" md="4" sm="6" className="mb-4">
-  //           <NftCard item={item} />
-  //         </Col>
-  //       ));
-  // };
   return (
     <div>
       <SubHeader assetName={"Actions"} />
@@ -122,34 +77,55 @@ const Actions = () => {
               <div className="market__product__filter d-flex align-items-center justify-content-between">
                 <div className="filter__left d-flex align-items-center gap-5">
                   <div className="all__category__filter">
-                    <select onChange={handleCategory}>
+                    <select
+                      //onChange={handleTypeFiltering}
+                      onChange={(e) => setTags(e.target.value)}
+                      value={tags}
+                    >
                       <option>All Categories</option>
-                      <option value="Software">Software Developing</option>
-                      <option value="Research">Research</option>
-                      <option value="Community">Community Help</option>
-                      <option value="Strategy">Plan & Strategy</option>
+                      {popularActionType?.actionTypes?.map((item) => (
+                        <option value={item.name}>{item.name}</option>
+                      ))}
                     </select>
                   </div>
 
                   <form>
-                    <i
-                      style={{
-                        position: "absolute",
-                        paddingLeft: "6px",
-                        color: "white",
-                        fontSize: "1.3rem",
-                        paddingTop: "4px",
-                      }}
-                      className="ri-search-line"
-                    />
+                    <div className="all__category__filter">
+                      <select
+                        onChange={handleSearchCategory}
+                        value={searchCategory}
+                        style={{
+                          width: "170px",
+                          position: "absolute",
+                          borderRight: "1px solid black",
+                          borderTopRightRadius: "0px",
+                          borderBottomRightRadius: "0px",
+
+                          height: "38px",
+                        }}
+                      >
+                        <option value="assetName">Asset Name</option>
+                        <option value="ownerName">Owner Name</option>
+                      </select>
+
+                      <i
+                        style={{
+                          position: "absolute",
+                          paddingLeft: "6px",
+                          color: "white",
+                          fontSize: "1.3rem",
+                          paddingTop: "4px",
+                        }}
+                        className="ri-search-line"
+                      />
+                    </div>
 
                     <input
                       className="bar-styling"
                       key="random1"
-                      placeholder="Search"
-                      onChange={handleSearch}
+                      placeholder="Search by Asset Name or Owner Name"
+                      onChange={(e) => setTerm(e.target.value)}
                       value={term}
-                      // onClick={(e) => setData(e.target.value)}
                     ></input>
                   </form>
                 </div>
@@ -168,24 +144,33 @@ const Actions = () => {
                 </div>
               </div>
             </Col>
-
-            {term === ""
-              ? NFT__DATA?.map((item) => (
-                  <Col lg="3" md="4" sm="6" className="mb-4">
-                    <NftCard item={item} />
-                  </Col>
-                ))
-              : actionSearched.length === 0
-              ? actionSearchedByName?.map((item) => (
-                  <Col lg="3" md="4" sm="6" className="mb-4">
-                    <NftCard item={item} />
-                  </Col>
-                ))
-              : actionSearched?.map((item) => (
-                  <Col lg="3" md="4" sm="6" className="mb-4">
-                    <NftCard item={item} />
-                  </Col>
-                ))}
+            {term === "" &&
+              tags === null &&
+              NFT__DATA?.map((item) => (
+                <Col lg="3" md="4" sm="6" className="mb-4">
+                  <NftCard item={item} />
+                </Col>
+              ))}
+            {term !== "" &&
+              searchCategory === "assetName" &&
+              actionSearchedByName?.map((item) => (
+                <Col lg="3" md="4" sm="6" className="mb-4">
+                  <NftCard item={item} />
+                </Col>
+              ))}
+            {term !== "" &&
+              searchCategory !== "assetName" &&
+              actionSearched?.map((item) => (
+                <Col lg="3" md="4" sm="6" className="mb-4">
+                  <NftCard item={item} />
+                </Col>
+              ))}
+            {tags !== null &&
+              filteredType?.map((item) => (
+                <Col lg="3" md="4" sm="6" className="mb-4">
+                  <NftCard item={item} />
+                </Col>
+              ))}{" "}
           </Row>
         </Container>
       </section>

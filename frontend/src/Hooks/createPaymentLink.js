@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 
-function useCreatePaymentLink(_id, price) {
+function useCreatePaymentLink(url, _id, price) {
   const [paymentLink, setPaymentLink] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -10,7 +10,7 @@ function useCreatePaymentLink(_id, price) {
     setLoading(true);
 
     axios
-      .post("https://api.littlefish.foundation/action-sale/", {
+      .post(url, {
         actionID: _id,
         price: price,
       })
@@ -24,7 +24,7 @@ function useCreatePaymentLink(_id, price) {
       .finally(() => {
         setLoading(false);
       });
-  }, [_id, price]);
+  }, [url, _id, price]);
 
   return { paymentLink, loading, error };
 }

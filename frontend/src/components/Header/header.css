@@ -56,19 +56,26 @@
 }
 
 .nav__right .btn a {
-  color: #fff;
+  color: #fff !important;
   text-decoration: none;
   font-size: 32px;
-  font-weight: 900;
+  font-weight: 900 !important;
 }
+
+.btn {
+  --bs-btn-color: #fff !important;
+  --bs-btn-font-weight: 900 !important;
+}
+
 .nav__right .btn span a {
   color: #fff !important;
   font-size: 32px !important;
-  font-weight: normal !important;
+  font-weight: 900 !important;
 }
 
 .nav__right .btn a:hover {
-  color: #fff;
+  color: #fff !important;
+  text-decoration: none !important;
   font-size: 32px;
   font-weight: normal;
 }

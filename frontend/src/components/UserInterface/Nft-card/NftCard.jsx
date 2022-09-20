@@ -11,8 +11,8 @@ const NftCard = (props) => {
     mediaType,
     assetName,
     imageBase64,
-    //image,
-    imagesBase64 = "data:" + mediaType + ";base64,"+ imageBase64,
+    image,
+    imagesBase64 = "data:" + mediaType + ";base64," + imageBase64,
     filesBase64,
     ownerName,
     minimumPrice,
@@ -31,7 +31,11 @@ const NftCard = (props) => {
     >
       <div className="single__nft__card">
         <div className="nft__img">
-          <img src={imagesBase64} alt="" className="w-100" />
+          <img
+            src={!imagesBase64 ? image : imagesBase64}
+            alt=""
+            className="w-100"
+          />
         </div>
 
         <div className="nft__content">

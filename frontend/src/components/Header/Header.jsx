@@ -86,27 +86,27 @@ const Header = () => {
           </div>
 
           <div className="nav__right d-flex align-items-center gap-5 ">
-            <Link to="/wallet" style={{ textDecoration: "none" }}>
-              {/*<button
+            <Link to="/wallet" style={{ textDecoration: "none", color:"inherit" }}>
+              <button
                 style={{
                   border:
                     address !== 0 ? "3px solid green" : "3px solid #2037e4",
                 }}
                 className="btn d-flex gap-2 align-items-center"
-              >*/}
-              <span>
-                <i
-                  className="ri-wallet-line"
-                  style={{
-                    fontSize: "30px",
-                    textDecoration: "none",
-                    color: address !== 0 ? "rgb(110, 221, 184)" : "white",
-                  }}
-                ></i>
-              </span>
+              >
+                <span>
+                  <i
+                    className="ri-wallet-line"
+                    style={{
+                      fontSize: "25px",
+                      textDecoration: "none",
+                      color: address !== 0 ? "rgb(64, 133, 88)" : "white",
+                    }}
+                  ></i>
+                </span>
 
-              {/*{address !== 0 ? "Wallet Connected" : "Connect Wallet"}*/}
-              {/*{</button>*/}
+                {address !== 0 ? "Wallet Connected" : "Connect Wallet"}
+              </button>
             </Link>
 
             <span className="mobile__menu">

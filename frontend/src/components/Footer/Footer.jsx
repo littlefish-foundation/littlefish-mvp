@@ -13,7 +13,7 @@ const MY__ACCOUNT = [
   },
   {
     display: "Action Collections",
-    url: "/market",
+    url: "/action",
   },
 
 ];

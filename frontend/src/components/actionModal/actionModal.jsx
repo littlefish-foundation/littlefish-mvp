@@ -3,8 +3,9 @@ import { Link } from "react-router-dom";
 import "../UserInterface/Nft-card/nft-card.css";
 
 const ActionModal = (props) => {
-  const { _id ,assetName, ownerName, price, createdAt } = props.item;
+  const { _id, assetName, ownerName, minimumPrice, createdAt } = props.item;
   const image64 = window.bas64Data;
+  
   const createdat = createdAt?.substring(0, 10);
 
   return (
@@ -25,8 +26,8 @@ const ActionModal = (props) => {
               </div>
 
               <div>
-                <h6>Action Price</h6>
-                <h6>{`${price} ADA`}</h6>
+                <h6>Minimum Action Price</h6>
+                <h6>{`${minimumPrice} ADA`}</h6>
               </div>
             </div>
           </div>

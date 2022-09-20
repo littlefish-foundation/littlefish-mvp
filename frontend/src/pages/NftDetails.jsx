@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import SubHeader from "../components/UserInterface/Sub-Header/SubHeader";
 import { Link, useParams } from "react-router-dom";
 import { Container, Row, Col } from "reactstrap";
@@ -10,10 +10,12 @@ import { IoMdPricetags } from "react-icons/io";
 import { BsCalendarDateFill } from "react-icons/bs";
 import { MdDescription } from "react-icons/md";
 import { GiSchoolOfFish } from "react-icons/gi";
+import Slider from "../components/Slider/Slider";
+
 import "../styles/nft-details.css";
 
 const NftDetails = () => {
-  const { _id, price, actionCollection } = useParams();
+  const { _id, minimumPrice, actionCollection } = useParams();
 
   const { actionData } = useFetchByActionID(
     `https://api.littlefish.foundation/action/${_id}`
@@ -27,26 +29,28 @@ const NftDetails = () => {
 
   const { paymentLink } = useCreatePaymentLink(
     actionData?._id,
-    actionData?.price
+    actionData?.minimumPrice
   );
 
-  const { paymentLink1 } = useGetPaymentLink(actionData?._id);
+  const { paymentLink1 } = useGetPaymentLink(
+    `https://api.littlefish.foundation/action-sale/${actionData?._id}`
+  );
 
   console.log(paymentLink);
+  console.log(paymentLink1);
+
   return (
     <div>
       <SubHeader assetName={actionData?.assetName} />
 
       <section>
         <Container>
-          <Row>
-            <Col lg="6">
-              <img
-                src={actionData?.image}
-                alt=""
-                className="w-100 single__nft-img"
-              />
+          <Row style={{ paddingLeft: "90px" }}>
+            <Col lg="5">
+              <Slider />
             </Col>
+            <br />
+            <Col lg="1" />
 
             <Col lg="6">
               <div>
@@ -74,7 +78,7 @@ const NftDetails = () => {
                     }}
                   />
                   <div className="creator__detail">
-                    <h6>Price: {actionData?.price} ADA</h6>
+                    <h6>Minimum Price: {actionData?.minimumPrice} ADA</h6>
                   </div>
                 </div>
 
@@ -137,7 +141,7 @@ const NftDetails = () => {
                 <button className="singleNft-btn d-flex align-items-center gap-1">
                   <i className="ri-shopping-bag-line"></i>
                   <a
-                    href={paymentLink || paymentLink1}
+                    href={paymentLink === null ? paymentLink1 : paymentLink}
                     target="_blank"
                     rel="noreferrer"
                   >

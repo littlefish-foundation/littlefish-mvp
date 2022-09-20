@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 
-function useGetPaymentLink(_id) {
-  const [paymentLink1, setPaymentLink] = useState(null);
+function useGetPaymentLink(url) {
+  const [paymentLink1, setPaymentLink1] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
@@ -10,10 +10,10 @@ function useGetPaymentLink(_id) {
     setLoading(true);
 
     axios
-      .get(`https://api.littlefish.foundation/action-sale/${_id}`)
+      .get(url)
 
       .then((response) => {
-        setPaymentLink(response.data.paymentLink);
+        setPaymentLink1(response.data.paymentLink);
       })
       .catch((err) => {
         console.log({ err });
@@ -22,7 +22,7 @@ function useGetPaymentLink(_id) {
       .finally(() => {
         setLoading(false);
       });
-  }, [_id]);
+  }, [url]);
 
   return { paymentLink1, loading, error };
 }

@@ -14,7 +14,6 @@ function useCreatePaymentLink(_id, price) {
         actionID: _id,
         price: price,
       })
-
       .then((response) => {
         setPaymentLink(response.data.paymentLink);
       })

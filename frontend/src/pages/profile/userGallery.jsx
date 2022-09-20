@@ -10,19 +10,17 @@ import { BsDownload } from "react-icons/bs";
 
 const UserGallery = () => {
   const { NFT__DATA } = useFetch(
-    "https://api.littlefish.foundation/colony/{colonyName}/actions/"
+    "https://api.littlefish.foundation/actions/?userName={donald.littlefish}"
   );
 
   return (
     <>
       <section>
-        <Container  style={{ backgroundColor:"transparent !important" }}>
+        <Container style={{ backgroundColor: "transparent !important" }}>
           <Row>
             {NFT__DATA?.map((item) => (
               <Col lg="3" md="4" sm="6" className="mb-4" key={item.ownerName}>
-                {item.ownerName === "donald.littlefish" && (
-                  <NftCard item={item} />
-                )}
+                <NftCard item={item} />
               </Col>
             ))}
           </Row>

@@ -43,6 +43,7 @@ class Base64 extends React.Component {
         this.props.parentCallback(arr[0]);
 
         window.bas64Data = arr[0];
+        console.log(window.bas64Data);
 
         this.setState({
           base64URL: result,
@@ -67,7 +68,7 @@ class Base64 extends React.Component {
         <Label for="image">Upload Cover Image</Label>
 
         <Input
-          required
+          
           id="image"
           type="file"
           url="https://api.littlefish.foundation/action/"

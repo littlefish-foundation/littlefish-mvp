@@ -12,6 +12,7 @@ import {
 
 import useBase64Converter from "../Hooks/useBase64Converter";
 import Tags from "../components/tags/Tags";
+import axios from "axios";
 
 import SubHeader from "../components/UserInterface/Sub-Header/SubHeader";
 import NftCard from "../components/UserInterface/Nft-card/NftCard";
@@ -52,6 +53,11 @@ const Create = (props) => {
     "https://api.littlefish.foundation/action-type/popular"
   );
 
+  const token = localStorage.getItem("token");
+  const config = {
+    headers: { Authorization: `Bearer ${token}` },
+  };
+
   const { imgBase64, onChangeImgFile } = useBase64Converter();
 
   console.log(imgBase64);
@@ -69,12 +75,14 @@ const Create = (props) => {
   const [showModal, setShowModal] = useState(false);
   const [imageData, setImageData] = useState("");
   const [eachEntry, setEachEntry] = useState(initialInputState);
+  const [files, setFiles] = useState([]);
   const [colonyName1, setColonyName1] = useState("");
   const [postStatus, setPostStatus] = useState(null);
   const [actionTypes, setActionTypes] = useState(["research"]);
   const [allUrls, setAllUrls] = useState([{ urlName: "", url: "" }]);
 
   console.log(actionTypes);
+
   ///* *********************************************************************************************************************************** *////
   ///* *********************************************************************************************************************************** *////
 
@@ -138,6 +146,7 @@ const Create = (props) => {
       [e.target.name]: e.target.value,
       image: imageData.split(",")[1],
       mediaType: imageData?.split(",")[0]?.split(":")?.pop()?.split(";")[0],
+      files: imgBase64,
       walletID: walletid,
     });
   };
@@ -151,7 +160,11 @@ const Create = (props) => {
 
     fetch("https://api.littlefish.foundation/action/", {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+
       body: JSON.stringify(eachEntry),
     })
       .then((response) => response.json())
@@ -283,10 +296,9 @@ const Create = (props) => {
                       </Label>
 
                       <Input
-                        required
+                        required={false}
                         id="additionalImages"
                         type="file"
-                        url="https://api.littlefish.foundation/action/"
                         name="additionalImages"
                         onChange={(e) => onChangeImgFile(e)}
                         accept="*/*"
@@ -381,8 +393,8 @@ const Create = (props) => {
                         value={colonyName1}
                       >
                         <option>Choose your Colony</option>
-                        <option value="littlefish Foundation">
-                          littlefish Foundation
+                        <option value="Littlefish Foundation">
+                          Littlefish Foundation
                         </option>
                       </Input>
                       <PopOvers />

@@ -19,7 +19,7 @@ import {
   FormGroup,
   Input,
 } from "reactstrap";
-import { RotatingLines } from "react-loader-spinner";
+//import { RotatingLines } from "react-loader-spinner";
 import Slider from "../components/Slider/Slider";
 
 import "../styles/nft-details.css";
@@ -82,7 +82,7 @@ const NftDetails = () => {
 
   return (
     <div>
-      {loadingActionData ? (
+      {/*loadingActionData ? (
         <div className="loader-container">
           <RotatingLines
             strokeColor="grey"
@@ -93,7 +93,8 @@ const NftDetails = () => {
           />
         </div>
       ) : (
-        <>
+        <>        </>
+      )*/}
           <SubHeader assetName={actionData?.assetName} />
 
           <section>
@@ -248,8 +249,7 @@ const NftDetails = () => {
               </Row>
             </Container>
           </section>
-        </>
-      )}
+
     </div>
   );
 };

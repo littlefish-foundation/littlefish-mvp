@@ -9,7 +9,7 @@ import useGetSearchOwnerName from "../Hooks/getSearchActionOwner";
 import useGetSearchAssetName from "../Hooks/getSearchActionAssetName";
 import useGetSortByType from "../Hooks/getSortByType";
 import useFetchForPopularActionType from "../Hooks/getPopularActionType";
-import { RotatingLines } from "react-loader-spinner";
+//import { RotatingLines } from "react-loader-spinner";
 
 const Actions = () => {
   const [ownerName, setOwnerName] = useState("");
@@ -72,7 +72,7 @@ const Actions = () => {
 
   return (
     <div>
-      {loading ? (
+      {/*loading ? (
         <div className="loader-container">
           <RotatingLines
             strokeColor="grey"
@@ -83,116 +83,115 @@ const Actions = () => {
           />
         </div>
       ) : (
-        <>
-          <div>
-            <SubHeader assetName={"Actions"} />
-          </div>
-          <section>
-            <Container>
-              <Row>
-                <Col lg="12" className="mb-5">
-                  <div className="market__product__filter d-flex align-items-center justify-content-between">
-                    <div className="filter__left d-flex align-items-center gap-5">
-                      <div className="all__category__filter">
-                        <select
-                          //onChange={handleTypeFiltering}
-                          onChange={(e) => setTags(e.target.value)}
-                          value={tags}
-                        >
-                          <option value="null">All categories</option>
-                          {popularActionType?.actionTypes?.map((item) => (
-                            <option value={item.name}>{item.name}</option>
-                          ))}
-                        </select>
-                      </div>
-
-                      <form>
-                        <div className="all__category__filter">
-                          <select
-                            onChange={handleSearchCategory}
-                            value={searchCategory}
-                            style={{
-                              width: "170px",
-                              position: "absolute",
-                              borderRight: "1px solid black",
-                              borderTopRightRadius: "0px",
-                              borderBottomRightRadius: "0px",
-
-                              height: "38px",
-                            }}
-                          >
-                            <option value="assetName">Asset Name</option>
-                            <option value="ownerName">Owner Name</option>
-                          </select>
-
-                          <i
-                            style={{
-                              position: "absolute",
-                              paddingLeft: "6px",
-                              color: "white",
-                              fontSize: "1.3rem",
-                              paddingTop: "4px",
-                            }}
-                            className="ri-search-line"
-                          />
-                        </div>
-
-                        <input
-                          className="bar-styling"
-                          key="random1"
-                          placeholder="Search by Asset Name or Owner Name"
-                          onChange={(e) => setTerm(e.target.value)}
-                          value={term}
-                        ></input>
-                      </form>
-                    </div>
-
-                    <div className="filter__right">
-                      <select
-                        onChange={handleSort}
-                        onClick={(e) => setData(e.target.value)}
-                      >
-                        <option>Sort By</option>
-                        <option value="newest">Newest</option>
-                        <option value="oldest">Oldest</option>
-                        <option value="A->Z">A-Z</option>
-                        <option value="Z->A">Z-A</option>
-                      </select>
-                    </div>
+      <>        </>
+      )}*/}
+      <div>
+        <SubHeader assetName={"Actions"} />
+      </div>
+      <section>
+        <Container>
+          <Row>
+            <Col lg="12" className="mb-5">
+              <div className="market__product__filter d-flex align-items-center justify-content-between">
+                <div className="filter__left d-flex align-items-center gap-5">
+                  <div className="all__category__filter">
+                    <select
+                      //onChange={handleTypeFiltering}
+                      onChange={(e) => setTags(e.target.value)}
+                      value={tags}
+                    >
+                      <option value="null">All categories</option>
+                      {popularActionType?.actionTypes?.map((item) => (
+                        <option value={item.name}>{item.name}</option>
+                      ))}
+                    </select>
                   </div>
+
+                  <form>
+                    <div className="all__category__filter">
+                      <select
+                        onChange={handleSearchCategory}
+                        value={searchCategory}
+                        style={{
+                          width: "170px",
+                          position: "absolute",
+                          borderRight: "1px solid black",
+                          borderTopRightRadius: "0px",
+                          borderBottomRightRadius: "0px",
+
+                          height: "38px",
+                        }}
+                      >
+                        <option value="assetName">Asset Name</option>
+                        <option value="ownerName">Owner Name</option>
+                      </select>
+
+                      <i
+                        style={{
+                          position: "absolute",
+                          paddingLeft: "6px",
+                          color: "white",
+                          fontSize: "1.3rem",
+                          paddingTop: "4px",
+                        }}
+                        className="ri-search-line"
+                      />
+                    </div>
+
+                    <input
+                      className="bar-styling"
+                      key="random1"
+                      placeholder="Search by Asset Name or Owner Name"
+                      onChange={(e) => setTerm(e.target.value)}
+                      value={term}
+                    ></input>
+                  </form>
+                </div>
+
+                <div className="filter__right">
+                  <select
+                    onChange={handleSort}
+                    onClick={(e) => setData(e.target.value)}
+                  >
+                    <option>Sort By</option>
+                    <option value="newest">Newest</option>
+                    <option value="oldest">Oldest</option>
+                    <option value="A->Z">A-Z</option>
+                    <option value="Z->A">Z-A</option>
+                  </select>
+                </div>
+              </div>
+            </Col>
+            {term === "" &&
+              tags === null &&
+              NFT__DATA?.map((item) => (
+                <Col lg="3" md="4" sm="6" className="mb-4">
+                  <NftCard item={item} />
                 </Col>
-                {term === "" &&
-                  tags === null &&
-                  NFT__DATA?.map((item) => (
-                    <Col lg="3" md="4" sm="6" className="mb-4">
-                      <NftCard item={item} />
-                    </Col>
-                  ))}
-                {term !== "" &&
-                  searchCategory === "assetName" &&
-                  actionSearchedByName?.map((item) => (
-                    <Col lg="3" md="4" sm="6" className="mb-4">
-                      <NftCard item={item} />
-                    </Col>
-                  ))}
-                {term !== "" &&
-                  searchCategory !== "assetName" &&
-                  actionSearched?.map((item) => (
-                    <Col lg="3" md="4" sm="6" className="mb-4">
-                      <NftCard item={item} />
-                    </Col>
-                  ))}
-                {tags !== null &&
-                  filteredType?.map((item) => (
-                    <Col lg="3" md="4" sm="6" className="mb-4">
-                      <NftCard item={item} />
-                    </Col>
-                  ))}{" "}
-              </Row>
-            </Container>
-          </section>
-        </>
-      )}
+              ))}
+            {term !== "" &&
+              searchCategory === "assetName" &&
+              actionSearchedByName?.map((item) => (
+                <Col lg="3" md="4" sm="6" className="mb-4">
+                  <NftCard item={item} />
+                </Col>
+              ))}
+            {term !== "" &&
+              searchCategory !== "assetName" &&
+              actionSearched?.map((item) => (
+                <Col lg="3" md="4" sm="6" className="mb-4">
+                  <NftCard item={item} />
+                </Col>
+              ))}
+            {tags !== null &&
+              filteredType?.map((item) => (
+                <Col lg="3" md="4" sm="6" className="mb-4">
+                  <NftCard item={item} />
+                </Col>
+              ))}{" "}
+          </Row>
+        </Container>
+      </section>
     </div>
   );
 };

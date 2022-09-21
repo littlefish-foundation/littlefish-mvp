@@ -3,11 +3,11 @@ import axios from "axios";
 
 function useGetSearchOwnerName(url, query) {
   const [actionSearched, setActionSearched] = useState([]);
-  const [loading, setLoading] = useState(false);
+  const [loadingByOwner, setLoadingByOwner] = useState(false);
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    setLoading(true);
+    setLoadingByOwner(true);
 
     axios
       .get(url, {
@@ -22,10 +22,10 @@ function useGetSearchOwnerName(url, query) {
         setError(err);
       })
       .finally(() => {
-        setLoading(false);
+        setLoadingByOwner(false);
       });
   }, [url, query]);
 
-  return { actionSearched, loading, error };
+  return { actionSearched, loadingByOwner, error };
 }
 export default useGetSearchOwnerName;

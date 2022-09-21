@@ -3,11 +3,11 @@ import axios from "axios";
 
 function useGetSortByType(url, queryFilter) {
   const [filteredType, setFilteredType] = useState([]);
-  const [loading, setLoading] = useState(false);
+  const [loadingByType, setLoadingByType] = useState(false);
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    setLoading(true);
+    setLoadingByType(true);
 
     axios
       .get(url, {
@@ -22,10 +22,10 @@ function useGetSortByType(url, queryFilter) {
         setError(err);
       })
       .finally(() => {
-        setLoading(false);
+        setLoadingByType(false);
       });
   }, [url, queryFilter]);
 
-  return { filteredType, loading, error };
+  return { filteredType, loadingByType, error };
 }
 export default useGetSortByType;

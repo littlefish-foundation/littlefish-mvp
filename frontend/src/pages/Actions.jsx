@@ -22,20 +22,19 @@ const Actions = () => {
   const { NFT__DATA, loading, error } = useFetch(
     "https://api.littlefish.foundation/action/"
   );
-  const { actionSearched } = useGetSearchOwnerName(
+  const { actionSearched, loadingByOwner } = useGetSearchOwnerName(
     `https://api.littlefish.foundation/action/?ownerName=${ownerName}`
   );
-  const { actionSearchedByName } = useGetSearchAssetName(
+  const { actionSearchedByName, loadingActionByName } = useGetSearchAssetName(
     `https://api.littlefish.foundation/action/?assetName=${assetName}`
   );
-  const { filteredType } = useGetSortByType(
+  const { filteredType, loadingByType } = useGetSortByType(
     `https://api.littlefish.foundation/action/?type=${tags}`
   );
-  const { popularActionType } = useFetchForPopularActionType(
-    "https://api.littlefish.foundation/action-type/popular"
-  );
-
-  // };
+  const { popularActionType, loadingPopularActionType } =
+    useFetchForPopularActionType(
+      "https://api.littlefish.foundation/action-type/popular"
+    );
 
   //const [ownerName, setOwnerName] = useState("");
 
@@ -72,7 +71,7 @@ const Actions = () => {
 
   return (
     <div>
-      {loading ? (
+      {loading || loadingByType ? (
         <div className="loader-container">
           <RotatingLines
             strokeColor="grey"
@@ -85,13 +84,13 @@ const Actions = () => {
       ) : (
         <>
           <div>
-            <SubHeader assetName={"Actions"} />
+            <SubHeader />
           </div>
           <section>
             <Container>
               <Row>
-                <Col lg="12" className="mb-5">
-                  <div className="market__product__filter d-flex align-items-center justify-content-between">
+                <Col lg="12" >
+                  <div style={{ marginTop:"7px", marginBottom:"10px" }} className="market__product__filter d-flex align-items-center justify-content-between">
                     <div className="filter__left d-flex align-items-center gap-5">
                       <div className="all__category__filter">
                         <select
@@ -161,6 +160,17 @@ const Actions = () => {
                     </div>
                   </div>
                 </Col>
+                <h2
+                  style={{
+                    color: "white",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    marginBottom: "30px ",
+                  }}
+                >
+                  Actions
+                </h2>
                 {term === "" &&
                   tags === null &&
                   NFT__DATA?.map((item) => (

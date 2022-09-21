@@ -12,14 +12,14 @@ export default function Slider() {
   );
   const objFile = {};
   const displayDataArray = [];
-  console.log(displayDataArray);
+  // console.log(displayDataArray);
 
   const coverImage = {
     src: "data:" + actionData?.mediaType + ";base64," + actionData?.imageBase64,
   };
 
   displayDataArray.push(coverImage);
-  console.log(displayDataArray);
+  // console.log(displayDataArray);
 
   const base64Files = actionData?.filesBase64?.map((file) => {
     return {
@@ -27,11 +27,11 @@ export default function Slider() {
       src: file,
     };
   });
-  console.log(displayDataArray);
+  // console.log(displayDataArray);
 
   base64Files?.map((file) => displayDataArray.push(file));
 
-  console.log(displayDataArray);
+  // console.log(displayDataArray);
 
   const [slideIndex, setSlideIndex] = useState(1);
 

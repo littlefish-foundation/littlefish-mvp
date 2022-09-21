@@ -6,7 +6,18 @@ import Trending from "../components/UserInterface/Trending-section/Trending";
 const About = () => {
   return (
     <div>
-      <SubHeader assetName={"About littlefish"} />
+      <SubHeader />
+      <h2
+        style={{
+          color: "white",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          marginBottom: "10px ",
+        }}
+      >
+        About Littlefish Foundation
+      </h2>
       <AboutSection />
     </div>
   );

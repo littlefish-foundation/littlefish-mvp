@@ -23,13 +23,25 @@ const Colony = (props) => {
         </div>
       ) : (
         <>
-          <SubHeader assetName={"Colonies"} />
+          <SubHeader />
+          <h2
+            style={{
+              color: "white",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              marginBottom: "20px ",
+            }}
+          >
+            Colonies
+          </h2>
           {COLONY__DATA?.map((item) => (
             <ColonyCard
               style={{ leftMargin: "auto", rightMargin: "auto" }}
               item={item}
             />
           ))}
+          <br/>
         </>
       )}
     </div>

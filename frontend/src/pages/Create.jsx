@@ -27,22 +27,20 @@ import useFetchForPopularActionType from "../Hooks/getPopularActionType";
 import "../components/tags/Tags.css";
 import { TagsInput } from "react-tag-input-component";
 
-const actionInitialState = {
-  assetName: "Whitepaper",
-  image: img,
-  ownerName: "Littlefish DAO",
-  price: "20",
-};
-
 const Create = (props) => {
+  const actionInitialState = {
+    assetName: "Whitepaper",
+    imagesBase64: img,
+    ownerName: "Littlefish DAO",
+    price: "20",
+  };
+
   const initialInputState = {
     walletID: "",
-
     assetName: "",
     name: "",
     description: "",
     ownerName: "",
-
     image: "",
     colonyName: "",
     mediaType: "",
@@ -70,15 +68,15 @@ const Create = (props) => {
   const [newPopularActionType, setNewPopularActionType] =
     useState(popularActionType);
 
-  const [selectedType, setSelectedType] = useState([]);
-
   const [showModal, setShowModal] = useState(false);
   const [imageData, setImageData] = useState("");
   const [eachEntry, setEachEntry] = useState(initialInputState);
   const [files, setFiles] = useState([]);
   const [colonyName1, setColonyName1] = useState("");
   const [postStatus, setPostStatus] = useState(null);
-  const [actionTypes, setActionTypes] = useState(["research"]);
+  const [actionTypes, setActionTypes] = useState([]);
+
+  const [newActionType, setNewActionType] = useState();
   const [allUrls, setAllUrls] = useState([{ urlName: "", url: "" }]);
 
   console.log(actionTypes);
@@ -87,20 +85,29 @@ const Create = (props) => {
   ///* *********************************************************************************************************************************** *////
 
   const onCheckboxBtnClick = (selected) => {
-    const index = selectedType.indexOf(selected);
+    const index = actionTypes.indexOf(selected);
     if (index < 0) {
-      selectedType.push(selected);
+      actionTypes.push(selected);
     } else {
-      selectedType.splice(index, 1);
+      actionTypes.splice(index, 1);
     }
-    setSelectedType([...selectedType]);
+    setActionTypes([...actionTypes]);
   };
 
-  const handleAddType = () => {
-    const values = [...selectedType];
-    values.push();
-    setSelectedType(values);
-  };
+  // const handlePostNewActionType = (e) => {
+  //   e.preventDefault();
+  //   setActionTypes(e.target.value);
+  //   axios
+  //     .post(
+  //       `https://api.littlefish.foundation/action-type/?name=${newActionType}`
+  //     )
+
+  //     .then((response) => response.status)
+  //     .catch((err) => {
+  //       console.log({ err });
+  //     });
+  // };
+
   ///* *********************************************************************************************************************************** *////
   ///* *********************************************************************************************************************************** *////
 
@@ -188,16 +195,26 @@ const Create = (props) => {
   };
 
   ///* ************************************************************************************************************************************ *///
-
   console.log(eachEntry);
   console.log(postStatus);
 
   return (
     <div onClick={() => showModal && setShowModal(false)}>
-      <SubHeader assetName="Generate a New Action" />
+      <SubHeader />
 
       <section>
         <Container>
+          <h2
+            style={{
+              color: "white",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              marginBottom: "30px ",
+            }}
+          >
+            Generate New Action
+          </h2>
           <Row>
             <Col lg="3" md="4" sm="6">
               <h5 className="mb-4 text-light">Example Action</h5>
@@ -290,6 +307,75 @@ const Create = (props) => {
                       <PopOvers />
                     </FormGroup>
 
+                    <br />
+                    <div>
+                      <h6 style={{ color: "white" }}>Action Type*</h6>
+
+                      <FormGroup className="form__tag">
+                        {popularActionType?.actionTypes?.map((item) => (
+                          <Button
+                            id="tag_button"
+                            value={item.name}
+                            style={{
+                              color: "inherit",
+                              marginRight: "3px",
+                              marginBottom: "3px",
+                              marginTop: "3px",
+                              fontWeight: "300",
+                              fontSize: "0.8rem",
+                            }}
+                            color="secondary"
+                            outline
+                            onClick={() => onCheckboxBtnClick(item.name)}
+                            active={actionTypes?.includes(item.name)}
+                          >
+                            {item.name}
+                          </Button>
+                        ))}
+                        {/* <Button
+                          onClick={handlePostNewActionType}
+                          style={{
+                            backgroundColor: "transparent",
+                            position: "absolute",
+
+                            height: "33.2px",
+                            paddingTop: "0px",
+
+                            fontWeight: "300",
+                            objectFit: "contain",
+                          }}
+                        >
+                        <Input
+                            style={{
+                              backgroundColor: "inherit",
+                              height: "31.2px",
+                              color: "white",
+                              width: "auto",
+                              padding: "0px",
+                              border: "none",
+                              fontSize: "0.8rem",
+                            }}
+                            placeholder="Enter a New Type Here"
+                            name="newActionType"
+                            type="text"
+                            onChange={(e) => setNewActionType(e.target.value)}
+                            value={newActionType}
+                          />
+                        </Button>*/}
+
+                        <p
+                          style={{
+                            marginBottom: "3px",
+                            color: "inherit",
+                            fontWeight: "300",
+                            fontSize: "0.8rem",
+                          }}
+                        >
+                          Selected: {JSON.stringify(actionTypes)}
+                        </p>
+                      </FormGroup>
+                    </div>
+
                     <FormGroup className="form__input">
                       <Label for="additionalImages">
                         Upload Additional Images
@@ -305,82 +391,6 @@ const Create = (props) => {
                         multiple
                       />
                     </FormGroup>
-
-                    {/*<FormGroup className="form__input">
-                    <div className="TagsInput">
-                      <Label for="actionTypes">Action Type*</Label>
-                      <TagsInput
-                        required
-                        value={actionTypes}
-                        onChange={setActionTypes}
-                        name="actionTypes"
-                        placeHolder="Enter Action Types"
-                      />
-
-                      <em
-                        style={{
-                          color: "#fff",
-                          display: "flex",
-                          alignContent: "end",
-                          justifyContent: "end",
-                        }}
-                      >
-                        Press enter to add new tag
-                      </em>
-                    </div>
-                      </FormGroup>*/}
-
-                    <br />
-                    <div>
-                      <h6 style={{ color: "white" }}>Action Type*</h6>
-
-                      <FormGroup className="form__tag">
-                        {popularActionType?.actionTypes?.map((item) => (
-                          <Button
-                            id="tag_button"
-                            value={item.name}
-                            style={{
-                              //backgroundColor: "transparent",
-                              color: "inherit",
-
-                              marginRight: "3px",
-                              marginBottom: "3px",
-                              marginTop: "3px",
-                              fontWeight: "300",
-                              fontSize: "0.8rem",
-                            }}
-                            color="secondary"
-                            outline
-                            onClick={() => onCheckboxBtnClick(item.name)}
-                            active={selectedType?.includes(item.name)}
-                          >
-                            {item.name}
-                          </Button>
-                        ))}
-                        <Button
-                          style={{
-                            backgroundColor: "transparent",
-                            marginRight: "3px",
-                            marginBottom: "3px",
-                            fontWeight: "700",
-                          }}
-                          onClick={() => handleAddType()}
-                        >
-                          {" "}
-                          + {name}
-                        </Button>
-                        <p
-                          style={{
-                            marginBottom: "3px",
-                            color: "inherit",
-                            fontWeight: "300",
-                            fontSize: "0.8rem",
-                          }}
-                        >
-                          Selected: {JSON.stringify(selectedType)}
-                        </p>
-                      </FormGroup>
-                    </div>
 
                     <FormGroup className="form__input">
                       <Label for="colonyName">Colony Name*</Label>
@@ -399,6 +409,7 @@ const Create = (props) => {
                       </Input>
                       <PopOvers />
                     </FormGroup>
+
                     <FormGroup className="form__input">
                       <Label for="price">Price*</Label>
                       <Input
@@ -413,6 +424,7 @@ const Create = (props) => {
 
                       <PopOvers />
                     </FormGroup>
+
                     <div>
                       {allUrls.length > 0 && (
                         <>

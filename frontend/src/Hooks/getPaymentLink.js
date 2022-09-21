@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+/*import { useState, useEffect } from "react";
 import axios from "axios";
 
 function useGetPaymentLink(url) {
@@ -13,6 +13,7 @@ function useGetPaymentLink(url) {
       .get(url)
 
       .then((response) => {
+        console.log(response.data);
         setPaymentLink1(response.data.paymentLink);
       })
       .catch((err) => {
@@ -27,3 +28,4 @@ function useGetPaymentLink(url) {
   return { paymentLink1, loading, error };
 }
 export default useGetPaymentLink;
+*/

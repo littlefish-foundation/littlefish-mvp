@@ -3,11 +3,11 @@ import axios from "axios";
 
 function useGetSearchAssetName(url, searchQuery) {
   const [actionSearchedByName, setActionSearchedByName] = useState([]);
-  const [loading, setLoading] = useState(false);
+  const [loadingActionByName, setLoadingActionByName] = useState(false);
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    setLoading(true);
+    setLoadingActionByName(true);
 
     axios
 
@@ -23,10 +23,10 @@ function useGetSearchAssetName(url, searchQuery) {
         setError(err);
       })
       .finally(() => {
-        setLoading(false);
+        setLoadingActionByName(false);
       });
   }, [url, searchQuery]);
 
-  return { actionSearchedByName, loading, error };
+  return { actionSearchedByName, loadingActionByName, error };
 }
 export default useGetSearchAssetName;

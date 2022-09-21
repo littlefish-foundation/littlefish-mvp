@@ -1,11 +1,12 @@
 .container-slider {
-  width: 500px;
-  border-radius: 5%;
-  height: 600px;
+  width: auto;
+  border-radius: 2%;
+  height: 700px;
   background-color: rgb(31,30,40);
   /*margin: 100px auto 0;*/
   position: relative;
   overflow: hidden;
+  margin-bottom: 20px;
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
 }
 @media screen and (max-width: 700px) {

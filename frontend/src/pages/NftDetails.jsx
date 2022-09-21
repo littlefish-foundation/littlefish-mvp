@@ -26,6 +26,7 @@ import "../styles/nft-details.css";
 
 const NftDetails = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [dataPost, setDataPost] = useState();
   const toggle = () => setIsOpen(!isOpen);
 
   const { _id, minimumPrice, actionCollection } = useParams();
@@ -46,12 +47,12 @@ const NftDetails = () => {
   //   }
   // );
 
-  const { paymentLink1 } = useGetPaymentLink(
-    `https://api.littlefish.foundation/action-sale/${actionData?._id}`
-  );
+  // const { paymentLink1 } = useGetPaymentLink(
+  //   `https://api.littlefish.foundation/action-sale/${actionData?._id}`
+  // );
 
   // console.log(paymentLink);
-  console.log(paymentLink1);
+  // console.log(paymentLink1);
 
   const handlePriceInput = (e) => {
     e.preventDefault();
@@ -68,17 +69,38 @@ const NftDetails = () => {
       },
       body: JSON.stringify({ actionID: actionData?._id, price: price }),
     })
-      .then((response) => response.json())
-
+      .then((response) => {
+        response.json();
+        console.log(response.data);
+        setDataPost(response.data);
+      })
       .then((data) => {
         console.log(data);
       })
       .catch((err) => {
         console.log("Error:", err.message);
       });
-
-    console.log();
   };
+
+  // const handleGetSale = (e) => {
+  //   e.preventDefault();
+  //   fetch("https://api.littlefish.foundation/action-sale/${_id", {
+  
+  //   })
+  //     .then((response) => {
+  //       response.json();
+  //       setDataPost(response.data);
+  //     })
+  //     .then((data) => {
+  //       console.log(data);
+  //     })
+  //     .catch((err) => {
+  //       console.log("Error:", err.message);
+  //     });
+
+  // }
+
+  console.log(dataPost);
 
   return (
     <div>
@@ -94,28 +116,36 @@ const NftDetails = () => {
         </div>
       ) : (
         <>
-          <SubHeader assetName={actionData?.assetName} />
-
+          <SubHeader />
           <section>
             <Container>
-              <Row style={{ paddingLeft: "90px" }}>
-                <Col lg="7" md="7" sm="6">
-                  <Slider />
-                </Col>
-                <br />
+              <div
+                style={{
+                  border: "2px solid  rgba(221, 221, 221, 0.171)",
+                  borderRadius: "2%",
+                  paddingTop: "10px",
+                  paddingLeft: "60px",
+                }}
+              >
+                <h2
+                  style={{
+                    color: "white",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    marginBottom: "30px ",
+                  }}
+                >
+                  {actionData?.assetName}
+                </h2>
+                <Row style={{ paddingLeft: "2%" }}>
+                  <Col lg="6" md="6" sm="6">
+                    <Slider />
+                  </Col>
+                  <br />
 
-                <Col lg="5" md="5" sm="6">
-                  <div
-                    style={{
-                      border: "2px solid  rgba(221, 221, 221, 0.171)",
-                      borderRadius: "5%",
-                      paddingTop:"10px"
-                      // display: "flex",
-                      // justifyContent: "center",
-                      // alignItems: "center",
-                    }}
-                  >
-                    <div style={{ marginLeft: "5%" }}>
+                  <Col lg="6" md="6" sm="6">
+                    <div style={{ paddingRight: "86px", display: "block" }}>
                       <div className="nft__creator d-flex gap-3 align-items-center">
                         <FaUserAlt
                           style={{
@@ -178,7 +208,7 @@ const NftDetails = () => {
                       </div>
                       <br />
                       <Link
-                        to={`/colony/Littlefish%20Foundation`}
+                        to={`/colony/${actionData?.colony}`}
                         style={{ textDecoration: "none", color: "white" }}
                       >
                         <div className="nft__creator d-flex gap-3 align-items-center">
@@ -220,13 +250,6 @@ const NftDetails = () => {
                           }}
                         >
                           <i className="ri-shopping-bag-line"></i>
-                          <a
-                            href={paymentLink1}
-                            target="_blank"
-                            rel="noreferrer"
-                          >
-                            Payment Link
-                          </a>
                         </Button>
                       </div>
                       <Collapse className="collapse__card" isOpen={isOpen}>
@@ -249,7 +272,7 @@ const NftDetails = () => {
                                 style={{ background: "ingerit" }}
                                 type="text"
                                 placeholder="The value must be > than, or = to the min price"
-                                onChange={(e) => setPrice(e.target.value)}
+                                onChange={handlePriceInput}
                                 value={price}
                               />
                             </FormGroup>
@@ -268,9 +291,9 @@ const NftDetails = () => {
                         </Card>
                       </Collapse>
                     </div>
-                  </div>
-                </Col>
-              </Row>
+                  </Col>
+                </Row>
+              </div>
             </Container>
           </section>
         </>

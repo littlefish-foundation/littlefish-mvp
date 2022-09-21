@@ -9,20 +9,19 @@ import { BsDownload } from "react-icons/bs";
 // import LiveAuction from "../components/ui/Live-auction/LiveAuction";
 
 const UserGallery = () => {
-  const { NFT__DATA } = useFetch(
-    "https://api.littlefish.foundation/actions/?userName={donald.littlefish}"
-  );
+  const { NFT__DATA } = useFetch("https://api.littlefish.foundation/actions/");
 
   return (
     <>
       <section>
         <Container style={{ backgroundColor: "transparent !important" }}>
           <Row>
-            {NFT__DATA?.map((item) => (
-              <Col lg="3" md="4" sm="6" className="mb-4" key={item.ownerName}>
-                <NftCard item={item} />
-              </Col>
-            ))}
+            {NFT__DATA?.ownerName === "donald.littlefish" &&
+              NFT__DATA?.map((item) => (
+                <Col lg="3" md="4" sm="6" className="mb-4" key={item.ownerName}>
+                  <NftCard item={item} />
+                </Col>
+              ))}
           </Row>
         </Container>
       </section>

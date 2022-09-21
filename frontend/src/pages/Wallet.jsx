@@ -150,8 +150,19 @@ const Wallet = () => {
       <SubHeader />
       <section>
         <Container>
+          <h2
+            style={{
+              color: "white",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              marginBottom: "20px ",
+            }}
+          >
+            Connect Wallet
+          </h2>
           <Row>
-            <Col lg="12" className="mb-5 text-center"></Col>
+            <Col lg="12" ></Col>
 
             <Col>
               <div className="wallet__item">

@@ -78,7 +78,7 @@ const MemberForm = () => {
 
   return (
     <div>
-      <SubHeader assetName="Membership Form" />
+      <SubHeader />
       <section>
         <Container>
           <Row>
@@ -86,7 +86,17 @@ const MemberForm = () => {
               <h5 className="mb-4 text-light"></h5>
             </Col>
             <Col lg="8" md="8" sm="6">
-              <h2>Apply for Colony Membership</h2>
+            <h2
+            style={{
+              color: "white",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              marginBottom: "30px ",
+            }}
+          >
+            Apply for Colony Membership
+          </h2>
 
               <div className="create__item">
                 <Form>

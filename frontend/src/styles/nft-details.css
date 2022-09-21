@@ -5,9 +5,7 @@
 
 .social__links span a {
   text-decoration: none;
-
   color: rgba(255, 255, 255, 0.772);
-
   font-size: 3rem;
   font-weight: 400;
   transition: 0.3s;
@@ -18,7 +16,7 @@
 }
 
 .collapse__card {
-  width: 415px;
+  width: 95%;
 
   color: #fff;
   font-size: 0.8rem;
@@ -53,7 +51,7 @@
   background: #343444;
   padding: 15px;
   border-radius: 7px;
-  width: 70%;
+  width: 95%;
   display: flex;
 }
 
@@ -61,7 +59,7 @@
   background: #343444;
   padding: 15px;
   border-radius: 7px;
-  width: 70%;
+  width: 95%;
   display: flex;
   align-items: center;
   justify-content: center;

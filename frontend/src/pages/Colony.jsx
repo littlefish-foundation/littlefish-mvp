@@ -2,7 +2,7 @@ import React from "react";
 import useFetch2 from "../Hooks/useFetch2";
 import ColonyCard from "../components/colonies/ColonyCard";
 import SubHeader from "../components/UserInterface/Sub-Header/SubHeader";
-//import { RotatingLines } from "react-loader-spinner";
+import { RotatingLines } from "react-loader-spinner";
 import "../styles/Colony.css";
 
 const Colony = (props) => {
@@ -11,7 +11,7 @@ const Colony = (props) => {
   );
   return (
     <div>
-      {/*loadingColony ? (
+      {loadingColony ? (
         <div className="loader-container">
           <RotatingLines
             strokeColor="grey"
@@ -22,8 +22,7 @@ const Colony = (props) => {
           />
         </div>
       ) : (
-        <>        </>
-      )*/}
+        <>
           <SubHeader assetName={"Colonies"} />
           {COLONY__DATA?.map((item) => (
             <ColonyCard
@@ -31,7 +30,8 @@ const Colony = (props) => {
               item={item}
             />
           ))}
-
+        </>
+      )}
     </div>
   );
 };

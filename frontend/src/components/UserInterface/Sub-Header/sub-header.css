@@ -1,9 +1,9 @@
 .sub__header {
-  background: url("../../../assets/avatarsAndImages/Littlefish.png");
+  background: url("../../../assets/avatarsAndImages/littlefish.jpeg");
   background-position: center center;
   background-repeat: no-repeat;
   background-size: cover;
-  padding-top: 150px;
+  padding-top: 300px;
 }
 
 .sub__header h2 {

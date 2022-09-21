@@ -15,7 +15,7 @@ const NAV__LINKS = [
     url: "/colony",
   },
   {
-    display: "Generate",
+    display: "Create",
     url: "/create",
   },
   {
@@ -86,11 +86,16 @@ const Header = () => {
           </div>
 
           <div className="nav__right d-flex align-items-center gap-5 ">
-            <Link to="/wallet" style={{ textDecoration: "none", color:"inherit" }}>
+            <Link
+              to="/wallet"
+              style={{ textDecoration: "none", color: "inherit" }}
+            >
               <button
                 style={{
-                  border:
-                    address !== 0 ? "3px solid green" : "3px solid #2037e4",
+                  color: " #fff",
+                  border: address !== 0 ? "none" : "2px solid white",
+                  background:
+                    address !== 0 ? " rgb(110, 221, 184)" : " transparent",
                 }}
                 className="btn d-flex gap-2 align-items-center"
               >
@@ -100,7 +105,7 @@ const Header = () => {
                     style={{
                       fontSize: "25px",
                       textDecoration: "none",
-                      color: address !== 0 ? "rgb(64, 133, 88)" : "white",
+                      color: "#fff",
                     }}
                   ></i>
                 </span>

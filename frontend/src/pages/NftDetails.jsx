@@ -19,7 +19,7 @@ import {
   FormGroup,
   Input,
 } from "reactstrap";
-//import { RotatingLines } from "react-loader-spinner";
+import { RotatingLines } from "react-loader-spinner";
 import Slider from "../components/Slider/Slider";
 
 import "../styles/nft-details.css";
@@ -82,7 +82,7 @@ const NftDetails = () => {
 
   return (
     <div>
-      {/*loadingActionData ? (
+      {loadingActionData ? (
         <div className="loader-container">
           <RotatingLines
             strokeColor="grey"
@@ -93,163 +93,188 @@ const NftDetails = () => {
           />
         </div>
       ) : (
-        <>        </>
-      )*/}
+        <>
           <SubHeader assetName={actionData?.assetName} />
 
           <section>
             <Container>
               <Row style={{ paddingLeft: "90px" }}>
-                <Col lg="5">
+                <Col lg="7" md="7" sm="6">
                   <Slider />
                 </Col>
                 <br />
-                <Col lg="1" />
 
-                <Col lg="6">
-                  <div>
-                    <div className="nft__creator d-flex gap-3 align-items-center">
-                      <FaUserAlt
-                        style={{
-                          color: "white",
-                          fontSize: "2.5rem",
-                          alignItems: "center",
-                        }}
-                      />{" "}
-                      <div className="creator__detail">
-                        <h6>Created By: {actionData?.ownerName} </h6>
-                      </div>
-                    </div>
-
-                    <br />
-
-                    <div className="nft__creator d-flex gap-3 align-items-center">
-                      <IoMdPricetags
-                        style={{
-                          color: "white",
-                          fontSize: "2.5rem",
-                          alignItems: "center",
-                        }}
-                      />
-                      <div className="creator__detail">
-                        <h6>Minimum Price: {actionData?.minimumPrice} ADA</h6>
-                      </div>
-                    </div>
-
-                    <br />
-
-                    <div className="nft__creator d-flex gap-3 align-items-center">
-                      <BsCalendarDateFill
-                        style={{
-                          color: "white",
-                          fontSize: "2.5rem",
-                          alignItems: "center",
-                        }}
-                      />
-
-                      <div className="creator__detail">
-                        <h6>
-                          Creation Date:{" "}
-                          {actionData?.createdAt.substring(0, 10)}
-                        </h6>
-                      </div>
-                    </div>
-
-                    <br />
-
-                    <div className="nft__creator d-flex gap-3 align-items-center">
-                      <div className="creator__detail">
-                        <MdDescription
+                <Col lg="5" md="5" sm="6">
+                  <div
+                    style={{
+                      border: "2px solid  rgba(221, 221, 221, 0.171)",
+                      borderRadius: "5%",
+                      paddingTop:"10px"
+                      // display: "flex",
+                      // justifyContent: "center",
+                      // alignItems: "center",
+                    }}
+                  >
+                    <div style={{ marginLeft: "5%" }}>
+                      <div className="nft__creator d-flex gap-3 align-items-center">
+                        <FaUserAlt
                           style={{
                             color: "white",
-                            fontSize: "3rem",
+                            fontSize: "2.5rem",
+                            alignItems: "center",
                           }}
-                        ></MdDescription>
-                        <p>{actionData?.description}</p>
+                        />{" "}
+                        <div className="creator__detail">
+                          <h6>Created By: {actionData?.ownerName} </h6>
+                        </div>
                       </div>
-                    </div>
-                  </div>
 
-                  <br />
+                      <br />
 
-                  <Link
-                    to={`/colony/Littlefish%20Foundation`}
-                    style={{ textDecoration: "none", color: "white" }}
-                  >
-                    <div className="nft__creator d-flex gap-3 align-items-center">
-                      <GiSchoolOfFish
-                        style={{
-                          color: "white",
-                          fontSize: "3rem",
-                        }}
-                      ></GiSchoolOfFish>
-                      <div className="creator__detail">
-                        <p>littlefish Foundation</p>{" "}
-                        {/* Temporarily Adjusted. This will change when depending on backend */}
+                      <div className="nft__creator d-flex gap-3 align-items-center">
+                        <IoMdPricetags
+                          style={{
+                            color: "white",
+                            fontSize: "2.5rem",
+                            alignItems: "center",
+                          }}
+                        />
+                        <div className="creator__detail">
+                          <h6>Minimum Price: {actionData?.minimumPrice} ADA</h6>
+                        </div>
                       </div>
-                    </div>
-                  </Link>
 
-                  <br />
+                      <br />
 
-                  <div>
-                    <Button
-                      color="primary"
-                      onClick={toggle}
-                      style={{ marginBottom: "1rem" }}
-                      // className="singleNft-btn d-flex align-items-center gap-1"
-                    >
-                      Reward This Action
-                    </Button>
-                    &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
-                    <Button color="success" style={{ marginBottom: "1rem" }}>
-                      <i className="ri-shopping-bag-line"></i>
-                      <a href={paymentLink1} target="_blank" rel="noreferrer">
-                        Get Payment Link
-                      </a>
-                    </Button>
-                    <Collapse className="collapse__card" isOpen={isOpen}>
-                      <Card
-                        color="light"
-                        style={{
-                          display: "flex",
-                        }}
+                      <div className="nft__creator d-flex gap-3 align-items-center">
+                        <BsCalendarDateFill
+                          style={{
+                            color: "white",
+                            fontSize: "2.5rem",
+                            alignItems: "center",
+                          }}
+                        />
+
+                        <div className="creator__detail">
+                          <h6>
+                            Creation Date:{" "}
+                            {actionData?.createdAt.substring(0, 10)}
+                          </h6>
+                        </div>
+                      </div>
+
+                      <br />
+
+                      <div className="nft__creator d-flex gap-3 align-items-center">
+                        <div className="creator__detail">
+                          <MdDescription
+                            style={{
+                              color: "white",
+                              fontSize: "3rem",
+                            }}
+                          ></MdDescription>
+                          <p>{actionData?.description}</p>
+                        </div>
+                      </div>
+                      <br />
+                      <Link
+                        to={`/colony/Littlefish%20Foundation`}
+                        style={{ textDecoration: "none", color: "white" }}
                       >
-                        <CardBody>
-                          <FormGroup
-                            style={{ backgroundColor: "rgb(53,52,67)" }}
-                          >
-                            <Input
-                              invalid={
-                                actionData?.minimumPrice > price ? true : false
-                              }
-                              style={{ background: "ingerit" }}
-                              type="text"
-                              placeholder="The value must be > than, or = to the min price"
-                              onChange={(e) => setPrice(e.target.value)}
-                              value={price}
-                            />
-                          </FormGroup>
+                        <div className="nft__creator d-flex gap-3 align-items-center">
+                          <GiSchoolOfFish
+                            style={{
+                              color: "white",
+                              fontSize: "3rem",
+                            }}
+                          ></GiSchoolOfFish>
+                          <div className="creator__detail">
+                            <p>littlefish Foundation</p>{" "}
+                          </div>
+                        </div>
+                      </Link>
 
-                          <button
-                            className="singleNft-btn d-flex align-items-center gap-1"
-                            onClick={handleSubmit}
+                      <br />
+
+                      <div>
+                        <Button
+                          color="primary"
+                          onClick={toggle}
+                          style={{
+                            marginBottom: "0.7rem",
+                            width: "42%",
+                            height: "65px",
+                          }}
+                          // className="singleNft-btn d-flex align-items-center gap-1"
+                        >
+                          Reward Action
+                        </Button>
+                        &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+                        <Button
+                          color="success"
+                          style={{
+                            marginBottom: "0.7rem",
+                            width: "43%",
+                            height: "65px",
+                            marginLeft: "5px",
+                          }}
+                        >
+                          <i className="ri-shopping-bag-line"></i>
+                          <a
+                            href={paymentLink1}
+                            target="_blank"
+                            rel="noreferrer"
                           >
-                            <i className="ri-shopping-bag-line"></i>
-                            {/*<a href={paymentLink1} target="_blank" rel="noreferrer">
+                            Payment Link
+                          </a>
+                        </Button>
+                      </div>
+                      <Collapse className="collapse__card" isOpen={isOpen}>
+                        <Card
+                          color="light"
+                          style={{
+                            display: "flex",
+                          }}
+                        >
+                          <CardBody>
+                            <FormGroup
+                              style={{ backgroundColor: "rgb(53,52,67)" }}
+                            >
+                              <Input
+                                invalid={
+                                  actionData?.minimumPrice > price
+                                    ? true
+                                    : false
+                                }
+                                style={{ background: "ingerit" }}
+                                type="text"
+                                placeholder="The value must be > than, or = to the min price"
+                                onChange={(e) => setPrice(e.target.value)}
+                                value={price}
+                              />
+                            </FormGroup>
+
+                            <button
+                              className="singleNft-btn d-flex align-items-center gap-1"
+                              onClick={handleSubmit}
+                            >
+                              <i className="ri-shopping-bag-line"></i>
+                              {/*<a href={paymentLink1} target="_blank" rel="noreferrer">
                           
                         </a>*/}
-                            Create Sale
-                          </button>
-                        </CardBody>
-                      </Card>
-                    </Collapse>
+                              Create Sale
+                            </button>
+                          </CardBody>
+                        </Card>
+                      </Collapse>
+                    </div>
                   </div>
                 </Col>
               </Row>
             </Container>
           </section>
-
+        </>
+      )}
     </div>
   );
 };

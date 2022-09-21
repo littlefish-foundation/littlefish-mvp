@@ -2,6 +2,7 @@
   color: #000 !important;
   --bs-nav-link-color: #fff !important;
   --bs-nav-link-hover-color: #fff !important;
+  --bs-nav-link-padding-x: 1.3rem !important;
   font-weight: 600;
 }
 

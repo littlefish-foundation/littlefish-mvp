@@ -8,6 +8,7 @@ import "./MemberForm.css";
 import useBase64Converter from "../../Hooks/useBase64Converter";
 
 const MemberForm = () => {
+  const maxCount = 90;
   const customStyles = {
     control: (base, state) => ({
       ...base,
@@ -44,7 +45,7 @@ const MemberForm = () => {
 
   const { name, colonyName, bio } = eachField;
 
-  console.log(eachField);
+  // console.log(eachField);
 
   const handleChange = (e) => {
     setEachField({
@@ -140,17 +141,19 @@ const MemberForm = () => {
                   <FormGroup className="form__input">
                     <Label for="bio">Bio</Label>
                     <Input
-                      required
                       id="bio"
                       type="textarea"
                       name="bio"
                       rows="4"
-                      maxLength="256"
+                      maxLength="90"
                       placeholder="Enter a short Bio about yourself"
                       onChange={handleChange}
                       value={bio}
                       className="w-90"
                     ></Input>
+                    <div className="Char__counter">
+                      {bio?.length}/ {maxCount}
+                    </div>
                   </FormGroup>
 
                   <Button

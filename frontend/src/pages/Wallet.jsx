@@ -147,7 +147,7 @@ const Wallet = () => {
         showModalDisconnect && setShowModalDisconnect(false);
       }}
     >
-      <SubHeader assetName={"Connect Wallet"} />
+      <SubHeader />
       <section>
         <Container>
           <Row>

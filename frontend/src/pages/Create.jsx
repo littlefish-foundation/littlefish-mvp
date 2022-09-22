@@ -62,6 +62,7 @@ const Create = (props) => {
   //console.log(defaultTypes);
 
   const maxCount = 256;
+  const maxAssetNameCount = 31;
   const walletid = sessionStorage.getItem("walletID");
 
   const [newPopularActionType, setNewPopularActionType] =
@@ -260,12 +261,16 @@ const Create = (props) => {
                         required
                         id="assetName"
                         name="assetName"
+                        maxLength="31"
                         type="text"
                         placeholder="Enter the Name of the Action"
                         onChange={handleInputChange}
                         value={assetName}
                       />
                       <PopOvers />
+                      <div className="Char__counter">
+                        {assetName.length}/ {maxAssetNameCount}
+                      </div>
                     </FormGroup>
 
                     <FormGroup className="form__input">
@@ -375,9 +380,8 @@ const Create = (props) => {
                       </FormGroup>
                     </div>
 
-                   <Label>Extra content</Label>
-                      <DnDComponent />
-                
+                    <Label>Extra content</Label>
+                    <DnDComponent />
 
                     <FormGroup className="form__input">
                       <Label for="additionalImages">

@@ -21,15 +21,15 @@ export default function Slider() {
   displayDataArray.push(coverImage);
   // console.log(displayDataArray);
 
-  const base64Files = actionData?.filesBase64?.map((file) => {
-    return {
-      ...objFile,
-      src: file,
-    };
-  });
-  // console.log(displayDataArray);
+  // const base64Files = actionData?.filesBase64?.map((file) => {
+  //   return {
+  //     ...objFile,
+  //     src: file,
+  //   };
+  // });
+  // // console.log(displayDataArray);
 
-  base64Files?.map((file) => displayDataArray.push(file));
+  // base64Files?.map((file) => displayDataArray.push(file));
 
   // console.log(displayDataArray);
 

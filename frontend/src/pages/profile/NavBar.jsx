@@ -7,9 +7,10 @@ import UserGallery from "./userGallery";
 
 import "./navbar.css";
 
-function NavBar() {
+function NavBar(props) {
   const [key, setKey] = useState("created");
   const [dropdownOpen, setDropdownOpen] = useState(false);
+  let ownerName = props.ownerName;
 
   const toggle = () => setDropdownOpen(!dropdownOpen);
 
@@ -33,6 +34,7 @@ function NavBar() {
         >
           {" "}
           <UserGallery
+            ownerName={ownerName}
             style={{ backgroundColor: "transparent !important" }}
           />{" "}
         </Tab>

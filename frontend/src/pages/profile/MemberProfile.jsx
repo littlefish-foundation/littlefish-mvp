@@ -26,7 +26,7 @@ let months = [
   "December",
 ];
 
-const MemberProfile = () => {
+const MemberProfile = (props) => {
   const { name } = useParams();
 
   const { userData, loadingUserData } = useGetOneUserData(
@@ -128,7 +128,7 @@ const MemberProfile = () => {
           </section>
 
           <section>
-            <NavBar />
+            <NavBar ownerName={userData?.name} />
           </section>
         </div>
       )}

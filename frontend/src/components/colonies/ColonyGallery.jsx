@@ -16,18 +16,20 @@ const ColonyGallery = () => {
         <Container>
           <Row
             style={{
-              borderBottom: "2px solid #959ca2",
-              marginBottom: "15px",
-              marginTop: "2px",
+              borderBottom: "2px solid rgb(205,173,72)",
+              marginBottom: "2px",
+              marginTop: "15px",
             }}
           >
-            <div className="seller__section-title">
-              <h3>Actions</h3>
-            </div>
+            <Col lg="12" style={{ marginBottom: "10px" }}>
+              <div className="seller__section-title">
+                <h3 style={{ color: "#fff" }}>Actions</h3>
+              </div>
+            </Col>
           </Row>
           <Row>
             {NFT__DATA?.map((item) => (
-              <Col lg="3" md="4" sm="6" className="mb-4" key={item?.tokenId}>
+              <Col lg="3" md="4" sm="6" key={item?.tokenId}>
                 <NftCard item={item} />
               </Col>
             ))}

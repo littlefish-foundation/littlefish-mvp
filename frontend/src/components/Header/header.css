@@ -31,15 +31,15 @@
 .nav__item a {
   text-decoration: none;
   color: #fff;
+  background: 30px 30px;
 }
 
 .nav__item a:hover {
-  color: #fff;
-  background: #343444;
+  color: rgb(193, 150, 50);
 }
 
 .active__header {
-  color: #dcdcff !important;
+  color: rgb(193, 150, 50) !important;
 }
 
 .logo h2 {
@@ -132,3 +132,4 @@
     font-size: 0.7rem !important;
   }
 }
+

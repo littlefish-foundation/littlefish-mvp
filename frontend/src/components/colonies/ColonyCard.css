@@ -24,14 +24,12 @@
   color: #ffffff;
   justify-content: center;
   display: flex;
-
 }
 
 .colony__name a {
   color: #ffffff;
   font-size: 0.1rem;
   text-decoration: none;
-  
 }
 
 .colony__name a:hover {
@@ -45,38 +43,15 @@
   outline: none;
   padding: 5px 22px;
   background: transparent;
-  border: 1px solid #5142fc;
+  border: none;
   font-size: 0.9rem;
   color: #fff;
   border-radius: 50px;
   transition: 0.3s;
-  background: #5142fc;
+  background: rgb(193, 150, 50);
 }
 
 .explore__btn:hover {
   background: #fff;
-  color: #5142fc;
+  color: rgb(193, 150, 50);
 }
-
-/* .explore__btn {
-  border: none;
-  outline: none;
-  padding: 7px 25px !important;
-  border-radius: 50px !important;
-  border: 1px solid #5142fc !important;
-  font-size: 0.9rem;
-  background: transparent;
-}
-
-.explore__btn i {
-  color: #fff;
-  font-size: 1rem;
-}
-
-.explore__btn a {
-  text-decoration: none;
-  color: #fff;
-}
-*/ /*.hero__btns button a:hover {
-  color: #fff;
-} */

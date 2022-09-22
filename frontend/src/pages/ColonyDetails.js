@@ -5,7 +5,6 @@ import { Container, Row, Col, Button } from "reactstrap";
 import useFetch2 from "../Hooks/useFetch2";
 import "../styles/ColonyDetails.css";
 import useGetUserProfileData from "../Hooks/getUserProfileData";
-import ColonyMembership from "../components/colonies/ColonyMembership";
 import ColonyGallery from "../components/colonies/ColonyGallery";
 import cardanoIcon from "../assets/avatarsAndImages/cardano.png";
 import { RotatingLines } from "react-loader-spinner";
@@ -110,18 +109,14 @@ const ColonyDetails = () => {
             <Container>
               <Row
                 style={{
-                  borderBottom: "2px solid #959ca2",
+                  borderBottom: "2px solid rgb(205,173,72)",
                   marginBottom: "15px",
                   marginTop: "2px",
                 }}
               >
                 <Col lg="12" style={{ marginBottom: "10px" }}>
                   <div className="seller__section-title">
-                    <h3>Members</h3>
-                    {/*<button className=" explore__btn d-flex align-items-center gap-2">
-                      <i className="ri-ball-pen-line"></i>
-                      <Link to="MemberForm"> Become a Member </Link>
-      </button>*/}
+                    <h3 style={{ color: "#fff" }}>Members</h3>
                   </div>
                 </Col>
               </Row>

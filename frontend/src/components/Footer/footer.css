@@ -1,6 +1,6 @@
 .footer h5 {
   font-size: 1.1rem;
-  color: #fff;
+  color: rgb(193, 150, 50);
 }
 
 .footer {
@@ -57,7 +57,7 @@
 }
 
 .social__links span a:hover {
-  color: #2037E4;
+  color: rgb(193, 150, 50);
 }
 
 .copyright {

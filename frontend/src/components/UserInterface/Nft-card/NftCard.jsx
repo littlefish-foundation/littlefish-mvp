@@ -27,7 +27,7 @@ const NftCard = (props) => {
   return (
     <Link
       to={`/action/${_id}`}
-      style={{ textDecoration: "none", color: "white" }}
+      style={{ textDecoration: "none", color: "rgb(245,243,235)" }}
     >
       <div className="single__nft__card">
         <div className="nft__img">

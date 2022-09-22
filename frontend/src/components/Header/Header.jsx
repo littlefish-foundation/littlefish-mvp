@@ -5,7 +5,6 @@ import abstract from "../../assets/avatarsAndImages/abstract.png";
 import Dropdown from "react-bootstrap/Dropdown";
 import NavItem from "react-bootstrap/NavItem";
 import NavLink1 from "react-bootstrap/NavLink";
-
 import { NavLink, Link } from "react-router-dom";
 
 const DropDownElement = (
@@ -13,18 +12,19 @@ const DropDownElement = (
     <Dropdown as={NavItem}>
       <Dropdown.Toggle as={NavLink1}>Create</Dropdown.Toggle>
       <Dropdown.Menu style={{ background: "rgb(20, 20, 30)" }}>
-        <Dropdown.Item>
-          <Link to="/create">Action</Link>
+        <Dropdown.Item as={NavLink} to="/create">
+          Create new Action
         </Dropdown.Item>
-        <Dropdown.Item>
-          <Link to="/MemberForm">Member</Link>
+
+        <Dropdown.Item as={NavLink} to="/MemberForm">
+          Become a Member
         </Dropdown.Item>
-        <Dropdown.Item disabled>Colony</Dropdown.Item>
+
+        <Dropdown.Item disabled>Create a Colony</Dropdown.Item>
       </Dropdown.Menu>
     </Dropdown>
   </div>
 );
-
 
 const NAV__LINKS = [
   {
@@ -48,11 +48,8 @@ const NAV__LINKS = [
 
 const Header = () => {
   const headerRef = useRef(null);
-
   const menuRef = useRef(null);
-
   let address = sessionStorage.length;
-  //console.log(address);
 
   useEffect(() => {
     window.addEventListener("scroll", () => {
@@ -117,7 +114,7 @@ const Header = () => {
                   color: " #fff",
                   border: address !== 0 ? "none" : "2px solid white",
                   background:
-                    address !== 0 ? " rgb(110, 221, 184)" : " transparent",
+                    address !== 0 ? "rgb(205,173,72)" : " transparent",
                 }}
                 className="btn d-flex gap-2 align-items-center"
               >

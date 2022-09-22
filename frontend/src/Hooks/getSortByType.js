@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+/*import { useState, useEffect } from "react";
 import axios from "axios";
 
 function useGetSortByType(url, queryFilter) {
@@ -29,3 +29,4 @@ function useGetSortByType(url, queryFilter) {
   return { filteredType, loadingByType, error };
 }
 export default useGetSortByType;
+*/

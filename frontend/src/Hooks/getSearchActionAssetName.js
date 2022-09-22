@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+/*import { useState, useEffect } from "react";
 import axios from "axios";
 
 function useGetSearchAssetName(url, searchQuery) {
@@ -30,3 +30,4 @@ function useGetSearchAssetName(url, searchQuery) {
   return { actionSearchedByName, loadingActionByName, error };
 }
 export default useGetSearchAssetName;
+*/

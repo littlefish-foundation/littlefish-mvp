@@ -9,7 +9,7 @@ function useFetch2(url) {
   useEffect(() => {
     setLoadingColony(true);
     axios
-      .get(url, { params: { limit: 20 } })
+      .get(url, { params: { limit: 1 } })
       .then((response) => {
         setCOLONY__DATA(response.data);
       })

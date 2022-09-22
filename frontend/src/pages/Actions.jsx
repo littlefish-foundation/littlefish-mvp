@@ -22,7 +22,7 @@ const Actions = () => {
   const { NFT__DATA, loading, error } = useFetch(
     "https://api.littlefish.foundation/action/"
   );
-  const { actionSearched, loadingByOwner } = useGetSearchOwnerName(
+  /*const { actionSearched, loadingByOwner } = useGetSearchOwnerName(
     `https://api.littlefish.foundation/action/?ownerName=${ownerName}`
   );
   const { actionSearchedByName, loadingActionByName } = useGetSearchAssetName(
@@ -34,44 +34,43 @@ const Actions = () => {
   const { popularActionType, loadingPopularActionType } =
     useFetchForPopularActionType(
       "https://api.littlefish.foundation/action-type/popular"
-    );
-
+    );*/
   //const [ownerName, setOwnerName] = useState("");
 
-  const handleTypeFiltering = (e) => {
-    console.log(tags);
-  };
+  // const handleTypeFiltering = (e) => {
+  //   console.log(tags);
+  // };
 
-  useEffect(() => {
-    handleTypeFiltering();
-  }, [tags]);
+  // useEffect(() => {
+  //   handleTypeFiltering();
+  // }, [tags]);
 
-  const handleSearchCategory = (e) => {
-    e.preventDefault();
-    setSearchCategory(e.target.value);
-  };
+  // const handleSearchCategory = (e) => {
+  //   e.preventDefault();
+  //   setSearchCategory(e.target.value);
+  // };
 
-  console.log(searchCategory);
+  // console.log(searchCategory);
 
-  const handleSearch = (e) => {
-    console.log(term);
+  // const handleSearch = (e) => {
+  //   console.log(term);
 
-    searchCategory === "ownerName"
-      ? setOwnerName(term) && setAssetName("")
-      : setAssetName(term) && setOwnerName("");
-  };
+  //   searchCategory === "ownerName"
+  //     ? setOwnerName(term) && setAssetName("")
+  //     : setAssetName(term) && setOwnerName("");
+  // };
 
-  useEffect(() => {
-    handleSearch();
-  }, [term]);
+  // useEffect(() => {
+  //   handleSearch();
+  // }, [term]);
 
-  const handleSort = (e) => {
-    const filterValue = e.target.value;
-  };
+  // const handleSort = (e) => {
+  //   const filterValue = e.target.value;
+  // };
 
   return (
     <div>
-      {loading || loadingByType ? (
+      {loading ? (
         <div className="loader-container">
           <RotatingLines
             strokeColor="grey"
@@ -89,8 +88,11 @@ const Actions = () => {
           <section>
             <Container>
               <Row>
-                <Col lg="12" >
-                  <div style={{ marginTop:"7px", marginBottom:"10px" }} className="market__product__filter d-flex align-items-center justify-content-between">
+                <Col lg="12">
+                  <div
+                    style={{ marginTop: "7px", marginBottom: "10px" }}
+                    className="market__product__filter d-flex align-items-center justify-content-between"
+                  >
                     <div className="filter__left d-flex align-items-center gap-5">
                       <div className="all__category__filter">
                         <select
@@ -99,16 +101,16 @@ const Actions = () => {
                           value={tags}
                         >
                           <option value="null">All categories</option>
-                          {popularActionType?.actionTypes?.map((item) => (
+                          {/*popularActionType?.actionTypes?.map((item) => (
                             <option value={item.name}>{item.name}</option>
-                          ))}
+                          ))*/}
                         </select>
                       </div>
 
                       <form>
                         <div className="all__category__filter">
                           <select
-                            onChange={handleSearchCategory}
+                            //onChange={handleSearchCategory}
                             value={searchCategory}
                             style={{
                               width: "170px",
@@ -148,7 +150,7 @@ const Actions = () => {
 
                     <div className="filter__right">
                       <select
-                        onChange={handleSort}
+                        //onChange={handleSort}
                         onClick={(e) => setData(e.target.value)}
                       >
                         <option>Sort By</option>
@@ -171,7 +173,13 @@ const Actions = () => {
                 >
                   Actions
                 </h2>
-                {term === "" &&
+
+                {NFT__DATA?.map((item) => (
+                  <Col lg="3" md="4" sm="6" className="mb-4">
+                    <NftCard item={item} />
+                  </Col>
+                ))}
+                {/*term === "" &&
                   tags === null &&
                   NFT__DATA?.map((item) => (
                     <Col lg="3" md="4" sm="6" className="mb-4">
@@ -197,7 +205,7 @@ const Actions = () => {
                     <Col lg="3" md="4" sm="6" className="mb-4">
                       <NftCard item={item} />
                     </Col>
-                  ))}{" "}
+                  ))*/}
               </Row>
             </Container>
           </section>

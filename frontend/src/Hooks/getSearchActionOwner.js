@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+/*import { useState, useEffect } from "react";
 import axios from "axios";
 
 function useGetSearchOwnerName(url, query) {
@@ -29,3 +29,4 @@ function useGetSearchOwnerName(url, query) {
   return { actionSearched, loadingByOwner, error };
 }
 export default useGetSearchOwnerName;
+*/

@@ -41,7 +41,7 @@ const MemberForm = () => {
   const { singleImgBase64, uploadImage } = useBase64Converter();
   const walletid = sessionStorage.getItem("walletID");
 
-  console.log(singleImgBase64);
+  //console.log(singleImgBase64);
 
   const { name, colonyName, bio } = eachField;
 

@@ -1,13 +1,16 @@
 .container-slider {
-  width: auto;
+  /* width: auto; */
   border-radius: 2%;
-  height: 700px;
-  background-color: rgb(31,30,40);
-  /*margin: 100px auto 0;*/
+  height: 590px;
+  width: 90%;
+  /* background: #343444; */
+  /* margin: 100px auto 0; */
   position: relative;
+  background: #000000;
+
+  cursor: pointer;
   overflow: hidden;
-  margin-bottom: 20px;
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+  /* margin: 1em; */
 }
 @media screen and (max-width: 700px) {
   .container-slider {
@@ -15,18 +18,31 @@
   }
 }
 .slide {
+  border-radius: 2%;
+  /* margin-bottom: 15px; */
+  /* height: auto; */
+  /* background: #000000; */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  position: absolute;
   width: 100%;
+  height: 100%;
+
+  transition: opacity ease-in-out 0.4s;
+  /* width: 100%;
   height: 100%;
   position: absolute;
   opacity: 0;
-  transition: opacity ease-in-out 0.4s;
+  transition: opacity ease-in-out 0.4s; */
 }
 .slide img {
-  width: 80%;
-  height: 90%;
-  margin-left: 50px;
-  margin-right: auto;
-  object-fit: cover;
+  border-radius: 5px;
+  max-width: 85%;
+  height: 85%;
+
+  object-fit: contain;
 }
 .active-anim {
   opacity: 1;
@@ -36,7 +52,7 @@
   width: 30px;
   height: 30px;
   border-radius: 50%;
-  background: rgb(31,30,40);
+  background: rgb(31, 30, 40);
   color: white;
   border: none;
   position: absolute;

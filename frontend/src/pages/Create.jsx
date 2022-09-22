@@ -25,8 +25,7 @@ import ErrorModal from "../components/UserInterface/Modal/ErrorModal";
 import LoadingModal from "../components/UserInterface/Modal/LoadingModal";
 import useFetchForPopularActionType from "../Hooks/getPopularActionType";
 import "../components/tags/Tags.css";
-import { TagsInput } from "react-tag-input-component";
-
+import DnDComponent from "../dndcomp/DnDComponent";
 const Create = (props) => {
   const actionInitialState = {
     assetName: "Whitepaper",
@@ -74,7 +73,7 @@ const Create = (props) => {
   const [files, setFiles] = useState([]);
   const [colonyName1, setColonyName1] = useState("");
   const [postStatus, setPostStatus] = useState(null);
-  const [actionTypes, setActionTypes] = useState([]);
+  const [actionTypes, setActionTypes] = useState(["research"]);
 
   const [newActionType, setNewActionType] = useState();
   const [allUrls, setAllUrls] = useState([{ urlName: "", url: "" }]);
@@ -375,6 +374,10 @@ const Create = (props) => {
                         </p>
                       </FormGroup>
                     </div>
+
+                   <Label>Extra content</Label>
+                      <DnDComponent />
+                
 
                     <FormGroup className="form__input">
                       <Label for="additionalImages">

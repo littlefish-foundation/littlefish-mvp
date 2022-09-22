@@ -108,24 +108,33 @@ const ColonyDetails = () => {
 
           <section>
             <Container>
-              <Row>
-                <Col lg="12" className="mb-5">
+              <Row
+                style={{
+                  borderBottom: "2px solid #959ca2",
+                  marginBottom: "15px",
+                  marginTop: "2px",
+                }}
+              >
+                <Col lg="12" style={{ marginBottom: "10px" }}>
                   <div className="seller__section-title">
                     <h3>Members</h3>
-                    <button className=" explore__btn d-flex align-items-center gap-2">
+                    {/*<button className=" explore__btn d-flex align-items-center gap-2">
                       <i className="ri-ball-pen-line"></i>
                       <Link to="MemberForm"> Become a Member </Link>
-                    </button>
+      </button>*/}
                   </div>
                 </Col>
+              </Row>
+              <Row>
                 {userProfileData?.map((item) => (
-                  <Col lg="3" md="4" sm="6" className="mb-4">
+                  <Col lg="2" md="4" sm="6" style={{ margin: "15px" }}>
                     <UserProfileCard item={item} />
                   </Col>
                 ))}
               </Row>
             </Container>
           </section>
+          <br />
           <ColonyGallery />
         </>
       )}

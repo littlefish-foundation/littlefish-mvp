@@ -2,8 +2,29 @@ import React, { useRef, useEffect } from "react";
 import "./header.css";
 import { Container } from "reactstrap";
 import abstract from "../../assets/avatarsAndImages/abstract.png";
+import Dropdown from "react-bootstrap/Dropdown";
+import NavItem from "react-bootstrap/NavItem";
+import NavLink1 from "react-bootstrap/NavLink";
 
 import { NavLink, Link } from "react-router-dom";
+
+const DropDownElement = (
+  <div>
+    <Dropdown as={NavItem}>
+      <Dropdown.Toggle as={NavLink1}>Create</Dropdown.Toggle>
+      <Dropdown.Menu style={{ background: "rgb(20, 20, 30)" }}>
+        <Dropdown.Item>
+          <Link to="/create">Action</Link>
+        </Dropdown.Item>
+        <Dropdown.Item>
+          <Link to="/MemberForm">Member</Link>
+        </Dropdown.Item>
+        <Dropdown.Item disabled>Colony</Dropdown.Item>
+      </Dropdown.Menu>
+    </Dropdown>
+  </div>
+);
+
 
 const NAV__LINKS = [
   {
@@ -15,9 +36,10 @@ const NAV__LINKS = [
     url: "/colony",
   },
   {
-    display: "Create",
-    url: "/create",
+    display: DropDownElement,
+    url: "#",
   },
+
   {
     display: "About",
     url: "/about",

@@ -22,10 +22,11 @@ const Routers = () => {
       <Route path="/wallet" element={<Wallet />} />
       <Route path="/create" element={<Create />} />
       <Route path="/about" element={<About />} />
+      <Route path="/MemberForm" element={<MemberForm />} />
+
 
       <Route path="/colony" element={<Colony />} />
       <Route path="/colony/:name" element={<ColonyDetails />} />
-      <Route path="/colony/:name/MemberForm" element={<MemberForm />} />
       <Route path="/user/:name" element={<MemberProfile/>} />
 
       <Route path="/action/:_id" element={<NftDetails />} />

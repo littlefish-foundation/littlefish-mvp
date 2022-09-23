@@ -7,7 +7,7 @@ const ActionSale = new mongoose.Schema({
   paymentLink: { type: String, required: true },
   paymentAddress: { type: String, required: true },
   price: { type: Number, required: true },
-  colony: { ref: 'Colony', type: mongoose.Schema.Types.ObjectId },
+  colony: { type: String, required: true },
   action: { ref: 'Action', type: mongoose.Schema.Types.ObjectId },
   createdAt: { type: Date, default: Date.now },
   updatedAt: { type: Date, default: Date.now },

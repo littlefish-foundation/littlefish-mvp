@@ -12,15 +12,21 @@ const DropDownElement = (
     <Dropdown as={NavItem}>
       <Dropdown.Toggle as={NavLink1}>Create</Dropdown.Toggle>
       <Dropdown.Menu style={{ background: "rgb(20, 20, 30)" }}>
-        <Dropdown.Item as={NavLink} to="/create">
+        <Dropdown.Item as={NavLink} to="/create" style={{ fontWeight: "900" }}>
           Create new Action
         </Dropdown.Item>
 
-        <Dropdown.Item as={NavLink} to="/MemberForm">
+        <Dropdown.Item
+          as={NavLink}
+          to="/MemberForm"
+          style={{ fontWeight: "900" }}
+        >
           Become a Member
         </Dropdown.Item>
 
-        <Dropdown.Item disabled>Create a Colony</Dropdown.Item>
+        <Dropdown.Item style={{ fontWeight: "900" }} disabled>
+          Create a Colony
+        </Dropdown.Item>
       </Dropdown.Menu>
     </Dropdown>
   </div>

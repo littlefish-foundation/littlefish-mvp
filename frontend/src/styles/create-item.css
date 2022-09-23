@@ -76,13 +76,13 @@ html {
 }
 
 .cancel-btn-first {
-  background-color: rgb(239, 149, 149) !important;
+  background-color:#70707c !important;
   width: 80px;
   height: 40px;
 }
 
 .add-btn-second {
-  background-color: rgb(110, 221, 184) !important;
+  background-color: #f0e481 !important;
   width: 80px;
   height: 40px;
 }

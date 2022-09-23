@@ -493,9 +493,9 @@ const Create = (props) => {
                       </Button>
                     </div>
                   </FormGroup>
-                  <br />
+                  
                   <Button
-                    style={{ backgroundColor: "#5142fc", width: "185px" }}
+                    style={{ backgroundColor: "#70582a", width: "185px", marginTop: "1px", marginBottom: "10px" }}
                     onClick={handleFinalSubmit}
                   >
                     Submit

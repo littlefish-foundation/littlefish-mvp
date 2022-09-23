@@ -42,8 +42,7 @@ module.exports = class ActionService {
 
   static async syncActionStatus(id) {
     const { chainID, actionCollection } = await this.getActionById(id);
-    console.log({ chainID, actionCollection });
-    // TODO action response obj
+
     const { action } = await tangocryptoClient.getAction(chainID, actionCollection);
 
     await actionDataAccess.syncActionStatus(id, action.status);
@@ -89,6 +88,7 @@ module.exports = class ActionService {
     for (let i = 0; i < action.actionTypes.length; i++) {
       promises.push(this.handleMintActionTypes(action.actionTypes[i]));
     }
+
     promises.push(actionDataAccess.createAction({
       assetName: mintedAction.asset_name,
       chainID: mintedAction.id,
@@ -101,8 +101,6 @@ module.exports = class ActionService {
       mediaType: mintedAction.media_type,
       links: action.links,
       image: actionLogic.prepareImageURL(mintedAction.image),
-      imageBase64: action.image,
-      filesBase64: action.files,
       status: mintedAction.status,
       actionTypes: action.actionTypes,
       files: preparedFiles,

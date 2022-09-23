@@ -16,6 +16,9 @@ module.exports = class ActionSaleService {
   }
 
   static async deleteActionSaleByActionID(id) {
+    const { saleID, chainActionID, actionCollection } = await this.getSaleByActionID(id);
+    await tangocryptoClient.deleteActionSale(saleID, chainActionID, actionCollection);
+
     const success = await actionSaleDataAccess.deleteActionSaleByActionID(id);
 
     return {
@@ -34,12 +37,13 @@ module.exports = class ActionSaleService {
     const { createdSale } = await tangocryptoClient.createActionSale(action.chainID, loveLacePrice, action.actionCollection);
 
     const sale = {
-      saleId: createdSale.id,
+      saleID: createdSale.id,
       chainActionID: action.chainID,
       paymentLink: createdSale.payment_link,
       paymentAddress: createdSale.payment_address,
       colony: action.colony,
       action: action._id,
+      actionCollection: action.actionCollection,
       status: createdSale.status,
       price,
     };

@@ -10,20 +10,15 @@ module.exports = class ActionDataAccess {
   }
 
   static async createAction(action) {
-    // TODO RESPONSE OF CREATE ACTION
     return ActionModel.create(action);
   }
 
   static async deleteActionById(id) {
     const { ok } = await ActionModel.findByIdAndDelete(id);
-    if (ok === 1) {
-      return true;
-    }
-    return false;
+    return ok === 1;
   }
 
   static async syncActionStatus(id, status) {
-    // TODO response
     return ActionModel.findByIdAndUpdate(id, { status });
   }
 
@@ -40,12 +35,11 @@ module.exports = class ActionDataAccess {
       ...(colony ? { colony } : undefined),
       ...(minDate ? { createdAt: { $gte: minDate } } : undefined),
       ...(maxDate ? { createdAt: { $lte: maxDate } } : undefined),
-      ...(ownerName ? { ownerName } : undefined),
+      ...(ownerName ? { $regex: ownerName, $options: 'i' } : undefined),
       ...(type ? { actionTypes: type } : undefined),
       ...(assetName ? { assetName: { $regex: assetName, $options: 'i' } } : undefined),
       ...(status ? { status } : undefined),
-    })
-      .skip(page * limit).limit(limit)
+    }).skip(page * limit).limit(limit)
       .sort({
         ...(sortingField ? { sortingField: sortingOrder } : undefined),
       })

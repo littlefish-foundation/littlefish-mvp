@@ -70,7 +70,7 @@ module.exports = class TangocryptoClient {
     };
   }
 
-  static async getSale(actionID, collectionID) {
+  static async getActionSale(actionID, collectionID) {
     const options = {
       method: 'GET',
       url: `${config.actionServiceClient.url}v1/nft/collections/${collectionID}/sales/${actionID}`,
@@ -84,6 +84,24 @@ module.exports = class TangocryptoClient {
 
     return {
       sale: response.data,
+    };
+  }
+
+  static async deleteActionSale(saleID, actionChainID, collectionID) {
+    const options = {
+      method: 'POST',
+      url: `${config.actionServiceClient.url}v1/nft/collections/${collectionID}/tokens/${actionChainID}/sales/${saleID}`,
+      headers: {
+        'Content-Type': 'application/json',
+        'x-api-key': config.actionServiceClient.apiKey,
+      },
+      data: {},
+    };
+
+    const response = await this.actionRequestSender(options, 201);
+
+    return {
+      deletedSale: response.data,
     };
   }
 

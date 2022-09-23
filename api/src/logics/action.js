@@ -24,6 +24,25 @@ module.exports = class ActionLogic {
     return preparedFiles;
   }
 
+  static prepareFilesToMint(files) {
+    const actionFiles = [];
+    (files || []).forEach((file) => {
+      actionFiles.push({
+        metadata_attributes: [
+          {
+            value: 'image/jpeg',
+            tag: '<mime_type>',
+          },
+          {
+            value: file,
+            tag: '<src>',
+          },
+        ],
+      });
+    });
+    return actionFiles;
+  }
+
   static prepareLinksToMint(links) {
     const actionLinks = [];
     const collectionLinkAttributes = {};
@@ -72,6 +91,7 @@ module.exports = class ActionLogic {
           media_type: action.mediaType,
           image: action.image,
           ...(action.price ? { price: action.price * ADA_TO_LOVELACE_CONVERSION } : undefined),
+          files: this.prepareFilesToMint(action.files),
           metadata_attributes: [
             {
               tag: ACTION_METADATA_ATTRIBUTES.OWNER_NAME,

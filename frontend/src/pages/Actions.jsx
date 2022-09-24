@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import SubHeader from "../components/UserInterface/Sub-Header/SubHeader";
 import NftCard from "../components/UserInterface/Nft-card/NftCard";
-import useFetch from "../Hooks/useFetch";
 import { Container, Row, Col } from "reactstrap";
 import "../styles/actions.css";
 import "../components/UserInterface/Live-auction/live-auction.css";
@@ -114,11 +113,10 @@ const Actions = () => {
                   display: "flex",
                   justifyContent: "center",
                   alignItems: "center",
-                  height: "100vh",
+                  height: "50vh",
                 }}
               >
-                {" "}
-                No Results
+                <RotatingLines color="#fff" />
               </div>
             )}
           </Row>

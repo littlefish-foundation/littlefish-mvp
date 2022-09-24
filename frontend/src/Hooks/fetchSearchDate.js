@@ -5,6 +5,8 @@ export const api = axios.create({
 });
 
 export const getActions = async () => {
-    const response = await api.get("/action/");
+    const response = await api.get("/action/").catch((err) => {
+        console.log("Error: ", err);
+    });
     return response.data;
 };

@@ -1,7 +1,6 @@
 import React from "react";
 import ErrorIcon from "@mui/icons-material/Error";
 import { useNavigate } from "react-router-dom";
-
 import "./modal.css";
 
 const ErrorModal = ({ setShowModal }) => {

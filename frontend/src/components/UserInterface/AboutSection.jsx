@@ -1,9 +1,8 @@
 import React from "react";
 import { Container, Row, Col } from "reactstrap";
 import "./about-section.css";
-
-import heroImg from "../../assets/avatarsAndImages/proofOfActivity.png";
-import fishColony from "../../assets/avatarsAndImages/fishColony.jpeg";
+import heroImg from "../../assets/proofOfActivity.png";
+import fishColony from "../../assets/fishColony.jpeg";
 
 const AboutSection = () => {
   return (

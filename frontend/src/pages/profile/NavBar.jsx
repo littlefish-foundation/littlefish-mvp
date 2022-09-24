@@ -1,10 +1,7 @@
 import React, { useState } from "react";
-
 import Tab from "react-bootstrap/Tab";
 import Tabs from "react-bootstrap/Tabs";
-
 import UserGallery from "./userGallery";
-
 import "./navbar.css";
 
 function NavBar(props) {

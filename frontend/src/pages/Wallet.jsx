@@ -10,8 +10,8 @@ import {
   Button,
 } from "reactstrap";
 import "../styles/wallet.css";
-import Typhon from "../assets/avatarsAndImages/typhon.svg";
-import Nami from "../assets/avatarsAndImages/Nami.svg";
+import Typhon from "../assets/typhon.svg";
+import Nami from "../assets/Nami.svg";
 import AbsentNamiWalletModal from "../components/UserInterface/Modal/AbsentNamiWalletModal";
 import NamiAddressModal from "../components/UserInterface/Modal/NamiAddressModal";
 import DisconnectedModal from "../components/UserInterface/Modal/DisconnectedModal";
@@ -23,17 +23,10 @@ const Wallet = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [nfts, setNfts] = useState([]);
-  const [connected, setConnected] = useState();
-  const [balance, setBalance] = useState();
   const [account, setAccount] = useState("");
   const [showModal, setShowModal] = useState(false);
   const [showModalDisconnect, setShowModalDisconnect] = useState(false);
   const [namiCheck, setNamiCheck] = useState(null);
-  const [policy, setPolicy] = useState("");
-  const [postStatus, setPostStatus] = useState(null);
-
-  const [assets, setAssets] = useState([]);
-  const [walletAddress, setWalletAddress] = useState("");
 
   const connectTyphonWallet = () => {
     var typhon;
@@ -162,7 +155,7 @@ const Wallet = () => {
             Connect Wallet
           </h2>
           <Row>
-            <Col lg="12" ></Col>
+            <Col lg="12"></Col>
 
             <Col>
               <div className="wallet__item">

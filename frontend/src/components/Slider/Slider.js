@@ -15,7 +15,8 @@ export default function Slider() {
   // console.log(displayDataArray);
 
   const coverImage = {
-    src: "data:" + actionData?.mediaType + ";base64," + actionData?.imageBase64,
+    // src: "data:" + actionData?.mediaType + ";base64," + actionData?.imageBase64,
+    src: actionData?.image,
   };
 
   displayDataArray.push(coverImage);

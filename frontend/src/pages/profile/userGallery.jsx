@@ -32,7 +32,7 @@ const UserGallery = (props) => {
       });
   }, []);
   return (
-    <>
+    <div>
       <section>
         <Container style={{ backgroundColor: "transparent !important" }}>
           <Row>
@@ -44,7 +44,7 @@ const UserGallery = (props) => {
           </Row>
         </Container>
       </section>
-    </>
+    </div>
   );
 };
 

@@ -1,7 +1,5 @@
 import React from "react";
-
 import { TbPlugConnectedX } from "react-icons/tb";
-
 import "./modal.css";
 
 const AbsentNamiWalletModal = ({ setShowModal }) => {
@@ -13,7 +11,6 @@ const AbsentNamiWalletModal = ({ setShowModal }) => {
             class="ri-close-line"
             onClick={() => {
               setShowModal(false);
-              //window.location.reload();
             }}
           ></i>
         </span>

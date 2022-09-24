@@ -9,11 +9,15 @@ function useFetch(url) {
   useEffect(() => {
     setLoading(true);
     axios
-      .get(url, { params: { limit: 10 } })
+      .get(url, {
+        params: { limit: 10 },
+      })
       .then((response) => {
+        console.log(response.data);
         setNFT__DATA(response.data);
       })
       .catch((err) => {
+        console.log({ err });
         setError(err);
       })
       .finally(() => {

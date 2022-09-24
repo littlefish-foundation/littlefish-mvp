@@ -6,7 +6,7 @@ import useFetch2 from "../Hooks/useFetch2";
 import "../styles/ColonyDetails.css";
 import useGetUserProfileData from "../Hooks/getUserProfileData";
 import ColonyGallery from "../components/colonies/ColonyGallery";
-import cardanoIcon from "../assets/avatarsAndImages/cardano.png";
+import cardanoIcon from "../assets/cardano.png";
 import { RotatingLines } from "react-loader-spinner";
 import UserProfileCard from "../components/userProfileCard/UserProfileCard";
 import { Link } from "react-router-dom";

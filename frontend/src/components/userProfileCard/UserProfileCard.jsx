@@ -1,12 +1,11 @@
 import React from "react";
-
 import { CardBody, CardText } from "reactstrap";
 import { Link } from "react-router-dom";
-
 import "./userProfileCard.css";
 
 const UserProfileCard = (props) => {
-  const { _id, name, walletAddress, colony, avatar, bio, createdAt } = props.item;
+  const { _id, name, walletAddress, colony, avatar, bio, createdAt } =
+    props.item;
   return (
     <Link
       to={`/user/${name}`}

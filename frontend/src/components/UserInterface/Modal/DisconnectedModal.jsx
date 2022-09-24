@@ -1,7 +1,5 @@
 import React from "react";
-
 import { TbPlugConnectedX } from "react-icons/tb";
-
 import "./modal.css";
 
 const DisconnectedModal = ({ setShowModalDisconnect }) => {

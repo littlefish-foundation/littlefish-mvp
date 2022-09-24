@@ -1,7 +1,7 @@
 import React, { useRef, useEffect } from "react";
 import "./header.css";
 import { Container } from "reactstrap";
-import abstract from "../../assets/avatarsAndImages/abstract.png";
+import abstract from "../../assets/abstract.png";
 import Dropdown from "react-bootstrap/Dropdown";
 import NavItem from "react-bootstrap/NavItem";
 import NavLink1 from "react-bootstrap/NavLink";

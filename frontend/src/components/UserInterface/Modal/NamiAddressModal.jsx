@@ -1,13 +1,10 @@
 import React from "react";
-
 import { TbPlugConnected } from "react-icons/tb";
 import { useNavigate } from "react-router-dom";
 import LockOpenIcon from "@mui/icons-material/LockOpen";
 import { Button } from "reactstrap";
-
 import "./modal.css";
-import cardanoIcon from "../../../assets/avatarsAndImages/cardano-ada-icon.png";
-
+import cardanoIcon from "../../../assets/cardano-ada-icon.png";
 import Wallet from "../../../pages/Wallet";
 import { useSlotProps } from "@mui/base";
 

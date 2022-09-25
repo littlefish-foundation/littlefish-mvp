@@ -35,7 +35,12 @@ module.exports = class ActionSaleService {
 
     const previousSale = await actionSaleDataAccess.getSaleByActionID(actionID);
     if (previousSale) {
-      await this.deleteActionSaleByActionID(actionID);
+      try {
+        await this.deleteActionSaleByActionID(actionID);
+      } catch (err) {
+        console.log(err);
+        await actionSaleDataAccess.deleteActionSaleByActionID(actionID);
+      }
     }
 
     const loveLacePrice = price * ADA_TO_LOVELACE_CONVERSION;

@@ -33,6 +33,11 @@ module.exports = class ActionSaleService {
       throw new BadRequestError(`Price should be equal to or greater than ${action.minimumPrice}`);
     }
 
+    const previousSale = await actionSaleDataAccess.getSaleByActionID(actionID);
+    if (previousSale) {
+      await this.deleteActionSaleByActionID(actionID);
+    }
+
     const loveLacePrice = price * ADA_TO_LOVELACE_CONVERSION;
     const { createdSale } = await tangocryptoClient.createActionSale(action.chainID, loveLacePrice, action.actionCollection);
 

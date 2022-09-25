@@ -35,7 +35,7 @@ module.exports = class ActionDataAccess {
       ...(colony ? { colony } : undefined),
       ...(minDate ? { createdAt: { $gte: minDate } } : undefined),
       ...(maxDate ? { createdAt: { $lte: maxDate } } : undefined),
-      ...(ownerName ? { $regex: ownerName, $options: 'i' } : undefined),
+      ...(ownerName ? { ownerName: { $regex: ownerName, $options: 'i' } } : undefined),
       ...(type ? { actionTypes: type } : undefined),
       ...(assetName ? { assetName: { $regex: assetName, $options: 'i' } } : undefined),
       ...(status ? { status } : undefined),

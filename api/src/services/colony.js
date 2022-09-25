@@ -10,8 +10,7 @@ module.exports = class ColonyService {
       throw new NotFoundError(`The colony with name: ${name} is not found.`);
     }
 
-    const colonyMembers = await userDataAccess.getUsersByColony(colony._id, 1, 20, 'name avatar');
-    colony.members = colonyMembers;
+    colony.members = await userDataAccess.getUsersByColony(colony._id, 1, 20, 'name avatar');
 
     return colony;
   }

@@ -53,11 +53,7 @@ module.exports = class ActionService {
   }
 
   static async getActions(colonyName, filter, sorter, page, limit) {
-    let colony;
-    if (colonyName) {
-      colony = await colonyDataAccess.getColonyByName(colonyName);
-    }
-    const actions = await actionDataAccess.getActions(colony?._id, filter, sorter, page, limit);
+    const actions = await actionDataAccess.getActions(colonyName, filter, sorter, page, limit);
 
     return formatActions(actions);
   }

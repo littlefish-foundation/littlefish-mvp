@@ -1,6 +1,6 @@
 import React from "react";
 import abstract from "../../assets/abstract.png";
-import { Container, Row, Col, ListGroup, ListGroupItem } from "reactstrap";
+import { Container, Row, Col } from "reactstrap";
 import "./footer.css";
 import { Link } from "react-router-dom";
 
@@ -9,7 +9,7 @@ const Footer = () => {
     <footer className="footer">
       <Container>
         <Row>
-          <Col lg="3" md="6" sm="6" className="mb-4">
+          <Col lg="12" md="6" sm="6" className="mb-4">
             <div className="logo">
               <h2 className=" d-flex gap-2 align-items-center ">
                 <span>
@@ -24,10 +24,7 @@ const Footer = () => {
                 | littlefish
               </h2>
             </div>
-          </Col>
 
-          <Col lg="3" md="6" sm="6" className="mb-4">
-            <h5>Follow us</h5>
             <div className="social__links d-flex gap-3 align-items-center ">
               <span>
                 <Link to="#">

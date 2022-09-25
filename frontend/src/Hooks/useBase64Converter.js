@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 
 function useBase64Converter() {
   const [imgBase64, setImgBase64] = useState([]);
@@ -24,7 +24,6 @@ function useBase64Converter() {
       };
     });
   };
-
 
   const onChangeImgFile = (e) => {
     const imgFileAry = e.target.files;

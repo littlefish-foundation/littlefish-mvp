@@ -1,30 +1,12 @@
 import React, { useState } from "react";
 import SubHeader from "../../components/UserInterface/Sub-Header/SubHeader";
 import { Container, Row, Col } from "reactstrap";
-import { Button, Form, FormGroup, Input, Label, FormText } from "reactstrap";
+import { Button, Form, FormGroup, Input, Label } from "reactstrap";
 import "./MemberForm.css";
 import useBase64Converter from "../../Hooks/useBase64Converter";
 
 const MemberForm = () => {
   const maxCount = 90;
-  const customStyles = {
-    control: (base, state) => ({
-      ...base,
-      backgroundColor: "transparent",
-      border: "1px solid rgba(221, 221, 221, 0.171)",
-      fontSize: "0.8rem",
-      alignText: "left !important",
-    }),
-    menu: (base) => ({
-      ...base,
-      borderRadius: 0,
-      marginTop: 0,
-    }),
-    menuList: (base) => ({
-      ...base,
-      padding: 0,
-    }),
-  };
 
   const initialInput = {
     walletAddress: "",
@@ -76,10 +58,12 @@ const MemberForm = () => {
       <section>
         <Container>
           <Row>
-            <Col lg="3" md="4" sm="6">
-              <h5 className="mb-4 text-light"></h5>
-            </Col>
-            <Col lg="8" md="8" sm="6">
+            <Col
+              lg="8"
+              md="8"
+              sm="6"
+              style={{ marginLeft: "auto", marginRight: "auto" }}
+            >
               <h2
                 style={{
                   color: "white",

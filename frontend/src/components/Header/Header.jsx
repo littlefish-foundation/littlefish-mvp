@@ -1,16 +1,16 @@
 import React, { useRef, useEffect } from "react";
-import "./header.css";
 import { Container } from "reactstrap";
 import abstract from "../../assets/abstract.png";
 import Dropdown from "react-bootstrap/Dropdown";
 import NavItem from "react-bootstrap/NavItem";
-import NavLink1 from "react-bootstrap/NavLink";
-import { NavLink, Link } from "react-router-dom";
+import NavLinkBootstrap from "react-bootstrap/NavLink";
+import { NavLink } from "react-router-dom";
+import "./header.css";
 
 const DropDownElement = (
   <div>
     <Dropdown as={NavItem}>
-      <Dropdown.Toggle as={NavLink1}>Create</Dropdown.Toggle>
+      <Dropdown.Toggle as={NavLinkBootstrap}>Create</Dropdown.Toggle>
       <Dropdown.Menu style={{ background: "rgb(20, 20, 30)" }}>
         <Dropdown.Item as={NavLink} to="/create" style={{ fontWeight: "900" }}>
           Create new Action
@@ -111,7 +111,7 @@ const Header = () => {
           </div>
 
           <div className="nav__right d-flex align-items-center gap-5 ">
-            <Link
+            <NavLink
               to="/wallet"
               style={{ textDecoration: "none", color: "inherit" }}
             >
@@ -137,7 +137,7 @@ const Header = () => {
 
                 {address !== 0 ? "Wallet Connected" : "Connect Wallet"}
               </button>
-            </Link>
+            </NavLink>
 
             <span className="mobile__menu">
               <i className="ri-menu-line" onClick={toggleMenu}></i>

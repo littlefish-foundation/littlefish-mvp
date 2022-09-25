@@ -19,10 +19,10 @@ const NftDetails = () => {
   const [dataPost, setDataPost] = useState();
   const toggle = () => setIsOpen(!isOpen);
 
-  const { _id, minimumPrice, actionCollection } = useParams();
+  const { _id } = useParams();
   const [price, setPrice] = useState();
-  const [paymentLinks, setPaymentLinks] = useState();
-  const [paymentLinkGet, setPaymentLinkGet] = useState();
+  const [paymentLinks, setPaymentLinks] = useState(null);
+  const [paymentLinkGet, setPaymentLinkGet] = useState(null);
 
   const { actionData, loadingActionData } = useFetchByActionID(
     `https://api.littlefish.foundation/action/${_id}`
@@ -66,7 +66,7 @@ const NftDetails = () => {
       .catch((err) => {
         console.log("Error:", err.message);
       });
-  }, [paymentLinks, paymentLinkGet]);
+  }, [paymentLinkGet, paymentLinks]);
   console.log(paymentLinks);
   console.log(dataPost);
 
@@ -108,9 +108,7 @@ const NftDetails = () => {
                 </h2>
                 <Row style={{ paddingLeft: "2%" }}>
                   <Col lg="6" md="6" sm="6">
-
-                      <Slider />
-                 
+                    <Slider />
                   </Col>
                   <br />
 
@@ -128,9 +126,7 @@ const NftDetails = () => {
                           <h6>Created By: {actionData?.ownerName} </h6>
                         </div>
                       </div>
-
                       <br />
-
                       <div className="nft__creator d-flex gap-3 align-items-center">
                         <IoMdPricetags
                           style={{
@@ -143,9 +139,7 @@ const NftDetails = () => {
                           <h6>Minimum Price: {actionData?.minimumPrice} ADA</h6>
                         </div>
                       </div>
-
                       <br />
-
                       <div className="nft__creator d-flex gap-3 align-items-center">
                         <BsCalendarDateFill
                           style={{
@@ -162,9 +156,7 @@ const NftDetails = () => {
                           </h6>
                         </div>
                       </div>
-
                       <br />
-
                       <div className="nft__creator d-flex gap-3 align-items-center">
                         <div className="creator__detail">
                           <MdDescription
@@ -193,16 +185,15 @@ const NftDetails = () => {
                           </div>
                         </div>
                       </Link>
-
                       <br />
-
-                      <div>
+                      <div style={{ marginLeft: "100px" }}>
                         <Button
                           color="primary"
                           onClick={toggle}
                           style={{
                             marginBottom: "0.7rem",
-                            width: "42%",
+                            width: "35%",
+
                             height: "65px",
                           }}
                           // className="singleNft-btn d-flex align-items-center gap-1"
@@ -210,25 +201,23 @@ const NftDetails = () => {
                           Reward Action
                         </Button>
                         &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
-                        <div>
-                          <a
-                            href={paymentLinkGet}
-                            target="_blank"
-                            rel="noreferrer"
+                        <a
+                          href={paymentLinkGet}
+                          target="_blank"
+                          rel="noreferrer"
+                        >
+                          <Button
+                            color="success"
+                            style={{
+                              marginBottom: "0.7rem",
+                              width: "35% ",
+                              height: "65px",
+                            }}
                           >
-                            <Button
-                              color="success"
-                              style={{
-                                marginBottom: "0.7rem",
-                                width: "43%",
-                                height: "65px",
-                                marginLeft: "5px",
-                              }}
-                            >
-                              <i className="ri-shopping-bag-line"></i>
-                            </Button>
-                          </a>
-                        </div>
+                            <i className="ri-shopping-bag-line"></i>
+                            Get Action
+                          </Button>
+                        </a>
                       </div>
                       <Collapse className="collapse__card" isOpen={isOpen}>
                         <Card

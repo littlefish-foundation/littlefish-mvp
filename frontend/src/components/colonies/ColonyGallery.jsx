@@ -1,4 +1,4 @@
-import React, { useParams } from "react";
+import React from "react";
 import NftCard from "../UserInterface/Nft-card/NftCard";
 import useFetch from "../../Hooks/useFetch";
 import { Container, Row, Col } from "reactstrap";

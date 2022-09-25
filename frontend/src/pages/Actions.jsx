@@ -51,9 +51,8 @@ const Actions = () => {
                   <div className="all__category__filter">
                     <select
                       onChange={(e) => setTags(e.target.value)}
-                      value={tags}
                     >
-                      <option value="null">All categories</option>
+                      <option>All categories</option>
                     </select>
                   </div>
 
@@ -80,11 +79,7 @@ const Actions = () => {
 
                 <div className="filter__right">
                   <select>
-                    <option>Sort By</option>
-                    <option value="newest">Newest</option>
-                    <option value="oldest">Oldest</option>
-                    <option value="A->Z">A-Z</option>
-                    <option value="Z->A">Z-A</option>
+                    <option disabled>Sort By</option>
                   </select>
                 </div>
               </div>
@@ -103,8 +98,8 @@ const Actions = () => {
 
             {searchResults.length ? (
               searchResults.map((item) => (
-                <Col lg="3" md="4" sm="6" className="mb-4">
-                  <NftCard item={item} key={item._id} />
+                <Col lg="3" md="4" sm="6" className="mb-4" key={item?.tokenId}>
+                  <NftCard item={item} key={item?.tokenId} />
                 </Col>
               ))
             ) : (

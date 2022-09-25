@@ -27,7 +27,7 @@ let months = [
 ];
 
 const MemberProfile = (props) => {
-  const { name, colony } = useParams();
+  const { name } = useParams();
 
   const { userData, loadingUserData } = useGetOneUserData(
     `https://api.littlefish.foundation/user/${name}`
@@ -128,10 +128,7 @@ const MemberProfile = (props) => {
           </section>
 
           <section>
-            <NavBar
-              ownerName={userData?.name}
-              colonyName={userData?.colony}
-            />
+            <NavBar ownerName={userData?.name} />
           </section>
         </div>
       )}

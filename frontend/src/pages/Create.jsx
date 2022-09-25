@@ -21,7 +21,6 @@ import SuccessModal from "../components/UserInterface/Modal/SuccessModal";
 import ErrorModal from "../components/UserInterface/Modal/ErrorModal";
 import LoadingModal from "../components/UserInterface/Modal/LoadingModal";
 import useFetchForPopularActionType from "../Hooks/getPopularActionType";
-import "../components/tags/Tags.css";
 import DnDComponent from "../dndcomp/DnDComponent";
 
 const Create = (props) => {
@@ -69,12 +68,9 @@ const Create = (props) => {
   const [showModal, setShowModal] = useState(false);
   const [imageData, setImageData] = useState("");
   const [eachEntry, setEachEntry] = useState(initialInputState);
-  const [files, setFiles] = useState([]);
   const [colonyName1, setColonyName1] = useState("");
   const [postStatus, setPostStatus] = useState(null);
   const [actionTypes, setActionTypes] = useState(["research"]);
-
-  const [newActionType, setNewActionType] = useState();
   const [allUrls, setAllUrls] = useState([{ urlName: "", url: "" }]);
 
   console.log(actionTypes);

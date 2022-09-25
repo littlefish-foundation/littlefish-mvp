@@ -12,7 +12,7 @@ import UserProfileCard from "../components/userProfileCard/UserProfileCard";
 
 const ColonyDetails = () => {
   const { name } = useParams();
-  const { COLONY__DATA, loadingColony } = useFetch2(
+  const { COLONY__DATA } = useFetch2(
     "https://api.littlefish.foundation/colony/"
   );
   const singleColony = COLONY__DATA?.find((item) => item.name === name);

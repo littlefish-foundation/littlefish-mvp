@@ -6,10 +6,8 @@ import "./navbar.css";
 
 function NavBar(props) {
   const [key, setKey] = useState("created");
-  const [dropdownOpen, setDropdownOpen] = useState(false);
   let ownerName = props.ownerName;
   let colonyName = props.colonyName;
-  const toggle = () => setDropdownOpen(!dropdownOpen);
 
   return (
     <div>

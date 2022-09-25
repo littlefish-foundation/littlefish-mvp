@@ -12,7 +12,7 @@ const UserSuccessModal = ({ setShowModal }) => {
     "https://api.littlefish.foundation/user/"
   );
   const navigateActions = () => {
-    navigate("/action/Littlefish%20Foundation");
+    navigate("/colony/Littlefish%20Foundation");
   };
 
   return (

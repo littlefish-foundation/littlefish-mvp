@@ -126,7 +126,7 @@ const ColonyDetails = () => {
               <Row>
                 <div style={{ display: "flex", justifyContent: "center" }}>
                   {userProfileData?.map((item) => (
-                    <Col lg="2" md="4" sm="6" style={{ margin: "15px" }}>
+                    <Col lg="3" md="4" sm="6" style={{ margin: "15px" }}>
                       <UserProfileCard item={item} />
                     </Col>
                   ))}

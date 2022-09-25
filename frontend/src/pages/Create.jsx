@@ -207,7 +207,7 @@ const Create = (props) => {
               marginBottom: "30px ",
             }}
           >
-            Generate New Action
+            Create New Action
           </h2>
           <Row>
             <Col lg="3" md="4" sm="6">

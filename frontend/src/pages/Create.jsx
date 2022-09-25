@@ -26,7 +26,7 @@ import DnDComponent from "../dndcomp/DnDComponent";
 const Create = (props) => {
   const actionInitialState = {
     assetName: "Whitepaper",
-    imagesBase64: img,
+    image: img,
     ownerName: "Littlefish DAO",
     price: "20",
   };

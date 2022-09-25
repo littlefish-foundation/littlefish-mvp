@@ -83,7 +83,7 @@ const NftDetails = () => {
           />
         </div>
       ) : (
-        <>
+        <React.Fragment>
           <SubHeader />
           <section>
             <Container>
@@ -108,7 +108,9 @@ const NftDetails = () => {
                 </h2>
                 <Row style={{ paddingLeft: "2%" }}>
                   <Col lg="6" md="6" sm="6">
-                    <Slider />
+
+                      <Slider />
+                 
                   </Col>
                   <br />
 
@@ -269,7 +271,7 @@ const NftDetails = () => {
               </div>
             </Container>
           </section>
-        </>
+        </React.Fragment>
       )}
     </div>
   );

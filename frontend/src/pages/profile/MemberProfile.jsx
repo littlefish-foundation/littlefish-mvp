@@ -27,7 +27,7 @@ let months = [
 ];
 
 const MemberProfile = (props) => {
-  const { name } = useParams();
+  const { name, colony } = useParams();
 
   const { userData, loadingUserData } = useGetOneUserData(
     `https://api.littlefish.foundation/user/${name}`
@@ -106,7 +106,7 @@ const MemberProfile = (props) => {
                   </div>
 
                   <div>
-                    <img src={cardanoIcon} className="cardano__icon" />
+                    <img src={cardanoIcon} alt="" className="cardano__icon" />
                     <Button
                       className="wallet__id__btn"
                       value={walletID}
@@ -128,7 +128,10 @@ const MemberProfile = (props) => {
           </section>
 
           <section>
-            <NavBar ownerName={userData?.name} />
+            <NavBar
+              ownerName={userData?.name}
+              colonyName={userData?.colony}
+            />
           </section>
         </div>
       )}

@@ -9,7 +9,6 @@ import ColonyGallery from "../components/colonies/ColonyGallery";
 import cardanoIcon from "../assets/cardano.png";
 import { RotatingLines } from "react-loader-spinner";
 import UserProfileCard from "../components/userProfileCard/UserProfileCard";
-import { Link } from "react-router-dom";
 
 const ColonyDetails = () => {
   const { name } = useParams();
@@ -41,7 +40,7 @@ const ColonyDetails = () => {
           />
         </div>
       ) : (
-        <>
+        <div>
           <SubHeader />
           <section>
             <Container>
@@ -60,7 +59,11 @@ const ColonyDetails = () => {
                     <div className="colony__creator d-flex gap-3 align-items-center">
                       <div className="owner__detail">
                         <div>
-                          <img src={cardanoIcon} className="cardano__icon" />
+                          <img
+                            src={cardanoIcon}
+                            alt=""
+                            className="cardano__icon"
+                          />
                           <Button className="wallet__id__btn">
                             {first10}..........{last10}
                           </Button>
@@ -132,8 +135,8 @@ const ColonyDetails = () => {
             </Container>
           </section>
           <br />
-          <ColonyGallery />
-        </>
+          <ColonyGallery colonyName={singleColony?.name} />
+        </div>
       )}
     </div>
   );

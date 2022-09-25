@@ -18,8 +18,6 @@ const UserProfileCard = (props) => {
         <CardBody>
           <br />
           <h5 className="user__title">{name}</h5>
-
-          <CardText></CardText>
         </CardBody>
       </div>
     </Link>

@@ -1,13 +1,15 @@
-import React from "react";
+import React, { useParams } from "react";
 import NftCard from "../UserInterface/Nft-card/NftCard";
 import useFetch from "../../Hooks/useFetch";
 import { Container, Row, Col } from "reactstrap";
 import "../../styles/actions.css";
 import "../../components/UserInterface/Live-auction/live-auction.css";
 
-const ColonyGallery = () => {
+const ColonyGallery = (props) => {
+  let colonyName = props.colonyName;
+
   const { NFT__DATA } = useFetch(
-    "https://api.littlefish.foundation/colony/{colonyName}/actions/"
+    `https://api.littlefish.foundation/colony/${colonyName}/actions/`
   );
 
   return (

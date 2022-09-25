@@ -11,9 +11,6 @@ import {
 } from "reactstrap";
 
 import useBase64Converter from "../Hooks/useBase64Converter";
-import Tags from "../components/tags/Tags";
-import axios from "axios";
-
 import SubHeader from "../components/UserInterface/Sub-Header/SubHeader";
 import NftCard from "../components/UserInterface/Nft-card/NftCard";
 import img from "../assets/example.png";
@@ -26,6 +23,7 @@ import LoadingModal from "../components/UserInterface/Modal/LoadingModal";
 import useFetchForPopularActionType from "../Hooks/getPopularActionType";
 import "../components/tags/Tags.css";
 import DnDComponent from "../dndcomp/DnDComponent";
+
 const Create = (props) => {
   const actionInitialState = {
     assetName: "Whitepaper",
@@ -434,7 +432,7 @@ const Create = (props) => {
 
                     <div>
                       {allUrls.length > 0 && (
-                        <>
+                        <React.Fragment>
                           {allUrls.map((field, index) => (
                             <div>
                               {" "}
@@ -476,7 +474,7 @@ const Create = (props) => {
                               </Row>
                             </div>
                           ))}
-                        </>
+                        </React.Fragment>
                       )}
                       <Button
                         className="cancel-btn-first"

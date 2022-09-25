@@ -4,8 +4,7 @@ import axios from "axios";
 import { Container, Row, Col } from "reactstrap";
 import "../../styles/actions.css";
 import "../../components/UserInterface/Live-auction/live-auction.css";
-import { BsDownload } from "react-icons/bs";
-import { RotatingLines } from "react-loader-spinner";
+
 
 // import LiveAuction from "../components/ui/Live-auction/LiveAuction";
 
@@ -19,7 +18,7 @@ const UserGallery = (props) => {
     setLoadingUserActions(true);
     axios
       .get(
-        `https://api.littlefish.foundation/colony/colonyName/actions?ownerName=${ownerName}`
+        `https://api.littlefish.foundation/colony/Littlefish%20Foundation/actions?ownerName=${ownerName}`
       )
       .then((response) => {
         setUserActions(response.data);

@@ -1,56 +1,8 @@
 import React from "react";
-import abstract from "../../assets/avatarsAndImages/abstract.png";
-
+import abstract from "../../assets/abstract.png";
 import { Container, Row, Col, ListGroup, ListGroupItem } from "reactstrap";
 import "./footer.css";
-
 import { Link } from "react-router-dom";
-
-const MY__ACCOUNT = [
-  {
-    display: "Create Action",
-    url: "/create",
-  },
-  {
-    display: "Action Collections",
-    url: "/action",
-  },
-
-];
-
-const RESOURCES = [
-  {
-    display: "Colonies",
-    url: "#",
-  },
-  {
-    display: "Partners",
-    url: "#",
-  },
-  {
-    display: "Community",
-    url: "#",
-  },
-  {
-    display: "Activities",
-    url: "#",
-  },
-];
-
-const COMPANY = [
-  {
-    display: "About us",
-    url: "#",
-  },
-  {
-    display: "Join us",
-    url: "#",
-  },
-  {
-    display: "Contact Us",
-    url: "/contact",
-  },
-];
 
 const Footer = () => {
   return (
@@ -74,42 +26,8 @@ const Footer = () => {
             </div>
           </Col>
 
-          <Col lg="2" md="3" sm="6" className="mb-4">
-            <h5>Activities</h5>
-            <ListGroup className="list__group">
-              {MY__ACCOUNT.map((item, index) => (
-                <ListGroupItem key={index} className="list__item">
-                  <Link to={item.url}> {item.display} </Link>
-                </ListGroupItem>
-              ))}
-            </ListGroup>
-          </Col>
-
-          <Col lg="2" md="3" sm="6" className="mb-4">
-            <h5>Resources</h5>
-            <ListGroup className="list__group">
-              {RESOURCES.map((item, index) => (
-                <ListGroupItem key={index} className="list__item">
-                  <Link to={item.url}> {item.display} </Link>
-                </ListGroupItem>
-              ))}
-            </ListGroup>
-          </Col>
-
-          <Col lg="2" md="3" sm="6" className="mb-4">
-            <h5>Organization</h5>
-            <ListGroup className="list__group">
-              {COMPANY.map((item, index) => (
-                <ListGroupItem key={index} className="list__item">
-                  <Link to={item.url}> {item.display} </Link>
-                </ListGroupItem>
-              ))}
-            </ListGroup>
-          </Col>
-
           <Col lg="3" md="6" sm="6" className="mb-4">
             <h5>Follow us</h5>
-            {/*<input type="text" className="newsletter" placeholder="Email" />*/}
             <div className="social__links d-flex gap-3 align-items-center ">
               <span>
                 <Link to="#">

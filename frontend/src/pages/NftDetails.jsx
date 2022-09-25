@@ -1,24 +1,14 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import SubHeader from "../components/UserInterface/Sub-Header/SubHeader";
 import { Link, useParams } from "react-router-dom";
 import { Container, Row, Col } from "reactstrap";
 import useFetchByActionID from "../Hooks/getActionByID";
-import useCreatePaymentLink from "../Hooks/createPaymentLink";
-import useGetPaymentLink from "../Hooks/getPaymentLink";
 import { FaUserAlt } from "react-icons/fa";
 import { IoMdPricetags } from "react-icons/io";
 import { BsCalendarDateFill } from "react-icons/bs";
 import { MdDescription } from "react-icons/md";
 import { GiSchoolOfFish } from "react-icons/gi";
-import {
-  Collapse,
-  Button,
-  CardBody,
-  Card,
-  Form,
-  FormGroup,
-  Input,
-} from "reactstrap";
+import { Collapse, Button, CardBody, Card, FormGroup, Input } from "reactstrap";
 import { RotatingLines } from "react-loader-spinner";
 import Slider from "../components/Slider/Slider";
 
@@ -31,7 +21,8 @@ const NftDetails = () => {
 
   const { _id, minimumPrice, actionCollection } = useParams();
   const [price, setPrice] = useState();
-  //const [actionID, setActionID] = useState();
+  const [paymentLinks, setPaymentLinks] = useState();
+  const [paymentLinkGet, setPaymentLinkGet] = useState();
 
   const { actionData, loadingActionData } = useFetchByActionID(
     `https://api.littlefish.foundation/action/${_id}`
@@ -39,27 +30,13 @@ const NftDetails = () => {
 
   console.log(price);
   console.log(actionData);
-  // const { paymentLink } = useCreatePaymentLink(
-  //   "https://api.littlefish.foundation/action-sale/",
-  //   {
-  //     actionID: actionData?._id,
-  //     price: price,
-  //   }
-  // );
-
-  // const { paymentLink1 } = useGetPaymentLink(
-  //   `https://api.littlefish.foundation/action-sale/${actionData?._id}`
-  // );
-
-  // console.log(paymentLink);
-  // console.log(paymentLink1);
 
   const handlePriceInput = (e) => {
     e.preventDefault();
     setPrice(e.target.value);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     fetch("https://api.littlefish.foundation/action-sale/", {
@@ -69,37 +46,28 @@ const NftDetails = () => {
       },
       body: JSON.stringify({ actionID: actionData?._id, price: price }),
     })
-      .then((response) => {
-        response.json();
-        console.log(response.data);
-        setDataPost(response.data);
-      })
+      .then((response) => response.json())
       .then((data) => {
         console.log(data);
+        setPaymentLinks(data.sale.paymentLink);
       })
       .catch((err) => {
         console.log("Error:", err.message);
       });
   };
 
-  // const handleGetSale = (e) => {
-  //   e.preventDefault();
-  //   fetch("https://api.littlefish.foundation/action-sale/${_id", {
-  
-  //   })
-  //     .then((response) => {
-  //       response.json();
-  //       setDataPost(response.data);
-  //     })
-  //     .then((data) => {
-  //       console.log(data);
-  //     })
-  //     .catch((err) => {
-  //       console.log("Error:", err.message);
-  //     });
-
-  // }
-
+  useEffect(() => {
+    fetch(`https://api.littlefish.foundation/action-sale/${_id}`)
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data);
+        setPaymentLinkGet(data.paymentLink);
+      })
+      .catch((err) => {
+        console.log("Error:", err.message);
+      });
+  }, [paymentLinks, paymentLinkGet]);
+  console.log(paymentLinks);
   console.log(dataPost);
 
   return (
@@ -240,17 +208,25 @@ const NftDetails = () => {
                           Reward Action
                         </Button>
                         &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
-                        <Button
-                          color="success"
-                          style={{
-                            marginBottom: "0.7rem",
-                            width: "43%",
-                            height: "65px",
-                            marginLeft: "5px",
-                          }}
-                        >
-                          <i className="ri-shopping-bag-line"></i>
-                        </Button>
+                        <div>
+                          <a
+                            href={paymentLinkGet}
+                            target="_blank"
+                            rel="noreferrer"
+                          >
+                            <Button
+                              color="success"
+                              style={{
+                                marginBottom: "0.7rem",
+                                width: "43%",
+                                height: "65px",
+                                marginLeft: "5px",
+                              }}
+                            >
+                              <i className="ri-shopping-bag-line"></i>
+                            </Button>
+                          </a>
+                        </div>
                       </div>
                       <Collapse className="collapse__card" isOpen={isOpen}>
                         <Card
@@ -270,7 +246,7 @@ const NftDetails = () => {
                                     : false
                                 }
                                 style={{ background: "ingerit" }}
-                                type="text"
+                                type="number"
                                 placeholder="The value must be > than, or = to the min price"
                                 onChange={handlePriceInput}
                                 value={price}
@@ -282,9 +258,6 @@ const NftDetails = () => {
                               onClick={handleSubmit}
                             >
                               <i className="ri-shopping-bag-line"></i>
-                              {/*<a href={paymentLink1} target="_blank" rel="noreferrer">
-                          
-                        </a>*/}
                               Create Sale
                             </button>
                           </CardBody>
@@ -303,7 +276,3 @@ const NftDetails = () => {
 };
 
 export default NftDetails;
-
-{
-  /**/
-}

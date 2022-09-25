@@ -3,7 +3,7 @@ import { RiShareLine } from "react-icons/ri";
 import { BsThreeDots } from "react-icons/bs";
 import NavBar from "./NavBar";
 import { Container, Button } from "reactstrap";
-import cardanoIcon from "../../assets/avatarsAndImages/cardano.png";
+import cardanoIcon from "../../assets/cardano.png";
 import copy from "copy-to-clipboard";
 import { useParams } from "react-router-dom";
 import { RotatingLines } from "react-loader-spinner";

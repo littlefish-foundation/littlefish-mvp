@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { useDropzone } from "react-dropzone";
-import { FormGroup, Input, Label, Button } from "reactstrap";
 import "./DnDComponent.css";
 
 function DnDComponent(props) {
@@ -60,7 +59,6 @@ function DnDComponent(props) {
   ));
 
   useEffect(() => {
-    // Make sure to revoke the data uris to avoid memory leaks
     files.forEach((file) => URL.revokeObjectURL(file.preview));
   }, [files]);
 

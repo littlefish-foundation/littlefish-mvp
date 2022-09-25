@@ -1,6 +1,5 @@
 import React from "react";
 import { Spinner } from "reactstrap";
-
 import "./modal.css";
 
 const LoadingModal = ({ setShowModal }) => {

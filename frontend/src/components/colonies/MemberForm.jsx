@@ -1,6 +1,4 @@
 import React, { useState } from "react";
-import Select from "react-select";
-
 import SubHeader from "../../components/UserInterface/Sub-Header/SubHeader";
 import { Container, Row, Col } from "reactstrap";
 import { Button, Form, FormGroup, Input, Label, FormText } from "reactstrap";
@@ -41,11 +39,7 @@ const MemberForm = () => {
   const { singleImgBase64, uploadImage } = useBase64Converter();
   const walletid = sessionStorage.getItem("walletID");
 
-  //console.log(singleImgBase64);
-
   const { name, colonyName, bio } = eachField;
-
-  // console.log(eachField);
 
   const handleChange = (e) => {
     setEachField({
@@ -86,17 +80,17 @@ const MemberForm = () => {
               <h5 className="mb-4 text-light"></h5>
             </Col>
             <Col lg="8" md="8" sm="6">
-            <h2
-            style={{
-              color: "white",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              marginBottom: "30px ",
-            }}
-          >
-            Apply for Colony Membership
-          </h2>
+              <h2
+                style={{
+                  color: "white",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  marginBottom: "30px ",
+                }}
+              >
+                Apply for Colony Membership
+              </h2>
 
               <div className="create__item">
                 <Form>

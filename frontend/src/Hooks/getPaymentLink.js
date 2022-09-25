@@ -1,4 +1,4 @@
-/*import { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
 
 function useGetPaymentLink(url) {
@@ -28,4 +28,3 @@ function useGetPaymentLink(url) {
   return { paymentLink1, loading, error };
 }
 export default useGetPaymentLink;
-*/

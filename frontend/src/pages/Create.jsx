@@ -16,7 +16,7 @@ import axios from "axios";
 
 import SubHeader from "../components/UserInterface/Sub-Header/SubHeader";
 import NftCard from "../components/UserInterface/Nft-card/NftCard";
-import img from "../assets/avatarsAndImages/example.png";
+import img from "../assets/example.png";
 import "../styles/create-item.css";
 import Base64 from "../components/imageConversion/Base64";
 import PopOvers from "../components/UserInterface/popovers/PopOvers";
@@ -493,9 +493,14 @@ const Create = (props) => {
                       </Button>
                     </div>
                   </FormGroup>
-                  
+
                   <Button
-                    style={{ backgroundColor: "#70582a", width: "185px", marginTop: "1px", marginBottom: "10px" }}
+                    style={{
+                      backgroundColor: "#70582a",
+                      width: "185px",
+                      marginTop: "1px",
+                      marginBottom: "10px",
+                    }}
                     onClick={handleFinalSubmit}
                   >
                     Submit

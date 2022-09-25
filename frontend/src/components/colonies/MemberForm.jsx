@@ -2,10 +2,13 @@ import React, { useState } from "react";
 import SubHeader from "../../components/UserInterface/Sub-Header/SubHeader";
 import { Container, Row, Col } from "reactstrap";
 import { Button, Form, FormGroup, Input, Label } from "reactstrap";
-import "./MemberForm.css";
 import useBase64Converter from "../../Hooks/useBase64Converter";
+import UserSuccessModal from "../UserInterface/Modal/UserSuccessModal";
+import UserErrorModal from "../UserInterface/Modal/UserErrorModal";
+import UserLoadingModal from "../UserInterface/Modal/UserLoadingModal";
+import "./MemberForm.css";
 
-const MemberForm = () => {
+const MemberForm = (props) => {
   const maxCount = 90;
 
   const initialInput = {
@@ -13,15 +16,25 @@ const MemberForm = () => {
     name: "",
     colonyName: "",
     avatar: "",
-    //bio: "",
+    bio: "",
   };
 
   const [eachField, setEachField] = useState(initialInput);
+  const [colonyName1, setColonyName1] = useState("");
+  const [postStatus, setPostStatus] = useState(null);
+  const [showModal, setShowModal] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
 
   const { singleImgBase64, uploadImage } = useBase64Converter();
   const walletid = sessionStorage.getItem("walletID");
 
-  const { name, colonyName, bio } = eachField;
+  const onChangeColony = (e) => {
+    setColonyName1(e.target.value);
+  };
+
+  const Colony = { colonyName: colonyName1 };
+  const { name, bio } = eachField;
+  Object.assign(eachField, Colony);
 
   const handleChange = (e) => {
     setEachField({
@@ -44,16 +57,20 @@ const MemberForm = () => {
 
       .then((data) => {
         console.log(data);
+        setPostStatus(Object.entries(data)[0][0]);
+        setErrorMessage(Object.entries(data)[0][1]);
+        console.log(Object.entries(data)[0][0]);
       })
       .catch((err) => {
         console.log("Error:", err.message);
       });
     console.log(eachField);
     setEachField(initialInput);
+    setShowModal(true);
   };
 
   return (
-    <div>
+    <div onClick={() => showModal && setShowModal(false)}>
       <SubHeader />
       <section>
         <Container>
@@ -101,7 +118,7 @@ const MemberForm = () => {
                     />
                   </FormGroup>
 
-                  <FormGroup className="form__input">
+                  {/* <FormGroup className="form__input">
                     <Label for="colony">Enter Colony Name</Label>
 
                     <Input
@@ -112,6 +129,23 @@ const MemberForm = () => {
                       value={colonyName}
                       onChange={handleChange}
                     />
+                  </FormGroup> */}
+
+                  <FormGroup className="form__input">
+                    <Label for="colonyName">Colony Name</Label>
+                    <Input
+                      required
+                      id="colonyName"
+                      type="select"
+                      name="colonyName"
+                      onChange={onChangeColony}
+                      value={colonyName1}
+                    >
+                      <option>Choose your Colony</option>
+                      <option value="Littlefish Foundation">
+                        Littlefish Foundation
+                      </option>
+                    </Input>
                   </FormGroup>
 
                   <FormGroup className="form__input">
@@ -156,6 +190,18 @@ const MemberForm = () => {
                   >
                     Submit Application
                   </Button>
+                  {postStatus === "success" && showModal && (
+                    <UserSuccessModal setShowModal={setShowModal} />
+                  )}
+                  {postStatus === "error" && showModal && (
+                    <UserErrorModal
+                      errorMessage={errorMessage}
+                      setShowModal={setShowModal}
+                    />
+                  )}
+                  {postStatus === null && showModal && (
+                    <UserLoadingModal setShowModal={setShowModal} />
+                  )}
                 </Form>
               </div>
             </Col>

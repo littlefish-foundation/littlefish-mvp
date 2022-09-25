@@ -9,7 +9,7 @@ function useGetUserProfileData(url) {
   useEffect(() => {
     setLoadingProfileData(true);
     axios
-      .get(url, { params: { limit: 5 } })
+      .get(url, { params: { limit: 20 } })
       .then((response) => {
         setUserProfileData(response.data);
       })

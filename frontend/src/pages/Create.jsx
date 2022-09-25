@@ -374,8 +374,8 @@ const Create = (props) => {
                       </FormGroup>
                     </div>
 
-                    <Label>Extra content</Label>
-                    <DnDComponent />
+                    {/*<Label>Extra content</Label>
+                    <DnDComponent /> */}
 
                     <FormGroup className="form__input">
                       <Label for="additionalImages">

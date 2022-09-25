@@ -72,6 +72,7 @@ function DnDComponent(props) {
     >
       <div>
         <button
+          
           style={{
             background: "#6c757d",
             borderRadius: "50%",

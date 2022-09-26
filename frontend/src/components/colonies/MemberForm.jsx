@@ -24,7 +24,6 @@ const MemberForm = (props) => {
   const [postStatus, setPostStatus] = useState(null);
   const [showModal, setShowModal] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
-
   const { singleImgBase64, uploadImage } = useBase64Converter();
   const walletid = sessionStorage.getItem("walletID");
 
@@ -102,8 +101,8 @@ const MemberForm = (props) => {
                       id="avatar"
                       type="file"
                       name="avatar"
-                      onChange={(e) => uploadImage(e)}
-                      accept="*/*"
+                      onChange={(event) => uploadImage(event)}
+                      accept="image/*"
                     />
                   </FormGroup>
                   <FormGroup className="form__input">

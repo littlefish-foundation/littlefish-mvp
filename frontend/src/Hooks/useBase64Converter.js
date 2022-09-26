@@ -1,28 +1,30 @@
 import { useState } from "react";
+import Resizer from "react-image-file-resizer";
 
 function useBase64Converter() {
   const [imgBase64, setImgBase64] = useState([]);
   const [singleImgBase64, setSingleImgBase64] = useState("");
 
+  const resizeFile = (file) =>
+    new Promise((resolve) => {
+      Resizer.imageFileResizer(
+        file,
+        200,
+        200,
+        "JPEG",
+        100,
+        0,
+        (uri) => {
+          resolve(uri);
+        },
+        "base64"
+      );
+    });
+
   const uploadImage = async (e) => {
     const file = e.target.files[0];
-    const base64 = await convertBase64(file);
+    const base64 = await resizeFile(file);
     setSingleImgBase64(base64);
-  };
-
-  const convertBase64 = (file) => {
-    return new Promise((resolve, reject) => {
-      const fileReader = new FileReader();
-      fileReader.readAsDataURL(file);
-
-      fileReader.onload = () => {
-        resolve(fileReader.result);
-      };
-
-      fileReader.onerror = (error) => {
-        reject(error);
-      };
-    });
   };
 
   const onChangeImgFile = (e) => {

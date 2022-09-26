@@ -1,4 +1,14 @@
 import React, { useState } from "react";
+import useBase64Converter from "../Hooks/useBase64Converter";
+import SubHeader from "../components/UserInterface/Sub-Header/SubHeader";
+import NftCard from "../components/UserInterface/Nft-card/NftCard";
+import img from "../assets/example.png";
+import Base64 from "../components/imageConversion/Base64";
+import PopOvers from "../components/UserInterface/popovers/PopOvers";
+import SuccessModal from "../components/UserInterface/Modal/SuccessModal";
+import ErrorModal from "../components/UserInterface/Modal/ErrorModal";
+import LoadingModal from "../components/UserInterface/Modal/LoadingModal";
+import useFetchForPopularActionType from "../Hooks/getPopularActionType";
 import {
   Container,
   Row,
@@ -9,19 +19,9 @@ import {
   Input,
   Label,
 } from "reactstrap";
-
-import useBase64Converter from "../Hooks/useBase64Converter";
-import SubHeader from "../components/UserInterface/Sub-Header/SubHeader";
-import NftCard from "../components/UserInterface/Nft-card/NftCard";
-import img from "../assets/example.png";
-import "../styles/create-item.css";
-import Base64 from "../components/imageConversion/Base64";
-import PopOvers from "../components/UserInterface/popovers/PopOvers";
-import SuccessModal from "../components/UserInterface/Modal/SuccessModal";
-import ErrorModal from "../components/UserInterface/Modal/ErrorModal";
-import LoadingModal from "../components/UserInterface/Modal/LoadingModal";
-import useFetchForPopularActionType from "../Hooks/getPopularActionType";
 import DnDComponent from "../dndcomp/DnDComponent";
+import "../styles/create-item.css";
+
 
 const Create = (props) => {
   const actionInitialState = {

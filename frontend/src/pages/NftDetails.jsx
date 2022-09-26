@@ -18,7 +18,6 @@ const NftDetails = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [dataPost, setDataPost] = useState();
   const toggle = () => setIsOpen(!isOpen);
-
   const { _id } = useParams();
   const [price, setPrice] = useState();
   const [paymentLinks, setPaymentLinks] = useState(null);
@@ -33,11 +32,8 @@ const NftDetails = () => {
 
   const handlePriceInput = (e) => {
     e.preventDefault();
-    setPrice(e.target.value);
-  };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+    setPrice(e.target.value);
 
     fetch("https://api.littlefish.foundation/action-sale/", {
       method: "POST",
@@ -56,19 +52,23 @@ const NftDetails = () => {
       });
   };
 
-  useEffect(() => {
-    fetch(`https://api.littlefish.foundation/action-sale/${_id}`)
-      .then((response) => response.json())
-      .then((data) => {
-        console.log(data);
-        setPaymentLinkGet(data.paymentLink);
-      })
-      .catch((err) => {
-        console.log("Error:", err.message);
-      });
-  }, [paymentLinkGet, paymentLinks]);
-  console.log(paymentLinks);
-  console.log(dataPost);
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+  };
+
+  // useEffect(() => {
+  //   fetch(`https://api.littlefish.foundation/action-sale/${_id}`)
+  //     .then((response) => response.json())
+  //     .then((data) => {
+  //       console.log(data);
+  //       setPaymentLinkGet(data.paymentLink);
+  //     })
+  //     .catch((err) => {
+  //       console.log("Error:", err.message);
+  //     });
+  // }, [paymentLinks, paymentLinkGet]);
+  // console.log(paymentLinks);
+  // console.log(dataPost);
 
   return (
     <div>
@@ -207,6 +207,7 @@ const NftDetails = () => {
                           rel="noreferrer"
                         >
                           <Button
+                            disabled
                             color="success"
                             style={{
                               marginBottom: "0.7rem",
@@ -238,19 +239,26 @@ const NftDetails = () => {
                                 }
                                 style={{ background: "ingerit" }}
                                 type="number"
+                                delay="3000"
                                 placeholder="The value must be > than, or = to the min price"
                                 onChange={handlePriceInput}
                                 value={price}
                               />
                             </FormGroup>
 
-                            <button
-                              className="singleNft-btn d-flex align-items-center gap-1"
-                              onClick={handleSubmit}
+                            <a
+                              href={paymentLinks}
+                              target="_blank"
+                              rel="noreferrer"
                             >
-                              <i className="ri-shopping-bag-line"></i>
-                              Create Sale
-                            </button>
+                              <button
+                                className="singleNft-btn d-flex align-items-center gap-1"
+                                //onClick={handleSubmit}
+                              >
+                                <i className="ri-shopping-bag-line"></i>
+                                Create Sale
+                              </button>
+                            </a>
                           </CardBody>
                         </Card>
                       </Collapse>

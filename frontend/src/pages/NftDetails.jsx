@@ -32,9 +32,11 @@ const NftDetails = () => {
 
   const handlePriceInput = (e) => {
     e.preventDefault();
-
     setPrice(e.target.value);
+  };
 
+  const handleSubmit = async (e) => {
+    e.preventDefault();
     fetch("https://api.littlefish.foundation/action-sale/", {
       method: "POST",
       headers: {
@@ -52,23 +54,19 @@ const NftDetails = () => {
       });
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-  };
-
-  // useEffect(() => {
-  //   fetch(`https://api.littlefish.foundation/action-sale/${_id}`)
-  //     .then((response) => response.json())
-  //     .then((data) => {
-  //       console.log(data);
-  //       setPaymentLinkGet(data.paymentLink);
-  //     })
-  //     .catch((err) => {
-  //       console.log("Error:", err.message);
-  //     });
-  // }, [paymentLinks, paymentLinkGet]);
-  // console.log(paymentLinks);
-  // console.log(dataPost);
+  useEffect(() => {
+    fetch(`https://api.littlefish.foundation/action-sale/${_id}`)
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data);
+        setPaymentLinkGet(data.paymentLink);
+      })
+      .catch((err) => {
+        console.log("Error:", err.message);
+      });
+  }, [paymentLinks, paymentLinkGet]);
+  console.log(paymentLinks);
+  console.log(dataPost);
 
   return (
     <div>
@@ -207,7 +205,6 @@ const NftDetails = () => {
                           rel="noreferrer"
                         >
                           <Button
-                            disabled
                             color="success"
                             style={{
                               marginBottom: "0.7rem",

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import useBase64Converter from "../Hooks/useBase64Converter";
+import useBase64ConverterAdditionalSources from "../Hooks/base64ConvAdditSources";
 import SubHeader from "../components/UserInterface/Sub-Header/SubHeader";
 import NftCard from "../components/UserInterface/Nft-card/NftCard";
 import img from "../assets/example.png";
@@ -19,9 +19,7 @@ import {
   Input,
   Label,
 } from "reactstrap";
-import DnDComponent from "../dndcomp/DnDComponent";
 import "../styles/create-item.css";
-
 
 const Create = (props) => {
   const actionInitialState = {
@@ -52,25 +50,19 @@ const Create = (props) => {
     headers: { Authorization: `Bearer ${token}` },
   };
 
-  const { imgBase64, onChangeImgFile } = useBase64Converter();
-
-  console.log(imgBase64);
-  //console.log(Array.isArray(defaultTypes));    []?.push(defaultTypes)
-  //console.log(defaultTypes);
+  const { imgBase64, onChangeImgFile } = useBase64ConverterAdditionalSources();
 
   const maxCount = 256;
   const maxAssetNameCount = 31;
   const walletid = sessionStorage.getItem("walletID");
 
-  const [newPopularActionType, setNewPopularActionType] =
-    useState(popularActionType);
-
   const [showModal, setShowModal] = useState(false);
   const [imageData, setImageData] = useState("");
   const [eachEntry, setEachEntry] = useState(initialInputState);
-  const [colonyName1, setColonyName1] = useState("");
+  const [colonyName, setColonyName] = useState("");
   const [postStatus, setPostStatus] = useState(null);
-  const [actionTypes, setActionTypes] = useState(["research"]);
+  const [actionTypes, setActionTypes] = useState([]);
+  const [newActionType, setNewActionType] = useState("");
   const [allUrls, setAllUrls] = useState([{ urlName: "", url: "" }]);
 
   console.log(actionTypes);
@@ -88,25 +80,21 @@ const Create = (props) => {
     setActionTypes([...actionTypes]);
   };
 
-  // const handlePostNewActionType = (e) => {
-  //   e.preventDefault();
-  //   setActionTypes(e.target.value);
-  //   axios
-  //     .post(
-  //       `https://api.littlefish.foundation/action-type/?name=${newActionType}`
-  //     )
-
-  //     .then((response) => response.status)
-  //     .catch((err) => {
-  //       console.log({ err });
-  //     });
-  // };
-
   ///* *********************************************************************************************************************************** *////
   ///* *********************************************************************************************************************************** *////
 
   const handleCallback = (childData) => {
     setImageData(childData);
+  };
+
+  const handleNewActionTypeChange = (e) => {
+    setNewActionType(e.target.value);
+  };
+
+  const handleAddNewType = () => {
+    //const values = [...actionTypes];
+    actionTypes.push(newActionType);
+    setActionTypes([...actionTypes]);
   };
 
   const handleAddLinks = () => {
@@ -132,11 +120,11 @@ const Create = (props) => {
   };
 
   const onChangeColony = (e) => {
-    setColonyName1(e.target.value);
+    setColonyName(e.target.value);
   };
 
   const Type = { actionTypes: actionTypes };
-  const Colony = { colonyName: colonyName1 };
+  const Colony = { colonyName: colonyName };
   const urls = { links: allUrls };
   const { assetName, name, description, ownerName, price } = eachEntry;
   Object.assign(eachEntry, Type, Colony, urls);
@@ -183,8 +171,7 @@ const Create = (props) => {
     console.log(eachEntry);
     setEachEntry(initialInputState);
 
-    //setActionTypes(actionTypes);
-    setColonyName1("");
+    setColonyName("");
     setShowModal(true);
   };
 
@@ -330,36 +317,41 @@ const Create = (props) => {
                             {item.name}
                           </Button>
                         ))}
-                        {/* <Button
-                          onClick={handlePostNewActionType}
-                          style={{
-                            backgroundColor: "transparent",
-                            position: "absolute",
 
-                            height: "33.2px",
-                            paddingTop: "0px",
-
-                            fontWeight: "300",
-                            objectFit: "contain",
-                          }}
-                        >
                         <Input
-                            style={{
-                              backgroundColor: "inherit",
-                              height: "31.2px",
-                              color: "white",
-                              width: "auto",
-                              padding: "0px",
-                              border: "none",
-                              fontSize: "0.8rem",
-                            }}
-                            placeholder="Enter a New Type Here"
-                            name="newActionType"
-                            type="text"
-                            onChange={(e) => setNewActionType(e.target.value)}
-                            value={newActionType}
-                          />
-                        </Button>*/}
+                          style={{
+                            backgroundColor: "inherit",
+                            color: "white",
+                            width: "auto",
+                            border: "2px solid rgba(221, 221, 221, 0.171)",
+                            fontSize: "0.8rem",
+                          }}
+                          name="newActionType"
+                          type="text"
+                          placeholder="Add new Action Type"
+                          onChange={handleNewActionTypeChange}
+                          value={newActionType}
+                        ></Input>
+                        <button
+                          id="tag_button"
+                          style={{
+                            background: "#6c757d",
+                            borderRadius: "50%",
+                            width: "35px",
+                            height: "35px",
+                            fontSize: "1.5rem",
+                            alignItems: "center",
+                            display: "flex",
+                            justifyContent: "center",
+                            marginTop: "2px",
+                            marginLeft: "2px",
+                            color: "#fff",
+                            border: "2px solid rgba(221, 221, 221, 0.171)",
+                          }}
+                          onClick={() => handleAddNewType()}
+                        >
+                          +
+                        </button>
 
                         <p
                           style={{
@@ -373,9 +365,6 @@ const Create = (props) => {
                         </p>
                       </FormGroup>
                     </div>
-
-                    {/*<Label>Extra content</Label>
-                    <DnDComponent /> */}
 
                     <FormGroup className="form__input">
                       <Label for="additionalImages">
@@ -401,7 +390,7 @@ const Create = (props) => {
                         type="select"
                         name="colonyName"
                         onChange={onChangeColony}
-                        value={colonyName1}
+                        value={colonyName}
                       >
                         <option>Choose your Colony</option>
                         <option value="Littlefish Foundation">

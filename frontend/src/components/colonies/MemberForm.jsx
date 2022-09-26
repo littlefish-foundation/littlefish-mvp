@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import SubHeader from "../../components/UserInterface/Sub-Header/SubHeader";
 import { Container, Row, Col } from "reactstrap";
 import { Button, Form, FormGroup, Input, Label } from "reactstrap";
-import useBase64Converter from "../../Hooks/useBase64Converter";
+import useBase64ConverterUserProfile from "../../Hooks/useBase64ConverterUserProfile";
 import UserSuccessModal from "../UserInterface/Modal/UserSuccessModal";
 import UserErrorModal from "../UserInterface/Modal/UserErrorModal";
 import UserLoadingModal from "../UserInterface/Modal/UserLoadingModal";
@@ -24,7 +24,7 @@ const MemberForm = (props) => {
   const [postStatus, setPostStatus] = useState(null);
   const [showModal, setShowModal] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
-  const { singleImgBase64, uploadImage } = useBase64Converter();
+  const { singleImgBase64, uploadImage } = useBase64ConverterUserProfile();
   const walletid = sessionStorage.getItem("walletID");
 
   const onChangeColony = (e) => {

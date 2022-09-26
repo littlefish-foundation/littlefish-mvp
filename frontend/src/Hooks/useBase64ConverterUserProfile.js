@@ -1,7 +1,7 @@
 import { useState } from "react";
 import Resizer from "react-image-file-resizer";
 
-function useBase64Converter() {
+function useBase64ConverterUserProfile() {
   const [imgBase64, setImgBase64] = useState([]);
   const [singleImgBase64, setSingleImgBase64] = useState("");
 
@@ -54,4 +54,4 @@ function useBase64Converter() {
   return { imgBase64, onChangeImgFile, singleImgBase64, uploadImage };
 }
 
-export default useBase64Converter;
+export default useBase64ConverterUserProfile;

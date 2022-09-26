@@ -22,17 +22,16 @@ export default function Slider() {
   displayDataArray.push(coverImage);
   // console.log(displayDataArray);
 
-  // const base64Files = actionData?.filesBase64?.map((file) => {
-  //   return {
-  //     ...objFile,
-  //     src: file,
-  //   };
-  // });
-  // // console.log(displayDataArray);
+  const otherFiles = actionData?.files?.map((file) => {
+    return {
+      ...objFile,
+      src: file?.src,
+    };
+  });
 
-  // base64Files?.map((file) => displayDataArray.push(file));
+  otherFiles?.map((file) => displayDataArray.push(file));
 
-  // console.log(displayDataArray);
+  console.log(displayDataArray);
 
   const [slideIndex, setSlideIndex] = useState(1);
 

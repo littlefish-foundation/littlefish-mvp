@@ -8,13 +8,16 @@ import { IoMdPricetags } from "react-icons/io";
 import { BsCalendarDateFill } from "react-icons/bs";
 import { MdDescription } from "react-icons/md";
 import { GiSchoolOfFish } from "react-icons/gi";
+import SuccessfulSaleCreation from "../components/UserInterface/Modal/SuccessfulSaleCreation";
+import ErrorSaleCreation from "../components/UserInterface/Modal/ErrorSaleCreation";
+import LoadingSaleCreation from "../components/UserInterface/Modal/LoadingSaleCreation";
 import { Collapse, Button, CardBody, Card, FormGroup, Input } from "reactstrap";
 import { RotatingLines } from "react-loader-spinner";
 import Slider from "../components/Slider/Slider";
 
 import "../styles/nft-details.css";
 
-const NftDetails = () => {
+const NftDetails = (props) => {
   const [isOpen, setIsOpen] = useState(false);
   const [dataPost, setDataPost] = useState();
   const toggle = () => setIsOpen(!isOpen);
@@ -22,6 +25,9 @@ const NftDetails = () => {
   const [price, setPrice] = useState();
   const [paymentLinks, setPaymentLinks] = useState(null);
   const [paymentLinkGet, setPaymentLinkGet] = useState(null);
+  const [errorMessage, setErrorMessage] = useState("");
+  const [postStatus, setPostStatus] = useState(null);
+  const [showModal, setShowModal] = useState(false);
 
   const { actionData, loadingActionData } = useFetchByActionID(
     `https://api.littlefish.foundation/action/${_id}`
@@ -35,7 +41,7 @@ const NftDetails = () => {
     setPrice(e.target.value);
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
     fetch("https://api.littlefish.foundation/action-sale/", {
       method: "POST",
@@ -47,12 +53,17 @@ const NftDetails = () => {
       .then((response) => response.json())
       .then((data) => {
         console.log(data);
+        setPostStatus(Object.entries(data)[0][0]);
+        setErrorMessage(Object.entries(data)[0][1]);
         setPaymentLinks(data.sale.paymentLink);
+        console.log(Object.entries(data)[0][0]);
       })
       .catch((err) => {
         console.log("Error:", err.message);
       });
+    setShowModal(true);
   };
+  console.log(postStatus);
 
   useEffect(() => {
     fetch(`https://api.littlefish.foundation/action-sale/${_id}`)
@@ -64,12 +75,12 @@ const NftDetails = () => {
       .catch((err) => {
         console.log("Error:", err.message);
       });
-  }, [paymentLinks, paymentLinkGet]);
+  }, [paymentLinkGet, paymentLinks]);
   console.log(paymentLinks);
   console.log(dataPost);
 
   return (
-    <div>
+    <div onClick={() => showModal && setShowModal(false)}>
       {loadingActionData ? (
         <div className="loader-container">
           <RotatingLines
@@ -217,6 +228,7 @@ const NftDetails = () => {
                           </Button>
                         </a>
                       </div>
+
                       <Collapse className="collapse__card" isOpen={isOpen}>
                         <Card
                           color="light"
@@ -225,37 +237,53 @@ const NftDetails = () => {
                           }}
                         >
                           <CardBody>
-                            <FormGroup
-                              style={{ backgroundColor: "rgb(53,52,67)" }}
-                            >
-                              <Input
-                                invalid={
-                                  actionData?.minimumPrice > price
-                                    ? true
-                                    : false
-                                }
-                                style={{ background: "ingerit" }}
-                                type="number"
-                                delay="3000"
-                                placeholder="The value must be > than, or = to the min price"
-                                onChange={handlePriceInput}
-                                value={price}
-                              />
-                            </FormGroup>
+                            <div>
+                              <form>
+                                <FormGroup
+                                  style={{ backgroundColor: "rgb(53,52,67)" }}
+                                >
+                                  <Input
+                                    invalid={
+                                      actionData?.minimumPrice > price
+                                        ? true
+                                        : false
+                                    }
+                                    style={{ background: "ingerit" }}
+                                    type="number"
+                                    delay="3000"
+                                    placeholder="The value must be > than, or = to the min price"
+                                    onChange={handlePriceInput}
+                                    value={price}
+                                  />
+                                </FormGroup>
 
-                            <a
-                              href={paymentLinks}
-                              target="_blank"
-                              rel="noreferrer"
-                            >
-                              <button
-                                className="singleNft-btn d-flex align-items-center gap-1"
-                                //onClick={handleSubmit}
-                              >
-                                <i className="ri-shopping-bag-line"></i>
-                                Create Sale
-                              </button>
-                            </a>
+                                <button
+                                  className="singleNft-btn d-flex align-items-center gap-1"
+                                  onClick={handleSubmit}
+                                >
+                                  <i className="ri-shopping-bag-line"></i>
+                                  Create Sale
+                                </button>
+                                {postStatus === "success" ||
+                                  (postStatus === "sale" && showModal && (
+                                    <SuccessfulSaleCreation
+                                      setShowModal={setShowModal}
+                                      paymentLinkGet={paymentLinkGet}
+                                    />
+                                  ))}
+                                {postStatus === "error" && showModal && (
+                                  <ErrorSaleCreation
+                                    errorMessage={errorMessage}
+                                    setShowModal={setShowModal}
+                                  />
+                                )}
+                                {postStatus === null && showModal && (
+                                  <LoadingSaleCreation
+                                    setShowModal={setShowModal}
+                                  />
+                                )}
+                              </form>
+                            </div>
                           </CardBody>
                         </Card>
                       </Collapse>

@@ -11,7 +11,7 @@ module.exports = class ActionLogic {
   static prepareAllImageURLsInFile(files) {
     const preparedFiles = [];
 
-    ([] || files).forEach((file) => {
+    files?.forEach((file) => {
       if (file.metadata_attributes[ACTION_FILE_INDEXES.MIME_TYPE].tag === ACTION_METADATA_ATTRIBUTES.MIME_TYPE
           && file.metadata_attributes[ACTION_FILE_INDEXES.SOURCE].tag === ACTION_METADATA_ATTRIBUTES.SOURCE) {
         preparedFiles.push({

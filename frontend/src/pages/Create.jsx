@@ -50,7 +50,8 @@ const Create = (props) => {
     headers: { Authorization: `Bearer ${token}` },
   };
 
-  const { imgBase64, onChangeImgFile } = useBase64ConverterAdditionalSources();
+  const { imgBase64, onChangeImgFile, singleImgBase64 } =
+    useBase64ConverterAdditionalSources();
 
   const maxCount = 256;
   const maxAssetNameCount = 31;

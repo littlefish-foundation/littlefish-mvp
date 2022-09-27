@@ -96,6 +96,7 @@ const Create = (props) => {
 
   const handleSubmitNewType = () => {
     newActionType.map((type) => actionTypes.push(type.value));
+    setActionTypes([...actionTypes]);
   };
 
   const handleAddNewTypeClick = () => {

@@ -96,15 +96,42 @@ const MemberForm = (props) => {
                 <Form>
                   <FormGroup className="form__input">
                     <Label for="avatar">Upload Profile Image</Label>
+                    <div
+                      style={
+                        singleImgBase64
+                          ? {
+                              border: "2px solid rgba(221, 221, 221, 0.171)",
+                              padding: "10px",
+                              borderRadius: "5px",
+                            }
+                          : null
+                      }
+                    >
+                      <Input
+                        id="avatar"
+                        type="file"
+                        name="avatar"
+                        onChange={(event) => uploadImage(event)}
+                        accept="image/*"
+                      />
 
-                    <Input
-                      id="avatar"
-                      type="file"
-                      name="avatar"
-                      onChange={(event) => uploadImage(event)}
-                      accept="image/*"
-                    />
+                      <div>
+                        {singleImgBase64 && (
+                          <img
+                            style={{
+                              width: "70px",
+                              height: "70px",
+                              marginTop: "10px",
+                              marginLeft: "40%",
+                            }}
+                            src={singleImgBase64}
+                            alt="avatar"
+                          />
+                        )}
+                      </div>
+                    </div>
                   </FormGroup>
+
                   <FormGroup className="form__input">
                     <Label for="name">Enter Your Name</Label>
                     <Input

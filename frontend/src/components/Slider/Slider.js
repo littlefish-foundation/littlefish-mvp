@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import "./Slider.css";
 import BtnSlider from "./BtnSlider";
-import dataSlider from "./dataSlider";
 import { useParams } from "react-router-dom";
 import useFetchByActionID from "../../Hooks/getActionByID";
 
@@ -12,15 +11,12 @@ export default function Slider() {
   );
   const objFile = {};
   const displayDataArray = [];
-  // console.log(displayDataArray);
 
   const coverImage = {
-    // src: "data:" + actionData?.mediaType + ";base64," + actionData?.imageBase64,
     src: actionData?.image,
   };
 
   displayDataArray.push(coverImage);
-  // console.log(displayDataArray);
 
   const otherFiles = actionData?.files?.map((file) => {
     return {

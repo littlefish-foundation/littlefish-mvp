@@ -51,14 +51,40 @@ class Base64 extends React.Component {
     return (
       <FormGroup className="form__input">
         <Label for="image">Upload Cover Image</Label>
-        <Input
-          id="image"
-          type="file"
-          url="https://api.littlefish.foundation/action/"
-          name="image"
-          onChange={this.handleFileInputChange}
-          accept="*/*"
-        />
+        <div
+          style={
+            this.state.base64URL
+              ? {
+                  border: "2px solid rgba(221, 221, 221, 0.171)",
+                  padding: "10px",
+                  borderRadius: "5px",
+                }
+              : null
+          }
+        >
+          <Input
+            id="image"
+            type="file"
+            url="https://api.littlefish.foundation/action/"
+            name="image"
+            onChange={this.handleFileInputChange}
+            accept="*/*"
+          />
+          <div>
+            {this.state.base64URL && (
+              <img
+                style={{
+                  width: "70px",
+                  height: "70px",
+                  marginTop: "10px",
+                  marginLeft: "40%",
+                }}
+                src={this.state.base64URL}
+                alt="avatar"
+              />
+            )}
+          </div>
+        </div>
         <PopOvers />
       </FormGroup>
     );

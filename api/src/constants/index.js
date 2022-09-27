@@ -22,6 +22,7 @@ const ACTION_FILE_INDEXES = {
 };
 
 module.exports = {
+  API_IMAGES_LINK: 'https://api.littlefish.foundation/images/',
   IPFS_SERVER_PREFIX: 'https://ipfs.io/ipfs/',
   IPFS_FILE_PREFIX: 'ipfs://',
   ACTION_METADATA_STANDARD: '721',

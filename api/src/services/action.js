@@ -1,10 +1,11 @@
 const tangocryptoClient = require('../external-api/tangocrypto-client');
 const actionDataAccess = require('../data-access/action');
-const colonyDataAccess = require('../data-access/colony');
 const actionTypeDataAccess = require('../data-access/action-type');
 const actionLogic = require('../logics/action');
+const uploadImage = require('../utils/upload-image');
 const { formatActions } = require('../formatters/action');
 const { NotFoundError } = require('../errors');
+const { API_IMAGES_LINK } = require('../constants');
 
 module.exports = class ActionService {
   static async getActionById(id) {
@@ -73,6 +74,17 @@ module.exports = class ActionService {
     await actionTypeDataAccess.createActionType(type);
   }
 
+  static async uploadAllImages(coverImage, files) {
+    const promises = [];
+    promises.push(uploadImage(coverImage));
+
+    for (let i = 0; i < files.length; i++) {
+      promises.push(uploadImage(files[i].src));
+    }
+    const fileNames = await Promise.all(promises);
+    return fileNames.map((f) => API_IMAGES_LINK + f);
+  }
+
   static async mintAction(action) {
     const { actionLinks, collectionLinkAttributes } = actionLogic.prepareLinksToMint(action.links);
     const toMint = actionLogic.prepareActionToMint(action, actionLinks);
@@ -84,6 +96,7 @@ module.exports = class ActionService {
     for (let i = 0; i < action.actionTypes.length; i++) {
       promises.push(this.handleMintActionTypes(action.actionTypes[i]));
     }
+    const fileNames = await this.uploadAllImages(action.image, action.files);
 
     promises.push(actionDataAccess.createAction({
       assetName: mintedAction.asset_name,
@@ -104,6 +117,8 @@ module.exports = class ActionService {
       custom_attributes: mintedAction.custom_attributes,
       actionCollection: collectionID,
       minimumPrice: action.price,
+      dbImage: fileNames?.[0],
+      dbFiles: fileNames?.slice(1),
     }));
 
     await Promise.all(promises);

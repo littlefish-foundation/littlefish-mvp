@@ -30,6 +30,8 @@ app.use('/documentation/index.html', swaggerUi.serve, swaggerUi.setup(swaggerDoc
 app.use(express.json({ limit: '50mb' }));
 app.use(express.urlencoded({ limit: '50mb' }));
 
+// serve static images in images folder
+app.use('/images', express.static('images'));
 // app.use(helmet());
 app.use('/', routes);
 app.use((req, res, next) => {

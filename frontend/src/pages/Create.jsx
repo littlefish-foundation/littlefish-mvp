@@ -63,7 +63,7 @@ const Create = (props) => {
   const [colonyName, setColonyName] = useState("");
   const [postStatus, setPostStatus] = useState(null);
   const [actionTypes, setActionTypes] = useState([]);
-  const [newActionType, setNewActionType] = useState("");
+  const [newActionType, setNewActionType] = useState([{ value: null }]);
   const [allUrls, setAllUrls] = useState([{ urlName: "", url: "" }]);
 
   console.log(actionTypes);
@@ -88,15 +88,28 @@ const Create = (props) => {
     setImageData(childData);
   };
 
-  const handleNewActionTypeChange = (e) => {
-    setNewActionType(e.target.value);
+  const handleNewActionTypeChange = (i, event) => {
+    const values = [...newActionType];
+    newActionType[i].value = event.target.value;
+    setNewActionType(values);
   };
 
-  const handleAddNewType = () => {
-    //const values = [...actionTypes];
-    actionTypes.push(newActionType);
-    setActionTypes([...actionTypes]);
+  const handleSubmitNewType = () => {
+    newActionType.map((type) => actionTypes.push(type.value));
   };
+
+  const handleAddNewTypeClick = () => {
+    const values = [...newActionType];
+    values.push({ value: null });
+    setNewActionType(values);
+  };
+
+  console.log(newActionType.map((type) => type.value));
+
+  // const handleAddFieldForNewType = () => {
+  //   actionTypes.push(newActionType);
+  //   setActionTypes([...actionTypes]);
+  // };
 
   const handleAddLinks = () => {
     const values = [...allUrls];
@@ -212,7 +225,7 @@ const Create = (props) => {
                       <Label for="walletID">Wallet ID*</Label>
 
                       <Input
-                        required="true"
+                        //required="true"
                         id="walletID"
                         name="walletID"
                         type="text"
@@ -227,7 +240,7 @@ const Create = (props) => {
                     <FormGroup className="form__input">
                       <Label for="ownerName">Action Producer*</Label>
                       <Input
-                        required
+                        //required
                         id="ownerName"
                         name="ownerName"
                         type="text"
@@ -240,7 +253,7 @@ const Create = (props) => {
                     <FormGroup className="form__input">
                       <Label for="assetName">Action Name*</Label>
                       <Input
-                        required
+                        //required
                         id="assetName"
                         name="assetName"
                         maxLength="31"
@@ -258,7 +271,7 @@ const Create = (props) => {
                     <FormGroup className="form__input">
                       <Label for="description">Description*</Label>
                       <Input
-                        required
+                        //required
                         id="description"
                         type="textarea"
                         name="description"
@@ -318,41 +331,71 @@ const Create = (props) => {
                             {item.name}
                           </Button>
                         ))}
+                        <div>
+                          {newActionType.map((field, idx) => {
+                            return (
+                              <div style={{ display: "flex" }}>
+                                <Input
+                                  style={{
+                                    backgroundColor: "inherit",
+                                    color: "white",
+                                    width: "auto",
+                                    border:
+                                      "2px solid rgba(221, 221, 221, 0.171)",
+                                    fontSize: "0.8rem",
+                                  }}
+                                  name="newActionType"
+                                  type="text"
+                                  placeholder="Add new Action Type"
+                                  value={field.value || ""}
+                                  onChange={(event) =>
+                                    handleNewActionTypeChange(idx, event)
+                                  }
+                                ></Input>
+                                <Button
+                                  style={{
+                                    background: "green",
+                                    borderRadius: "50%",
+                                    width: "20px",
+                                    height: "25px",
+                                    fontSize: "1rem",
+                                    alignItems: "center",
+                                    display: "flex",
+                                    justifyContent: "center",
+                                    marginTop: "5px",
+                                    marginLeft: "2px",
+                                    color: "#fff",
+                                    border:
+                                      "1px solid rgba(221, 221, 221, 0.171)",
+                                  }}
+                                  onClick={() => handleSubmitNewType()}
+                                >
+                                  +
+                                </Button>
+                              </div>
+                            );
+                          })}
 
-                        <Input
-                          style={{
-                            backgroundColor: "inherit",
-                            color: "white",
-                            width: "auto",
-                            border: "2px solid rgba(221, 221, 221, 0.171)",
-                            fontSize: "0.8rem",
-                          }}
-                          name="newActionType"
-                          type="text"
-                          placeholder="Add new Action Type"
-                          onChange={handleNewActionTypeChange}
-                          value={newActionType}
-                        ></Input>
-                        <button
-                          id="tag_button"
-                          style={{
-                            background: "#6c757d",
-                            borderRadius: "50%",
-                            width: "35px",
-                            height: "35px",
-                            fontSize: "1.5rem",
-                            alignItems: "center",
-                            display: "flex",
-                            justifyContent: "center",
-                            marginTop: "2px",
-                            marginLeft: "2px",
-                            color: "#fff",
-                            border: "2px solid rgba(221, 221, 221, 0.171)",
-                          }}
-                          onClick={() => handleAddNewType()}
-                        >
-                          +
-                        </button>
+                          <Button
+                            style={{
+                              background: "#6c757d",
+                              borderRadius: "5px",
+                              width: "auto",
+                              height: "auto",
+                              fontSize: "0.8rem",
+                              alignItems: "center",
+                              display: "flex",
+                              justifyContent: "center",
+                              marginTop: "7px",
+                              marginLeft: "2px",
+                              color: "#fff",
+                              border: "2px solid rgba(221, 221, 221, 0.171)",
+                            }}
+                            onClick={() => handleAddNewTypeClick()}
+                          >
+                            Add new Type
+                          </Button>
+                        </div>
 
                         <p
                           style={{
@@ -373,7 +416,7 @@ const Create = (props) => {
                       </Label>
 
                       <Input
-                        required={false}
+                        //required={false}
                         id="additionalImages"
                         type="file"
                         name="additionalImages"
@@ -386,7 +429,7 @@ const Create = (props) => {
                     <FormGroup className="form__input">
                       <Label for="colonyName">Colony Name*</Label>
                       <Input
-                        required
+                        //required
                         id="colonyName"
                         type="select"
                         name="colonyName"
@@ -404,7 +447,7 @@ const Create = (props) => {
                     <FormGroup className="form__input">
                       <Label for="price">Price*</Label>
                       <Input
-                        required
+                        //required
                         id="price"
                         name="price"
                         type="number"

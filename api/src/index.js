@@ -46,9 +46,15 @@ if (config.runningEnvironment === 'dev') {
     console.log(`Server is listening on ${config.port || 8080} port.`);
   });
 } else {
-  const httpsOptions = {
-    key: fs.readFileSync('./sslkey/key.pem'),
-    cert: fs.readFileSync('./sslkey/cer.cert'),
-  };
-  https.createServer(httpsOptions, app).listen(443);
+  let httpsOptions;
+  try {
+    httpsOptions = {
+      key: fs.readFileSync('./src/sslkey/key.pem'),
+      cert: fs.readFileSync('./src/sslkey/cer.cert'),
+    };
+  } catch (e) {
+    console.log(e);
+    process.exit(1);
+  }
+  https.createServer(httpsOptions, app).listen(8000);
 }

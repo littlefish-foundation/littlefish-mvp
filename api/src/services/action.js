@@ -96,7 +96,7 @@ module.exports = class ActionService {
     for (let i = 0; i < action.actionTypes.length; i++) {
       promises.push(this.handleMintActionTypes(action.actionTypes[i]));
     }
-    const fileNames = await this.uploadAllImages(action.image, action.files);
+    // const fileNames = await this.uploadAllImages(action.image, action.files);
 
     promises.push(actionDataAccess.createAction({
       assetName: mintedAction.asset_name,

@@ -32,6 +32,7 @@ app.use(express.urlencoded({ limit: '50mb' }));
 
 // serve static images in images folder
 app.use('/images', express.static('images'));
+app.use('/documentation/', express.static('docs'));
 // app.use(helmet());
 app.use('/', routes);
 app.use((req, res, next) => {

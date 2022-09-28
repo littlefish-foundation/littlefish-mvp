@@ -226,7 +226,7 @@ const Create = (props) => {
                       <Label for="walletID">Wallet ID*</Label>
 
                       <Input
-                        //required="true"
+                        required="true"
                         id="walletID"
                         name="walletID"
                         type="text"
@@ -241,7 +241,7 @@ const Create = (props) => {
                     <FormGroup className="form__input">
                       <Label for="ownerName">Action Producer*</Label>
                       <Input
-                        //required
+                        required
                         id="ownerName"
                         name="ownerName"
                         type="text"
@@ -254,7 +254,7 @@ const Create = (props) => {
                     <FormGroup className="form__input">
                       <Label for="assetName">Action Name*</Label>
                       <Input
-                        //required
+                        required
                         id="assetName"
                         name="assetName"
                         maxLength="31"
@@ -272,7 +272,7 @@ const Create = (props) => {
                     <FormGroup className="form__input">
                       <Label for="description">Description*</Label>
                       <Input
-                        //required
+                        required
                         id="description"
                         type="textarea"
                         name="description"
@@ -417,7 +417,7 @@ const Create = (props) => {
                       </Label>
 
                       <Input
-                        //required={false}
+                        required={false}
                         id="additionalImages"
                         type="file"
                         name="additionalImages"
@@ -430,7 +430,7 @@ const Create = (props) => {
                     <FormGroup className="form__input">
                       <Label for="colonyName">Colony Name*</Label>
                       <Input
-                        //required
+                        required
                         id="colonyName"
                         type="select"
                         name="colonyName"
@@ -448,7 +448,7 @@ const Create = (props) => {
                     <FormGroup className="form__input">
                       <Label for="price">Price*</Label>
                       <Input
-                        //required
+                        required
                         id="price"
                         name="price"
                         type="number"

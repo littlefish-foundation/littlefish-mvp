@@ -11,7 +11,15 @@ import { GiSchoolOfFish } from "react-icons/gi";
 import SuccessfulSaleCreation from "../components/UserInterface/Modal/SuccessfulSaleCreation";
 import ErrorSaleCreation from "../components/UserInterface/Modal/ErrorSaleCreation";
 import LoadingSaleCreation from "../components/UserInterface/Modal/LoadingSaleCreation";
-import { Collapse, Button, CardBody, Card, FormGroup, Input } from "reactstrap";
+import {
+  Collapse,
+  Button,
+  CardBody,
+  Card,
+  FormGroup,
+  Input,
+  Tooltip,
+} from "reactstrap";
 import { RotatingLines } from "react-loader-spinner";
 import Slider from "../components/Slider/Slider";
 
@@ -24,10 +32,13 @@ const NftDetails = (props) => {
   const { _id } = useParams();
   const [price, setPrice] = useState();
   const [paymentLinks, setPaymentLinks] = useState(null);
-  const [paymentLinkGet, setPaymentLinkGet] = useState(null);
+  const [paymentLinkGet, setPaymentLinkGet] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const [postStatus, setPostStatus] = useState(null);
   const [showModal, setShowModal] = useState(false);
+  const [tooltipOpen, setTooltipOpen] = useState(false);
+
+  const toggleTip = () => setTooltipOpen(!tooltipOpen);
 
   const { actionData, loadingActionData } = useFetchByActionID(
     `https://api.littlefish.foundation/action/${_id}`
@@ -71,6 +82,7 @@ const NftDetails = (props) => {
       .then((data) => {
         console.log(data);
         setPaymentLinkGet(data.paymentLink);
+        console.log(paymentLinkGet);
       })
       .catch((err) => {
         console.log("Error:", err.message);
@@ -196,19 +208,58 @@ const NftDetails = (props) => {
                       </Link>
                       <br />
                       <div style={{ marginLeft: "100px" }}>
-                        <Button
-                          color="primary"
-                          onClick={toggle}
+                        <p
                           style={{
-                            marginBottom: "0.7rem",
-                            width: "35%",
-
-                            height: "65px",
+                            fontSize: "0.5rem",
+                            lineHeight: "10px",
+                            width: "83%",
+                            fontWeight: "300",
+                            fontFamily: "italic",
                           }}
-                          // className="singleNft-btn d-flex align-items-center gap-1"
                         >
-                          Reward Action
-                        </Button>
+                          First you need to create sale by clicking on "Reward
+                          Action" and entering the price you are willing to pay.
+                          After that you can click on the "Get Action" button
+                          which will redirect you to the payment page.
+                        </p>
+                        {paymentLinkGet === undefined ? (
+                          <Button
+                            color="primary"
+                            onClick={toggle}
+                            style={{
+                              marginBottom: "0.7rem",
+                              width: "35%",
+                              height: "65px",
+                            }}
+                            // className="singleNft-btn d-flex rgb(37,77,168)" align-items-center gap-1"
+                          >
+                            Reward Action
+                          </Button>
+                        ) : (
+                          <span>
+                            <Button
+                              id="reward"
+                              style={{
+                                background: "rgb(37,77,168)",
+                                marginBottom: "0.7rem",
+                                width: "35%",
+                                height: "65px",
+                              }}
+                              // className="singleNft-btn d-flex rgb(37,77,168)" align-items-center gap-1"
+                            >
+                              Reward Action
+                            </Button>
+
+                            <Tooltip
+                              placement="left"
+                              isOpen={tooltipOpen}
+                              target="reward"
+                              toggle={toggleTip}
+                            >
+                              This action is reserved. Try again later!
+                            </Tooltip>
+                          </span>
+                        )}
                         &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
                         <a
                           href={paymentLinkGet}
@@ -269,12 +320,14 @@ const NftDetails = (props) => {
                                     <SuccessfulSaleCreation
                                       setShowModal={setShowModal}
                                       paymentLinkGet={paymentLinkGet}
+                                      setIsOpen={setIsOpen}
                                     />
                                   ))}
                                 {postStatus === "error" && showModal && (
                                   <ErrorSaleCreation
                                     errorMessage={errorMessage}
                                     setShowModal={setShowModal}
+                                    setIsOpen={setIsOpen}
                                   />
                                 )}
                                 {postStatus === null && showModal && (

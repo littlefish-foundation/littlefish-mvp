@@ -2,12 +2,18 @@ import React from "react";
 import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
 import "./modal.css";
 
-const SuccessfulSaleCreation = ({ setShowModal, paymentLinkGet }) => {
+const SuccessfulSaleCreation = ({ setShowModal, setIsOpen }) => {
   return (
     <div className="modal__wrapper">
       <div className="single__modal__success">
         <span className="close__modal">
-          <i class="ri-close-line" onClick={() => setShowModal(false)}></i>
+          <i
+            class="ri-close-line"
+            onClick={() => {
+              setShowModal(false);
+              setIsOpen(false);
+            }}
+          ></i>
         </span>
         <div>
           <CheckCircleOutlineIcon color="success" sx={{ fontSize: 50 }} />

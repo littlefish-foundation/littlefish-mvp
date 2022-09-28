@@ -5,9 +5,9 @@
     "version": "1.0.0",
     "title": "Littlefish MVP API"
   },
+    "host": "api.littlefish.foundation",
   "schemes": [
-    "https",
-    "http"
+    "https"
   ],
   "tags": [
     {

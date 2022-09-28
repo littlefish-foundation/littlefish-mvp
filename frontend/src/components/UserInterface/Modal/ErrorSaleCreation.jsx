@@ -2,12 +2,18 @@ import React from "react";
 import ErrorIcon from "@mui/icons-material/Error";
 import "./modal.css";
 
-const ErrorSaleCreation = ({ setShowModal, errorMessage }) => {
+const ErrorSaleCreation = ({ setShowModal, errorMessage, setIsOpen }) => {
   return (
     <div className="modal__wrapper">
       <div className="single__modal__success">
         <span className="close__modal">
-          <i class="ri-close-line" onClick={() => setShowModal(false)}></i>
+          <i
+            class="ri-close-line"
+            onClick={() => {
+              setShowModal(false);
+              setIsOpen(false);
+            }}
+          ></i>
         </span>
         <div>
           <ErrorIcon sx={{ color: "red", fontSize: 50 }} />

@@ -117,8 +117,8 @@ module.exports = class ActionService {
       custom_attributes: mintedAction.custom_attributes,
       actionCollection: collectionID,
       minimumPrice: action.price,
-      dbImage: fileNames?.[0],
-      dbFiles: fileNames?.slice(1),
+      // dbImage: fileNames?.[0],
+      // dbFiles: fileNames?.slice(1),
     }));
 
     await Promise.all(promises);

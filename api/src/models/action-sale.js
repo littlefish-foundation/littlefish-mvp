@@ -6,6 +6,7 @@ const ActionSale = new mongoose.Schema({
   status: { type: String, required: true },
   paymentLink: { type: String, required: true },
   paymentAddress: { type: String, required: true },
+  lastAccessed: { type: Date, required: true },
   price: { type: Number, required: true },
   colony: { type: String, required: true },
   actionCollection: { type: String, required: true },

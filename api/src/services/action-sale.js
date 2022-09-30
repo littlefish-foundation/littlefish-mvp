@@ -2,8 +2,8 @@ const tangocryptoClient = require('../external-api/tangocrypto-client');
 const actionSaleDataAccess = require('../data-access/action-sale');
 const actionService = require('./action');
 
-const { ADA_TO_LOVELACE_CONVERSION } = require('../constants');
-const { NotFoundError, BadRequestError } = require('../errors');
+const { ADA_TO_LOVELACE_CONVERSION, SALE_LAST_ACCESSED_DEADLINE } = require('../constants');
+const { NotFoundError, BadRequestError, ApiError } = require('../errors');
 
 module.exports = class ActionSaleService {
   static async getSaleByActionID(id) {
@@ -12,6 +12,12 @@ module.exports = class ActionSaleService {
     if (!actionSale) {
       throw new NotFoundError(`Sale for action id: ${id} is not found.`);
     }
+
+    if (actionSale.lastAccessed && actionSale.lastAccessed > Date.now() - SALE_LAST_ACCESSED_DEADLINE) {
+      throw new ApiError('The action sale is currently reserved ', 403);
+    }
+    await actionSaleDataAccess.updateActionSaleByActionID(id, { lastAccessed: Date.now() });
+
     return actionSale;
   }
 

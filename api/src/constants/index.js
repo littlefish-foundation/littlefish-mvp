@@ -20,6 +20,7 @@ const ACTION_FILE_INDEXES = {
 };
 
 module.exports = {
+  SALE_LAST_ACCESSED_DEADLINE: 10 * 60 * 1000,
   METADATA_VERSION: '0.0.1',
   ACTION_ASSET_NAME: 'LittlefishAction',
   API_IMAGES_LINK: 'https://api.littlefish.foundation/images/',

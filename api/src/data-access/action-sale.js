@@ -5,9 +5,15 @@ module.exports = class ActionSaleAccess {
     return ActionSaleModel.findOne({ action: actionID }).select(fields).lean().exec();
   }
 
+  static async setLastAccessed(actionID) {
+    await ActionSaleModel.findOneAndUpdate({ action: actionID }, { lastAccessed: Date.now() });
+  }
+
   static async createActionSale(sale) {
-    // TODO resp
-    return ActionSaleModel.create(sale);
+    return ActionSaleModel.create({
+      ...sale,
+      lastAccessed: Date.now() - 20 * 60 * 1000,
+    });
   }
 
   static async deleteActionSaleByActionID(actionID) {

@@ -30,8 +30,8 @@ module.exports = {
     ...colonyNameParams,
     query: Joi.object(
       {
-        assetName: Joi.string(),
-        ownerName: Joi.string(),
+        name: Joi.string(),
+        producerName: Joi.string(),
         status: Joi.string(),
         type: Joi.string(),
         minDate: Joi.date(),

@@ -5,7 +5,8 @@ const actionLogic = require('../logics/action');
 const uploadImage = require('../utils/upload-image');
 const { formatActions } = require('../formatters/action');
 const { NotFoundError } = require('../errors');
-const { API_IMAGES_LINK } = require('../constants');
+const { API_IMAGES_LINK, ACTION_MAX_ALLOWED_LENGTH } = require('../constants');
+const shortenUrl = require('../utils/shorten-url');
 
 module.exports = class ActionService {
   static async getActionById(id) {
@@ -59,8 +60,8 @@ module.exports = class ActionService {
     return formatActions(actions);
   }
 
-  static async createActionCollection(walletAddress, assetName, collectionLinkAttributes) {
-    const { collectionID } = await tangocryptoClient.createCollection(walletAddress, assetName, collectionLinkAttributes);
+  static async createActionCollection(walletAddress, assetName) {
+    const { collectionID } = await tangocryptoClient.createCollection(walletAddress, assetName);
     return collectionID;
   }
 
@@ -85,10 +86,29 @@ module.exports = class ActionService {
     return fileNames.map((f) => API_IMAGES_LINK + f);
   }
 
+  static async shortenURLsThatLongerThanLimit(links) {
+    const promises = [];
+
+    for (let i = 0; i < links.length; i++) {
+      if (links[i].url.length > ACTION_MAX_ALLOWED_LENGTH) {
+        promises.push(shortenUrl(links[i].url));
+      } else {
+        promises.push(new Promise((resolve) => {
+          resolve(links[i].url);
+        }));
+      }
+    }
+
+    const shortLinks = await Promise.all(promises);
+    return links.map((l, i) => ({ ...l, url: shortLinks[i] }));
+  }
+
   static async mintAction(action) {
-    const { actionLinks, collectionLinkAttributes } = actionLogic.prepareLinksToMint(action.links);
-    const toMint = actionLogic.prepareActionToMint(action, actionLinks);
-    const collectionID = await this.createActionCollection(action.walletID, action.assetName, collectionLinkAttributes);
+    const mintDate = Math.floor(Date.now() / 1000);
+    const ulid = actionLogic.generateUlid();
+    const links = await this.shortenURLsThatLongerThanLimit(action.links);
+    const toMint = actionLogic.prepareActionToMint(action, links, ulid, mintDate);
+    const collectionID = await this.createActionCollection(action.walletID, action.assetName);
     const { mintedAction } = await tangocryptoClient.mintAction(toMint, collectionID);
     const preparedFiles = actionLogic.prepareAllImageURLsInFile(mintedAction.files);
 
@@ -99,24 +119,24 @@ module.exports = class ActionService {
     // const fileNames = await this.uploadAllImages(action.image, action.files);
 
     promises.push(actionDataAccess.createAction({
-      assetName: mintedAction.asset_name,
       chainID: mintedAction.id,
       name: mintedAction.name,
-      producer: action.ownerName,
-      ownerName: action.ownerName,
-      colony: action.colonyName,
       fingerprint: mintedAction.fingerprint,
-      description: action.description,
       mediaType: mintedAction.media_type,
-      links: action.links,
-      image: actionLogic.prepareImageURL(mintedAction.image),
       status: mintedAction.status,
-      actionTypes: action.actionTypes,
-      files: preparedFiles,
-      nftFormat: mintedAction,
-      custom_attributes: mintedAction.custom_attributes,
-      actionCollection: collectionID,
+      rawActionFormat: mintedAction,
+      producer: action.walletAddress,
+      producerName: action.ownerName,
+      colony: action.colony,
+      description: action.description,
+      types: action.types,
       minimumPrice: action.price,
+      image: actionLogic.prepareImageURL(mintedAction.image),
+      files: preparedFiles,
+      actionCollection: collectionID,
+      links,
+      ulid,
+      mintDate,
       // dbImage: fileNames?.[0],
       // dbFiles: fileNames?.slice(1),
     }));

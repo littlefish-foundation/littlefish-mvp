@@ -32,8 +32,8 @@ module.exports = {
   getActions: {
     query: Joi.object(
       {
-        assetName: Joi.string(),
-        ownerName: Joi.string(),
+        name: Joi.string(),
+        producerName: Joi.string(),
         status: Joi.string(),
         type: Joi.string(),
         minDate: Joi.date(),
@@ -57,17 +57,22 @@ module.exports = {
     body: Joi.object(
       {
         name: Joi.string().max(ACTION_MAX_ALLOWED_LENGTH).required(),
-        assetName: Joi.string().max(ACTION_MAX_ALLOWED_LENGTH).required(),
-        ownerName: Joi.string().max(ACTION_MAX_ALLOWED_LENGTH).required(),
-        actionTypes: Joi.array().required(),
-        description: Joi.string().max(ACTION_MAX_ALLOWED_LENGTH * 4).required(),
+        producer: Joi.string().max(ACTION_MAX_ALLOWED_LENGTH).required(),
+        types: Joi.array().required(),
+        description: Joi.string().required(),
         mediaType: Joi.string().max(ACTION_MAX_ALLOWED_LENGTH).required(),
         image: Joi.string().base64().required(),
-        links: Joi.array(),
-        files: Joi.array(),
-        colonyName: Joi.string().required(),
-        walletID: Joi.string().required(),
-        price: Joi.number().required(),
+        links: Joi.array().items(Joi.object({
+          url: Joi.string().required(),
+          urlName: Joi.string().required(),
+        })),
+        files: Joi.array().items(Joi.object({
+          type: Joi.string().required(),
+          src: Joi.string().required(),
+        })),
+        colony: Joi.string().required(),
+        walletAddress: Joi.string().required(),
+        minimumPrice: Joi.number().default(0).greater(-1),
       },
     ),
   },

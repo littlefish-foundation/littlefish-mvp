@@ -496,9 +496,9 @@
             "type": "string"
           },
           {
-            "name": "assetName",
+            "name": "name",
             "in": "query",
-            "description": "action asset name to filter",
+            "description": "action name to filter",
             "required": false,
             "type": "string"
           },
@@ -510,9 +510,9 @@
             "type": "string"
           },
           {
-            "name": "ownerName",
+            "name": "producerName",
             "in": "query",
-            "description": "action owner name to filter",
+            "description": "action producer name to filter",
             "required": false,
             "type": "string"
           },
@@ -645,9 +645,9 @@
             "type": "string"
           },
           {
-            "name": "assetName",
+            "name": "name",
             "in": "query",
-            "description": "action asset name to filter",
+            "description": "action name to filter",
             "required": false,
             "type": "string"
           },
@@ -659,9 +659,9 @@
             "type": "string"
           },
           {
-            "name": "ownerName",
+            "name": "producerName",
             "in": "query",
-            "description": "action owner name to filter",
+            "description": "action producer name to filter",
             "required": false,
             "type": "string"
           },
@@ -852,23 +852,17 @@
     },
     "mintAction": {
       "properties": {
-        "assetName": {
-          "type": "string",
-          "format": "Asset Name",
-          "description": "Asset name",
-          "example": "LittlefishWhitepaper"
-        },
         "name": {
           "type": "string",
           "format": "Name",
           "description": "Name of the Action",
           "example": "Littlefish Whitepaper"
         },
-        "colonyName": {
+        "colony": {
           "type": "string",
           "format": "Name",
           "description": "Name of the colony this actions belongs to",
-          "example": "Littlefish"
+          "example": "Littlefish Foundation"
         },
         "description": {
           "type": "string",
@@ -876,23 +870,26 @@
           "description": "ACTION description text",
           "example": "This is my action."
         },
-        "ownerName": {
+        "producerName": {
           "type": "string",
           "format": "Name",
-          "description": "Name of the owner of ACTION",
-          "example": "Burak.littlefish"
+          "description": "Name of the producer of ACTION",
+          "example": "burak.littlefish"
         },
-        "price": {
+        "minimumPrice": {
           "type": "number",
           "format": "Price in ADA",
-          "description": "Price of the Action",
+          "description": "Minimum price of the Action",
           "example": "0"
         },
-        "actionType": {
-          "type": "string",
-          "format": "Type of action",
-          "description": "Type of action of the ACTION",
-          "example": "Research"
+        "types": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "format": "string",
+            "description": "Type of the action",
+            "example": "whitepaper"
+          }
         },
         "image": {
           "type": "string",
@@ -906,7 +903,7 @@
           "description": "Format of media",
           "example": "image/png"
         },
-        "walletID": {
+        "walletAddress": {
           "type": "string",
           "format": "Shelly address",
           "description": "wallet address of action owner",

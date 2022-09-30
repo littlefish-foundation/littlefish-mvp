@@ -24,7 +24,7 @@ module.exports = class ActionDataAccess {
 
   static async getActions(colony, filter, sorter, page, limit, fields = '-__v') {
     const {
-      assetName, ownerName, minDate, maxDate, status, type,
+      name, producerName, minDate, maxDate, status, type,
     } = filter;
 
     const {
@@ -35,9 +35,9 @@ module.exports = class ActionDataAccess {
       ...(colony ? { colony } : undefined),
       ...(minDate ? { createdAt: { $gte: minDate } } : undefined),
       ...(maxDate ? { createdAt: { $lte: maxDate } } : undefined),
-      ...(ownerName ? { ownerName: { $regex: ownerName, $options: 'i' } } : undefined),
+      ...(producerName ? { producerName: { $regex: producerName, $options: 'i' } } : undefined),
       ...(type ? { actionTypes: type } : undefined),
-      ...(assetName ? { assetName: { $regex: assetName, $options: 'i' } } : undefined),
+      ...(name ? { name: { $regex: name, $options: 'i' } } : undefined),
       ...(status ? { status } : undefined),
     }).skip(page * limit).limit(limit)
       .sort({

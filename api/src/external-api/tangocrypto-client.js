@@ -4,7 +4,7 @@ const config = require('../config');
 const { ACTION_METADATA_ATTRIBUTES } = require('../constants');
 
 module.exports = class TangocryptoClient {
-  static async createCollection(walletAddress, assetName, collectionLinkAttributes) {
+  static async createCollection(walletAddress, name) {
     const options = {
       method: 'POST',
       url: `${config.actionServiceClient.url}v1/nft/collections`,
@@ -13,33 +13,31 @@ module.exports = class TangocryptoClient {
         'x-api-key': config.actionServiceClient.apiKey,
       },
       data: {
-        name: `${assetName}Collection`,
+        name: `${name}Collection`,
         url: 'https://linktr.ee/littlefish.foundation',
         description: 'This is a collection for an action in the Littlefish colony',
         payout_address: walletAddress,
         policy: { lock: false },
         metadata: {
-          name: '<name>',
-          asset_name: '<asset_name>',
-          media_type: '<mime_type>',
+          name: ACTION_METADATA_ATTRIBUTES.NAME,
+          description: ACTION_METADATA_ATTRIBUTES.DESCRIPTION,
+          asset_name: ACTION_METADATA_ATTRIBUTES.ASSET_NAME,
+          media_type: ACTION_METADATA_ATTRIBUTES.MIME_TYPE,
           files: [
             {
-              name: '<asset_name>',
-              media_type: '<mime_type>',
-              src: '<file_link_1>',
+              name: ACTION_METADATA_ATTRIBUTES.ASSET_NAME,
+              media_type: ACTION_METADATA_ATTRIBUTES.MIME_TYPE,
+              src: ACTION_METADATA_ATTRIBUTES.FILE_LINK,
             },
           ],
           attributes: {
-            colony_name: '<colony_name>',
-            desc1: ACTION_METADATA_ATTRIBUTES.DESCRIPTION_PART1,
-            desc2: ACTION_METADATA_ATTRIBUTES.DESCRIPTION_PART2,
-            desc3: ACTION_METADATA_ATTRIBUTES.DESCRIPTION_PART3,
-            desc4: ACTION_METADATA_ATTRIBUTES.DESCRIPTION_PART4,
-            owner_name: '<owner_name>',
-            action_type: '<action_type>',
-            producer: '<producer>',
-            project: 'Littlefish MVP',
-            ...collectionLinkAttributes,
+            colony: ACTION_METADATA_ATTRIBUTES.COLONY,
+            mint_date: ACTION_METADATA_ATTRIBUTES.MINT_DATE,
+            id: ACTION_METADATA_ATTRIBUTES.ID,
+            producer: ACTION_METADATA_ATTRIBUTES.PRODUCER,
+            version: ACTION_METADATA_ATTRIBUTES.VERSION,
+            links: ACTION_METADATA_ATTRIBUTES.LINKS,
+            types: ACTION_METADATA_ATTRIBUTES.TYPES,
           },
         },
         version: '1.0',

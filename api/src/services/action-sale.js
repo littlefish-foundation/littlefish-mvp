@@ -6,17 +6,18 @@ const { ADA_TO_LOVELACE_CONVERSION, SALE_LAST_ACCESSED_DEADLINE } = require('../
 const { NotFoundError, BadRequestError, ApiError } = require('../errors');
 
 module.exports = class ActionSaleService {
-  static async getSaleByActionID(id) {
-    const actionSale = await actionSaleDataAccess.getSaleByActionID(id);
+  static async getSaleByActionID(id, walletAddress) {
+    const actionSale = await actionSaleDataAccess.getSaleByActionID(id, walletAddress);
 
     if (!actionSale) {
       throw new NotFoundError(`Sale for action id: ${id} is not found.`);
     }
 
-    if (actionSale.lastAccessed && actionSale.lastAccessed > Date.now() - SALE_LAST_ACCESSED_DEADLINE) {
+    if (actionSale.lastAccessedWallet !== walletAddress && actionSale.lastAccessed
+        && actionSale.lastAccessed > Date.now() - SALE_LAST_ACCESSED_DEADLINE) {
       throw new ApiError('The action sale is currently reserved ', 403);
     }
-    await actionSaleDataAccess.updateActionSaleByActionID(id, { lastAccessed: Date.now() });
+    await actionSaleDataAccess.setLastAccessed(id, walletAddress);
 
     return actionSale;
   }

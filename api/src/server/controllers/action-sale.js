@@ -4,8 +4,9 @@ const catchAsync = require('../../utils/catch-async');
 module.exports = class ActionSaleController {
   static getSaleByActionID = catchAsync(async (req, res) => {
     const { actionID } = req.params;
+    const { walletAddress } = req.query;
 
-    const data = await actionSaleService.getSaleByActionID(actionID);
+    const data = await actionSaleService.getSaleByActionID(actionID, walletAddress);
     res.status(200).send(data);
   });
 

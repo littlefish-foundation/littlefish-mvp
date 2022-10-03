@@ -73,7 +73,7 @@ module.exports = class ActionLogic {
             },
             {
               tag: ACTION_METADATA_ATTRIBUTES.PRODUCER,
-              value: action.walletAddress,
+              value: this.stringTo64CharChunks(action.walletAddress),
             },
             {
               tag: ACTION_METADATA_ATTRIBUTES.COLONY,

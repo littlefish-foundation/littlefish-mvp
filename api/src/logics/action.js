@@ -44,10 +44,14 @@ module.exports = class ActionLogic {
   }
 
   // split string into chunks of max length and return array of chunks
-  static stringTo64CharChunks(string) {
+  static stringTo64CharChunks(s) {
+    if (!s || s.length === 0) {
+      return [];
+    }
+
     const chunks = [];
-    for (let i = 0; i < string.length; i += ACTION_MAX_ALLOWED_LENGTH) {
-      chunks.push(string.substring(i, i + ACTION_MAX_ALLOWED_LENGTH));
+    for (let i = 0; i < s.length; i += ACTION_MAX_ALLOWED_LENGTH) {
+      chunks.push(s.substring(i, i + ACTION_MAX_ALLOWED_LENGTH));
     }
     return chunks;
   }

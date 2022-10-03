@@ -30,11 +30,11 @@ module.exports = class ActionLogic {
       actionFiles.push({
         metadata_attributes: [
           {
-            value: 'image/jpeg',
+            value: file.type,
             tag: ACTION_METADATA_ATTRIBUTES.MIME_TYPE,
           },
           {
-            value: file,
+            value: file.src,
             tag: ACTION_METADATA_ATTRIBUTES.SOURCE,
           },
         ],

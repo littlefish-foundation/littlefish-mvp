@@ -94,7 +94,7 @@ const ColonyDetails = () => {
                     </span>
                     <span>
                       <a href="https://linktr.ee/littlefish.foundation">
-                        <i className="ri-telegram-line"></i>
+                        <i className="ri-global-line"></i>
                       </a>
                     </span>
                     <span>

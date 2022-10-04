@@ -27,27 +27,27 @@ const Footer = () => {
 
             <div className="social__links d-flex gap-3 align-items-center ">
               <span>
-                <Link to="#">
+                <Link to="https://github.com/littlefish-foundation">
                   <i className="ri-github-line"></i>
                 </Link>
               </span>
               <span>
-                <Link to="#">
+                <Link to="https://www.youtube.com/channel/UCqST3YotsWuc0faaqsLjdKQ/videos">
                   <i className="ri-youtube-line"></i>
                 </Link>
               </span>
               <span>
-                <Link to="#">
+                <Link to="https://twitter.com/LittleFishDAO">
                   <i className="ri-twitter-line"></i>
                 </Link>
               </span>
               <span>
-                <Link to="#">
-                  <i className="ri-telegram-line"></i>
+                <Link to="https://linktr.ee/littlefish.foundation">
+                  <i className="ri-global-line"></i>
                 </Link>
               </span>
               <span>
-                <Link to="#">
+                <Link to="https://discord.gg/tBKZd5AGUS">
                   <i className="ri-discord-line"></i>
                 </Link>
               </span>

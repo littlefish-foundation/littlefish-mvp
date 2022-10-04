@@ -42,6 +42,10 @@ const NAV__LINKS = [
     url: "/colony",
   },
   {
+    display: "Members",
+    url: "/members",
+  },
+  {
     display: DropDownElement,
     url: "#",
   },

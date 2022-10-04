@@ -88,6 +88,7 @@ module.exports = class ActionService {
 
   static async shortenURLsThatLongerThanLimit(links) {
     const promises = [];
+    if (!links) return links;
 
     for (let i = 0; i < links.length; i++) {
       if (links[i].url.length > ACTION_MAX_ALLOWED_LENGTH) {

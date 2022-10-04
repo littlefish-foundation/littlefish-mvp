@@ -2,14 +2,15 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 
 function useFetchForPopularActionType(url) {
-  const [popularActionType, setPopularActionType] = useState(null);
-  const [loadingPopularActionType, setLoadingPopularActionType] = useState(false);
+  const [popularActionType, setPopularActionType] = useState({});
+  const [loadingPopularActionType, setLoadingPopularActionType] =
+    useState(false);
   const [error, setError] = useState(null);
 
   useEffect(() => {
     setLoadingPopularActionType(true);
     axios
-      .get(url)
+      .get(url, { params: { limit: 7 } })
       .then((response) => {
         setPopularActionType(response.data);
       })

@@ -72,6 +72,7 @@ const NftDetails = (props) => {
       .catch((err) => {
         console.log("Error:", err.message);
       });
+
     setShowModal(true);
   };
   console.log(postStatus);
@@ -92,7 +93,7 @@ const NftDetails = (props) => {
   console.log(dataPost);
 
   return (
-    <div onClick={() => showModal && setShowModal(false)}>
+    <div>
       {loadingActionData ? (
         <div className="loader-container">
           <RotatingLines
@@ -225,7 +226,7 @@ const NftDetails = (props) => {
                         {paymentLinkGet === undefined ? (
                           <Button
                             color="primary"
-                            onClick={toggle}
+                            onClick={() => setIsOpen(true)}
                             style={{
                               marginBottom: "0.7rem",
                               width: "35%",

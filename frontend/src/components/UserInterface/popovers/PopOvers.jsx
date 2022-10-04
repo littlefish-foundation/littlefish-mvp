@@ -7,7 +7,7 @@ const PopOvers = (props) => {
     <div>
       <UncontrolledPopover
         placement="right"
-        target="walletID"
+        target="walletAddress"
         trigger="hover focus"
         delay={1500}
       >
@@ -22,7 +22,7 @@ const PopOvers = (props) => {
 
       <UncontrolledPopover
         placement="right"
-        target="ownerName"
+        target="producer"
         trigger="hover focus"
         delay={1500}
       >
@@ -32,20 +32,7 @@ const PopOvers = (props) => {
         </PopoverBody>
       </UncontrolledPopover>
 
-      {/* ******************************************************************** */}
-      <UncontrolledPopover
-        placement="right"
-        target="assetName"
-        trigger="hover focus"
-        delay={1500}
-      >
-        <PopoverHeader className="pop-headerStyle">Hint!</PopoverHeader>
-        <PopoverBody className="pop-bodyStyle">
-          The asset name is written to the blockchain cannot be readjusted. Your
-          action will be identified by this name. For example, when you list
-          your action on the marketplace this name will be displayed.
-        </PopoverBody>
-      </UncontrolledPopover>
+   
 
       {/* ******************************************************************** */}
 
@@ -95,7 +82,7 @@ const PopOvers = (props) => {
       {/* ******************************************************************** */}
       <UncontrolledPopover
         placement="left"
-        target="colonyName"
+        target="colony"
         trigger="hover focus"
         delay={1500}
       >
@@ -123,7 +110,7 @@ const PopOvers = (props) => {
       {/* ******************************************************************** */}
       <UncontrolledPopover
         placement="left"
-        target="price"
+        target="minimumPrice"
         delay={1500}
         trigger="hover focus"
       >

@@ -23,22 +23,21 @@ import "../styles/create-item.css";
 
 const Create = (props) => {
   const actionInitialState = {
-    assetName: "Whitepaper",
+    name: "Whitepaper",
     image: img,
-    ownerName: "Littlefish DAO",
-    price: "20",
+    producer: "Littlefish DAO",
+    minimumPrice: "20",
   };
 
   const initialInputState = {
-    walletID: "",
-    assetName: "",
+    walletAddress: "",
     name: "",
     description: "",
-    ownerName: "",
+    producer: "",
     image: "",
-    colonyName: "",
+    colony: "",
     mediaType: "",
-    price: "",
+    minimumPrice: "",
   };
 
   const { popularActionType } = useFetchForPopularActionType(
@@ -50,8 +49,7 @@ const Create = (props) => {
     headers: { Authorization: `Bearer ${token}` },
   };
 
-  const { imgBase64, onChangeImgFile, singleImgBase64 } =
-    useBase64ConverterAdditionalSources();
+  const { imgBase64, onChangeImgFile } = useBase64ConverterAdditionalSources();
 
   const maxCount = 256;
   const maxAssetNameCount = 31;
@@ -60,25 +58,27 @@ const Create = (props) => {
   const [showModal, setShowModal] = useState(false);
   const [imageData, setImageData] = useState("");
   const [eachEntry, setEachEntry] = useState(initialInputState);
-  const [colonyName, setColonyName] = useState("");
+  const [colony, setColony] = useState("");
   const [postStatus, setPostStatus] = useState(null);
-  const [actionTypes, setActionTypes] = useState([]);
+  const [types, setTypes] = useState([]);
   const [newActionType, setNewActionType] = useState([{ value: null }]);
-  const [allUrls, setAllUrls] = useState([{ urlName: "", url: "" }]);
+  const [allUrls, setAllUrls] = useState([
+    /*{ urlName: "", url: "" }*/
+  ]);
 
-  console.log(actionTypes);
+  console.log(types);
 
   ///* *********************************************************************************************************************************** *////
   ///* *********************************************************************************************************************************** *////
 
   const onCheckboxBtnClick = (selected) => {
-    const index = actionTypes.indexOf(selected);
+    const index = types.indexOf(selected);
     if (index < 0) {
-      actionTypes.push(selected);
+      types.push(selected);
     } else {
-      actionTypes.splice(index, 1);
+      types.splice(index, 1);
     }
-    setActionTypes([...actionTypes]);
+    setTypes([...types]);
   };
 
   ///* *********************************************************************************************************************************** *////
@@ -95,8 +95,8 @@ const Create = (props) => {
   };
 
   const handleSubmitNewType = () => {
-    newActionType.map((type) => actionTypes.push(type.value));
-    setActionTypes([...actionTypes]);
+    newActionType.map((type) => types.push(type.value));
+    setTypes([...types]);
   };
 
   const handleAddNewTypeClick = () => {
@@ -135,23 +135,24 @@ const Create = (props) => {
   };
 
   const onChangeColony = (e) => {
-    setColonyName(e.target.value);
+    setColony(e.target.value);
   };
 
-  const Type = { actionTypes: actionTypes };
-  const Colony = { colonyName: colonyName };
+  const Type = { types: types };
+  const Colony = { colony: colony };
   const urls = { links: allUrls };
-  const { assetName, name, description, ownerName, price } = eachEntry;
+  const { name, description, producer, minimumPrice } = eachEntry;
   Object.assign(eachEntry, Type, Colony, urls);
 
   const handleInputChange = (e) => {
     setEachEntry({
       ...eachEntry,
       [e.target.name]: e.target.value,
-      image: imageData.split(",")[1],
+      image: imageData?.split(",")[1],
       mediaType: imageData?.split(",")[0]?.split(":")?.pop()?.split(";")[0],
+
       files: imgBase64,
-      walletID: walletid,
+      walletAddress: walletid,
     });
   };
 
@@ -162,6 +163,14 @@ const Create = (props) => {
   const handleFinalSubmit = (e) => {
     e.preventDefault();
 
+    function clean(eachEntry) {
+      for (var links in eachEntry) {
+        if (eachEntry[links.length] === 0) {
+          delete eachEntry[links];
+        }
+      }
+      return eachEntry;
+    }
     fetch("https://api.littlefish.foundation/action/", {
       method: "POST",
       headers: {
@@ -169,9 +178,12 @@ const Create = (props) => {
         Authorization: `Bearer ${token}`,
       },
 
-      body: JSON.stringify(eachEntry),
+      body: JSON.stringify(clean(eachEntry)),
     })
-      .then((response) => response.json())
+      .then((response) => {
+        response.json();
+        console.log(response);
+      })
 
       .then((data) => {
         console.log(data);
@@ -186,7 +198,7 @@ const Create = (props) => {
     console.log(eachEntry);
     setEachEntry(initialInputState);
 
-    setColonyName("");
+    setColony("");
     setShowModal(true);
   };
 
@@ -223,12 +235,12 @@ const Create = (props) => {
                   <h2>Basic Information</h2>
                   <FormGroup className="metadata_basic_section">
                     <FormGroup className="form__input">
-                      <Label for="walletID">Wallet ID*</Label>
+                      <Label for="walletAddress">Wallet Address*</Label>
 
                       <Input
                         required="true"
-                        id="walletID"
-                        name="walletID"
+                        id="walletAddress"
+                        name="walletAddress"
                         type="text"
                         placeholder="Connect your wallet to fill this part"
                         value={walletid}
@@ -238,74 +250,58 @@ const Create = (props) => {
 
                     <Base64 parentCallback={handleCallback} />
 
-                    <FormGroup className="form__input">
-                      <Label for="ownerName">Action Producer*</Label>
-                      <Input
-                        required
-                        id="ownerName"
-                        name="ownerName"
-                        type="text"
-                        placeholder="Enter the Name of the Producer"
-                        onChange={handleInputChange}
-                        value={ownerName}
-                      />
-                      <PopOvers />
-                    </FormGroup>
-                    <FormGroup className="form__input">
-                      <Label for="assetName">Action Name*</Label>
-                      <Input
-                        required
-                        id="assetName"
-                        name="assetName"
-                        maxLength="31"
-                        type="text"
-                        placeholder="Enter the Name of the Action"
-                        onChange={handleInputChange}
-                        value={assetName}
-                      />
-                      <PopOvers />
-                      <div className="Char__counter">
-                        {assetName.length}/ {maxAssetNameCount}
-                      </div>
-                    </FormGroup>
+                    <FormGroup className="metadata_basic_section">
+                      <FormGroup className="form__input" required>
+                        <Label for="name">Action Name*</Label>
+                        <Input
+                          id="name"
+                          name="name"
+                          type="text"
+                          placeholder="Enter the full Name of the Action"
+                          onChange={handleInputChange}
+                          value={name}
+                        />
+                        <PopOvers />
+                      </FormGroup>
 
-                    <FormGroup className="form__input">
-                      <Label for="description">Description*</Label>
-                      <Input
-                        required
-                        id="description"
-                        type="textarea"
-                        name="description"
-                        rows="4"
-                        maxLength="256"
-                        placeholder="Enter description"
-                        onChange={handleInputChange}
-                        value={description}
-                        className="w-90"
-                      ></Input>
-                      <div className="Char__counter">
-                        {description.length}/ {maxCount}
-                      </div>
+                      <FormGroup className="form__input">
+                        <Label for="producer">Action Producer*</Label>
+                        <Input
+                          required
+                          id="producer"
+                          name="producer"
+                          type="text"
+                          placeholder="Enter the Name of the Producer"
+                          onChange={handleInputChange}
+                          value={producer}
+                        />
+                        <PopOvers />
+                      </FormGroup>
 
-                      <PopOvers />
-                    </FormGroup>
-                  </FormGroup>
-                  <br />
+                      <FormGroup className="form__input">
+                        <Label for="description">Description*</Label>
+                        <Input
+                          required
+                          id="description"
+                          type="textarea"
+                          name="description"
+                          rows="4"
+                          maxLength="256"
+                          placeholder="Enter description"
+                          onChange={handleInputChange}
+                          value={description}
+                          className="w-90"
+                        ></Input>
+                        <div className="Char__counter">
+                          {description.length}/ {maxCount}
+                        </div>
 
-                  <h2>Metadata Information</h2>
-                  <FormGroup className="metadata_basic_section">
-                    <FormGroup className="form__input" required>
-                      <Label for="name">Name*</Label>
-                      <Input
-                        id="name"
-                        name="name"
-                        type="text"
-                        placeholder="Enter the full Name of the Action"
-                        onChange={handleInputChange}
-                        value={name}
-                      />
-                      <PopOvers />
+                        <PopOvers />
+                      </FormGroup>
                     </FormGroup>
+                    <br />
+
+                    <h2>Metadata Information</h2>
 
                     <br />
                     <div>
@@ -327,7 +323,7 @@ const Create = (props) => {
                             color="secondary"
                             outline
                             onClick={() => onCheckboxBtnClick(item.name)}
-                            active={actionTypes?.includes(item.name)}
+                            active={types?.includes(item.name)}
                           >
                             {item.name}
                           </Button>
@@ -406,7 +402,7 @@ const Create = (props) => {
                             fontSize: "0.8rem",
                           }}
                         >
-                          Selected: {JSON.stringify(actionTypes)}
+                          Selected: {JSON.stringify(types)}
                         </p>
                       </FormGroup>
                     </div>
@@ -428,14 +424,14 @@ const Create = (props) => {
                     </FormGroup>
 
                     <FormGroup className="form__input">
-                      <Label for="colonyName">Colony Name*</Label>
+                      <Label for="colony">Colony*</Label>
                       <Input
                         required
-                        id="colonyName"
+                        id="colony"
                         type="select"
-                        name="colonyName"
+                        name="colony"
                         onChange={onChangeColony}
-                        value={colonyName}
+                        value={colony}
                       >
                         <option>Choose your Colony</option>
                         <option value="Littlefish Foundation">
@@ -446,15 +442,15 @@ const Create = (props) => {
                     </FormGroup>
 
                     <FormGroup className="form__input">
-                      <Label for="price">Price*</Label>
+                      <Label for="minimumPrice">Price*</Label>
                       <Input
                         required
-                        id="price"
-                        name="price"
+                        id="minimumPrice"
+                        name="minimumPrice"
                         type="number"
                         placeholder="Please enter a price in ADA"
                         onChange={handleInputChange}
-                        value={price}
+                        value={minimumPrice}
                       />
 
                       <PopOvers />

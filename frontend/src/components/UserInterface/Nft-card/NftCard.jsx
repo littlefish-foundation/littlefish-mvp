@@ -7,17 +7,12 @@ import Modal from "../Modal/SuccessModal";
 const NftCard = (props) => {
   const {
     _id,
-    chainID,
-    mediaType,
-    assetName,
-    imageBase64,
+    name,
     image,
-    // imagesBase64 = "data:" + mediaType + ";base64," + imageBase64,
-    // filesBase64,
-    ownerName,
+    producer,
     minimumPrice,
     createdAt,
-    colonyName,
+    colony,
   } = props.item;
 
   const createdat = createdAt?.substring(0, 10);
@@ -35,13 +30,13 @@ const NftCard = (props) => {
         </div>
 
         <div className="nft__content">
-          <h5 className="nft__title">{assetName}</h5>
+          <h5 className="nft__title">{name}</h5>
 
           <div className="creator__info-wrapper d-flex gap-3">
             <div className="creator__info w-100 d-flex align-items-center justify-content-between">
               <div>
                 <h6>Created By</h6>
-                <p>{ownerName}</p>
+                <p>{producer}</p>
               </div>
 
               <div>

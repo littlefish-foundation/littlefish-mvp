@@ -1,20 +1,18 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 
-function useFetch(url) {
-  const [NFT__DATA, setNFT__DATA] = useState(null);
+function useFetchActions(url) {
+  const [allActions, setAllActions] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
   useEffect(() => {
     setLoading(true);
     axios
-      .get(url, {
-        params: { limit: 10 },
-      })
+      .get(url)
       .then((response) => {
         console.log(response.data);
-        setNFT__DATA(response.data);
+        setAllActions(response.data);
       })
       .catch((err) => {
         console.log({ err });
@@ -25,6 +23,6 @@ function useFetch(url) {
       });
   }, [url]);
 
-  return { NFT__DATA, loading, error };
+  return { allActions, loading, error };
 }
-export default useFetch;
+export default useFetchActions;

@@ -60,8 +60,8 @@ module.exports = class ActionService {
     return formatActions(actions);
   }
 
-  static async createActionCollection(walletAddress, assetName) {
-    const { collectionID } = await tangocryptoClient.createCollection(walletAddress, assetName);
+  static async createActionCollection(walletAddress, name) {
+    const { collectionID } = await tangocryptoClient.createCollection(walletAddress, name);
     return collectionID;
   }
 
@@ -109,14 +109,12 @@ module.exports = class ActionService {
     const ulid = actionLogic.generateUlid();
     const links = await this.shortenURLsThatLongerThanLimit(action.links);
     const toMint = actionLogic.prepareActionToMint(action, links, ulid, mintDate);
-    const collectionID = await this.createActionCollection(action.walletID, action.assetName);
+    const collectionID = await this.createActionCollection(action.walletAddress, action.name);
     const { mintedAction } = await tangocryptoClient.mintAction(toMint, collectionID);
     const preparedFiles = actionLogic.prepareAllImageURLsInFile(mintedAction.files);
 
     const promises = [];
-    for (let i = 0; i < action.actionTypes.length; i++) {
-      promises.push(this.handleMintActionTypes(action.actionTypes[i]));
-    }
+    action.types?.forEach((t) => promises.push(this.handleMintActionTypes(t)));
     // const fileNames = await this.uploadAllImages(action.image, action.files);
 
     promises.push(actionDataAccess.createAction({

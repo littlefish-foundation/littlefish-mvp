@@ -57,7 +57,7 @@ module.exports = {
     body: Joi.object(
       {
         name: Joi.string().max(ACTION_MAX_ALLOWED_LENGTH).required(),
-        producer: Joi.string().max(ACTION_MAX_ALLOWED_LENGTH).required(),
+        producerName: Joi.string().required(),
         types: Joi.array().required(),
         description: Joi.string().required(),
         mediaType: Joi.string().max(ACTION_MAX_ALLOWED_LENGTH).required(),

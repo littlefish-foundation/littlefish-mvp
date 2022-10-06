@@ -5,7 +5,7 @@ const actionLogic = require('../logics/action');
 const uploadImage = require('../utils/upload-image');
 const { formatActions } = require('../formatters/action');
 const { NotFoundError } = require('../errors');
-const { API_IMAGES_LINK, ACTION_MAX_ALLOWED_LENGTH } = require('../constants');
+const { API_IMAGES_LINK, ACTION_MAX_ALLOWED_LENGTH, ACTION_ASSET_NAME } = require('../constants');
 const shortenUrl = require('../utils/shorten-url');
 
 module.exports = class ActionService {
@@ -119,13 +119,14 @@ module.exports = class ActionService {
 
     promises.push(actionDataAccess.createAction({
       chainID: mintedAction.id,
+      assetName: ACTION_ASSET_NAME,
       name: mintedAction.name,
       fingerprint: mintedAction.fingerprint,
       mediaType: mintedAction.media_type,
       status: mintedAction.status,
       rawActionFormat: mintedAction,
       producer: action.walletAddress,
-      producerName: action.ownerName,
+      producerName: action.producerName,
       colony: action.colony,
       description: action.description,
       types: action.types,

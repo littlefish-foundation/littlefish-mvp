@@ -73,6 +73,8 @@ const Actions = () => {
     handleStatusChange();
   }, [actionStatus]);
 
+  console.log(actions);
+
   return (
     <>
       <SubHeader />

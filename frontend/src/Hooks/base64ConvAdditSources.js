@@ -52,7 +52,7 @@ function useBase64ConverterAdditionalSources() {
               ?.pop()
               ?.split(";")[0];
 
-            filesObject.src = base64Sub;
+            filesObject.src = base64Sub?.split(",")[1];
 
             setImgBase64((imgBase64) => [...imgBase64, filesObject]);
           }

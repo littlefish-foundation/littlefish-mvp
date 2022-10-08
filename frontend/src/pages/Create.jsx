@@ -25,7 +25,7 @@ const Create = (props) => {
   const actionInitialState = {
     name: "Whitepaper",
     image: img,
-    producer: "Littlefish DAO",
+    producerName: "Littlefish DAO",
     minimumPrice: "20",
   };
 
@@ -33,7 +33,7 @@ const Create = (props) => {
     walletAddress: "",
     name: "",
     description: "",
-    producer: "",
+    producerName: "",
     image: "",
     colony: "",
     mediaType: "",
@@ -141,7 +141,7 @@ const Create = (props) => {
   const Type = { types: types };
   const Colony = { colony: colony };
   const urls = { links: allUrls };
-  const { name, description, producer, minimumPrice } = eachEntry;
+  const { name, description, producerName, minimumPrice } = eachEntry;
   Object.assign(eachEntry, Type, Colony, urls);
 
   const handleInputChange = (e) => {
@@ -265,15 +265,15 @@ const Create = (props) => {
                       </FormGroup>
 
                       <FormGroup className="form__input">
-                        <Label for="producer">Action Producer*</Label>
+                        <Label for="producerName">Action Producer*</Label>
                         <Input
                           required
-                          id="producer"
-                          name="producer"
+                          id="producerName"
+                          name="producerName"
                           type="text"
                           placeholder="Enter the Name of the Producer"
                           onChange={handleInputChange}
-                          value={producer}
+                          value={producerName}
                         />
                         <PopOvers />
                       </FormGroup>

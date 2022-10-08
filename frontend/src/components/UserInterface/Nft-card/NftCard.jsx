@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import { Badge } from "reactstrap";
 
 import "./nft-card.css";
 import Modal from "../Modal/SuccessModal";
@@ -9,9 +10,10 @@ const NftCard = (props) => {
     _id,
     name,
     image,
-    producer,
+    producerName,
     minimumPrice,
     createdAt,
+    types,
     colony,
   } = props.item;
 
@@ -36,7 +38,7 @@ const NftCard = (props) => {
             <div className="creator__info w-100 d-flex align-items-center justify-content-between">
               <div>
                 <h6>Created By</h6>
-                <p>{producer}</p>
+                <p>{producerName}</p>
               </div>
 
               <div>
@@ -47,12 +49,19 @@ const NftCard = (props) => {
           </div>
 
           <div className=" mt-3 d-flex align-items-center justify-content-between">
-            <button
+            {/* <button
               className="bid__btn d-flex align-items-center gap-1"
               onClick={() => {}}
             >
               <i className="ri-shopping-bag-line"></i> Reward Action
-            </button>
+            </button> */}
+            <div>
+              {types?.slice(0, 2)?.map((type) => (
+                <Badge color="primary" pill>
+                  {type}
+                </Badge>
+              ))}
+            </div>
 
             {showModal && <Modal setShowModal={setShowModal} />}
             <span className="history__link">

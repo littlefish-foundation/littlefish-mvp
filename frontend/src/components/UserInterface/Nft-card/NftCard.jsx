@@ -49,18 +49,13 @@ const NftCard = (props) => {
           </div>
 
           <div className=" mt-3 d-flex align-items-center justify-content-between">
-            {/* <button
-              className="bid__btn d-flex align-items-center gap-1"
-              onClick={() => {}}
-            >
-              <i className="ri-shopping-bag-line"></i> Reward Action
-            </button> */}
             <div>
-              {types?.slice(0, 2)?.map((type) => (
+              {types?.slice(0, 1)?.map((type) => (
                 <Badge color="primary" pill>
-                  {type}
+                  #{type}
                 </Badge>
               ))}
+              ...
             </div>
 
             {showModal && <Modal setShowModal={setShowModal} />}

@@ -13,6 +13,7 @@ import {
   FormGroup,
   Input,
   Tooltip,
+  UncontrolledCollapse,
 } from "reactstrap";
 import useFetchByActionID from "../Hooks/getActionByID";
 import { FaUserAlt } from "react-icons/fa";
@@ -31,7 +32,9 @@ import "../styles/nft-details.css";
 const NftDetails = (props) => {
   const [isOpen, setIsOpen] = useState(false);
   const [dataPost, setDataPost] = useState();
+
   const toggle = () => setIsOpen(!isOpen);
+
   const { _id } = useParams();
   const [price, setPrice] = useState();
   const [paymentLinks, setPaymentLinks] = useState(null);
@@ -148,7 +151,7 @@ const NftDetails = (props) => {
                       color="primary"
                       pill
                     >
-                      {type}
+                      #{type}
                     </Badge>
                   ))}
                 </div>
@@ -174,7 +177,6 @@ const NftDetails = (props) => {
                           <h6>Created By: {actionData?.producerName} </h6>
                         </div>
                       </div>
-
                       <br />
                       <div className="nft__creator d-flex gap-3 align-items-center">
                         <IoMdPricetags
@@ -235,6 +237,52 @@ const NftDetails = (props) => {
                         </div>
                       </Link>
                       <br />
+                      {actionData?.links.length > 0 ? (
+                        <div>
+                          <Button
+                            id="toggler"
+                            style={{
+                              background: "rgb(52,52,67)",
+                              border: "none",
+                              width: "100%",
+                              marginBottom: "1rem",
+                              display: "flex",
+                              justifyContent: "center",
+                              alignItems: "center",
+                            }}
+                          >
+                            View External Source Links
+                          </Button>
+                          <UncontrolledCollapse toggler="#toggler">
+                            <Card
+                              style={{
+                                background: "rgb(52,52,67)",
+                              }}
+                            >
+                              <CardBody>
+                                {actionData?.links.map((link) => (
+                                  <div>
+                                    <a
+                                      href={link.url}
+                                      style={{
+                                        textDecoration: "none",
+                                        color: "white",
+                                        fontSize: "1rem",
+                                        padding: "5px",
+                                        borderRadius: "5px",
+                                      }}
+                                      target="_blank"
+                                      rel="noreferrer"
+                                    >
+                                      {link.urlName}
+                                    </a>
+                                  </div>
+                                ))}
+                              </CardBody>
+                            </Card>
+                          </UncontrolledCollapse>
+                        </div>
+                      ) : null}
                       <div style={{ marginLeft: "100px" }}>
                         <p
                           style={{
@@ -273,17 +321,9 @@ const NftDetails = (props) => {
                                 width: "35%",
                                 height: "65px",
                               }}
-                              // className="singleNft-btn d-flex rgb(37,77,168)" align-items-center gap-1"
                             >
                               Reward Action
                             </Button>
-                            {/* {actionData?.types?.map((item) => (
-                              <div>
-                                <Badge color="primary" pill>
-                                  type
-                                </Badge>
-                              </div>
-                            ))} */}
 
                             <Tooltip
                               placement="left"
@@ -314,7 +354,6 @@ const NftDetails = (props) => {
                           </Button>
                         </a>
                       </div>
-
                       <Collapse className="collapse__card" isOpen={isOpen}>
                         <Card
                           color="light"

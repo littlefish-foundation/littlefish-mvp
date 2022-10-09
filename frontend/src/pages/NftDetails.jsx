@@ -83,6 +83,19 @@ const NftDetails = (props) => {
   };
   console.log(postStatus);
 
+  const handleActionStatusSync = () => {
+    fetch(`https://api.littlefish.foundation/action/${_id}/sync-status`, {
+      method: "PATCH",
+      headers: { "Content-type": "application/json" },
+      body: JSON.stringify({ status: actionData?.status }),
+    })
+      .then((response) => {
+        console.log(response.status);
+        return response.json();
+      })
+      .then((data) => console.log(data));
+  };
+
   useEffect(() => {
     fetch(`https://api.littlefish.foundation/action-sale/${_id}`)
       .then((response) => response.json())
@@ -188,7 +201,18 @@ const NftDetails = (props) => {
                         />
                         <div className="creator__detail">
                           <h6>Minimum Price: {actionData?.minimumPrice} ADA</h6>
+
+                          <p>Status: {actionData?.status}</p>
                         </div>
+                        <Button
+                          style={{
+                            fontSize: "0.5rem",
+                            display: "flex",
+                          }}
+                          onClick={handleActionStatusSync}
+                        >
+                          Sync Status
+                        </Button>
                       </div>
                       <br />
                       <div className="nft__creator d-flex gap-3 align-items-center">

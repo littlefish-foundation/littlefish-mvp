@@ -43,12 +43,15 @@ module.exports = class ActionSaleService {
     const previousSale = await actionSaleDataAccess.getSaleByActionID(actionID);
     if (previousSale) {
       try {
-        await this.deleteActionSaleByActionID(actionID);
+        await tangocryptoClient.deleteActionSale(previousSale.saleID, previousSale.chainActionID, previousSale.actionCollection);
       } catch (err) {
         console.log(err);
-        await actionSaleDataAccess.deleteActionSaleByActionID(actionID);
+        return {
+          sale: previousSale,
+        };
       }
     }
+    await actionSaleDataAccess.deleteActionSaleByActionID(actionID);
 
     const loveLacePrice = price * ADA_TO_LOVELACE_CONVERSION;
     const { createdSale } = await tangocryptoClient.createActionSale(action.chainID, loveLacePrice, action.actionCollection);

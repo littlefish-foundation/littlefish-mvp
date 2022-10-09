@@ -22,7 +22,7 @@ const PopOvers = (props) => {
 
       <UncontrolledPopover
         placement="right"
-        target="producer"
+        target="producerName"
         trigger="hover focus"
         delay={1500}
       >
@@ -31,8 +31,6 @@ const PopOvers = (props) => {
           Please in This Part Enter the Name or Nickname of the Action Producer.
         </PopoverBody>
       </UncontrolledPopover>
-
-   
 
       {/* ******************************************************************** */}
 

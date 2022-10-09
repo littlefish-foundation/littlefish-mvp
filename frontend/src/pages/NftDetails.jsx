@@ -1,7 +1,19 @@
 import React, { useEffect, useState } from "react";
 import SubHeader from "../components/UserInterface/Sub-Header/SubHeader";
 import { Link, useParams } from "react-router-dom";
-import { Container, Row, Col } from "reactstrap";
+import {
+  Container,
+  Row,
+  Col,
+  Badge,
+  Collapse,
+  Button,
+  CardBody,
+  Card,
+  FormGroup,
+  Input,
+  Tooltip,
+} from "reactstrap";
 import useFetchByActionID from "../Hooks/getActionByID";
 import { FaUserAlt } from "react-icons/fa";
 import { IoMdPricetags } from "react-icons/io";
@@ -11,15 +23,6 @@ import { GiSchoolOfFish } from "react-icons/gi";
 import SuccessfulSaleCreation from "../components/UserInterface/Modal/SuccessfulSaleCreation";
 import ErrorSaleCreation from "../components/UserInterface/Modal/ErrorSaleCreation";
 import LoadingSaleCreation from "../components/UserInterface/Modal/LoadingSaleCreation";
-import {
-  Collapse,
-  Button,
-  CardBody,
-  Card,
-  FormGroup,
-  Input,
-  Tooltip,
-} from "reactstrap";
 import { RotatingLines } from "react-loader-spinner";
 import Slider from "../components/Slider/Slider";
 
@@ -91,6 +94,7 @@ const NftDetails = (props) => {
   }, [paymentLinkGet, paymentLinks]);
   console.log(paymentLinks);
   console.log(dataPost);
+  console.log(actionData?.types);
 
   return (
     <div>
@@ -107,6 +111,7 @@ const NftDetails = (props) => {
       ) : (
         <React.Fragment>
           <SubHeader />
+
           <section>
             <Container>
               <div
@@ -126,11 +131,32 @@ const NftDetails = (props) => {
                     marginBottom: "30px ",
                   }}
                 >
-                  {actionData?.assetName}
+                  {actionData?.name}
                 </h2>
+                <div
+                  style={{
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                  }}
+                >
+                  {actionData?.types?.map((type) => (
+                    <Badge
+                      style={{
+                        marginBottom: "40px",
+                      }}
+                      color="primary"
+                      pill
+                    >
+                      {type}
+                    </Badge>
+                  ))}
+                </div>
+
                 <Row style={{ paddingLeft: "2%" }}>
                   <Col lg="6" md="6" sm="6">
                     <Slider />
+                    <br />
                   </Col>
                   <br />
 
@@ -145,9 +171,10 @@ const NftDetails = (props) => {
                           }}
                         />{" "}
                         <div className="creator__detail">
-                          <h6>Created By: {actionData?.ownerName} </h6>
+                          <h6>Created By: {actionData?.producerName} </h6>
                         </div>
                       </div>
+
                       <br />
                       <div className="nft__creator d-flex gap-3 align-items-center">
                         <IoMdPricetags
@@ -203,7 +230,7 @@ const NftDetails = (props) => {
                             }}
                           ></GiSchoolOfFish>
                           <div className="creator__detail">
-                            <p>littlefish Foundation</p>{" "}
+                            <p>{actionData?.colony}</p>{" "}
                           </div>
                         </div>
                       </Link>
@@ -250,6 +277,13 @@ const NftDetails = (props) => {
                             >
                               Reward Action
                             </Button>
+                            {/* {actionData?.types?.map((item) => (
+                              <div>
+                                <Badge color="primary" pill>
+                                  type
+                                </Badge>
+                              </div>
+                            ))} */}
 
                             <Tooltip
                               placement="left"

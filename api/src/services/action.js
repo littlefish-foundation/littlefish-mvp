@@ -130,7 +130,7 @@ module.exports = class ActionService {
       colony: action.colony,
       description: action.description,
       types: action.types,
-      minimumPrice: action.price,
+      minimumPrice: action.minimumPrice,
       image: actionLogic.prepareImageURL(mintedAction.image),
       files: preparedFiles,
       actionCollection: collectionID,

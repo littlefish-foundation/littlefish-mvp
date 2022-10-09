@@ -204,7 +204,7 @@ const NftDetails = (props) => {
 
                           <p>Status: {actionData?.status}</p>
                         </div>
-                        <Button
+                        {/* <Button
                           style={{
                             fontSize: "0.5rem",
                             display: "flex",
@@ -212,7 +212,7 @@ const NftDetails = (props) => {
                           onClick={handleActionStatusSync}
                         >
                           Sync Status
-                        </Button>
+                        </Button> */}
                       </div>
                       <br />
                       <div className="nft__creator d-flex gap-3 align-items-center">
@@ -290,7 +290,7 @@ const NftDetails = (props) => {
                                       href={link.url}
                                       style={{
                                         textDecoration: "none",
-                                        color: "white",
+
                                         fontSize: "1rem",
                                         padding: "5px",
                                         borderRadius: "5px",
@@ -307,7 +307,54 @@ const NftDetails = (props) => {
                           </UncontrolledCollapse>
                         </div>
                       ) : null}
-                      <div style={{ marginLeft: "100px" }}>
+
+                      {actionData?.files?.map(
+                        (file) =>
+                          file?.type === "application/pdf" && (
+                            <div>
+                              <Button
+                                id="togglers"
+                                style={{
+                                  background: "rgb(52,52,67)",
+                                  border: "none",
+                                  width: "100%",
+                                  marginBottom: "1rem",
+                                  display: "flex",
+                                  justifyContent: "center",
+                                  alignItems: "center",
+                                }}
+                              >
+                                View External Documents
+                              </Button>
+                              <UncontrolledCollapse toggler="#togglers">
+                                <Card
+                                  style={{
+                                    background: "rgb(52,52,67)",
+                                  }}
+                                >
+                                  <CardBody>
+                                    <a
+                                      href={file?.src}
+                                      target="_blank"
+                                      rel="noreferrer"
+                                      style={{
+                                        textDecoration: "none",
+
+                                        fontSize: "1rem",
+                                        cursor: "pointer",
+                                      }}
+                                    >
+                                      Document #
+                                      {actionData?.files?.indexOf(file)}
+                                    </a>
+                                  </CardBody>
+                                </Card>
+                              </UncontrolledCollapse>
+                            </div>
+                          )
+                      )}
+
+                      <div style={{ marginLeft: "30px" }}>
                         <p
                           style={{
                             fontSize: "0.5rem",
@@ -328,7 +375,7 @@ const NftDetails = (props) => {
                             onClick={() => setIsOpen(true)}
                             style={{
                               marginBottom: "0.7rem",
-                              width: "35%",
+                              width: "25%",
                               height: "65px",
                             }}
                             // className="singleNft-btn d-flex rgb(37,77,168)" align-items-center gap-1"
@@ -342,7 +389,7 @@ const NftDetails = (props) => {
                               style={{
                                 background: "rgb(37,77,168)",
                                 marginBottom: "0.7rem",
-                                width: "35%",
+                                width: "25%",
                                 height: "65px",
                               }}
                             >
@@ -369,7 +416,7 @@ const NftDetails = (props) => {
                             color="success"
                             style={{
                               marginBottom: "0.7rem",
-                              width: "35% ",
+                              width: "25% ",
                               height: "65px",
                             }}
                           >
@@ -377,6 +424,17 @@ const NftDetails = (props) => {
                             Get Action
                           </Button>
                         </a>
+                        &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+                        <Button
+                          style={{
+                            marginBottom: "0.7rem",
+                            width: "25% ",
+                            height: "65px",
+                          }}
+                          onClick={handleActionStatusSync}
+                        >
+                          Sync Status
+                        </Button>
                       </div>
                       <Collapse className="collapse__card" isOpen={isOpen}>
                         <Card

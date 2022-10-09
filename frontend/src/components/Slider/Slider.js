@@ -22,10 +22,13 @@ export default function Slider() {
     return {
       ...objFile,
       src: file?.src,
+      type: file?.type,
     };
   });
 
-  otherFiles?.map((file) => displayDataArray.push(file));
+  otherFiles?.map(
+    (file) => file?.type !== "application/pdf" && displayDataArray.push(file)
+  );
 
   console.log(displayDataArray);
 

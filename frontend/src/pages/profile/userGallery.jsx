@@ -11,13 +11,13 @@ const UserGallery = (props) => {
   const [userActions, setUserActions] = useState(null);
   const [loadingUserActions, setLoadingUserActions] = useState(false);
   const [error, setError] = useState(null);
-  let ownerName = props.ownerName;
+  let producerName = props.producerName;
 
   useEffect(() => {
     setLoadingUserActions(true);
     axios
       .get(
-        `https://api.littlefish.foundation/colony/Littlefish%20Foundation/actions?ownerName=${ownerName}`
+        `https://api.littlefish.foundation/colony/Littlefish%20Foundation/actions?producerName=${producerName}`
       )
       .then((response) => {
         setUserActions(response.data);
@@ -35,7 +35,7 @@ const UserGallery = (props) => {
         <Container style={{ backgroundColor: "transparent !important" }}>
           <Row>
             {userActions?.map((item) => (
-              <Col lg="3" md="4" sm="6" className="mb-4" key={item.ownerName}>
+              <Col lg="3" md="4" sm="6" className="mb-4" key={item.producerName}>
                 <NftCard item={item} />
               </Col>
             ))}

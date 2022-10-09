@@ -6,8 +6,8 @@ import "./navbar.css";
 
 function NavBar(props) {
   const [key, setKey] = useState("created");
-  let ownerName = props.ownerName;
-  let colonyName = props.colonyName;
+  let producerName = props.producerName;
+  let colony = props.colony;
 
   return (
     <div>
@@ -29,8 +29,8 @@ function NavBar(props) {
         >
           {" "}
           <UserGallery
-            ownerName={ownerName}
-            colonyName={colonyName}
+            producerName={producerName}
+            colony={colony}
             style={{ backgroundColor: "transparent !important" }}
           />{" "}
         </Tab>

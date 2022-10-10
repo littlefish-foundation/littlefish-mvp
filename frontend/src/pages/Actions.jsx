@@ -51,8 +51,8 @@ const Actions = () => {
 
     const resultsArray = actions.filter(
       (action) =>
-        action.assetName.toLowerCase().includes(e.target.value.toLowerCase()) ||
-        action.ownerName.toLowerCase().includes(e.target.value.toLowerCase())
+        action.name.toLowerCase().includes(e.target.value.toLowerCase()) ||
+        action.producerName.toLowerCase().includes(e.target.value.toLowerCase())
     );
     console.log(searchTerm);
     setSearchResults(resultsArray);
@@ -115,7 +115,7 @@ const Actions = () => {
                     <input
                       className="bar-styling"
                       key="random1"
-                      placeholder="Search by Asset Name or Owner Name"
+                      placeholder="Search by Name or Producer Name"
                       onChange={handleSearchChange}
                     ></input>
                   </form>

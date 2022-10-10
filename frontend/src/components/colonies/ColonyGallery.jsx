@@ -6,10 +6,10 @@ import "../../styles/actions.css";
 import "../../components/UserInterface/Live-auction/live-auction.css";
 
 const ColonyGallery = (props) => {
-  let colonyName = props.colonyName;
+  let colony = props.colony;
 
-  const { NFT__DATA } = useFetch(
-    `https://api.littlefish.foundation/colony/${colonyName}/actions/`
+  const { allActions } = useFetch(
+    `https://api.littlefish.foundation/colony/${colony}/actions/`
   );
 
   return (
@@ -30,7 +30,7 @@ const ColonyGallery = (props) => {
             </Col>
           </Row>
           <Row>
-            {NFT__DATA?.map((item) => (
+            {allActions?.map((item) => (
               <Col lg="3" md="4" sm="6" key={item?.tokenId}>
                 <NftCard item={item} />
               </Col>

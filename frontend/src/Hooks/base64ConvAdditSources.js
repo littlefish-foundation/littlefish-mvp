@@ -51,6 +51,7 @@ function useBase64ConverterAdditionalSources() {
               ?.split(":")
               ?.pop()
               ?.split(";")[0];
+            // filesObject.type = "image/jpeg";
 
             filesObject.src = base64Sub?.split(",")[1];
 

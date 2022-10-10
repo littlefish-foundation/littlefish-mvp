@@ -128,7 +128,7 @@ const MemberProfile = (props) => {
           </section>
 
           <section>
-            <NavBar ownerName={userData?.name} />
+            <NavBar producerName={userData?.name} />
           </section>
         </div>
       )}

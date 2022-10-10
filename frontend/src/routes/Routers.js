@@ -12,7 +12,7 @@ import NftDetails from "../pages/NftDetails";
 import ColonyDetails from "../pages/ColonyDetails";
 import MemberForm from "../components/colonies/MemberForm";
 import MemberProfile from "../pages/profile/MemberProfile";
-import Members from "../pages/Members";
+import Littlefish from "../pages/Littlefish";
 
 const Routers = () => {
   return (
@@ -23,7 +23,7 @@ const Routers = () => {
       <Route path="/wallet" element={<Wallet />} />
       <Route path="/create" element={<Create />} />
       <Route path="/about" element={<About />} />
-      <Route path="/members" element={<Members />} />
+      <Route path="/littlefish" element={<Littlefish />} />
       <Route path="/MemberForm" element={<MemberForm />} />
 
       <Route path="/colony" element={<Colony />} />

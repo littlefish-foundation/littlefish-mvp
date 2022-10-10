@@ -291,7 +291,7 @@ const NftDetails = (props) => {
                                       href={link.url}
                                       style={{
                                         textDecoration: "none",
-                                        color: "white",
+                                        color: "rgb(49, 108, 244)",
                                         fontSize: "1rem",
                                         padding: "5px",
                                         borderRadius: "5px",
@@ -309,50 +309,55 @@ const NftDetails = (props) => {
                         </div>
                       ) : null}
 
-                      {actionData?.files?.map(
-                        (file) =>
-                          file?.type === "application/pdf" && (
-                            <div>
-                              <Button
-                                id="togglers"
-                                style={{
-                                  background: "rgb(52,52,67)",
-                                  border: "none",
-                                  width: "100%",
-                                  marginBottom: "1rem",
-                                  display: "flex",
-                                  justifyContent: "center",
-                                  alignItems: "center",
-                                }}
-                              >
-                                View External Documents
-                              </Button>
-                              <UncontrolledCollapse toggler="#togglers">
-                                <Card
-                                  style={{
-                                    background: "rgb(52,52,67)",
-                                  }}
-                                >
-                                  <CardBody>
-                                    <a
-                                      href={file?.src}
-                                      target="_blank"
-                                      rel="noreferrer"
-                                      style={{
-                                        textDecoration: "none",
-                                        color: "white",
-                                        fontSize: "1rem",
-                                        cursor: "pointer",
-                                      }}
-                                    >
-                                      Document #
-                                      {actionData?.files?.indexOf(file)}
-                                    </a>
-                                  </CardBody>
-                                </Card>
-                              </UncontrolledCollapse>
-                            </div>
-                          )
+                      {actionData?.files?.some(
+                        (e) => e?.type === "application/pdf"
+                      ) && (
+                        <div>
+                          <Button
+                            id="togglers"
+                            style={{
+                              background: "rgb(52,52,67)",
+                              border: "none",
+                              width: "100%",
+                              marginBottom: "1rem",
+                              display: "flex",
+                              justifyContent: "center",
+                              alignItems: "center",
+                            }}
+                          >
+                            View External Documents
+                          </Button>
+                          <UncontrolledCollapse toggler="#togglers">
+                            <Card
+                              style={{
+                                background: "rgb(52,52,67)",
+                              }}
+                            >
+                              <CardBody>
+                                {actionData?.files?.map(
+                                  (file) =>
+                                    file?.type === "application/pdf" && (
+                                      <a
+                                        href={file?.src}
+                                        target="_blank"
+                                        rel="noreferrer"
+                                        style={{
+                                          textDecoration: "none",
+                                          color: "rgb(49, 108, 244)",
+                                          fontSize: "1rem",
+                                          cursor: "pointer",
+                                        }}
+                                      >
+                                        Document #
+                                        {actionData?.files?.indexOf(file)}{" "}
+                                        <br />
+                                      </a>
+                                    )
+                                )}
+                              </CardBody>
+                            </Card>
+                          </UncontrolledCollapse>
+                        </div>
                       )}
 
                       <div style={{ marginLeft: "30px" }}>

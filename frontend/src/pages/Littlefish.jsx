@@ -4,7 +4,7 @@ import useGetUserProfileData from "../Hooks/getUserProfileData";
 import UserProfileCard from "../components/userProfileCard/UserProfileCard";
 import { Container, Row, Col, Button } from "reactstrap";
 
-const Members = () => {
+const Littlefish = () => {
   const { userProfileData, loadingProfileData } = useGetUserProfileData(
     "https://api.littlefish.foundation/user/"
   );
@@ -22,7 +22,7 @@ const Members = () => {
         >
           <Col lg="12" style={{ marginBottom: "10px" }}>
             <div className="seller__section-title">
-              <h3 style={{ color: "#fff" }}>Members</h3>
+              <h3 style={{ color: "#fff" }}>Littlefish</h3>
             </div>
           </Col>
         </Row>
@@ -38,4 +38,4 @@ const Members = () => {
   );
 };
 
-export default Members;
+export default Littlefish;

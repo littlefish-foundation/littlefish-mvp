@@ -26,6 +26,8 @@ import ErrorSaleCreation from "../components/UserInterface/Modal/ErrorSaleCreati
 import LoadingSaleCreation from "../components/UserInterface/Modal/LoadingSaleCreation";
 import { RotatingLines } from "react-loader-spinner";
 import Slider from "../components/Slider/Slider";
+import StatusSyncModal from "../components/UserInterface/Modal/StatusSyncModal";
+import LoadingStatusSyncModal from "../components/UserInterface/Modal/LoadingStausSyncModal";
 
 import "../styles/nft-details.css";
 
@@ -40,7 +42,11 @@ const NftDetails = (props) => {
   const [paymentLinks, setPaymentLinks] = useState(null);
   const [paymentLinkGet, setPaymentLinkGet] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
+
   const [postStatus, setPostStatus] = useState(null);
+  const [syncStatus, setSyncStatus] = useState(null);
+
+  const [showSyncModal, setShowSyncModal] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const [tooltipOpen, setTooltipOpen] = useState(false);
 
@@ -83,6 +89,22 @@ const NftDetails = (props) => {
   };
   console.log(postStatus);
 
+  const handleActionStatusSync = () => {
+    fetch(`https://api.littlefish.foundation/action/${_id}/sync-status`, {
+      method: "PATCH",
+      headers: { "Content-type": "application/json" },
+      body: JSON.stringify({ status: actionData?.status }),
+    })
+      .then((response) => {
+        console.log(response.status);
+        setSyncStatus(response.status);
+        return response.json();
+      })
+      .then((data) => console.log(data));
+
+    setShowSyncModal(true);
+  };
+
   useEffect(() => {
     fetch(`https://api.littlefish.foundation/action-sale/${_id}`)
       .then((response) => response.json())
@@ -98,6 +120,7 @@ const NftDetails = (props) => {
   console.log(paymentLinks);
   console.log(dataPost);
   console.log(actionData?.types);
+  console.log(syncStatus);
 
   return (
     <div>
@@ -188,6 +211,8 @@ const NftDetails = (props) => {
                         />
                         <div className="creator__detail">
                           <h6>Minimum Price: {actionData?.minimumPrice} ADA</h6>
+
+                          <p>Status: {actionData?.status}</p>
                         </div>
                       </div>
                       <br />
@@ -266,7 +291,7 @@ const NftDetails = (props) => {
                                       href={link.url}
                                       style={{
                                         textDecoration: "none",
-                                        color: "white",
+                                        color: "rgb(49, 108, 244)",
                                         fontSize: "1rem",
                                         padding: "5px",
                                         borderRadius: "5px",
@@ -283,7 +308,59 @@ const NftDetails = (props) => {
                           </UncontrolledCollapse>
                         </div>
                       ) : null}
-                      <div style={{ marginLeft: "100px" }}>
+
+                      {actionData?.files?.some(
+                        (e) => e?.type === "application/pdf"
+                      ) && (
+                        <div>
+                          <Button
+                            id="togglers"
+                            style={{
+                              background: "rgb(52,52,67)",
+                              border: "none",
+                              width: "100%",
+                              marginBottom: "1rem",
+                              display: "flex",
+                              justifyContent: "center",
+                              alignItems: "center",
+                            }}
+                          >
+                            View External Documents
+                          </Button>
+                          <UncontrolledCollapse toggler="#togglers">
+                            <Card
+                              style={{
+                                background: "rgb(52,52,67)",
+                              }}
+                            >
+                              <CardBody>
+                                {actionData?.files?.map(
+                                  (file) =>
+                                    file?.type === "application/pdf" && (
+                                      <a
+                                        href={file?.src}
+                                        target="_blank"
+                                        rel="noreferrer"
+                                        style={{
+                                          textDecoration: "none",
+                                          color: "rgb(49, 108, 244)",
+                                          fontSize: "1rem",
+                                          cursor: "pointer",
+                                        }}
+                                      >
+                                        Document #
+                                        {actionData?.files?.indexOf(file)}{" "}
+                                        <br />
+                                      </a>
+                                    )
+                                )}
+                              </CardBody>
+                            </Card>
+                          </UncontrolledCollapse>
+                        </div>
+                      )}
+
+                      <div style={{ marginLeft: "30px" }}>
                         <p
                           style={{
                             fontSize: "0.5rem",
@@ -304,10 +381,9 @@ const NftDetails = (props) => {
                             onClick={() => setIsOpen(true)}
                             style={{
                               marginBottom: "0.7rem",
-                              width: "35%",
+                              width: "25%",
                               height: "65px",
                             }}
-                            // className="singleNft-btn d-flex rgb(37,77,168)" align-items-center gap-1"
                           >
                             Reward Action
                           </Button>
@@ -318,7 +394,7 @@ const NftDetails = (props) => {
                               style={{
                                 background: "rgb(37,77,168)",
                                 marginBottom: "0.7rem",
-                                width: "35%",
+                                width: "25%",
                                 height: "65px",
                               }}
                             >
@@ -345,7 +421,7 @@ const NftDetails = (props) => {
                             color="success"
                             style={{
                               marginBottom: "0.7rem",
-                              width: "35% ",
+                              width: "25% ",
                               height: "65px",
                             }}
                           >
@@ -353,7 +429,29 @@ const NftDetails = (props) => {
                             Get Action
                           </Button>
                         </a>
+                        &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+                        <Button
+                          style={{
+                            marginBottom: "0.7rem",
+                            width: "25% ",
+                            height: "65px",
+                          }}
+                          onClick={handleActionStatusSync}
+                        >
+                          Sync Status
+                        </Button>
+                        {syncStatus === 200 && showSyncModal && (
+                          <StatusSyncModal
+                            setShowSyncModal={setShowSyncModal}
+                          />
+                        )}
+                        {syncStatus === null && showSyncModal && (
+                          <LoadingStatusSyncModal
+                            setShowSyncModal={setShowSyncModal}
+                          />
+                        )}
                       </div>
+
                       <Collapse className="collapse__card" isOpen={isOpen}>
                         <Card
                           color="light"

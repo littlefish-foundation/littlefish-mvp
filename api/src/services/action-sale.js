@@ -13,7 +13,7 @@ module.exports = class ActionSaleService {
       throw new NotFoundError(`Sale for action id: ${id} is not found.`);
     }
 
-    if (actionSale.lastAccessedWallet !== walletAddress && actionSale.lastAccessed
+    if (actionSale.lastAccessedWallet && actionSale.lastAccessedWallet !== walletAddress && actionSale.lastAccessed
         && actionSale.lastAccessed > Date.now() - SALE_LAST_ACCESSED_DEADLINE) {
       throw new ApiError('The action sale is currently reserved ', 403);
     }

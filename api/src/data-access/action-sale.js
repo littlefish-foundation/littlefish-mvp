@@ -16,15 +16,13 @@ module.exports = class ActionSaleAccess {
     return ActionSaleModel.create({
       ...sale,
       lastAccessed: Date.now() - 20 * 60 * 1000,
+      lastAccessedWallet: undefined,
     });
   }
 
   static async deleteActionSaleByActionID(actionID) {
     const { ok } = await ActionSaleModel.deleteOne({ action: actionID });
-    if (ok === 1) {
-      return true;
-    }
-    return false;
+    return ok === 1;
   }
 
   static async updateActionSaleByActionID(actionID, updates) {

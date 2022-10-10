@@ -133,7 +133,7 @@ const ColonyDetails = () => {
             </Container>
           </section>
           <br />
-          <ColonyGallery colonyName={singleColony?.name} />
+          <ColonyGallery colony={singleColony?.name} />
         </div>
       )}
     </div>

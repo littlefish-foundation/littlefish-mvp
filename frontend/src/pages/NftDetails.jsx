@@ -26,6 +26,8 @@ import ErrorSaleCreation from "../components/UserInterface/Modal/ErrorSaleCreati
 import LoadingSaleCreation from "../components/UserInterface/Modal/LoadingSaleCreation";
 import { RotatingLines } from "react-loader-spinner";
 import Slider from "../components/Slider/Slider";
+import StatusSyncModal from "../components/UserInterface/Modal/StatusSyncModal";
+import LoadingStatusSyncModal from "../components/UserInterface/Modal/LoadingStausSyncModal";
 
 import "../styles/nft-details.css";
 
@@ -40,7 +42,11 @@ const NftDetails = (props) => {
   const [paymentLinks, setPaymentLinks] = useState(null);
   const [paymentLinkGet, setPaymentLinkGet] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
+
   const [postStatus, setPostStatus] = useState(null);
+  const [syncStatus, setSyncStatus] = useState(null);
+
+  const [showSyncModal, setShowSyncModal] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const [tooltipOpen, setTooltipOpen] = useState(false);
 
@@ -91,9 +97,12 @@ const NftDetails = (props) => {
     })
       .then((response) => {
         console.log(response.status);
+        setSyncStatus(response.status);
         return response.json();
       })
       .then((data) => console.log(data));
+
+    setShowSyncModal(true);
   };
 
   useEffect(() => {
@@ -111,6 +120,7 @@ const NftDetails = (props) => {
   console.log(paymentLinks);
   console.log(dataPost);
   console.log(actionData?.types);
+  console.log(syncStatus);
 
   return (
     <div>
@@ -204,15 +214,6 @@ const NftDetails = (props) => {
 
                           <p>Status: {actionData?.status}</p>
                         </div>
-                        {/* <Button
-                          style={{
-                            fontSize: "0.5rem",
-                            display: "flex",
-                          }}
-                          onClick={handleActionStatusSync}
-                        >
-                          Sync Status
-                        </Button> */}
                       </div>
                       <br />
                       <div className="nft__creator d-flex gap-3 align-items-center">
@@ -290,7 +291,7 @@ const NftDetails = (props) => {
                                       href={link.url}
                                       style={{
                                         textDecoration: "none",
-
+                                        color: "white",
                                         fontSize: "1rem",
                                         padding: "5px",
                                         borderRadius: "5px",
@@ -339,7 +340,7 @@ const NftDetails = (props) => {
                                       rel="noreferrer"
                                       style={{
                                         textDecoration: "none",
-
+                                        color: "white",
                                         fontSize: "1rem",
                                         cursor: "pointer",
                                       }}
@@ -378,7 +379,6 @@ const NftDetails = (props) => {
                               width: "25%",
                               height: "65px",
                             }}
-                            // className="singleNft-btn d-flex rgb(37,77,168)" align-items-center gap-1"
                           >
                             Reward Action
                           </Button>
@@ -435,7 +435,18 @@ const NftDetails = (props) => {
                         >
                           Sync Status
                         </Button>
+                        {syncStatus === 200 && showSyncModal && (
+                          <StatusSyncModal
+                            setShowSyncModal={setShowSyncModal}
+                          />
+                        )}
+                        {syncStatus === null && showSyncModal && (
+                          <LoadingStatusSyncModal
+                            setShowSyncModal={setShowSyncModal}
+                          />
+                        )}
                       </div>
+
                       <Collapse className="collapse__card" isOpen={isOpen}>
                         <Card
                           color="light"

@@ -16,7 +16,7 @@ module.exports = class ActionSaleAccess {
     return ActionSaleModel.create({
       ...sale,
       lastAccessed: Date.now() - 20 * 60 * 1000,
-      lastAccessedWallet: undefined,
+      lastAccessedWallet: '',
     });
   }
 

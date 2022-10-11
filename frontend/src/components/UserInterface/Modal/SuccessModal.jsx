@@ -1,12 +1,14 @@
 import React from "react";
 import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
 import { useNavigate } from "react-router-dom";
-import useFetch from "../../../Hooks/useFetch";
+import useFetchActions from "../../../Hooks/useFetch";
 import "./modal.css";
 import ActionModal from "../../actionModal/actionModal";
 
 const SuccessModal = ({ setShowModal }) => {
-  const { NFT__DATA } = useFetch("https://api.littlefish.foundation/action/");
+  const { allActions } = useFetchActions(
+    "https://api.littlefish.foundation/action"
+  );
 
   const navigate = useNavigate();
 
@@ -29,7 +31,7 @@ const SuccessModal = ({ setShowModal }) => {
           </h6>
         </div>
         <div className="nft__centered">
-          {NFT__DATA?.slice(0, 1).map((item) => (
+          {allActions?.slice(0, 1).map((item) => (
             <ActionModal item={item} />
           ))}
         </div>

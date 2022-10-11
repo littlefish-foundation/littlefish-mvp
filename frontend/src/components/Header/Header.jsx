@@ -42,7 +42,7 @@ const NAV__LINKS = [
     url: "/colony",
   },
   {
-    display: "Littlefish",
+    display: "littlefish",
     url: "/littlefish",
   },
   {

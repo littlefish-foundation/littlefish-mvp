@@ -92,13 +92,13 @@ html {
 
 .cancel-btn-first {
   background-color: #70707c !important;
-  width: 80px;
+  width: auto;
   height: 40px;
 }
 
 .add-btn-second {
   background-color: #f0e481 !important;
-  width: 80px;
+  width: auto;
   height: 40px;
 }
 

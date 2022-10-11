@@ -76,7 +76,8 @@ const Actions = () => {
   console.log(actions);
 
   return (
-    <>
+    <div>
+
       <SubHeader />
 
       <section>
@@ -179,7 +180,7 @@ const Actions = () => {
           </Row>
         </Container>
       </section>
-    </>
+    </div>
   );
 };
 

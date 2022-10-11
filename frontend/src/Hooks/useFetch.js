@@ -9,7 +9,11 @@ function useFetchActions(url) {
   useEffect(() => {
     setLoading(true);
     axios
-      .get(url)
+      .get(url, {
+        params: {
+          limit: 12,
+        },
+      }) // limit the number of actions to 12
       .then((response) => {
         console.log(response.data);
         setAllActions(response.data);

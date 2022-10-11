@@ -54,6 +54,7 @@ const Create = (props) => {
   const maxCount = 256;
   const maxAssetNameCount = 31;
   const walletid = sessionStorage.getItem("walletID");
+  const [errorMessage, setErrorMessage] = useState("");
 
   const [showModal, setShowModal] = useState(false);
   const [imageData, setImageData] = useState("");
@@ -100,17 +101,12 @@ const Create = (props) => {
   };
 
   const handleAddNewTypeClick = () => {
-    const values = [...newActionType];
+    const values = [];
     values.push({ value: null });
     setNewActionType(values);
   };
 
   console.log(newActionType.map((type) => type.value));
-
-  // const handleAddFieldForNewType = () => {
-  //   actionTypes.push(newActionType);
-  //   setActionTypes([...actionTypes]);
-  // };
 
   const handleAddLinks = () => {
     const values = [...allUrls];
@@ -180,15 +176,12 @@ const Create = (props) => {
 
       body: JSON.stringify(clean(eachEntry)),
     })
-      .then((response) => {
-        response.json();
-        console.log(response);
-      })
+      .then((response) => response.json())
 
       .then((data) => {
         console.log(data);
         setPostStatus(Object.entries(data)[0][0]);
-
+        setErrorMessage(Object.entries(data)[0][1]);
         console.log(Object.entries(data)[0][0]);
       })
       .catch((err) => {
@@ -205,6 +198,7 @@ const Create = (props) => {
   ///* ************************************************************************************************************************************ *///
   console.log(eachEntry);
   console.log(postStatus);
+  console.log(errorMessage);
 
   return (
     <div onClick={() => showModal && setShowModal(false)}>
@@ -409,7 +403,7 @@ const Create = (props) => {
 
                     <FormGroup className="form__input">
                       <Label for="additionalImages">
-                        Upload Additional Images
+                        Upload Additional Images or PDF files
                       </Label>
 
                       <Input
@@ -502,19 +496,40 @@ const Create = (props) => {
                           ))}
                         </React.Fragment>
                       )}
-                      <Button
-                        className="cancel-btn-first"
-                        onClick={() => handleRemoveUrls()}
-                      >
-                        Delete
-                      </Button>
-                      &nbsp; &nbsp; &nbsp;
-                      <Button
-                        className="add-btn-second"
-                        onClick={() => handleAddLinks()}
-                      >
-                        Add
-                      </Button>
+                      {allUrls.length !== 0 && (
+                        <div>
+                          <Button
+                            className="cancel-btn-first"
+                            onClick={() => handleRemoveUrls()}
+                          >
+                            Delete
+                          </Button>
+                          &nbsp; &nbsp; &nbsp;
+                          <Button
+                            className="add-btn-second"
+                            onClick={() => handleAddLinks()}
+                          >
+                            Add Link
+                          </Button>
+                        </div>
+                      )}
+
+                      {allUrls.length === 0 && (
+                        <Button
+                          onClick={() => handleAddLinks()}
+                          style={{
+                            background: "inherit",
+                            border: "2px solid rgba(221, 221, 221, 0.171)",
+                            width: "100%",
+                            marginBottom: "1rem",
+                            display: "flex",
+                            justifyContent: "center",
+                            alignItems: "center",
+                          }}
+                        >
+                          Click Here to Add External Source Link
+                        </Button>
+                      )}
                     </div>
                   </FormGroup>
 
@@ -533,7 +548,10 @@ const Create = (props) => {
                     <SuccessModal setShowModal={setShowModal} />
                   )}
                   {postStatus === "error" && showModal && (
-                    <ErrorModal setShowModal={setShowModal} />
+                    <ErrorModal
+                      setShowModal={setShowModal}
+                      errorMessage={errorMessage}
+                    />
                   )}
                   {postStatus === null && showModal && (
                     <LoadingModal setShowModal={setShowModal} />

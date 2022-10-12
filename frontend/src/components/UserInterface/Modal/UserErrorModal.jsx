@@ -19,7 +19,7 @@ const UserErrorModal = ({ setShowModal, errorMessage }) => {
           <ErrorIcon sx={{ color: "red", fontSize: 50 }} />
           <h6 className="text-center text-dark">Your Application Failed</h6>
         </div>
-        <p className="text-center text-dark">Error Message :</p>
+        <p className="text-center text-dark">Error Message 👇️ :</p>
         <div style={{ display: "flex", justifyContent: "center" }}>
           {errorMessage.message}
         </div>

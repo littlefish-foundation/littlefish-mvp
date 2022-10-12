@@ -182,6 +182,7 @@ const NftDetails = (props) => {
                 <Row style={{ paddingLeft: "2%" }}>
                   <Col lg="6" md="6" sm="6">
                     <Slider />
+
                     <br />
                   </Col>
                   <br />

@@ -3,6 +3,7 @@ import "./Slider.css";
 import BtnSlider from "./BtnSlider";
 import { useParams } from "react-router-dom";
 import useFetchByActionID from "../../Hooks/getActionByID";
+import { Link } from "react-router-dom";
 
 export default function Slider() {
   const { _id } = useParams();
@@ -58,11 +59,15 @@ export default function Slider() {
     <div className="container-slider">
       {displayDataArray?.map((obj, index) => {
         return (
-          <div
-            className={slideIndex === index + 1 ? "slide active-anim" : "slide"}
-          >
-            <img src={obj.src} />
-          </div>
+          <a href={displayDataArray[slideIndex - 1].src}>
+            <div
+              className={
+                slideIndex === index + 1 ? "slide active-anim" : "slide"
+              }
+            >
+              <img src={obj.src} alt="" />
+            </div>
+          </a>
         );
       })}
       <BtnSlider moveSlide={nextSlide} direction={"next"} />

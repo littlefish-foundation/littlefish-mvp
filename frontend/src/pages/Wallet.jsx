@@ -27,6 +27,8 @@ const Wallet = () => {
   const [showModal, setShowModal] = useState(false);
   const [showModalDisconnect, setShowModalDisconnect] = useState(false);
   const [namiCheck, setNamiCheck] = useState(null);
+  const [walletBalance, setWalletBalance] = useState(null);
+  const [sumBalance, setSumBalance] = useState(null);
 
   const connectTyphonWallet = () => {
     var typhon;
@@ -64,9 +66,11 @@ const Wallet = () => {
         await Nami.enable();
         let addr = await Nami.getAddress();
         let assets = await Nami.getAssets();
+        let balance = await Nami.getUtxos();
         setNamiCheck(Nami.enable);
         setAccount(addr);
         setNfts(assets);
+        setWalletBalance(balance);
       }
     }
     t();
@@ -75,6 +79,18 @@ const Wallet = () => {
   }, [namiAddr]);
 
   console.log(nfts);
+  console.log(walletBalance);
+
+  useEffect(() => {
+    let sum = 0;
+    walletBalance?.map((item) => {
+      let quantity = item?.amount?.map((e) => e?.quantity);
+      sum += parseInt(quantity, 10);
+      setSumBalance(sum / 1000000);
+    });
+  }, [walletBalance]);
+
+  console.log(sumBalance);
 
   ///* *********************************************************************************************************************************** *////
   ///* *********************************************************************************************************************************** *////
@@ -220,6 +236,7 @@ const Wallet = () => {
                   {namiCheck !== null && showModal && (
                     <NamiAddressModal
                       account={account}
+                      sumBalance={sumBalance}
                       setShowModal={setShowModal}
                     />
                   )}

@@ -1,11 +1,13 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import "../UserInterface/Nft-card/nft-card.css";
+import { Badge } from "reactstrap";
 
 const ActionModal = (props) => {
-  const { _id, assetName, ownerName, minimumPrice, createdAt } = props.item;
+  const { _id, name, producerName, minimumPrice, types, createdAt } =
+    props.item;
   const image64 = window.bas64Data;
-  
+
   const createdat = createdAt?.substring(0, 10);
 
   return (
@@ -16,13 +18,13 @@ const ActionModal = (props) => {
         </div>
 
         <div className="nft__content">
-          <h5 className="nft__title">{assetName}</h5>
+          <h5 className="nft__title">{name}</h5>
 
           <div className="creator__info-wrapper d-flex gap-3">
             <div className="creator__info w-100 d-flex align-items-center justify-content-between">
               <div>
                 <h6>Created By</h6>
-                <p>{ownerName}</p>
+                <p>{producerName}</p>
               </div>
 
               <div>
@@ -33,12 +35,14 @@ const ActionModal = (props) => {
           </div>
 
           <div className=" mt-3 d-flex align-items-center justify-content-between">
-            <button
-              className="bid__btn d-flex align-items-center gap-1"
-              onClick={() => {}}
-            >
-              <i className="ri-shopping-bag-line"></i> Reward Action
-            </button>
+            <div>
+              {types?.slice(0, 1)?.map((type) => (
+                <Badge color="primary" pill>
+                  #{type}
+                </Badge>
+              ))}
+              ...
+            </div>
 
             <span className="history__link">
               <h6>Creation Date</h6>

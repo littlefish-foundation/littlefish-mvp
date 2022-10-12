@@ -32,13 +32,20 @@ const NftCard = (props) => {
         </div>
 
         <div className="nft__content">
-          <h5 className="nft__title">{name}</h5>
+          <h5 className="nft__title">
+            {name.length <= 20 ? name : name.slice(0, 20) + "..."}
+          </h5>
 
           <div className="creator__info-wrapper d-flex gap-3">
             <div className="creator__info w-100 d-flex align-items-center justify-content-between">
               <div>
                 <h6>Created By</h6>
-                <p>{producerName}</p>
+                <p>
+                  {" "}
+                  {producerName.length <= 19
+                    ? producerName
+                    : producerName.slice(0, 19) + "..."}
+                </p>
               </div>
 
               <div>

@@ -8,7 +8,7 @@ import cardanoIcon from "../../../assets/cardano-ada-icon.png";
 import Wallet from "../../../pages/Wallet";
 import { useSlotProps } from "@mui/base";
 
-const NamiAddressModal = ({ account, setShowModal }) => {
+const NamiAddressModal = ({ account, setShowModal, sumBalance }) => {
   //const account = account;
   const navigate = useNavigate();
   const walletID = account;
@@ -46,6 +46,10 @@ const NamiAddressModal = ({ account, setShowModal }) => {
           </Button>
         </div>
         <br />
+        <br />
+        <p className="text-center text-dark">
+          Your Balance is: {sumBalance} ADA
+        </p>
         <button
           className="place__bid-btn"
           onClick={() => {

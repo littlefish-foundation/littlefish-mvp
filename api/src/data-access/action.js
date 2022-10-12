@@ -36,7 +36,7 @@ module.exports = class ActionDataAccess {
       ...(minDate ? { createdAt: { $gte: minDate } } : undefined),
       ...(maxDate ? { createdAt: { $lte: maxDate } } : undefined),
       ...(producerName ? { producerName: { $regex: producerName, $options: 'i' } } : undefined),
-      ...(type ? { actionTypes: type } : undefined),
+      ...(type ? { types: type } : undefined),
       ...(name ? { name: { $regex: name, $options: 'i' } } : undefined),
       ...(status ? { status } : undefined),
     }).skip(page * limit).limit(limit)

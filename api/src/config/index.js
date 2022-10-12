@@ -13,8 +13,7 @@ module.exports = {
   port: process.env.PORT,
   actionServiceClient: {
     url: process.env.ACTION_SERVICE_URL,
-    baseCollectionId: process.env.ACTION_BASE_COLLECTION_ID,
-    apiKey: process.env.API_KEY,
+    apiKey: process.env.TANGOCRYPTO_API_KEY,
   },
   jwtSecret: process.env.JWT_SECRET,
 };

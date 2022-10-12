@@ -13,8 +13,7 @@ module.exports = class ActionSaleService {
       throw new NotFoundError(`Sale for action id: ${id} is not found.`);
     }
 
-    if (actionSale.lastAccessedWallet !== walletAddress && actionSale.lastAccessed
-        && actionSale.lastAccessed > Date.now() - SALE_LAST_ACCESSED_DEADLINE) {
+    if (actionSale?.lastAccessedWallet !== walletAddress && actionSale?.lastAccessed > (Date.now() - SALE_LAST_ACCESSED_DEADLINE)) {
       throw new ApiError('The action sale is currently reserved ', 403);
     }
     await actionSaleDataAccess.setLastAccessed(id, walletAddress);
@@ -50,8 +49,8 @@ module.exports = class ActionSaleService {
           sale: previousSale,
         };
       }
+      await actionSaleDataAccess.deleteActionSaleByActionID(actionID);
     }
-    await actionSaleDataAccess.deleteActionSaleByActionID(actionID);
 
     const loveLacePrice = price * ADA_TO_LOVELACE_CONVERSION;
     const { createdSale } = await tangocryptoClient.createActionSale(action.chainID, loveLacePrice, action.actionCollection);

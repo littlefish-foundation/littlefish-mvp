@@ -81,14 +81,16 @@ const Wallet = () => {
   console.log(nfts);
   console.log(walletBalance);
 
-  useEffect(() => {
-    let sum = 0;
-    walletBalance?.map((item) => {
-      let quantity = item?.amount?.map((e) => e?.quantity);
-      sum += parseInt(quantity, 10);
-      setSumBalance(sum / 1000000);
-    });
-  }, [walletBalance]);
+  
+    useEffect(() => { // write a function to get the balance of the wallet
+      let sum = 0;
+      walletBalance?.map((item) => {
+        let quantity = item?.amount?.map((e) => e?.quantity);
+        sum += parseInt(quantity, 10);
+        setSumBalance(sum / 1000000);
+      });
+    }, [walletBalance]);
+
 
   console.log(sumBalance);
 

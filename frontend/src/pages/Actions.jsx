@@ -74,10 +74,11 @@ const Actions = () => {
   }, [actionStatus]);
 
   console.log(actions);
+  console.log(actionType);
+  console.log(actionStatus);
 
   return (
     <div>
-
       <SubHeader />
 
       <section>
@@ -94,7 +95,7 @@ const Actions = () => {
                       onChange={(e) => setActionType(e.target.value)}
                       value={actionType}
                     >
-                      <option value={""}>All categories</option>
+                      <option value="">All categories</option>
                       {popularActionType?.actionTypes?.map((item) => (
                         <option value={item.name}>{item.name}</option>
                       ))}
@@ -147,8 +148,8 @@ const Actions = () => {
               Actions
             </h2>
             {searchTerm.length === 0 &&
-              actionStatus === null &&
-              actionType === null &&
+              (actionStatus === null || actionStatus === "") &&
+              (actionType === null || actionType === "") &&
               allActions?.map((item) => (
                 <Col lg="3" md="4" sm="6" className="mb-4" key={item?.tokenId}>
                   <NftCard item={item} key={item?.tokenId} />
@@ -164,6 +165,7 @@ const Actions = () => {
               ))}
 
             {actionType !== null &&
+              actionType !== "" &&
               searchTerm.length === 0 &&
               actionsByType?.map((item) => (
                 <Col lg="3" md="4" sm="6" className="mb-4" key={item?.tokenId}>
@@ -171,6 +173,7 @@ const Actions = () => {
                 </Col>
               ))}
             {actionStatus !== null &&
+              actionStatus !== "" &&
               searchTerm.length === 0 &&
               actionsByStatus?.map((item) => (
                 <Col lg="3" md="4" sm="6" className="mb-4" key={item?.tokenId}>

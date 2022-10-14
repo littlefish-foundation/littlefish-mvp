@@ -119,7 +119,7 @@ const ColonyDetails = () => {
               >
                 <Col lg="12" style={{ marginBottom: "10px" }}>
                   <div className="seller__section-title">
-                    <h3 style={{ color: "#fff" }}>Members</h3>
+                    <h3 style={{ color: "#fff" }}>Sub-Colonies</h3>
                   </div>
                 </Col>
               </Row>

@@ -474,6 +474,98 @@
         }
       }
     },
+    "/colony/{colonyName}/all-info": {
+      "get": {
+        "tags": [
+          "colony"
+        ],
+        "summary": "Get all information related to the colony",
+        "parameters": [
+          {
+            "name": "colonyName",
+            "in": "path",
+            "description": "Colony name",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "description": "The current page of action response",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "The count of action's to return",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "name",
+            "in": "query",
+            "description": "action name to filter",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "type",
+            "in": "query",
+            "description": "type of action",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "producerName",
+            "in": "query",
+            "description": "action producer name to filter",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "status",
+            "in": "query",
+            "description": "status of the action",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "minDate",
+            "in": "query",
+            "description": "minimum creation date of action",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "maxDate",
+            "in": "query",
+            "description": "maximum creation date of action",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "sortingField",
+            "in": "query",
+            "description": "field to sort actions",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "sortingOrder",
+            "in": "query",
+            "description": "1 for ascending, -1 for descending",
+            "required": false,
+            "type": "number"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response with colony actions"
+          }
+        }
+      }
+    },
     "/colony/{colonyName}/actions": {
       "get": {
         "tags": [

@@ -1,12 +1,5 @@
 const Joi = require('joi');
-
-const colonyNameParams = {
-  params: Joi.object(
-    {
-      colonyName: Joi.string().required(),
-    },
-  ),
-};
+const { actionQuerySchema, colonyNameParams } = require('./common');
 
 module.exports = {
   getColony: {
@@ -25,23 +18,13 @@ module.exports = {
       },
     ),
   },
-
+  getAllInfo: {
+    ...colonyNameParams,
+    ...actionQuerySchema,
+  },
   getColonyActions: {
     ...colonyNameParams,
-    query: Joi.object(
-      {
-        name: Joi.string(),
-        producerName: Joi.string(),
-        status: Joi.string(),
-        type: Joi.string(),
-        minDate: Joi.date(),
-        maxDate: Joi.date(),
-        sortingOrder: Joi.string().valid('asc', 'desc').default('desc'),
-        sortingField: Joi.string(),
-        page: Joi.number().integer().default(0),
-        limit: Joi.number().integer().positive().default(20),
-      },
-    ),
+    ...actionQuerySchema,
   },
   createColony: {
     body: Joi.object(

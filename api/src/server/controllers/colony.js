@@ -25,6 +25,18 @@ module.exports = class ColonyController {
     res.status(200).send(data);
   });
 
+  static getAllInfo = catchAsync(async (req, res) => {
+    const { colonyName } = req.params;
+    const {
+      name, producerName, status, minDate, maxDate, sortingOrder, sortingField, page, limit, type,
+    } = req.query;
+
+    const data = await colonyService.getAllInfo(colonyName, {
+      name, producerName, status, minDate, maxDate, type,
+    }, { sortingOrder, sortingField }, page, limit);
+    res.status(200).send(data);
+  });
+
   static getColonyActions = catchAsync(async (req, res) => {
     const {
       colonyName,

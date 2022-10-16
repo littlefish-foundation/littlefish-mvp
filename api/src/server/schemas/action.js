@@ -1,5 +1,6 @@
 const Joi = require('joi');
 const { ACTION_MAX_ALLOWED_LENGTH } = require('../../constants');
+const { actionQuerySchema } = require('./common');
 
 const idParams = {
   params: Joi.object(
@@ -30,20 +31,7 @@ module.exports = {
     ),
   },
   getActions: {
-    query: Joi.object(
-      {
-        name: Joi.string(),
-        producerName: Joi.string(),
-        status: Joi.string(),
-        type: Joi.string(),
-        minDate: Joi.date(),
-        maxDate: Joi.date(),
-        sortingOrder: Joi.string().valid('asc', 'desc').default('desc'),
-        sortingField: Joi.string(),
-        page: Joi.number().integer().default(0),
-        limit: Joi.number().integer().positive().default(20),
-      },
-    ),
+    ...actionQuerySchema,
   },
   createActionSale: {
     ...idParams,

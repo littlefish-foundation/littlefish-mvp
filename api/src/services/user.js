@@ -1,6 +1,7 @@
 const userDataAccess = require('../data-access/user');
 const colonyDataAccess = require('../data-access/colony');
 const { NotFoundError } = require('../errors');
+const { USER_STATUS } = require('../constants');
 
 module.exports = class UserService {
   static async getUserByName(name) {
@@ -37,6 +38,7 @@ module.exports = class UserService {
     }
     const userWithColony = {
       ...user,
+      status: USER_STATUS.PENDING,
       colony: colony._id,
     };
     await userDataAccess.createUser(userWithColony);

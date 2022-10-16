@@ -1,12 +1,13 @@
 const UserModel = require('../models/user');
+const { USER_STATUS } = require('../constants');
 
 module.exports = class UserDataAccess {
   static async getUserByName(name, fields = '-__v') {
-    return UserModel.findOne({ name }).select(fields).lean().exec();
+    return UserModel.findOne({ name, status: { $ne: USER_STATUS.PENDING } }).select(fields).lean().exec();
   }
 
   static async getUsersByColony(colonyID, page, limit, fields = '-__v') {
-    return UserModel.find({ colony: colonyID }).skip((page - 1) * limit).limit(limit).select(fields)
+    return UserModel.find({ colony: colonyID, status: { $ne: USER_STATUS.PENDING } }).skip((page - 1) * limit).limit(limit).select(fields)
       .lean()
       .exec();
   }

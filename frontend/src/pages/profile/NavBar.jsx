@@ -35,13 +35,14 @@ function NavBar(props) {
           />{" "}
         </Tab>
         <Tab
+          disabled
           eventKey="collected"
           title="Collected"
           style={{ backgroundColor: "transparent !important" }}
         ></Tab>
 
-        <Tab eventKey="purchased" title="Rewarded"></Tab>
-        <Tab eventKey="transactions" title="Transactions"></Tab>
+        <Tab disabled eventKey="purchased" title="Rewarded"></Tab>
+        <Tab disabled eventKey="transactions" title="Transactions"></Tab>
       </Tabs>
     </div>
   );

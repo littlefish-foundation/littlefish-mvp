@@ -10,7 +10,7 @@ function useFetchForPopularActionType(url) {
   useEffect(() => {
     setLoadingPopularActionType(true);
     axios
-      .get(url, { params: { limit: 7 } })
+      .get(url, { params: { limit: 8 } })
       .then((response) => {
         setPopularActionType(response.data);
       })

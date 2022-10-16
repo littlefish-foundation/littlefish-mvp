@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 import { Badge } from "reactstrap";
 
 import "./nft-card.css";
-import Modal from "../Modal/SuccessModal";
 
 const NftCard = (props) => {
   const {
@@ -31,45 +30,50 @@ const NftCard = (props) => {
           <img src={image} alt="" className="w-100" />
         </div>
 
-        <div className="nft__content">
-          <h5 className="nft__title">
-            {name.length <= 20 ? name : name.slice(0, 20) + "..."}
-          </h5>
+        {/* <div className="nft__content"> */}
+        <div className="details">
+          <div className="center">
+            {/* <h5>{name.length <= 20 ? name : name.slice(0, 20) + "..."}</h5> */}
+            <h5>{name}</h5>
+            <br></br>
 
-          <div className="creator__info-wrapper d-flex gap-3">
-            <div className="creator__info w-100 d-flex align-items-center justify-content-between">
-              <div>
-                <h6>Created By</h6>
-                <p>
-                  {" "}
-                  {producerName.length <= 19
-                    ? producerName
-                    : producerName.slice(0, 19) + "..."}
-                </p>
-              </div>
-
-              <div>
-                <h6>Minimum Action Price</h6>
-                <h6>{`${minimumPrice} ADA`}</h6>
+            <div className="creator__info-wrapper d-flex gap-3">
+              <div className="creator__info w-100 d-flex align-items-center justify-content-between">
+                <div>
+                  <h6>Created By:</h6>
+                  <h6>
+                    {" "}
+                    {producerName.length <= 9
+                      ? producerName
+                      : producerName.slice(0, 9) + "..."}
+                  </h6>
+                </div>
+                <br></br>
+                <div>
+                  <h6>Minimum Price: </h6>
+                  <h6>{`${minimumPrice} ADA`}</h6>
+                </div>
+                <br></br>
+                <div>
+                  <span className="history__link">
+                    <h6>Created:</h6>
+                    <h6>{createdat}</h6>
+                  </span>
+                </div>
               </div>
             </div>
-          </div>
+            <br></br>
 
-          <div className=" mt-3 d-flex align-items-center justify-content-between">
-            <div>
-              {types?.slice(0, 1)?.map((type) => (
-                <Badge color="primary" pill>
-                  #{type}
-                </Badge>
-              ))}
-              ...
+            <div className=" mt-3 d-flex align-items-center justify-content-between">
+              <div>
+                {types?.map((type) => (
+                  <Badge color="primary" pill>
+                    #{type}
+                  </Badge>
+                ))}
+                <br />
+              </div>
             </div>
-
-            {showModal && <Modal setShowModal={setShowModal} />}
-            <span className="history__link">
-              <h6>Creation Date</h6>
-              <h6>{createdat}</h6>
-            </span>
           </div>
         </div>
       </div>

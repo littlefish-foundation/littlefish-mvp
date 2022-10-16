@@ -76,7 +76,7 @@ const NftDetails = (props) => {
       .then((response) => response.json())
       .then((data) => {
         console.log(data);
-        setPostStatus(Object.entries(data)[0][0]);
+        setPostStatus(Object.entries(data)[0][0]); // set some comments here about the role of this
         setErrorMessage(Object.entries(data)[0][1]);
         setPaymentLinks(data.sale.paymentLink);
         console.log(Object.entries(data)[0][0]);
@@ -106,6 +106,7 @@ const NftDetails = (props) => {
   };
 
   useEffect(() => {
+    // set a function inside this hool to handle the status of the post
     fetch(`https://api.littlefish.foundation/action-sale/${_id}`)
       .then((response) => response.json())
       .then((data) => {
@@ -189,6 +190,11 @@ const NftDetails = (props) => {
 
                   <Col lg="6" md="6" sm="6">
                     <div style={{ paddingRight: "86px", display: "block" }}>
+                      {/* **********************************************************************************************
+                       **********************************************************************************************
+                       **********************************************************************************************
+                       ********************************************************************************************** */}
+
                       <div className="nft__creator d-flex gap-3 align-items-center">
                         <FaUserAlt
                           style={{
@@ -197,10 +203,19 @@ const NftDetails = (props) => {
                             alignItems: "center",
                           }}
                         />{" "}
-                        <div className="creator__detail">
-                          <h6>Created By: {actionData?.producerName} </h6>
-                        </div>
+                        <Link
+                          to={`/user/${actionData?.producerName}`}
+                          style={{ textDecoration: "none", color: "white" }}
+                        >
+                          <div className="creator__detail">
+                            <h6>{actionData?.producerName} </h6>
+                          </div>
+                        </Link>
                       </div>
+                      {/* **********************************************************************************************
+                       **********************************************************************************************
+                       **********************************************************************************************
+                       ********************************************************************************************** */}
                       <br />
                       <div className="nft__creator d-flex gap-3 align-items-center">
                         <IoMdPricetags
@@ -211,7 +226,7 @@ const NftDetails = (props) => {
                           }}
                         />
                         <div className="creator__detail">
-                          <h6>Minimum Price: {actionData?.minimumPrice} ADA</h6>
+                          <p>Minimum Price: {actionData?.minimumPrice} ADA</p>
 
                           <p>Status: {actionData?.status}</p>
                         </div>
@@ -227,10 +242,10 @@ const NftDetails = (props) => {
                         />
 
                         <div className="creator__detail">
-                          <h6>
+                          <p>
                             Creation Date:{" "}
                             {actionData?.createdAt.substring(0, 10)}
-                          </h6>
+                          </p>
                         </div>
                       </div>
                       <br />
@@ -246,22 +261,24 @@ const NftDetails = (props) => {
                         </div>
                       </div>
                       <br />
-                      <Link
-                        to={`/colony/${actionData?.colony}`}
-                        style={{ textDecoration: "none", color: "white" }}
-                      >
-                        <div className="nft__creator d-flex gap-3 align-items-center">
-                          <GiSchoolOfFish
-                            style={{
-                              color: "white",
-                              fontSize: "3rem",
-                            }}
-                          ></GiSchoolOfFish>
+
+                      <div className="nft__creator d-flex gap-3 align-items-center">
+                        <GiSchoolOfFish
+                          style={{
+                            color: "white",
+                            fontSize: "3rem",
+                          }}
+                        ></GiSchoolOfFish>
+                        <Link
+                          to={`/colony/${actionData?.colony}`}
+                          style={{ textDecoration: "none", color: "white" }}
+                        >
                           <div className="creator__detail">
-                            <p>{actionData?.colony}</p>{" "}
+                            <h6>{actionData?.colony}</h6>{" "}
                           </div>
-                        </div>
-                      </Link>
+                        </Link>
+                      </div>
+
                       <br />
                       {actionData?.links.length > 0 ? (
                         <div>

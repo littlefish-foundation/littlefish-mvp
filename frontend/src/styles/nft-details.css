@@ -72,6 +72,7 @@
 
 .creator__detail p {
   font-size: 0.9rem;
+  color: #fff;
   font-weight: 500;
   margin-bottom: 0;
   margin-top: 0;
@@ -84,10 +85,16 @@
   color: #fff;
   margin-bottom: 0;
   font-size: 0.9rem;
-  font-weight: 500;
+  font-weight: 700;
   align-items: center;
   justify-content: center;
   display: flex;
+
+  transition: all ease 200ms;
+}
+
+.creator__detail h6:hover {
+  color: rgb(49, 108, 244);
 }
 
 .singleNft-btn {
@@ -180,4 +187,8 @@
   .single__nft__content h2 {
     margin-top: 15px;
   }
+}
+
+.new-button-color-all {
+  background: rgba(0, 0, 0, 0.834);
 }

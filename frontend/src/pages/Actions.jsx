@@ -5,6 +5,8 @@ import { Container, Row, Col } from "reactstrap";
 import "../styles/actions.css";
 import "../components/UserInterface/Live-auction/live-auction.css";
 import { RotatingLines } from "react-loader-spinner";
+import Tab from "react-bootstrap/Tab";
+import Tabs from "react-bootstrap/Tabs";
 import { getActions } from "../Hooks/fetchSearchDate";
 import useFetchForPopularActionType from "../Hooks/getPopularActionType";
 import useFetchActions from "../Hooks/useFetch";
@@ -17,6 +19,8 @@ const Actions = () => {
   const [actions, setActions] = useState([]);
   const [searchResults, setSearchResults] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
+
+  const [key, setKey] = useState("All Actions");
 
   const { allActions } = useFetchActions(
     "https://api.littlefish.foundation/action"
@@ -74,10 +78,11 @@ const Actions = () => {
   }, [actionStatus]);
 
   console.log(actions);
+  console.log(actionType);
+  console.log(actionStatus);
 
   return (
     <div>
-
       <SubHeader />
 
       <section>
@@ -94,7 +99,7 @@ const Actions = () => {
                       onChange={(e) => setActionType(e.target.value)}
                       value={actionType}
                     >
-                      <option value={""}>All categories</option>
+                      <option value="">All categories</option>
                       {popularActionType?.actionTypes?.map((item) => (
                         <option value={item.name}>{item.name}</option>
                       ))}
@@ -135,6 +140,7 @@ const Actions = () => {
                 </div>
               </div>
             </Col>
+
             <h2
               style={{
                 color: "white",
@@ -146,9 +152,31 @@ const Actions = () => {
             >
               Actions
             </h2>
+            <Tabs
+              id="controlled-tab-example"
+              activeKey={key}
+              onSelect={(k) => setKey(k)}
+              className="mb-3"
+              style={{
+                marginLeft: "30px",
+                marginTop: "10px",
+                backgroundColor: "transparent !important",
+              }}
+            >
+              <Tab eventKey="All Actions" title="All Actions"></Tab>
+              {popularActionType?.actionTypes?.map((item) => (
+                <Tab
+                  eventKey={item.name}
+                  title={item.name}
+                  style={{ backgroundColor: "transparent !important" }}
+                  value={item.name}
+                ></Tab>
+              ))}
+            </Tabs>
+
             {searchTerm.length === 0 &&
-              actionStatus === null &&
-              actionType === null &&
+              (actionStatus === null || actionStatus === "") &&
+              (actionType === null || actionType === "") &&
               allActions?.map((item) => (
                 <Col lg="3" md="4" sm="6" className="mb-4" key={item?.tokenId}>
                   <NftCard item={item} key={item?.tokenId} />
@@ -164,6 +192,7 @@ const Actions = () => {
               ))}
 
             {actionType !== null &&
+              actionType !== "" &&
               searchTerm.length === 0 &&
               actionsByType?.map((item) => (
                 <Col lg="3" md="4" sm="6" className="mb-4" key={item?.tokenId}>
@@ -171,6 +200,7 @@ const Actions = () => {
                 </Col>
               ))}
             {actionStatus !== null &&
+              actionStatus !== "" &&
               searchTerm.length === 0 &&
               actionsByStatus?.map((item) => (
                 <Col lg="3" md="4" sm="6" className="mb-4" key={item?.tokenId}>

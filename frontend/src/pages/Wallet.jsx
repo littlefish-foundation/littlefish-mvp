@@ -29,6 +29,7 @@ const Wallet = () => {
   const [namiCheck, setNamiCheck] = useState(null);
   const [walletBalance, setWalletBalance] = useState(null);
   const [sumBalance, setSumBalance] = useState(null);
+  const [namiNetwork, setNamiNetwork] = useState(null);
 
   const connectTyphonWallet = () => {
     var typhon;
@@ -67,10 +68,12 @@ const Wallet = () => {
         let addr = await Nami.getAddress();
         let assets = await Nami.getAssets();
         let balance = await Nami.getUtxos();
+        let network = await Nami.getNetworkId();
         setNamiCheck(Nami.enable);
         setAccount(addr);
         setNfts(assets);
         setWalletBalance(balance);
+        setNamiNetwork(network);
       }
     }
     t();
@@ -80,8 +83,10 @@ const Wallet = () => {
 
   console.log(nfts);
   console.log(walletBalance);
+  console.log(namiNetwork);
 
   useEffect(() => {
+    // write a function to get the balance of the wallet
     let sum = 0;
     walletBalance?.map((item) => {
       let quantity = item?.amount?.map((e) => e?.quantity);

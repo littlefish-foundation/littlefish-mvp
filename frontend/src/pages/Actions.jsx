@@ -12,6 +12,7 @@ import useFetchForPopularActionType from "../Hooks/getPopularActionType";
 import useFetchActions from "../Hooks/useFetch";
 import useFetchByActionStatus from "../Hooks/getActionsByStatus";
 import useFetchByActionType from "../Hooks/getActionsByType";
+import ActionByTypeGallery from "../components/typeGallery/ActionByTypeGallery";
 
 const Actions = () => {
   const [actionStatus, setActionStatus] = useState(null);
@@ -28,9 +29,9 @@ const Actions = () => {
   const { actionsByStatus } = useFetchByActionStatus(
     `https://api.littlefish.foundation/action?status=${actionStatus}`
   );
-  const { actionsByType } = useFetchByActionType(
-    `https://api.littlefish.foundation/action?type=${actionType}`
-  );
+  // const { actionsByType } = useFetchByActionType(
+  //   `https://api.littlefish.foundation/action?type=${actionType}`
+  // );
 
   const { popularActionType } = useFetchForPopularActionType(
     `https://api.littlefish.foundation/action-type/popular`
@@ -94,7 +95,7 @@ const Actions = () => {
                 className="market__product__filter d-flex align-items-center justify-content-between"
               >
                 <div className="filter__left d-flex align-items-center gap-5">
-                  <div className="all__category__filter">
+                  {/* <div className="all__category__filter">
                     <select
                       onChange={(e) => setActionType(e.target.value)}
                       value={actionType}
@@ -104,7 +105,7 @@ const Actions = () => {
                         <option value={item.name}>{item.name}</option>
                       ))}
                     </select>
-                  </div>
+                  </div> */}
 
                   <form onSubmit={handleSubmit}>
                     <i
@@ -167,10 +168,11 @@ const Actions = () => {
               {popularActionType?.actionTypes?.map((item) => (
                 <Tab
                   eventKey={item.name}
-                  title={item.name}
+                  title={"#" + item.name}
                   style={{ backgroundColor: "transparent !important" }}
-                  value={item.name}
-                ></Tab>
+                >
+                  <ActionByTypeGallery actionType={item.name} />
+                </Tab>
               ))}
             </Tabs>
 
@@ -191,14 +193,14 @@ const Actions = () => {
                 </Col>
               ))}
 
-            {actionType !== null &&
+            {/* {actionType !== null &&
               actionType !== "" &&
               searchTerm.length === 0 &&
               actionsByType?.map((item) => (
                 <Col lg="3" md="4" sm="6" className="mb-4" key={item?.tokenId}>
                   <NftCard item={item} key={item?.tokenId} />
                 </Col>
-              ))}
+              ))} */}
             {actionStatus !== null &&
               actionStatus !== "" &&
               searchTerm.length === 0 &&

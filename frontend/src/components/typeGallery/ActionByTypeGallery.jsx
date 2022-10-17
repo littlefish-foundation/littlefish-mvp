@@ -12,6 +12,8 @@ const ActionByTypeGallery = (props) => {
   const [loadingTypeActions, setLoadingTypeActions] = useState(false);
   const [error, setError] = useState(null);
   let type = props.actionType;
+  let searchResults = props.searchResults;
+  let searchTerm = props.searchTerm;
 
   useEffect(() => {
     setLoadingTypeActions(true);

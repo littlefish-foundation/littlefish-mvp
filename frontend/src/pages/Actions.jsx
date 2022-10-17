@@ -26,15 +26,9 @@ const Actions = () => {
 
   const [key, setKey] = useState("All Actions");
 
-  const { allActions } = useFetchActions(
-    "https://api.littlefish.foundation/action"
-  );
   const { actionsByStatus } = useFetchByActionStatus(
     `https://api.littlefish.foundation/action?status=${actionStatus}`
   );
-  // const { actionsByType } = useFetchByActionType(
-  //   `https://api.littlefish.foundation/action?type=${actionType}`
-  // );
 
   const { popularActionType } = useFetchForPopularActionType(
     `https://api.littlefish.foundation/action-type/popular`
@@ -66,14 +60,6 @@ const Actions = () => {
     setSearchResults(resultsArray);
   };
 
-  const handleCategoryChange = (e) => {
-    console.log(actionType);
-  };
-
-  useEffect(() => {
-    handleCategoryChange();
-  }, [actionType]);
-
   const handleStatusChange = (e) => {
     console.log(actionStatus);
   };
@@ -84,6 +70,7 @@ const Actions = () => {
   console.log(actions);
   console.log(actionType);
   console.log(actionStatus);
+  console.log(key);
 
   return (
     <div>
@@ -172,7 +159,11 @@ const Actions = () => {
                 title="All Actions"
                 style={{ backgroundColor: "transparent !important" }}
               >
-                <AllActionTypesGallery />
+                <AllActionTypesGallery
+                  searchResults={searchResults}
+                  searchTerm={searchTerm}
+                  actionStatus={actionStatus}
+                />
               </Tab>
 
               {popularActionType?.actionTypes?.map((item) => (
@@ -181,12 +172,20 @@ const Actions = () => {
                   title={"#" + item.name}
                   style={{ backgroundColor: "transparent !important" }}
                 >
-                  <ActionByTypeGallery actionType={item.name} />
+                  <ActionByTypeGallery
+                    actionType={item.name}
+                    searchResults={searchResults}
+                    searchTerm={searchTerm}
+                    actionStatus={actionStatus}
+                  />
                 </Tab>
               ))}
             </Tabs>
+            {/*********************************************************************************** */}
+            {/*********************************************************************************** */}
+            {/*********************************************************************************** */}
 
-            {searchResults.length &&
+            {/* {searchResults.length &&
               searchTerm.length !== 0 &&
               searchResults?.map((item) => (
                 <Col lg="3" md="4" sm="6" className="mb-4" key={item?.tokenId}>
@@ -201,7 +200,11 @@ const Actions = () => {
                 <Col lg="3" md="4" sm="6" className="mb-4" key={item?.tokenId}>
                   <NftCard item={item} key={item?.tokenId} />
                 </Col>
-              ))}
+              ))} */}
+
+            {/*********************************************************************************** */}
+            {/*********************************************************************************** */}
+            {/*********************************************************************************** */}
           </Row>
         </Container>
       </section>

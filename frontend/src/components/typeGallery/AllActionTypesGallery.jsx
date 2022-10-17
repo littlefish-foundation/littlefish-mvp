@@ -11,7 +11,9 @@ const AllActionTypesGallery = (props) => {
   const [allActionTypes, setAllActionTypes] = useState(null);
   const [loadingAllActionTypes, setLoadingAllActionTypes] = useState(false);
   const [error, setError] = useState(null);
-  let type = props.actionType;
+  let searchResults = props.searchResults;
+  let searchTerm = props.searchTerm;
+  let actionStatus = props.actionStatus;
 
   useEffect(() => {
     setLoadingAllActionTypes(true);
@@ -36,11 +38,17 @@ const AllActionTypesGallery = (props) => {
       <section>
         <Container style={{ backgroundColor: "transparent !important" }}>
           <Row>
-            {allActionTypes?.map((item) => (
-              <Col lg="3" md="4" sm="6" className="mb-4" key={item.type}>
-                <NftCard item={item} />
-              </Col>
-            ))}
+            {searchResults.length && searchTerm.length !== 0
+              ? searchResults.map((item) => (
+                  <Col lg="3" md="4" sm="6" className="mb-4" key={item.type}>
+                    <NftCard item={item} />
+                  </Col>
+                ))
+              : allActionTypes?.map((item) => (
+                  <Col lg="3" md="4" sm="6" className="mb-4" key={item.tokenId}>
+                    <NftCard item={item} key={item.tokenId} />
+                  </Col>
+                ))}
           </Row>
         </Container>
       </section>

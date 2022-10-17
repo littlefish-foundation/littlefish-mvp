@@ -14,26 +14,21 @@ import useFetchByActionStatus from "../Hooks/getActionsByStatus";
 import useFetchByActionType from "../Hooks/getActionsByType";
 import ActionByTypeGallery from "../components/typeGallery/ActionByTypeGallery";
 import AllActionTypesGallery from "../components/typeGallery/AllActionTypesGallery";
-
 const Actions = () => {
   const [actionStatus, setActionStatus] = useState(null);
   const [actionType, setActionType] = useState(null);
   const [activeKey, setActiveKey] = useState(null);
-
   const [actions, setActions] = useState([]);
   const [searchResults, setSearchResults] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
-
+  const [searchType, setSearchType] = useState("");
   const [key, setKey] = useState("All Actions");
-
   const { actionsByStatus } = useFetchByActionStatus(
     `https://api.littlefish.foundation/action?status=${actionStatus}`
   );
-
   const { popularActionType } = useFetchForPopularActionType(
     `https://api.littlefish.foundation/action-type/popular`
   );
-
   useEffect(() => {
     getActions()
       .then((data) => {
@@ -44,13 +39,10 @@ const Actions = () => {
         setSearchResults(data);
       });
   }, []);
-
   const handleSubmit = (e) => e.preventDefault();
-
   const handleSearchChange = (e) => {
     if (!e.target.value) return setSearchResults(actions);
     setSearchTerm(e.target.value);
-
     const resultsArray = actions.filter(
       (action) =>
         action.name.toLowerCase().includes(e.target.value.toLowerCase()) ||
@@ -59,23 +51,19 @@ const Actions = () => {
     console.log(searchTerm);
     setSearchResults(resultsArray);
   };
-
   const handleStatusChange = (e) => {
     console.log(actionStatus);
   };
   useEffect(() => {
     handleStatusChange();
   }, [actionStatus]);
-
   console.log(actions);
   console.log(actionType);
   console.log(actionStatus);
   console.log(key);
-
   return (
     <div>
       <SubHeader />
-
       <section>
         <Container>
           <Row>
@@ -96,7 +84,16 @@ const Actions = () => {
                       ))}
                     </select>
                   </div> */}
-
+                  <div className="all__category__filter">
+                    <select
+                      onChange={(e) => setSearchType(e.target.value)}
+                      value={searchType}
+                    >
+                      <option value="">Select Search Library</option>
+                      <option value="name">By Action Name</option>
+                      <option value="producerName">By Producer Name</option>
+                    </select>
+                  </div>
                   <form onSubmit={handleSubmit}>
                     <i
                       style={{
@@ -108,16 +105,14 @@ const Actions = () => {
                       }}
                       className="ri-search-line"
                     />
-
                     <input
                       className="bar-styling"
                       key="random1"
                       placeholder="Search by Name or Producer Name"
-                      onChange={handleSearchChange}
+                      onChange={(e) => setSearchTerm(e.target.value)}
                     ></input>
                   </form>
                 </div>
-
                 <div className="filter__right">
                   <select
                     onChange={(e) => setActionStatus(e.target.value)}
@@ -131,7 +126,6 @@ const Actions = () => {
                 </div>
               </div>
             </Col>
-
             <h2
               style={{
                 color: "white",
@@ -165,7 +159,6 @@ const Actions = () => {
                   actionStatus={actionStatus}
                 />
               </Tab>
-
               {popularActionType?.actionTypes?.map((item) => (
                 <Tab
                   eventKey={item.name}
@@ -184,7 +177,6 @@ const Actions = () => {
             {/*********************************************************************************** */}
             {/*********************************************************************************** */}
             {/*********************************************************************************** */}
-
             {/* {searchResults.length &&
               searchTerm.length !== 0 &&
               searchResults?.map((item) => (
@@ -192,7 +184,6 @@ const Actions = () => {
                   <NftCard item={item} key={item?.tokenId} />
                 </Col>
               ))}
-
             {actionStatus !== null &&
               actionStatus !== "" &&
               searchTerm.length === 0 &&
@@ -201,7 +192,6 @@ const Actions = () => {
                   <NftCard item={item} key={item?.tokenId} />
                 </Col>
               ))} */}
-
             {/*********************************************************************************** */}
             {/*********************************************************************************** */}
             {/*********************************************************************************** */}
@@ -211,5 +201,4 @@ const Actions = () => {
     </div>
   );
 };
-
 export default Actions;

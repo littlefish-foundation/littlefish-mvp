@@ -13,14 +13,22 @@ const ActionByTypeGallery = (props) => {
   const [error, setError] = useState(null);
   let type = props.actionType;
   let searchResults = props.searchResults;
-  let searchTerm = props.searchTerm;
+  let status = props.actionStatus;
+  let producerName = props.searchTerm;
+
+  const filtering = {
+    params: {
+      //   ...(name ? { name } : undefined),
+      ...(type ? { type } : undefined),
+      ...(producerName ? { producerName } : undefined),
+      ...(status ? { status } : undefined),
+    },
+  };
 
   useEffect(() => {
     setLoadingTypeActions(true);
     axios
-      .get(
-        `https://api.littlefish.foundation/colony/Littlefish%20Foundation/actions?type=${type}`
-      )
+      .get(`https://api.littlefish.foundation/action`, filtering)
       .then((response) => {
         setTypeActions(response.data);
       })
@@ -30,7 +38,8 @@ const ActionByTypeGallery = (props) => {
       .finally(() => {
         setLoadingTypeActions(false);
       });
-  }, []);
+  }, [type, producerName, status]);
+  console.log(filtering);
   return (
     <div>
       <section>

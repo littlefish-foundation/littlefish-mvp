@@ -15,6 +15,7 @@ const AllActionTypesGallery = (props) => {
   let searchTerm = props.searchTerm;
   let actionStatus = props.actionStatus;
 
+
   useEffect(() => {
     setLoadingAllActionTypes(true);
     axios

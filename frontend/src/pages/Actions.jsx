@@ -13,10 +13,13 @@ import useFetchActions from "../Hooks/useFetch";
 import useFetchByActionStatus from "../Hooks/getActionsByStatus";
 import useFetchByActionType from "../Hooks/getActionsByType";
 import ActionByTypeGallery from "../components/typeGallery/ActionByTypeGallery";
+import AllActionTypesGallery from "../components/typeGallery/AllActionTypesGallery";
 
 const Actions = () => {
   const [actionStatus, setActionStatus] = useState(null);
   const [actionType, setActionType] = useState(null);
+  const [activeKey, setActiveKey] = useState(null);
+
   const [actions, setActions] = useState([]);
   const [searchResults, setSearchResults] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
@@ -164,7 +167,14 @@ const Actions = () => {
                 backgroundColor: "transparent !important",
               }}
             >
-              <Tab eventKey="All Actions" title="All Actions"></Tab>
+              <Tab
+                eventKey="All Actions"
+                title="All Actions"
+                style={{ backgroundColor: "transparent !important" }}
+              >
+                <AllActionTypesGallery />
+              </Tab>
+
               {popularActionType?.actionTypes?.map((item) => (
                 <Tab
                   eventKey={item.name}
@@ -176,15 +186,6 @@ const Actions = () => {
               ))}
             </Tabs>
 
-            {searchTerm.length === 0 &&
-              (actionStatus === null || actionStatus === "") &&
-              (actionType === null || actionType === "") &&
-              allActions?.map((item) => (
-                <Col lg="3" md="4" sm="6" className="mb-4" key={item?.tokenId}>
-                  <NftCard item={item} key={item?.tokenId} />
-                </Col>
-              ))}
-
             {searchResults.length &&
               searchTerm.length !== 0 &&
               searchResults?.map((item) => (
@@ -193,14 +194,6 @@ const Actions = () => {
                 </Col>
               ))}
 
-            {/* {actionType !== null &&
-              actionType !== "" &&
-              searchTerm.length === 0 &&
-              actionsByType?.map((item) => (
-                <Col lg="3" md="4" sm="6" className="mb-4" key={item?.tokenId}>
-                  <NftCard item={item} key={item?.tokenId} />
-                </Col>
-              ))} */}
             {actionStatus !== null &&
               actionStatus !== "" &&
               searchTerm.length === 0 &&

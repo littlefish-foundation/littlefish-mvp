@@ -32,10 +32,12 @@ module.exports = class ActionDataAccess {
     } = sorter;
 
     return ActionModel.find({
-    ...(producerName || name ? { $or: [
-        { producerName: { $regex: producerName, $options: 'i' } },
-        { name: { $regex: name, $options: 'i' }}
-      ]} : undefined),
+      ...(producerName || name ? {
+        $or: [
+          { producerName: { $regex: producerName, $options: 'i' } },
+          { name: { $regex: name, $options: 'i' } },
+        ],
+      } : undefined),
       ...(colony ? { colony } : undefined),
       ...(minDate ? { createdAt: { $gte: minDate } } : undefined),
       ...(maxDate ? { createdAt: { $lte: maxDate } } : undefined),
@@ -45,7 +47,7 @@ module.exports = class ActionDataAccess {
     }).skip(page * limit).limit(limit)
       .sort({
         ...(sortingField ? { sortingField: sortingOrder } : undefined),
-      }).
+      })
       .select(fields)
       .lean()
       .exec();

@@ -61,6 +61,7 @@ const Actions = () => {
   console.log(actionType);
   console.log(actionStatus);
   console.log(key);
+  console.log(searchType);
   return (
     <div>
       <SubHeader />
@@ -157,6 +158,7 @@ const Actions = () => {
                   searchResults={searchResults}
                   searchTerm={searchTerm}
                   actionStatus={actionStatus}
+                  searchType={searchType}
                 />
               </Tab>
               {popularActionType?.actionTypes?.map((item) => (
@@ -170,6 +172,7 @@ const Actions = () => {
                     searchResults={searchResults}
                     searchTerm={searchTerm}
                     actionStatus={actionStatus}
+                    searchType={searchType}
                   />
                 </Tab>
               ))}

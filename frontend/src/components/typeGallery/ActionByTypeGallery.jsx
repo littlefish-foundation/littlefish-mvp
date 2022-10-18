@@ -12,13 +12,20 @@ const ActionByTypeGallery = (props) => {
   const [loadingTypeActions, setLoadingTypeActions] = useState(false);
   const [error, setError] = useState(null);
   let type = props.actionType;
+  let searchType = props.searchType;
   let searchResults = props.searchResults;
   let status = props.actionStatus;
-  let producerName = props.searchTerm;
+
+  let name, producerName;
+  if (searchType === "name") {
+    name = props.searchTerm;
+  } else if (searchType === "producerName") {
+    producerName = props.searchTerm;
+  }
 
   const filtering = {
     params: {
-      //   ...(name ? { name } : undefined),
+      ...(name ? { name } : undefined),
       ...(type ? { type } : undefined),
       ...(producerName ? { producerName } : undefined),
       ...(status ? { status } : undefined),
@@ -38,7 +45,7 @@ const ActionByTypeGallery = (props) => {
       .finally(() => {
         setLoadingTypeActions(false);
       });
-  }, [type, producerName, status]);
+  }, [type, producerName, status, name]);
   console.log(filtering);
   return (
     <div>

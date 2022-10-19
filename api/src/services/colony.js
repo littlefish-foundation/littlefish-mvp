@@ -9,14 +9,6 @@ module.exports = class ColonyService {
     if (!colony) {
       throw new NotFoundError(`The colony with name: ${name} is not found.`);
     }
-    const promises = [];
-    promises.push(colonyRelationDataAccess.getSubColonies(colony._id));
-    promises.push(colonyRelationDataAccess.getParentColony(colony._id));
-    const [subs, parent] = await Promise.all(promises);
-
-    colony.subs = subs;
-    colony.parent = parent;
-
     return colony;
   }
 
@@ -38,21 +30,32 @@ module.exports = class ColonyService {
     };
   }
 
-  static async getAllInfo(colonyName, filter, sorter, page, limit) {
-    const colony = await this.getColony(colonyName);
-    colony.actions = await actionService.getActions(colonyName, filter, sorter, page, limit);
+  static async getParentSubColonies(colonyName, filter, sorter, page, limit) {
+    const colony = await colonyDataAccess.getColonyByName(colonyName);
+
+    const promises = [];
+    promises.push(colonyRelationDataAccess.getSubColonies(colony._id));
+    promises.push(colonyRelationDataAccess.getParentColony(colony._id));
+    const [subs, parent] = await Promise.all(promises);
+
+    if (parent) {
+      parent.actions = await this.getColonyActions(parent.name, filter, sorter, page, limit);
+    }
 
     const subActionPromises = [];
-    colony.subs?.forEach((sub) => {
+    subs?.forEach((sub) => {
       subActionPromises.push(this.getColonyActions(sub.name, filter, sorter, page, limit));
     });
 
     const allSubActions = await Promise.all(subActionPromises);
     allSubActions?.forEach((subActions, i) => {
-      if (colony.subs[i] && subActions) colony.subs[i].actions = subActions;
+      if (subs[i] && subActions) subs[i].actions = subActions;
     });
 
-    return colony;
+    return {
+      subs,
+      parent,
+    };
   }
 
   static async getColonies(page, limit) {

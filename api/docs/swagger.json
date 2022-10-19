@@ -474,12 +474,12 @@
         }
       }
     },
-    "/colony/{colonyName}/all-info": {
+    "/colony/{colonyName}/parent-and-subs": {
       "get": {
         "tags": [
           "colony"
         ],
-        "summary": "Get all information related to the colony",
+        "summary": "Get information of parent and sub colonies of the colony",
         "parameters": [
           {
             "name": "colonyName",

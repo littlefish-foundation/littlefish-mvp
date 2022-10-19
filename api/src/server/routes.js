@@ -28,7 +28,7 @@ router.use('/action', actionRouter);
 
 const colonyRouter = express.Router();
 colonyRouter.route('/').get(validator(colonySchemas.getColonies), colonyController.getColonies);
-colonyRouter.route('/:colonyName/all-info').get(validator(colonySchemas.getAllInfo), colonyController.getAllInfo);
+colonyRouter.route('/:colonyName/parent-and-subs').get(validator(colonySchemas.getParentSubColonies), colonyController.getParentSubColonies);
 colonyRouter.route('/').post(validator(colonySchemas.createColony), colonyController.createColony);
 colonyRouter.route('/:colonyName').get(validator(colonySchemas.getColony), colonyController.getColony);
 colonyRouter.route('/:colonyName').delete(validator(colonySchemas.deleteColony), colonyController.deleteColony);

@@ -6,12 +6,16 @@ module.exports = class ColonyDataAccess {
   }
 
   static async createColony(colony) {
+    // TODO resp
     return ColonyModel.create(colony);
   }
 
   static async deleteColonyByName(name) {
     const { ok } = await ColonyModel.deleteOne({ name });
-    return ok === 1;
+    if (ok === 1) {
+      return true;
+    }
+    return false;
   }
 
   static async getColonies(page, limit, fields = '-__v') {

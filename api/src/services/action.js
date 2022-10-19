@@ -32,7 +32,9 @@ module.exports = class ActionService {
   static async deleteAction(id) {
     const { actionID, actionCollection } = await this.getActionById(id);
 
+    // TODO action response obj
     await tangocryptoClient.deleteAction(actionID, actionCollection);
+
     const success = await actionDataAccess.deleteActionById(id);
 
     return {
@@ -77,8 +79,8 @@ module.exports = class ActionService {
     const promises = [];
     promises.push(uploadImage(coverImage));
 
-    for (const file of files) {
-      promises.push(uploadImage(file.src));
+    for (let i = 0; i < files.length; i++) {
+      promises.push(uploadImage(files[i].src));
     }
     const fileNames = await Promise.all(promises);
     return fileNames.map((f) => API_IMAGES_LINK + f);
@@ -88,11 +90,13 @@ module.exports = class ActionService {
     const promises = [];
     if (!links) return links;
 
-    for (const link of links) {
-      if (link.url.length > ACTION_MAX_ALLOWED_LENGTH) {
-        promises.push(shortenUrl(link.url));
+    for (let i = 0; i < links.length; i++) {
+      if (links[i].url.length > ACTION_MAX_ALLOWED_LENGTH) {
+        promises.push(shortenUrl(links[i].url));
       } else {
-        promises.push(Promise.resolve(link.url));
+        promises.push(new Promise((resolve) => {
+          resolve(links[i].url);
+        }));
       }
     }
 
@@ -111,6 +115,7 @@ module.exports = class ActionService {
 
     const promises = [];
     action.types?.forEach((t) => promises.push(this.handleMintActionTypes(t)));
+    // const fileNames = await this.uploadAllImages(action.image, action.files);
 
     promises.push(actionDataAccess.createAction({
       chainID: mintedAction.id,
@@ -132,6 +137,8 @@ module.exports = class ActionService {
       links,
       ulid,
       mintDate,
+      // dbImage: fileNames?.[0],
+      // dbFiles: fileNames?.slice(1),
     }));
 
     await Promise.all(promises);

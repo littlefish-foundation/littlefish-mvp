@@ -10,10 +10,5 @@ module.exports = {
   parserOptions: {
     ecmaVersion: 'latest',
   },
-  rules: {
-    'max-len': ['error', { code: 180 }],
-    'no-underscore-dangle': 'off',
-    'no-plusplus': 'off',
-    'no-restricted-syntax': 'off',
-  },
+  rules: { 'max-len': ['error', { code: 180 }], 'no-underscore-dangle': 'off', 'no-plusplus': 'off' },
 };

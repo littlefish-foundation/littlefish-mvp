@@ -26,7 +26,10 @@ module.exports = class ActionTypeAccess {
 
   static async deleteActionType(name) {
     const { ok } = await ActionTypeModel.deleteOne({ name });
-    return ok === 1;
+    if (ok === 1) {
+      return true;
+    }
+    return false;
   }
 
   static async incrementActionType(name) {

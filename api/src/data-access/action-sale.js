@@ -26,6 +26,7 @@ module.exports = class ActionSaleAccess {
   }
 
   static async updateActionSaleByActionID(actionID, updates) {
+    // TODO resp
     await ActionSaleModel.findOneAndUpdate({ action: actionID }, updates);
   }
 };

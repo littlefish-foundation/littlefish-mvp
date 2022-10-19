@@ -14,7 +14,7 @@ const isLongerThan64 = (str) => {
 };
 
 const isUndefinedOrNotString = (element) => {
-  return !element || !(typeof element === "string");
+  return !element || typeof element !== "string";
 };
 
 const isAnyNonString = (arr) => {
@@ -27,19 +27,6 @@ const isAnyNonObject = (arr) => {
 const isAnElementLongerThan64 = (arr) => {
   return arr.find((e) => e.length > 64);
 };
-
-// const isURL = (str) => {
-//   let pattern = new RegExp(
-//     "^(https?:\\/\\/)?" + // protocol
-//       "((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|" + // domain name
-//       "((\\d{1,3}\\.){3}\\d{1,3}))" + // OR ip (v4) address
-//       "(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*" + // port and path
-//       "(\\?[;&a-z\\d%_.~+=-]*)?" + // query string
-//       "(\\#[-a-z\\d_]*)?$",
-//     "i"
-//   ); // fragment locators
-//   return !!pattern.test(str);
-// };
 
 const isIpfs = (str) => {
   const reg = /ipfs:\/\/\w+/g;
@@ -79,14 +66,17 @@ const pushStringOrArrayError = (element, fieldName) => {
       actionErrors.push(
         `${fieldName} value should not be more than 64 characters.`
       );
+      if (fieldName === "files.src") {
+        fileSrcHasError = true;
+      }
     }
     if (
       (fieldName === "image" || fieldName === "files.src") &&
       !isIpfs(element)
     ) {
       actionErrors.push(`${fieldName} should be a valid IPFS`);
-      fileSrcHasError = true;
       if (fieldName === "files.src") {
+        fileSrcHasError = true;
       }
     }
   } else if (Array.isArray(element)) {
@@ -217,7 +207,7 @@ const actionMetadataValidator = (action) => {
 
     // NAME CHECK
 
-    if (!name || typeof name !== "string") {
+    if (isUndefinedOrNotString(name)) {
       actionErrors.push("name field should be provided with a string");
     } else if (isLongerThan64(name)) {
       actionErrors.push("name value should not be more than 64 characters.");

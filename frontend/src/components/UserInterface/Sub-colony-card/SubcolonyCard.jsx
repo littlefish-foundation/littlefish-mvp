@@ -1,37 +1,39 @@
 import React from "react";
 import "./subcolonyCard.css";
-import placeholder from "../../../assets/placeholder.png";
 import { Container, Button, Card, CardText, CardBody } from "reactstrap";
+import { Link } from "react-router-dom";
 
 const SubcolonyCard = (props) => {
-  // const {
-
-  //     name,
-  //     image,
-  //     producerName,
-  //     minimumPrice,
-  //     createdAt,
-  //     types,
-  //     colony,
-  //   } = props.item;
+  const { name, description } = props.item;
+  const coverImage = props.coverImage;
   return (
     <div>
-      <Card
-        style={{
-          background: "inherit",
-          margin: "50px",
-          border: "1px solid #fff",
-          width: "18rem",
-        }}
+      <Link
+        to={`/subcolony/${name}`}
+        style={{ textDecoration: "none", color: "rgb(245,243,235)" }}
       >
-        <img
-          src={placeholder}
-          alt="placeholder"
-          style={{ width: "100%", borderRadius: "5%" }}
-        />
+        <Card
+          style={{
+            background: "inherit",
+            //margin: "50px",
+            border: "5px solid rgb(53,52,67)",
+            width: "18rem",
+          }}
+        >
+          <img
+            src={coverImage}
+            alt="placeholder"
+            style={{
+              width: "100%",
+              borderRadius: "5%",
+              height: "123px",
+              objectFit: "cover",
+            }}
+          />
 
-        <CardText>The Forge &nbsp;</CardText>
-      </Card>
+          <CardText>{name} &nbsp;</CardText>
+        </Card>
+      </Link>
     </div>
   );
 };

@@ -1,0 +1,16 @@
+.subcolony__card__img {
+  border-radius: 5px;
+  margin-bottom: 15px;
+  height: 123px;
+  background: #000000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.subcolony__card__img img {
+  border-radius: 5px;
+  max-height: 299px;
+  /*height: 300px;*/
+  object-fit: contain;
+}

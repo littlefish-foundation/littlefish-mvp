@@ -1,51 +1,92 @@
 import React from "react";
 import { RiShareLine } from "react-icons/ri";
+import { useParams } from "react-router-dom";
+
 import { BsThreeDots } from "react-icons/bs";
 import { Container, Button, Card, CardText } from "reactstrap";
-import cardanoIcon from "../assets/cardano.png";
-import placeholder from "../assets/placeholder.png";
+
 import "../styles/subcolony.css";
 import Tab from "react-bootstrap/Tab";
 import Tabs from "react-bootstrap/Tabs";
 import { AiOutlineInfoCircle } from "react-icons/ai";
+import useGetSubcolonies from "../Hooks/getSubcolonies";
 
 const Subcolony = (props) => {
+  const { name } = useParams();
+  const { subcolonyData, loadingSubcolony } = useGetSubcolonies();
+  const singleSubcolony = subcolonyData?.subs?.find(
+    (item) => item.sub.name === name
+  );
+
   const walletID =
     "addr_test1qz2c339gtrsdsmec5e6ywjmqt6r44ns5t4efa3e46peufuksrpulhkjws34q7jn9xcfn7zj6jghuq43xeyah8plg4mgsxzu2n0";
   const first6 = walletID?.substring(0, 8);
   const lengthOfID = walletID?.length;
   const last6 = walletID?.substring(lengthOfID - 9, lengthOfID - 1);
+  console.log(singleSubcolony?.sub?.coverImage);
+  console.log(subcolonyData);
   return (
     <div>
       <div>
         <section className="common__section__subcolony">
           <Container>
-            <img src={placeholder} alt="" className="main__image" />
+            <div>
+              <img
+                src={singleSubcolony?.sub?.coverImage.src}
+                alt=""
+                className="main__image"
+              />
+            </div>
           </Container>
         </section>
+        <div
+          className="social__links__subcolony d-flex gap-3 align-items-center "
+          style={{ marginLeft: "15px" }}
+        >
+          <span>
+            <a href="#">
+              <i className="ri-github-line"></i>
+            </a>
+          </span>
+          <span>
+            <a href="#">
+              <i className="ri-youtube-line"></i>
+            </a>
+          </span>
+          <span>
+            <a href="#">
+              <i className="ri-twitter-line"></i>
+            </a>
+          </span>
+          <span>
+            <a href="#">
+              <i className="ri-global-line"></i>
+            </a>
+          </span>
+          <span>
+            <a href="#">
+              <i className="ri-discord-line"></i>
+            </a>
+          </span>
+        </div>
+
         <br />
         <section>
           <Container>
             <div
               style={{
-                width: "500px",
-                marginLeft: "230px",
+                width: "100%",
+                //marginLeft: "230px",
                 paddingLeft: "10px",
               }}
             >
-              <div style={{ display: "block", margin: "auto" }}>
-                <div className="subcolony__name">
-                  <h3>The Forge</h3>
-                </div>
+              <div className="subcolony__name">
+                <h3>{singleSubcolony?.sub?.name}</h3>
               </div>
             </div>
 
             <div className="subcolony__bio">
-              <p>
-                {" "}
-                Guiding Questions: How do we go from dreams to reality? <br />
-                What features should we focus on developing?
-              </p>
+              <p>{singleSubcolony?.sub?.description}</p>
             </div>
             <div
               style={{

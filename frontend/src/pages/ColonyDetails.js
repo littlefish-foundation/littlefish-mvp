@@ -10,11 +10,16 @@ import cardanoIcon from "../assets/cardano.png";
 import { RotatingLines } from "react-loader-spinner";
 import UserProfileCard from "../components/userProfileCard/UserProfileCard";
 import SubcolonyCard from "../components/UserInterface/Sub-colony-card/SubcolonyCard";
+import useGetSubcolonies from "../Hooks/getSubcolonies";
 
 const ColonyDetails = () => {
   const { name } = useParams();
   const { COLONY__DATA } = useFetch2();
+  const { subcolonyData } = useGetSubcolonies();
   const singleColony = COLONY__DATA?.find((item) => item.name === name);
+  console.log(singleColony);
+  console.log(COLONY__DATA);
+  console.log(subcolonyData);
 
   const { userProfileData, loadingProfileData } = useGetUserProfileData();
   const first10 = singleColony?.walletAddress.substring(0, 11);
@@ -121,14 +126,14 @@ const ColonyDetails = () => {
                 </Col>
               </Row>
               <Row>
-                {/* {userProfileData?.map((item) => (
-                  <Col lg="2" md="4" sm="6" style={{ margin: "15px" }}>
-                    <UserProfileCard item={item} />
+                {subcolonyData?.subs?.map((item) => (
+                  <Col lg="3" md="4" sm="6">
+                    <SubcolonyCard
+                      item={item.sub}
+                      coverImage={item.sub.coverImage.src}
+                    />
                   </Col>
-                ))} */}
-                <Col lg="2" md="4" sm="6" style={{ margin: "15px" }}>
-                  <SubcolonyCard />
-                </Col>
+                ))}
               </Row>
             </Container>
           </section>

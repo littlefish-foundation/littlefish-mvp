@@ -29,9 +29,7 @@ let months = [
 const MemberProfile = (props) => {
   const { name } = useParams();
 
-  const { userData, loadingUserData } = useGetOneUserData(
-    `https://api.littlefish.foundation/user/${name}`
-  );
+  const { userData, loadingUserData } = useGetOneUserData(name);
 
   const walletID = userData?.walletAddress;
   const first6 = walletID?.substring(0, 8);

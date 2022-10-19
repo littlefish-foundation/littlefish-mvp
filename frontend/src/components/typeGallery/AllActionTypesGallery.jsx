@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import NftCard from "../../components/UserInterface/Nft-card/NftCard";
 import axios from "axios";
 import { Container, Row, Col } from "reactstrap";
+
+import { LITTLEFISH_API_URL } from "../../config.json";
 import "../../styles/actions.css";
 import "../../components/UserInterface/Live-auction/live-auction.css";
 
@@ -15,11 +17,10 @@ const AllActionTypesGallery = (props) => {
   let searchTerm = props.searchTerm;
   let actionStatus = props.actionStatus;
 
-
   useEffect(() => {
     setLoadingAllActionTypes(true);
     axios
-      .get(`https://api.littlefish.foundation/action`, {
+      .get(`${LITTLEFISH_API_URL}/action`, {
         params: {
           limit: 12,
         },

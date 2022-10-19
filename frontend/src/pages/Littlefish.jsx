@@ -6,9 +6,7 @@ import { Container, Row, Col, Button } from "reactstrap";
 import { RotatingLines } from "react-loader-spinner";
 
 const Littlefish = () => {
-  const { userProfileData, loadingProfileData } = useGetUserProfileData(
-    "https://api.littlefish.foundation/user/"
-  );
+  const { userProfileData, loadingProfileData } = useGetUserProfileData();
 
   return (
     <div>

@@ -14,6 +14,7 @@ import useFetchByActionStatus from "../Hooks/getActionsByStatus";
 import useFetchByActionType from "../Hooks/getActionsByType";
 import ActionByTypeGallery from "../components/typeGallery/ActionByTypeGallery";
 import AllActionTypesGallery from "../components/typeGallery/AllActionTypesGallery";
+
 const Actions = () => {
   const [actionStatus, setActionStatus] = useState(null);
   const [actionType, setActionType] = useState(null);
@@ -23,12 +24,8 @@ const Actions = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [searchType, setSearchType] = useState("");
   const [key, setKey] = useState("All Actions");
-  const { actionsByStatus } = useFetchByActionStatus(
-    `https://api.littlefish.foundation/action?status=${actionStatus}`
-  );
-  const { popularActionType } = useFetchForPopularActionType(
-    `https://api.littlefish.foundation/action-type/popular`
-  );
+  const { actionsByStatus } = useFetchByActionStatus(actionStatus);
+  const { popularActionType } = useFetchForPopularActionType();
   useEffect(() => {
     getActions()
       .then((data) => {
@@ -61,6 +58,7 @@ const Actions = () => {
   console.log(actionType);
   console.log(actionStatus);
   console.log(key);
+  console.log(searchType);
   return (
     <div>
       <SubHeader />
@@ -157,6 +155,7 @@ const Actions = () => {
                   searchResults={searchResults}
                   searchTerm={searchTerm}
                   actionStatus={actionStatus}
+                  searchType={searchType}
                 />
               </Tab>
               {popularActionType?.actionTypes?.map((item) => (
@@ -170,6 +169,7 @@ const Actions = () => {
                     searchResults={searchResults}
                     searchTerm={searchTerm}
                     actionStatus={actionStatus}
+                    searchType={searchType}
                   />
                 </Tab>
               ))}

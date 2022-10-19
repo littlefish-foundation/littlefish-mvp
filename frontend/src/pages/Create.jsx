@@ -9,6 +9,7 @@ import SuccessModal from "../components/UserInterface/Modal/SuccessModal";
 import ErrorModal from "../components/UserInterface/Modal/ErrorModal";
 import LoadingModal from "../components/UserInterface/Modal/LoadingModal";
 import useFetchForPopularActionType from "../Hooks/getPopularActionType";
+import { LITTLEFISH_API_URL } from "../config.json";
 import {
   Container,
   Row,
@@ -40,9 +41,7 @@ const Create = (props) => {
     minimumPrice: "",
   };
 
-  const { popularActionType } = useFetchForPopularActionType(
-    "https://api.littlefish.foundation/action-type/popular"
-  );
+  const { popularActionType } = useFetchForPopularActionType();
 
   const token = localStorage.getItem("token");
   const config = {
@@ -167,7 +166,7 @@ const Create = (props) => {
       }
       return eachEntry;
     }
-    fetch("https://api.littlefish.foundation/action/", {
+    fetch(`${LITTLEFISH_API_URL}/action/`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

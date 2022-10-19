@@ -10,6 +10,6 @@ yarn-debug.log*
 yarn-error.log*
 .npmrc
 dist/
-api/.env
-.env
+api/.env*
+.env*
 /frontend/build/

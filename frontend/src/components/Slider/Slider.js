@@ -7,9 +7,7 @@ import { Link } from "react-router-dom";
 
 export default function Slider() {
   const { _id } = useParams();
-  const { actionData } = useFetchByActionID(
-    `https://api.littlefish.foundation/action/${_id}`
-  );
+  const { actionData } = useFetchByActionID(_id);
   const objFile = {};
   const displayDataArray = [];
 

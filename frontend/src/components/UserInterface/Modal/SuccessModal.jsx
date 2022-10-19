@@ -6,9 +6,7 @@ import "./modal.css";
 import ActionModal from "../../actionModal/actionModal";
 
 const SuccessModal = ({ setShowModal }) => {
-  const { allActions } = useFetchActions(
-    "https://api.littlefish.foundation/action"
-  );
+  const { allActions } = useFetchActions();
 
   const navigate = useNavigate();
 

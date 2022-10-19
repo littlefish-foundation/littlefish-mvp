@@ -1,10 +1,13 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
+import { LITTLEFISH_API_URL } from "../config.json";
 
-function useFetch2(url) {
+function useFetch2() {
   const [COLONY__DATA, setCOLONY__DATA] = useState(null);
   const [loadingColony, setLoadingColony] = useState(false);
   const [error, setError] = useState(null);
+
+  const url = `${LITTLEFISH_API_URL}/colony/`;
 
   useEffect(() => {
     setLoadingColony(true);

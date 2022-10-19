@@ -5,6 +5,8 @@ import { Container, Row, Col } from "reactstrap";
 import "../../styles/actions.css";
 import "../../components/UserInterface/Live-auction/live-auction.css";
 
+import { LITTLEFISH_API_URL } from "../../config.json";
+
 // import LiveAuction from "../components/ui/Live-auction/LiveAuction";
 
 const ActionByTypeGallery = (props) => {
@@ -12,13 +14,20 @@ const ActionByTypeGallery = (props) => {
   const [loadingTypeActions, setLoadingTypeActions] = useState(false);
   const [error, setError] = useState(null);
   let type = props.actionType;
+  let searchType = props.searchType;
   let searchResults = props.searchResults;
   let status = props.actionStatus;
-  let producerName = props.searchTerm;
+
+  let name, producerName;
+  if (searchType === "name") {
+    name = props.searchTerm;
+  } else if (searchType === "producerName") {
+    producerName = props.searchTerm;
+  }
 
   const filtering = {
     params: {
-      //   ...(name ? { name } : undefined),
+      ...(name ? { name } : undefined),
       ...(type ? { type } : undefined),
       ...(producerName ? { producerName } : undefined),
       ...(status ? { status } : undefined),
@@ -28,7 +37,7 @@ const ActionByTypeGallery = (props) => {
   useEffect(() => {
     setLoadingTypeActions(true);
     axios
-      .get(`https://api.littlefish.foundation/action`, filtering)
+      .get(`${LITTLEFISH_API_URL}/action`, filtering)
       .then((response) => {
         setTypeActions(response.data);
       })
@@ -38,7 +47,7 @@ const ActionByTypeGallery = (props) => {
       .finally(() => {
         setLoadingTypeActions(false);
       });
-  }, [type, producerName, status]);
+  }, [type, producerName, status, name]);
   console.log(filtering);
   return (
     <div>

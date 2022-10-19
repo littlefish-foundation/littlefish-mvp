@@ -8,9 +8,7 @@ import UserProfileCard from "../../userProfileCard/UserProfileCard";
 const UserSuccessModal = ({ setShowModal }) => {
   const navigate = useNavigate();
 
-  const { userProfileData, loadingProfileData } = useGetUserProfileData(
-    "https://api.littlefish.foundation/user/"
-  );
+  const { userProfileData, loadingProfileData } = useGetUserProfileData();
   const navigateActions = () => {
     navigate("/colony/Littlefish%20Foundation");
   };

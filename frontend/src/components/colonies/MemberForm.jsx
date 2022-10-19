@@ -8,6 +8,8 @@ import UserErrorModal from "../UserInterface/Modal/UserErrorModal";
 import UserLoadingModal from "../UserInterface/Modal/UserLoadingModal";
 import "./MemberForm.css";
 
+import { LITTLEFISH_API_URL } from "../../config.json";
+
 const MemberForm = (props) => {
   const maxCount = 90;
 
@@ -47,7 +49,7 @@ const MemberForm = (props) => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    fetch("https://api.littlefish.foundation/user/", {
+    fetch(`${LITTLEFISH_API_URL}/user/`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(eachField),

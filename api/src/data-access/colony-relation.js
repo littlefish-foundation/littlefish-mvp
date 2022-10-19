@@ -6,11 +6,11 @@ module.exports = class ColonyRelationDataAccess {
   }
 
   static async getSubColonies(parent) {
-    return ColonyRelationModel.find({ parent }).populate('sub', 'name description coverImage -__v').lean().exec();
+    return ColonyRelationModel.find({ parent }).populate('sub', 'name description coverImage').lean().exec();
   }
 
   static async getParentColony(sub) {
-    return ColonyRelationModel.findOne({ sub }).populate('parent', 'name description coverImage -__v').lean().exec();
+    return ColonyRelationModel.findOne({ sub }).populate('parent', 'name description coverImage').lean().exec();
   }
 
   static async deleteColonyRelation(parent, sub) {

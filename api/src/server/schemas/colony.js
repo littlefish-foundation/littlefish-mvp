@@ -18,7 +18,7 @@ module.exports = {
       },
     ),
   },
-  getAllInfo: {
+  getParentSubColonies: {
     ...colonyNameParams,
     ...actionQuerySchema,
   },

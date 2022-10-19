@@ -20,7 +20,6 @@ module.exports = class ActionTypeService {
   }
 
   static async createActionType(actionType) {
-    // TODO createActionType response
     await actionTypeDataAccess.createActionType(actionType.name);
 
     return {

@@ -22,10 +22,7 @@ module.exports = class UserDataAccess {
 
   static async deleteUserByName(name) {
     const { ok } = await UserModel.deleteOne({ name });
-    if (ok === 1) {
-      return true;
-    }
-    return false;
+    return ok === 1;
   }
 
   static async getUsers(page, limit, fields = '-__v') {

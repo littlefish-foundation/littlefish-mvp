@@ -54,7 +54,6 @@ module.exports = class UserService {
     if (!colony) {
       throw new NotFoundError(`Colony with name:${colonyName} is not found.`);
     }
-    // TODO findOneAndUpdate response if fails throw exception
     await userDataAccess.updateUserColony(name, colony._id);
 
     return {

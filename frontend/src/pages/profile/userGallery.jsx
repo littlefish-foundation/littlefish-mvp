@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import NftCard from "../../components/UserInterface/Nft-card/NftCard";
 import axios from "axios";
 import { Container, Row, Col } from "reactstrap";
+import { LITTLEFISH_API_URL } from "../../../config.json";
 import "../../styles/actions.css";
 import "../../components/UserInterface/Live-auction/live-auction.css";
 
@@ -17,7 +18,7 @@ const UserGallery = (props) => {
     setLoadingUserActions(true);
     axios
       .get(
-        `https://api.littlefish.foundation/colony/Littlefish%20Foundation/actions?producerName=${producerName}`
+        `${LITTLEFISH_API_URL}/colony/Littlefish%20Foundation/actions?producerName=${producerName}`
       )
       .then((response) => {
         setUserActions(response.data);
@@ -35,7 +36,13 @@ const UserGallery = (props) => {
         <Container style={{ backgroundColor: "transparent !important" }}>
           <Row>
             {userActions?.map((item) => (
-              <Col lg="3" md="4" sm="6" className="mb-4" key={item.producerName}>
+              <Col
+                lg="3"
+                md="4"
+                sm="6"
+                className="mb-4"
+                key={item.producerName}
+              >
                 <NftCard item={item} />
               </Col>
             ))}

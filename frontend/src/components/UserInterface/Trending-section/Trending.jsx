@@ -4,9 +4,10 @@ import { Container, Row, Col } from "reactstrap";
 import "./trending.css";
 import useFetch from "../../../Hooks/useFetch";
 import NftCard from "../Nft-card/NftCard";
+import { LITTLEFISH_API_URL } from "../../../../config.json";
 
 const Trending = () => {
-  const { NFT__DATA } = useFetch("https://api.littlefish.foundation/action/");
+  const { NFT__DATA } = useFetch(`${LITTLEFISH_API_URL}/action/`);
 
   console.log(NFT__DATA);
 

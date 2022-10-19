@@ -12,14 +12,10 @@ import UserProfileCard from "../components/userProfileCard/UserProfileCard";
 
 const ColonyDetails = () => {
   const { name } = useParams();
-  const { COLONY__DATA } = useFetch2(
-    "https://api.littlefish.foundation/colony/"
-  );
+  const { COLONY__DATA } = useFetch2();
   const singleColony = COLONY__DATA?.find((item) => item.name === name);
 
-  const { userProfileData, loadingProfileData } = useGetUserProfileData(
-    "https://api.littlefish.foundation/user/"
-  );
+  const { userProfileData, loadingProfileData } = useGetUserProfileData();
   const first10 = singleColony?.walletAddress.substring(0, 11);
   let lengthOfID = singleColony?.walletAddress.length;
   const last10 = singleColony?.walletAddress.substring(

@@ -28,6 +28,7 @@ import { RotatingLines } from "react-loader-spinner";
 import Slider from "../components/Slider/Slider";
 import StatusSyncModal from "../components/UserInterface/Modal/StatusSyncModal";
 import LoadingStatusSyncModal from "../components/UserInterface/Modal/LoadingStausSyncModal";
+import { LITTLEFISH_API_URL } from "../../config.json";
 
 import "../styles/nft-details.css";
 
@@ -52,9 +53,7 @@ const NftDetails = (props) => {
 
   const toggleTip = () => setTooltipOpen(!tooltipOpen);
 
-  const { actionData, loadingActionData } = useFetchByActionID(
-    `https://api.littlefish.foundation/action/${_id}`
-  );
+  const { actionData, loadingActionData } = useFetchByActionID(_id);
 
   console.log(price);
   console.log(actionData);
@@ -66,7 +65,7 @@ const NftDetails = (props) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    fetch("https://api.littlefish.foundation/action-sale/", {
+    fetch(`${LITTLEFISH_API_URL}/action-sale/`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -90,7 +89,7 @@ const NftDetails = (props) => {
   console.log(postStatus);
 
   const handleActionStatusSync = () => {
-    fetch(`https://api.littlefish.foundation/action/${_id}/sync-status`, {
+    fetch(`${LITTLEFISH_API_URL}/action/${_id}/sync-status`, {
       method: "PATCH",
       headers: { "Content-type": "application/json" },
       body: JSON.stringify({ status: actionData?.status }),
@@ -107,7 +106,7 @@ const NftDetails = (props) => {
 
   useEffect(() => {
     // set a function inside this hool to handle the status of the post
-    fetch(`https://api.littlefish.foundation/action-sale/${_id}`)
+    fetch(`${LITTLEFISH_API_URL}/action-sale/${_id}`)
       .then((response) => response.json())
       .then((data) => {
         console.log(data);

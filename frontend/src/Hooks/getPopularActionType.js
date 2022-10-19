@@ -1,7 +1,10 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
+import { LITTLEFISH_API_URL } from "../../config.json";
 
-function useFetchForPopularActionType(url) {
+function useFetchForPopularActionType() {
+  const url = `${LITTLEFISH_API_URL}/action-type/popular`;
+
   const [popularActionType, setPopularActionType] = useState({});
   const [loadingPopularActionType, setLoadingPopularActionType] =
     useState(false);

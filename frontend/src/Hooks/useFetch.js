@@ -1,10 +1,13 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
+import { LITTLEFISH_API_URL } from "../../config.json";
 
-function useFetchActions(url) {
+function useFetchActions() {
   const [allActions, setAllActions] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+
+  const url = `${LITTLEFISH_API_URL}/action`;
 
   useEffect(() => {
     setLoading(true);

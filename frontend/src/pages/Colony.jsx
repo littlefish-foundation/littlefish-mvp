@@ -6,9 +6,7 @@ import { RotatingLines } from "react-loader-spinner";
 import "../styles/Colony.css";
 
 const Colony = (props) => {
-  const { COLONY__DATA, loadingColony } = useFetch2(
-    "https://api.littlefish.foundation/colony/"
-  );
+  const { COLONY__DATA, loadingColony } = useFetch2();
   return (
     <div>
       {loadingColony ? (

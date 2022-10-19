@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import axios from "axios";
 import SubHeader from "../components/UserInterface/Sub-Header/SubHeader";
 import {
   Container,
@@ -16,7 +17,7 @@ import AbsentNamiWalletModal from "../components/UserInterface/Modal/AbsentNamiW
 import NamiAddressModal from "../components/UserInterface/Modal/NamiAddressModal";
 import DisconnectedModal from "../components/UserInterface/Modal/DisconnectedModal";
 import { setAuthToken } from "../helpers/setAuthToken";
-import axios from "axios";
+import { LITTLEFISH_API_URL } from "../../config.json";
 
 const Wallet = () => {
   const [namiAddr, setNamiAddr] = useState(false);
@@ -124,7 +125,7 @@ const Wallet = () => {
     window.walletIDStored = sessionStorage.getItem("walletID");
 
     axios
-      .post("https://api.littlefish.foundation/login/", walletAssetsObject)
+      .post(`${LITTLEFISH_API_URL}/login/`, walletAssetsObject)
       .then((response) => {
         const token = response.data.token;
         const name = response.data.name;

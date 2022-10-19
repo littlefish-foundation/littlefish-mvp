@@ -1,10 +1,13 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
+import { LITTLEFISH_API_URL } from "../../config.json";
 
-function useGetOneUserData(url) {
+function useGetOneUserData(name) {
   const [userData, setUserData] = useState(null);
   const [loadingUserData, setLoadingUserData] = useState(false);
   const [error, setError] = useState(null);
+
+  const url = `${LITTLEFISH_API_URL}/user/${name}`;
 
   useEffect(() => {
     setLoadingUserData(true);

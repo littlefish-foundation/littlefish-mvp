@@ -56,13 +56,5 @@ module.exports = class ColonyController {
     res.status(500).send({
       message: 'Colonies will not be created at this point. Littlefish Foundation is the only colony available.',
     });
-
-    // const {
-    //   colony,
-    // } = req.body;
-    //
-    // const data = await colonyService.createColony(colony);
-    //
-    // res.status(201).send(data);
   });
 };

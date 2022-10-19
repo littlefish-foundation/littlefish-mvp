@@ -45,15 +45,9 @@ const syncAction = async (actionID) => {
 
 const worker = async () => {
     let page = 0, limit = 10;
-    let shouldContinue = true;
-    let i = 0;
-    while (shouldContinue && i < HARD_LIMIT) {
-        i++
+    for(let i =0; i < HARD_LIMIT; i++) {
         const actions = await getActions(page, limit)
-        if(actions.length === 0) {
-            shouldContinue = false;
-            break;
-        }
+        if(actions.length === 0) break;
         const promises = []
         actions.forEach(action => {
             promises.push(syncAction(action._id))

@@ -5,7 +5,7 @@ import { Container, Row, Col } from "reactstrap";
 import "../../styles/actions.css";
 import "../../components/UserInterface/Live-auction/live-auction.css";
 
-import { LITTLEFISH_API_URL } from "../../../config.json";
+import { LITTLEFISH_API_URL } from "../../config.json";
 
 const ColonyGallery = (props) => {
   let colony = props.colony;

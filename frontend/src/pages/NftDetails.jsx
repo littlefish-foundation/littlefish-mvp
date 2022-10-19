@@ -28,7 +28,7 @@ import { RotatingLines } from "react-loader-spinner";
 import Slider from "../components/Slider/Slider";
 import StatusSyncModal from "../components/UserInterface/Modal/StatusSyncModal";
 import LoadingStatusSyncModal from "../components/UserInterface/Modal/LoadingStausSyncModal";
-import { LITTLEFISH_API_URL } from "../../config.json";
+import { LITTLEFISH_API_URL } from "../config.json";
 
 import "../styles/nft-details.css";
 

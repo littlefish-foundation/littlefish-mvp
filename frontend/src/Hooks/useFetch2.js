@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
-import { LITTLEFISH_API_URL } from "../../config.json";
+import { LITTLEFISH_API_URL } from "../config.json";
 
 function useFetch2() {
   const [COLONY__DATA, setCOLONY__DATA] = useState(null);

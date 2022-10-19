@@ -17,7 +17,7 @@ import AbsentNamiWalletModal from "../components/UserInterface/Modal/AbsentNamiW
 import NamiAddressModal from "../components/UserInterface/Modal/NamiAddressModal";
 import DisconnectedModal from "../components/UserInterface/Modal/DisconnectedModal";
 import { setAuthToken } from "../helpers/setAuthToken";
-import { LITTLEFISH_API_URL } from "../../config.json";
+import { LITTLEFISH_API_URL } from "../config.json";
 
 const Wallet = () => {
   const [namiAddr, setNamiAddr] = useState(false);

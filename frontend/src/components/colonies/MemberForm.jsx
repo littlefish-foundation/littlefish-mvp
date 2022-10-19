@@ -8,7 +8,7 @@ import UserErrorModal from "../UserInterface/Modal/UserErrorModal";
 import UserLoadingModal from "../UserInterface/Modal/UserLoadingModal";
 import "./MemberForm.css";
 
-import { LITTLEFISH_API_URL } from "../../../config.json";
+import { LITTLEFISH_API_URL } from "../../config.json";
 
 const MemberForm = (props) => {
   const maxCount = 90;

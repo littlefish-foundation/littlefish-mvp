@@ -9,7 +9,7 @@ import SuccessModal from "../components/UserInterface/Modal/SuccessModal";
 import ErrorModal from "../components/UserInterface/Modal/ErrorModal";
 import LoadingModal from "../components/UserInterface/Modal/LoadingModal";
 import useFetchForPopularActionType from "../Hooks/getPopularActionType";
-import { LITTLEFISH_API_URL } from "../../config.json";
+import { LITTLEFISH_API_URL } from "../config.json";
 import {
   Container,
   Row,

@@ -1,38 +1,13 @@
-const allErrors = []
-
-const isLongerThan64 = (name str) => {
-  if(str.length > 64)
-    allErrors.push
+const isLongerThan64 = (str) => {
+  return str.length > 64;
 };
-const isUndefinedOrNotString = (name,el) => {
-  if(sdjgfhdfjkghdfkjghdfkjhghdfg) {
-    allErrors.push(`${name} must be string`)r
-    return true;
-  }
 
-  return false
-}
 const isAnyNonString = (arr) => {
   return arr.find((e) => typeof e !== "string");
 };
 const isAnyNonObject = (arr) => {
-  if(arr.find((e) => typeof e !== "object"))
-    allErrors.push()
-  return false;
+  return arr.find((e) => typeof e !== "object");
 };
-const isStringOrArrayOfString = (element) => {
-  // stirng mi
-  reutrn false
-
-  // array of string
-
-  return false
-
-  allErrors.push("Ya string olsun ya da array of string"
-  return true
-
-}
-if(isStringOrArrayOfString(element) || isAnyNonObject())  continue
 
 const isAnElementLongerThan64 = (arr) => {
   return arr.find((e) => e.length > 64);
@@ -40,13 +15,13 @@ const isAnElementLongerThan64 = (arr) => {
 
 const isURL = (str) => {
   let pattern = new RegExp(
-    "^(https?:\\/\\/)?" + // protocol
+      "^(https?:\\/\\/)?" + // protocol
       "((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|" + // domain name
       "((\\d{1,3}\\.){3}\\d{1,3}))" + // OR ip (v4) address
       "(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*" + // port and path
       "(\\?[;&a-z\\d%_.~+=-]*)?" + // query string
       "(\\#[-a-z\\d_]*)?$",
-    "i"
+      "i"
   ); // fragment locators
   return !!pattern.test(str);
 };
@@ -61,22 +36,24 @@ const isImageType = (img) => {
     return false;
   }
   const imgMimeTypes = ["png", "jpg", "jpeg", "svg"];
-  const type = img.split("/")?.[1];
+  const imgMimeType = img.split("/")[1];
   return imgMimeTypes.includes(imgMimeType);
 };
 
 const isMimeType = (element) => {
-  if (isImageType(element)) return true;
-
+  if (!element.startsWith("image/") && !element.startsWith("application/")) {
+    return false;
+  }
   const elementMimeBase = element.split("/")[0];
   const elementMimeType = element.split("/")[1];
+  const imgMimeTypes = ["png", "jpg", "jpeg", "svg"];
   const applicationMimeTypes = ["pdf, json"];
 
   if (elementMimeBase === "application") {
     return applicationMimeTypes.includes(elementMimeType);
+  } else if (elementMimeBase === "image") {
+    return imgMimeTypes.includes(elementMimeType);
   }
-
-  return false;
 };
 
 const actionMetadataValidator = (action) => {
@@ -264,6 +241,18 @@ const actionMetadataValidator = (action) => {
         else if (Array.isArray(fileValue)) {
           let isArrayWithObjects = true;
           let isArrayWithStrings = true;
+          fileValue.forEach((item) => {
+            if (typeof item !== "string") {
+              isArrayWithStrings = false;
+              return;
+            }
+          });
+          fileValue.forEach((item) => {
+            if (typeof item !== "object") {
+              isArrayWithObjects = false;
+              return;
+            }
+          });
 
           // array with strings
           if (isArrayWithStrings && !arrWithStringsHasError) {
@@ -339,7 +328,7 @@ const actionMetadataValidator = (action) => {
       // is string
       if (typeof valueInAssetName === "string" && !strHasError) {
         if (isLongerThan64(valueInAssetName)) {
-         continue
+          strHasError = true;
         }
       }
       //is array
@@ -380,7 +369,7 @@ const actionMetadataValidator = (action) => {
                   !arrWithObjectsHasError
               ) {
                 arrWithObjectsHasError = true;
-
+                return;
               }
             });
           });
@@ -400,11 +389,48 @@ const actionMetadataValidator = (action) => {
               !objHasError
           ) {
             objHasError = true;
-
+            return;
           }
         });
       }
     }
+
+    fileNameHasError &&
+    actionErrors.push(
+        "name field which is a string having a maximum of 64 characters should be provided in the files objects"
+    );
+    fileMediaTypeHasError &&
+    actionErrors.push(
+        `mediaType field having the format of a mime type e.g. "application/pdf" should be provided in the files objects`
+    );
+    fileSrcHasError &&
+    actionErrors.push(
+        "src field which is a string and a valid ipfs having a maximum of 64 characters or a string array where each element has a maximum of 64 characters and concatenate into a valid IPFS should be provided in the files objects"
+    );
+    strHasError &&
+    actionErrors.push(
+        "any string value should not be more than 64 characters"
+    );
+    objHasError &&
+    actionErrors.push(
+        "the values in the objects should be types of strings having no more than 64 characters."
+    );
+    arrWithStringsHasError &&
+    actionErrors.push(
+        "strings in an array should not be longer than 64 characters"
+    );
+    arrWithObjectsHasError &&
+    actionErrors.push(
+        "the values in the objects inside of an array should be types of strings having no more than 64 characters."
+    );
+    arrHasError &&
+    actionErrors.push(
+        "in an array, all elements should be type of string or all of them should be type of objects"
+    );
+  } else {
+    console.log("Only Policy Id Version (optional) fields are allowed");
+    return;
+  }
 
   if (actionErrors.length > 0) {
     actionErrors.forEach((error) => console.log(error));

@@ -7,6 +7,7 @@ import Actions from "../pages/Actions";
 import Create from "../pages/Create";
 import Wallet from "../pages/Wallet";
 import Colony from "../pages/Colony";
+import Subcolony from "../pages/Subcolony";
 
 import NftDetails from "../pages/NftDetails";
 import ColonyDetails from "../pages/ColonyDetails";
@@ -29,6 +30,7 @@ const Routers = () => {
       <Route path="/colony" element={<Colony />} />
       <Route path="/colony/:name" element={<ColonyDetails />} />
       <Route path="/user/:name" element={<MemberProfile />} />
+      <Route path="/subcolony" element={<Subcolony />} />
 
       <Route path="/action/:_id" element={<NftDetails />} />
     </Routes>

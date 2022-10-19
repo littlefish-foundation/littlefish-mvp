@@ -9,6 +9,7 @@ import ColonyGallery from "../components/colonies/ColonyGallery";
 import cardanoIcon from "../assets/cardano.png";
 import { RotatingLines } from "react-loader-spinner";
 import UserProfileCard from "../components/userProfileCard/UserProfileCard";
+import SubcolonyCard from "../components/UserInterface/Sub-colony-card/SubcolonyCard";
 
 const ColonyDetails = () => {
   const { name } = useParams();
@@ -120,11 +121,14 @@ const ColonyDetails = () => {
                 </Col>
               </Row>
               <Row>
-                {userProfileData?.map((item) => (
+                {/* {userProfileData?.map((item) => (
                   <Col lg="2" md="4" sm="6" style={{ margin: "15px" }}>
                     <UserProfileCard item={item} />
                   </Col>
-                ))}
+                ))} */}
+                <Col lg="2" md="4" sm="6" style={{ margin: "15px" }}>
+                  <SubcolonyCard />
+                </Col>
               </Row>
             </Container>
           </section>

@@ -37,17 +37,7 @@ const Actions = () => {
       });
   }, []);
   const handleSubmit = (e) => e.preventDefault();
-  const handleSearchChange = (e) => {
-    if (!e.target.value) return setSearchResults(actions);
-    setSearchTerm(e.target.value);
-    const resultsArray = actions.filter(
-      (action) =>
-        action.name.toLowerCase().includes(e.target.value.toLowerCase()) ||
-        action.producerName.toLowerCase().includes(e.target.value.toLowerCase())
-    );
-    console.log(searchTerm);
-    setSearchResults(resultsArray);
-  };
+
   const handleStatusChange = (e) => {
     console.log(actionStatus);
   };
@@ -174,27 +164,6 @@ const Actions = () => {
                 </Tab>
               ))}
             </Tabs>
-            {/*********************************************************************************** */}
-            {/*********************************************************************************** */}
-            {/*********************************************************************************** */}
-            {/* {searchResults.length &&
-              searchTerm.length !== 0 &&
-              searchResults?.map((item) => (
-                <Col lg="3" md="4" sm="6" className="mb-4" key={item?.tokenId}>
-                  <NftCard item={item} key={item?.tokenId} />
-                </Col>
-              ))}
-            {actionStatus !== null &&
-              actionStatus !== "" &&
-              searchTerm.length === 0 &&
-              actionsByStatus?.map((item) => (
-                <Col lg="3" md="4" sm="6" className="mb-4" key={item?.tokenId}>
-                  <NftCard item={item} key={item?.tokenId} />
-                </Col>
-              ))} */}
-            {/*********************************************************************************** */}
-            {/*********************************************************************************** */}
-            {/*********************************************************************************** */}
           </Row>
         </Container>
       </section>

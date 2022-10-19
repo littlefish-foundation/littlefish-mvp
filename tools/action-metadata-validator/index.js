@@ -217,7 +217,7 @@ const actionMetadataValidator = (action) => {
 
     // NAME CHECK
 
-    if (!name || !(typeof name === "string")) {
+    if (!name || typeof name !== "string") {
       actionErrors.push("name field should be provided with a string");
     } else if (isLongerThan64(name)) {
       actionErrors.push("name value should not be more than 64 characters.");
@@ -309,7 +309,6 @@ const actionMetadataValidator = (action) => {
     }
   } else {
     console.log("Only Policy Id Version (optional) fields are allowed");
-    return;
   }
 };
 

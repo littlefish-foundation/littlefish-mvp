@@ -15,7 +15,6 @@ const ActionByTypeGallery = (props) => {
   const [error, setError] = useState(null);
   let type = props.actionType;
   let searchType = props.searchType;
-  let searchResults = props.searchResults;
   let status = props.actionStatus;
 
   let name, producerName;

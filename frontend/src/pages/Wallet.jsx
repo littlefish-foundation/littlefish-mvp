@@ -46,7 +46,6 @@ const Wallet = () => {
       } else {
         const enableResponse = await typhon.enable();
         if (enableResponse.status === true) {
-        } else {
         }
       }
     }

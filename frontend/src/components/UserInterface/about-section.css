@@ -14,7 +14,7 @@
 }
 
 .hero__content p span {
-  background:  #43DEA1;
+  background: #43dea1;
   background-size: 100% 100%;
   background-clip: text;
   -webkit-text-stroke: 3px transparent;
@@ -29,11 +29,10 @@
 
 .explore__btn,
 .create__btn {
-  border: none;
   outline: none;
   padding: 7px 25px !important;
   border-radius: 50px !important;
-  border: 1px solid rgb(205,173,72) !important;
+  border: 1px solid rgb(205, 173, 72) !important;
   font-size: 0.9rem;
   background: transparent;
   margin-right: auto;

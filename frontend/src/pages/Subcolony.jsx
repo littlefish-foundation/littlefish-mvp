@@ -3,14 +3,14 @@ import { RiShareLine } from "react-icons/ri";
 import { useParams } from "react-router-dom";
 
 import { BsThreeDots } from "react-icons/bs";
-import { Container, Button, Card, CardText } from "reactstrap";
+import { Container, Button, Card, CardText, Col } from "reactstrap";
 
 import "../styles/subcolony.css";
 import Tab from "react-bootstrap/Tab";
 import Tabs from "react-bootstrap/Tabs";
 import { AiOutlineInfoCircle } from "react-icons/ai";
 import useGetSubcolonies from "../Hooks/getSubcolonies";
-
+import AllActionTypesGallery from "../components/typeGallery/AllActionTypesGallery";
 const Subcolony = (props) => {
   const { name } = useParams();
   const { subcolonyData, loadingSubcolony } = useGetSubcolonies();
@@ -155,7 +155,9 @@ const Subcolony = (props) => {
               eventKey="Contributors"
               title="All Actions"
               style={{ backgroundColor: "transparent !important" }}
-            ></Tab>
+            >
+              <AllActionTypesGallery />
+            </Tab>
             <Tab
               eventKey="Created Actions"
               title="Created Actions"

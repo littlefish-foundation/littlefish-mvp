@@ -14,9 +14,9 @@ const SubcolonyCard = (props) => {
       >
         <Card
           style={{
-            background: "inherit",
+            background: "rgb(55,60,78)",
             //margin: "50px",
-            border: "5px solid rgb(53,52,67)",
+            //border: "5px solid rgb(53,52,67)",
             width: "18rem",
           }}
         >
@@ -25,13 +25,15 @@ const SubcolonyCard = (props) => {
             alt="placeholder"
             style={{
               width: "100%",
-              borderRadius: "5%",
+              borderRadius: "2%",
               height: "123px",
               objectFit: "cover",
             }}
           />
 
-          <CardText>{name} &nbsp;</CardText>
+          <CardText style={{ display: "flex", justifyContent: "center" }}>
+            {name} &nbsp;
+          </CardText>
         </Card>
       </Link>
     </div>

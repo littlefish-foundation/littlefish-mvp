@@ -1,18 +1,23 @@
 import React, { useState, useEffect } from "react";
 import NftCard from "../../components/UserInterface/Nft-card/NftCard";
 import axios from "axios";
-import { Container, Row, Col } from "reactstrap";
+import { Container, Row, Col, Spinner } from "reactstrap";
 
 import { LITTLEFISH_API_URL } from "../../config.json";
 import "../../styles/actions.css";
 import "../../components/UserInterface/Live-auction/live-auction.css";
+import InfiniteScroll from "react-infinite-scroll-component";
+import ScrollToTop from "react-scroll-to-top";
 
 // import LiveAuction from "../components/ui/Live-auction/LiveAuction";
 
 const AllActionTypesGallery = (props) => {
-  const [allActionTypes, setAllActionTypes] = useState(null);
+  const [allActionTypes, setAllActionTypes] = useState([]);
   const [loadingAllActionTypes, setLoadingAllActionTypes] = useState(false);
   const [error, setError] = useState(null);
+  const [hasMore, setHasMore] = useState(true);
+  const [page, setPage] = useState(0);
+
   let type = props.actionType;
   let searchType = props.searchType;
   let status = props.actionStatus;
@@ -26,20 +31,28 @@ const AllActionTypesGallery = (props) => {
 
   const filtering = {
     params: {
+      page,
+      limit: 4,
       ...(name ? { name } : undefined),
       ...(type ? { type } : undefined),
       ...(producerName ? { producerName } : undefined),
       ...(status ? { status } : undefined),
-      limit: 12,
     },
   };
+
+  //fetch more data when user scrolls down
+  //make the api call to fetch more data
+  //append the new data to the existing data
 
   useEffect(() => {
     setLoadingAllActionTypes(true);
     axios
       .get(`${LITTLEFISH_API_URL}/action`, filtering)
       .then((response) => {
-        setAllActionTypes(response.data);
+        // setAllActionTypes(response.data);
+        allActionTypes.length
+          ? setAllActionTypes([...allActionTypes, ...response.data])
+          : setAllActionTypes(response.data);
       })
       .catch((err) => {
         setError(err);
@@ -47,18 +60,26 @@ const AllActionTypesGallery = (props) => {
       .finally(() => {
         setLoadingAllActionTypes(false);
       });
-  }, [type, producerName, status, name]);
+  }, [type, producerName, status, name, page]);
+
   return (
     <div>
       <section>
         <Container style={{ backgroundColor: "transparent !important" }}>
-          <Row>
-            {allActionTypes?.map((item) => (
-              <Col lg="3" md="4" sm="6" className="mb-4" key={item.tokenId}>
-                <NftCard item={item} key={item.tokenId} />
-              </Col>
-            ))}
-          </Row>
+          <InfiniteScroll
+            dataLength={allActionTypes?.length}
+            next={() => setPage(page + 1)}
+            hasMore={hasMore}
+            style={{ overflow: "hidden" }}
+          >
+            <Row>
+              {allActionTypes?.map((item, index) => (
+                <Col lg="3" md="4" sm="6" className="mb-4" key={item.tokenId}>
+                  <NftCard item={item} key={item.tokenId} index={index} />
+                </Col>
+              ))}
+            </Row>
+          </InfiniteScroll>
         </Container>
       </section>
     </div>

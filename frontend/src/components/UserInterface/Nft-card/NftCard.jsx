@@ -17,7 +17,6 @@ const NftCard = (props) => {
   } = props.item;
 
   const createdat = createdAt?.substring(0, 10);
-  //console.log(createdat);
   const [showModal, setShowModal] = useState(false);
 
   return (

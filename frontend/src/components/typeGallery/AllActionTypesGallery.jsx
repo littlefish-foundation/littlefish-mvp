@@ -40,16 +40,11 @@ const AllActionTypesGallery = (props) => {
     },
   };
 
-  //fetch more data when user scrolls down
-  //make the api call to fetch more data
-  //append the new data to the existing data
-
   useEffect(() => {
     setLoadingAllActionTypes(true);
     axios
       .get(`${LITTLEFISH_API_URL}/action`, filtering)
       .then((response) => {
-        // setAllActionTypes(response.data);
         allActionTypes.length
           ? setAllActionTypes([...allActionTypes, ...response.data])
           : setAllActionTypes(response.data);

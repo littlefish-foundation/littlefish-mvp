@@ -107,9 +107,9 @@ const Actions = () => {
                     value={actionStatus}
                   >
                     <option value={""}>Sort By</option>
-                    <option value={"FOR_SALE"}>For Sale</option>
+                    <option value={"FOR_SALE"}>Ready to mint</option>
                     <option value={"RESERVED"}>Reserved</option>
-                    <option value={"COMPLETED"}>Sold</option>
+                    <option value={"COMPLETED"}>Minted</option>
                   </select>
                 </div>
               </div>

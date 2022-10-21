@@ -18,7 +18,7 @@ const app = express();
 loaders();
 
 const options = {
-  origin: config.runningEnvironment === 'prod' ? /\.littlefish\.foundation$/ : '*',
+  origin: '*',
   methods: '*',
   preflightContinue: false,
   optionsSuccessStatus: 204,

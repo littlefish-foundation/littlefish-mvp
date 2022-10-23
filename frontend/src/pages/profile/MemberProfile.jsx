@@ -62,7 +62,7 @@ const MemberProfile = (props) => {
         </div>
       ) : (
         <div>
-          <button>
+          {/* <button>
             <RiShareLine
               style={{
                 position: "absolute",
@@ -85,16 +85,84 @@ const MemberProfile = (props) => {
                 alignItems: "center",
               }}
             />
-          </button>
+          </button> */}
+          <div
+            style={{
+              position: "absolute",
+              marginTop: "260px",
+              color: "white",
+              marginLeft: "900px",
+              fontSize: "2rem",
+              alignItems: "center",
+            }}
+          >
+            <img src={cardanoIcon} alt="" className="cardano__icon" />
+            <Button
+              className="wallet__id__btn"
+              value={walletID}
+              onClick={copyToClipboard}
+            >
+              {first6}......{last6}
+            </Button>
+          </div>
+          <div
+            style={{
+              position: "absolute",
+              marginTop: "260px",
+              color: "white",
+              marginLeft: "1150px",
+              fontSize: "2rem",
+              alignItems: "center",
+            }}
+          >
+            <div className="date__joined">
+              <p>Member since {dateFormat}</p>
+            </div>
+          </div>
 
           <section className="common__section">
             <Container>
-              <img src={userData?.avatar} alt="" className="profile__image" />
-
+              <div>
+                <img src={userData?.avatar} alt="" className="profile__image" />
+              </div>
+            </Container>
+          </section>
+          <div
+            className="social__links__user d-flex gap-3 align-items-center "
+            style={{ marginLeft: "15px" }}
+          >
+            <span>
+              <a href="#">
+                <i className="ri-github-line"></i>
+              </a>
+            </span>
+            <span>
+              <a href="#">
+                <i className="ri-youtube-line"></i>
+              </a>
+            </span>
+            <span>
+              <a href="#">
+                <i className="ri-twitter-line"></i>
+              </a>
+            </span>
+            <span>
+              <a href="#">
+                <i className="ri-global-line"></i>
+              </a>
+            </span>
+            <span>
+              <a href="#">
+                <i className="ri-discord-line"></i>
+              </a>
+            </span>
+          </div>
+          <br></br>
+          <section>
+            <Container>
               <div
                 style={{
-                  width: "500px",
-                  marginLeft: "230px",
+                  width: "100%",
                   paddingLeft: "10px",
                 }}
               >
@@ -103,7 +171,7 @@ const MemberProfile = (props) => {
                     <h3>{userData?.name}</h3>
                   </div>
 
-                  <div>
+                  {/* <div>
                     <img src={cardanoIcon} alt="" className="cardano__icon" />
                     <Button
                       className="wallet__id__btn"
@@ -115,7 +183,7 @@ const MemberProfile = (props) => {
                     <div className="date__joined">
                       <p>Member since {dateFormat}</p>
                     </div>
-                  </div>
+                  </div> */}
 
                   <div className="user__bio">
                     <p>{userData?.bio}</p>

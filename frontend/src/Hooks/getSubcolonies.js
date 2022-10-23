@@ -7,7 +7,7 @@ function useGetSubcolonies() {
   const [loadingSubcolony, setLoadingSubcolony] = useState(false);
   const [error, setError] = useState(null);
 
-  const url = `https://api.littlefish.foundation/colony/Littlefish%20Foundation/parent-and-subs`;
+  const url = `${LITTLEFISH_API_URL}/colony/Littlefish%20Foundation/parent-and-subs`;
 
   useEffect(() => {
     setLoadingSubcolony(true);

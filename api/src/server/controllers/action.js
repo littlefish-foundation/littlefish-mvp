@@ -38,4 +38,10 @@ module.exports = class ActionController {
 
     res.status(200).send(result);
   });
+
+  static syncActionWebhook = catchAsync(async (req, res) => {
+    const hook = req.body;
+    const result = await actionService.syncActionWebhook(hook);
+    res.status(200).send(result);
+  });
 };

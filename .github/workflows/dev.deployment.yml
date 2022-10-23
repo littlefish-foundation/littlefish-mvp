@@ -1,11 +1,11 @@
-name: Prod deployment
+name: Dev deployment
 
 on:
   push:
-    branches: [ master ]
+    branches: [ dev ]
 jobs:
-  environment: prod
   build:
+    environment: dev
     runs-on: ubuntu-latest
     steps:
       - name: deploy api
@@ -17,7 +17,7 @@ jobs:
           port: 22
           script: |
             cd ~/littlefish-mvp
-            git pull origin main
+            git pull origin dev
             git status
             npm install --only=prod
       - name: deploy frontend app
@@ -29,10 +29,12 @@ jobs:
           port: 22
           script: |
             cd ~/littlefish-mvp
-            git pull origin main
+            git pull origin dev
             git status
             cd ./frontend
             npm install --only=prod
             npm build
             rm -rf /var/www/app.littlefish.foundation
-            cp  ./build/*  /var/www/app.littlefish.foundation
+            mkdir /var/www/app.littlefish.foundation
+            cp  -r ./build/*  /var/www/app.littlefish.foundation
+  

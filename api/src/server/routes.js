@@ -24,6 +24,7 @@ actionRouter.route('/').post(authenticator, validator(actionSchemas.mintAction),
 actionRouter.route('/:id/sync-status').patch(validator(actionSchemas.syncActionStatus), actionController.syncActionStatus);
 actionRouter.route('/:id').get(validator(actionSchemas.getAction), actionController.getAction);
 actionRouter.route('/:id').delete(validator(actionSchemas.deleteAction), actionController.deleteAction);
+actionRouter.route('/hook').post(actionController.syncActionWebhook);
 router.use('/action', actionRouter);
 
 const colonyRouter = express.Router();

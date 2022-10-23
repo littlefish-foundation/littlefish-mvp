@@ -4,8 +4,8 @@ on:
   push:
     branches: [ dev ]
 jobs:
-  environment: dev
   build:
+    environment: dev
     runs-on: ubuntu-latest
     steps:
       - name: deploy api
@@ -36,3 +36,4 @@ jobs:
             npm build
             rm -rf /var/www/app.littlefish.foundation
             cp  ./build/*  /var/www/app.littlefish.foundation
+  

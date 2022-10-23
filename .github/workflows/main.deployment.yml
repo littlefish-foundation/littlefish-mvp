@@ -2,10 +2,10 @@ name: Prod deployment
 
 on:
   push:
-    branches: [ master ]
+    branches: [ main ]
 jobs:
-  environment: prod
   build:
+    environment: main
     runs-on: ubuntu-latest
     steps:
       - name: deploy api

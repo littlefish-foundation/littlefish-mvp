@@ -35,5 +35,6 @@ jobs:
             npm install --only=prod
             npm build
             rm -rf /var/www/app.littlefish.foundation
-            cp  ./build/*  /var/www/app.littlefish.foundation
+            mkdir /var/www/app.littlefish.foundation
+            cp  -r ./build/*  /var/www/app.littlefish.foundation
   

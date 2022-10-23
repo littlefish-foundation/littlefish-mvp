@@ -139,4 +139,16 @@ module.exports = class ActionService {
       success: true,
     };
   }
+
+  static async syncActionWebhook(hook) {
+    const collectionID = hook?.data?.collectionId;
+    if (!collectionID) {
+      throw new NotFoundError('Action could not be found.');
+    }
+
+    await actionDataAccess.setActionSoldWithCollectionID(collectionID);
+    return {
+      success: true,
+    };
+  }
 };

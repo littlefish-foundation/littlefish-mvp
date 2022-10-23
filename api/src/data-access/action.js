@@ -22,6 +22,10 @@ module.exports = class ActionDataAccess {
     return ActionModel.findByIdAndUpdate(id, { status });
   }
 
+  static async setActionSoldWithCollectionID(collectionID) {
+    return ActionModel.findOneAndUpdate({ actionCollection: collectionID }, { status: 'SOLD' });
+  }
+
   static async getActions(colony, filter, sorter, page, limit, fields = '-__v') {
     const {
       name, producerName, minDate, maxDate, status, type,

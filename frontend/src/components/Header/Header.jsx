@@ -60,7 +60,7 @@ const Header = () => {
   const headerRef = useRef(null);
   const menuRef = useRef(null);
   let address = sessionStorage.length;
-  let network = sessionStorage.getItem("network");
+  let network = sessionStorage.getItem("connectedNetwork");
   const [buttonStyling, setButtonStyling] = useState(null);
   const [stylesOfButton, setStylesOfButton] = useState(null);
 
@@ -80,6 +80,7 @@ const Header = () => {
   }, []);
 
   const toggleMenu = () => menuRef.current.classList.toggle("active__menu");
+  console.log(network);
 
   return (
     <header className="header" ref={headerRef}>
@@ -127,11 +128,12 @@ const Header = () => {
                 style={{
                   color: " #fff",
                   border: address !== 0 ? "none" : "2px solid white",
+
                   background:
                     address !== 0
                       ? network === "mainnet"
-                        ? "yellow"
-                        : "green"
+                        ? "rgb(186,152,69)"
+                        : "rgb(227,153,151)"
                       : "transparent",
                 }}
                 className="btn d-flex gap-2 align-items-center"
@@ -147,7 +149,11 @@ const Header = () => {
                   ></i>
                 </span>
 
-                {address !== 0 ? "Wallet Connected" : "Connect Wallet"}
+                {address !== 0
+                  ? network === "mainnet"
+                    ? "Wallet Connected (Mainnet)"
+                    : "Wallet Connected (Testnet)"
+                  : "Connect Wallet"}
               </button>
             </NavLink>
 

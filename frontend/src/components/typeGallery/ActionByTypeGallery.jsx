@@ -47,7 +47,9 @@ const ActionByTypeGallery = (props) => {
         setLoadingTypeActions(false);
       });
   }, [type, producerName, status, name]);
+  
   console.log(filtering);
+
   return (
     <div>
       {loadingTypeActions ? (

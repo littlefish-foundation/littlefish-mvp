@@ -44,11 +44,9 @@ const Actions = () => {
   useEffect(() => {
     handleStatusChange();
   }, [actionStatus]);
-  console.log(actions);
-  console.log(actionType);
+
   console.log(actionStatus);
-  console.log(key);
-  console.log(searchType);
+
   return (
     <div>
       <SubHeader />
@@ -106,10 +104,10 @@ const Actions = () => {
                     onChange={(e) => setActionStatus(e.target.value)}
                     value={actionStatus}
                   >
-                    <option value={""}>Sort By</option>
-                    <option value={"FOR_SALE"}>Ready to mint</option>
-                    <option value={"RESERVED"}>Reserved</option>
-                    <option value={"COMPLETED"}>Minted</option>
+                    <option value="">Sort By</option>
+                    <option value="FOR_SALE">Ready to mint</option>
+                    <option value="RESERVED">Reserved</option>
+                    <option value="COMPLETED">Minted</option>
                   </select>
                 </div>
               </div>
@@ -141,12 +139,34 @@ const Actions = () => {
                 title="All Actions"
                 style={{ backgroundColor: "transparent !important" }}
               >
-                <AllActionTypesGallery
-                  searchResults={searchResults}
-                  searchTerm={searchTerm}
-                  actionStatus={actionStatus}
-                  searchType={searchType}
-                />
+                {actionStatus === null ? (
+                  <AllActionTypesGallery
+                    searchResults={searchResults}
+                    searchTerm={searchTerm}
+                    actionStatus={actionStatus}
+                    searchType={searchType}
+                  />
+                ) : (
+                  <section>
+                    <Container
+                      style={{ backgroundColor: "transparent !important" }}
+                    >
+                      <Row>
+                        {actionsByStatus?.map((item) => (
+                          <Col
+                            lg="3"
+                            md="4"
+                            sm="6"
+                            className="mb-4"
+                            key={item.type}
+                          >
+                            <NftCard item={item} />
+                          </Col>
+                        ))}
+                      </Row>
+                    </Container>
+                  </section>
+                )}
               </Tab>
               {popularActionType?.actionTypes?.map((item) => (
                 <Tab

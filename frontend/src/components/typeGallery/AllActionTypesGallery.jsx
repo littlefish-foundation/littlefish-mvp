@@ -31,12 +31,12 @@ const AllActionTypesGallery = (props) => {
 
   const filtering = {
     params: {
-      page,
       limit: 8,
       ...(name ? { name } : undefined),
       ...(type ? { type } : undefined),
       ...(producerName ? { producerName } : undefined),
       ...(status ? { status } : undefined),
+      ...(page ? { page } : undefined),
     },
   };
 
@@ -55,7 +55,7 @@ const AllActionTypesGallery = (props) => {
       .finally(() => {
         setLoadingAllActionTypes(false);
       });
-  }, [type, producerName, status, name, page]);
+  }, [producerName, status, name, page]);
   console.log(allActionTypes.length);
 
   return (
@@ -107,3 +107,6 @@ const AllActionTypesGallery = (props) => {
 };
 
 export default AllActionTypesGallery;
+
+
+

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import NftCard from "../../components/UserInterface/Nft-card/NftCard";
 import axios from "axios";
-import { Container, Row, Col } from "reactstrap";
+import { Container, Row, Col, Spinner } from "reactstrap";
 import "../../styles/actions.css";
 import "../../components/UserInterface/Live-auction/live-auction.css";
 
@@ -50,17 +50,30 @@ const ActionByTypeGallery = (props) => {
   console.log(filtering);
   return (
     <div>
-      <section>
-        <Container style={{ backgroundColor: "transparent !important" }}>
-          <Row>
-            {typeActions?.map((item) => (
-              <Col lg="3" md="4" sm="6" className="mb-4" key={item.type}>
-                <NftCard item={item} />
-              </Col>
-            ))}
-          </Row>
-        </Container>
-      </section>
+      {loadingTypeActions ? (
+        <Spinner
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            margin: "auto",
+            color: "gray",
+            marginBottom: "300px",
+          }}
+        />
+      ) : (
+        <section>
+          <Container style={{ backgroundColor: "transparent !important" }}>
+            <Row>
+              {typeActions?.map((item) => (
+                <Col lg="3" md="4" sm="6" className="mb-4" key={item.type}>
+                  <NftCard item={item} />
+                </Col>
+              ))}
+            </Row>
+          </Container>
+        </section>
+      )}
     </div>
   );
 };

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import SubHeader from "../components/UserInterface/Sub-Header/SubHeader";
 import NftCard from "../components/UserInterface/Nft-card/NftCard";
-import { Container, Row, Col } from "reactstrap";
+import { Container, Row, Col, Spinner } from "reactstrap";
 import "../styles/actions.css";
 import "../components/UserInterface/Live-auction/live-auction.css";
 import { RotatingLines } from "react-loader-spinner";
@@ -24,7 +24,8 @@ const Actions = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [searchType, setSearchType] = useState("");
   const [key, setKey] = useState("All Actions");
-  const { actionsByStatus } = useFetchByActionStatus(actionStatus);
+  const { actionsByStatus, loadingActionsByStatus } =
+    useFetchByActionStatus(actionStatus);
   const { popularActionType } = useFetchForPopularActionType();
   useEffect(() => {
     getActions()
@@ -147,25 +148,40 @@ const Actions = () => {
                     searchType={searchType}
                   />
                 ) : (
-                  <section>
-                    <Container
-                      style={{ backgroundColor: "transparent !important" }}
-                    >
-                      <Row>
-                        {actionsByStatus?.map((item) => (
-                          <Col
-                            lg="3"
-                            md="4"
-                            sm="6"
-                            className="mb-4"
-                            key={item.type}
-                          >
-                            <NftCard item={item} />
-                          </Col>
-                        ))}
-                      </Row>
-                    </Container>
-                  </section>
+                  <div>
+                    {loadingActionsByStatus ? (
+                      <Spinner
+                        style={{
+                          display: "flex",
+                          justifyContent: "center",
+                          alignItems: "center",
+                          margin: "auto",
+                          color: "gray",
+                          marginBottom: "300px",
+                        }}
+                      />
+                    ) : (
+                      <section>
+                        <Container
+                          style={{ backgroundColor: "transparent !important" }}
+                        >
+                          <Row>
+                            {actionsByStatus?.map((item) => (
+                              <Col
+                                lg="3"
+                                md="4"
+                                sm="6"
+                                className="mb-4"
+                                key={item.type}
+                              >
+                                <NftCard item={item} />
+                              </Col>
+                            ))}
+                          </Row>
+                        </Container>
+                      </section>
+                    )}
+                  </div>
                 )}
               </Tab>
               {popularActionType?.actionTypes?.map((item) => (

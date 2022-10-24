@@ -10,18 +10,11 @@ import { useSlotProps } from "@mui/base";
 
 const NamiAddressModal = ({ account, setShowModal, sumBalance }) => {
   //const account = account;
-  const navigate = useNavigate();
   const walletID = account;
   const first6 = walletID.substring(0, 8);
   let lengthOfID = walletID.length;
   const last6 = walletID.substring(lengthOfID - 9, lengthOfID - 1);
 
-  const navigateGenerate = (e) => {
-    window.location.reload();
-    e.preventDefault();
-
-    navigate("/create");
-  };
   return (
     <div className="modal__wrapper">
       <div className="single__modal">
@@ -50,14 +43,6 @@ const NamiAddressModal = ({ account, setShowModal, sumBalance }) => {
         <p className="text-center text-dark">
           Your Balance is: {sumBalance} ADA
         </p>
-        <button
-          className="place__bid-btn"
-          onClick={() => {
-            navigate("/create");
-          }}
-        >
-          Redirect to Generate Page
-        </button>
       </div>
     </div>
   );

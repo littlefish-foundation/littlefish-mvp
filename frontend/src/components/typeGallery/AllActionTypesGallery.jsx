@@ -32,7 +32,7 @@ const AllActionTypesGallery = (props) => {
   const filtering = {
     params: {
       page,
-      limit: 4,
+      limit: 8,
       ...(name ? { name } : undefined),
       ...(type ? { type } : undefined),
       ...(producerName ? { producerName } : undefined),
@@ -56,20 +56,45 @@ const AllActionTypesGallery = (props) => {
         setLoadingAllActionTypes(false);
       });
   }, [type, producerName, status, name, page]);
+  console.log(allActionTypes.length);
 
   return (
     <div>
       <section>
         <Container style={{ backgroundColor: "transparent !important" }}>
           <InfiniteScroll
-            dataLength={allActionTypes?.length}
+            dataLength={allActionTypes.length}
             next={() => setPage(page + 1)}
-            hasMore={hasMore}
+            hasMore={allActionTypes.length % 8 !== 0 ? false : true}
+            loader={
+              <Spinner
+                style={{
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  margin: "auto",
+                  color: "gray",
+                }}
+              />
+            }
+            endMessage={
+              <p style={{ textAlign: "center" }}>
+                <b>You have seen it all</b>
+              </p>
+            }
             style={{ overflow: "hidden" }}
           >
             <Row>
               {allActionTypes?.map((item, index) => (
-                <Col lg="3" md="4" sm="6" className="mb-4" key={item.tokenId}>
+                <Col
+                  xxl="3"
+                  xl="3"
+                  lg="3"
+                  md="4"
+                  sm="6"
+                  className="mb-4"
+                  key={item.tokenId}
+                >
                   <NftCard item={item} key={item.tokenId} index={index} />
                 </Col>
               ))}

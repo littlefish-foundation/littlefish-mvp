@@ -156,12 +156,13 @@ const Wallet = () => {
     setShowModalDisconnect(true);
   };
 
+  console.log(sessionStorage.walletID);
   return (
     <div
-      onClick={() => {
-        showModal && setShowModal(false);
-        showModalDisconnect && setShowModalDisconnect(false);
-      }}
+    // onClick={() => {
+    //   showModal && setShowModal(false);
+    //   showModalDisconnect && setShowModalDisconnect(false);
+    // }}
     >
       <SubHeader />
       <section>

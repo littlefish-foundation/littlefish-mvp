@@ -1,4 +1,4 @@
-import React, { useRef, useEffect } from "react";
+import React, { useRef, useEffect, useState } from "react";
 import { Container } from "reactstrap";
 import abstract from "../../assets/abstract.png";
 import Dropdown from "react-bootstrap/Dropdown";
@@ -60,6 +60,7 @@ const Header = () => {
   const headerRef = useRef(null);
   const menuRef = useRef(null);
   let address = sessionStorage.length;
+  const [buttonStyling, setButtonStyling] = useState(null);
 
   useEffect(() => {
     window.addEventListener("scroll", () => {

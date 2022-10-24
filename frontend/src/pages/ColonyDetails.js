@@ -163,16 +163,44 @@ const ColonyDetails = () => {
           >
             <AllActionTypesGallery />
           </Tab>
+
           <Tab
-            eventKey="Created Actions"
-            title="Created Actions"
+            eventKey="Subcolonies"
+            title="Subcolonies"
             style={{ backgroundColor: "transparent !important" }}
-          ></Tab>
+          >
+            <section>
+              <Container>
+                <Row>
+                  {subcolonyData?.subs?.map((item) => (
+                    <Col lg="3" md="4" sm="6">
+                      <SubcolonyCard
+                        item={item.sub}
+                        coverImage={item.sub.coverImage.src}
+                      />
+                    </Col>
+                  ))}
+                </Row>
+              </Container>
+            </section>
+          </Tab>
           <Tab
             eventKey="Members"
             title="Members"
             style={{ backgroundColor: "transparent !important" }}
-          ></Tab>
+          >
+            <section>
+              <Container>
+                <Row>
+                  {userProfileData?.map((item) => (
+                    <Col lg="2" md="4" sm="6" style={{ margin: "15px" }}>
+                      <UserProfileCard item={item} />
+                    </Col>
+                  ))}
+                </Row>
+              </Container>
+            </section>
+          </Tab>
         </Tabs>
       </section>
     </div>

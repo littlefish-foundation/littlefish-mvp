@@ -107,6 +107,3 @@ const AllActionTypesGallery = (props) => {
 };
 
 export default AllActionTypesGallery;
-
-
-

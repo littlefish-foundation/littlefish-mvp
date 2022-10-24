@@ -184,7 +184,7 @@ const ColonyDetails = () => {
             title="All Actions"
             style={{ backgroundColor: "transparent !important" }}
           >
-            <AllActionTypesGallery />
+            <ColonyGallery colony={singleColony?.name} />
           </Tab>
 
           <Tab

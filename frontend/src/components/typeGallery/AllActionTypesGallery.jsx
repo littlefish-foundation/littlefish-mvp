@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, Suspense } from "react";
 import NftCard from "../../components/UserInterface/Nft-card/NftCard";
 import axios from "axios";
 import { Container, Row, Col, Spinner } from "reactstrap";
@@ -60,48 +60,53 @@ const AllActionTypesGallery = (props) => {
 
   return (
     <div>
-      <section>
-        <Container style={{ backgroundColor: "transparent !important" }}>
-          <InfiniteScroll
-            dataLength={allActionTypes.length}
-            next={() => setPage(page + 1)}
-            hasMore={allActionTypes.length % 8 !== 0 ? false : true}
-            loader={
-              <Spinner
-                style={{
-                  display: "flex",
-                  justifyContent: "center",
-                  alignItems: "center",
-                  margin: "auto",
-                  color: "gray",
-                }}
-              />
-            }
-            endMessage={
-              <p style={{ textAlign: "center" }}>
-                <b>You have seen it all</b>
-              </p>
-            }
-            style={{ overflow: "hidden" }}
-          >
-            <Row>
-              {allActionTypes?.map((item, index) => (
-                <Col
-                  xxl="3"
-                  xl="3"
-                  lg="3"
-                  md="4"
-                  sm="6"
-                  className="mb-4"
-                  key={item.tokenId}
-                >
-                  <NftCard item={item} key={item.tokenId} index={index} />
-                </Col>
-              ))}
-            </Row>
-          </InfiniteScroll>
-        </Container>
-      </section>
+      <div>
+        <Suspense fallback={<Spinner />}>
+          <section>
+            <Container style={{ backgroundColor: "transparent !important" }}>
+              <InfiniteScroll
+                dataLength={allActionTypes.length}
+                next={() => setPage(page + 1)}
+                hasMore={allActionTypes.length % 8 !== 0 ? false : true}
+                loader={
+                  <Spinner
+                    style={{
+                      display: "flex",
+                      justifyContent: "center",
+                      alignItems: "center",
+                      margin: "auto",
+                      color: "gray",
+                    }}
+                  />
+                }
+                endMessage={
+                  <p style={{ textAlign: "center" }}>
+                    <b>You have seen it all</b>
+                  </p>
+                }
+                style={{ overflow: "hidden" }}
+              >
+                <Row>
+                  {allActionTypes?.map((item, index) => (
+                    <Col
+                      xxl="3"
+                      xl="3"
+                      lg="3"
+                      md="4"
+                      sm="6"
+                      className="mb-4"
+                      key={item.tokenId}
+                    >
+                      <NftCard item={item} key={item.tokenId} index={index} />
+                    </Col>
+                  ))}
+                </Row>
+              </InfiniteScroll>
+            </Container>
+          </section>
+        </Suspense>
+      </div>
+      <ScrollToTop smooth viewBox="0 0 24 24" svgPath="M18 15l-6-6-6 6" />
     </div>
   );
 };

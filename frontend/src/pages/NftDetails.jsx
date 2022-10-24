@@ -378,7 +378,7 @@ const NftDetails = (props) => {
                         </div>
                       )}
 
-                      <div style={{ marginLeft: "30px" }}>
+                      <div style={{ marginLeft: "0px" }}>
                         <p
                           style={{
                             fontSize: "0.5rem",
@@ -393,61 +393,22 @@ const NftDetails = (props) => {
                           After that you can click on the "Get Action" button
                           which will redirect you to the payment page.
                         </p>
-                        {/* {paymentLinkGet === undefined ? ( */}
                         <Button
                           color="primary"
                           onClick={() => setIsOpen(true)}
                           style={{
                             marginBottom: "0.7rem",
-                            width: "25%",
+                            width: "45%",
                             height: "65px",
                           }}
                         >
                           Reward Action
                         </Button>
-                        {/* ) : (
-                          <span>
-                            <Button
-                              id="reward"
-                              style={{
-                                background: "rgb(37,77,168)",
-                                marginBottom: "0.7rem",
-                                width: "25%",
-                                height: "65px",
-                              }}
-                            >
-                              Reward Action
-                            </Button>
-
-                            <Tooltip
-                              placement="left"
-                              isOpen={tooltipOpen}
-                              target="reward"
-                              toggle={toggleTip}
-                            >
-                              This action is reserved. Try again later!
-                            </Tooltip>
-                          </span>
-                        )} */}
-                        &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
-                        {/* <a href={paymentLinks} target="_blank" rel="noreferrer">
-                          <Button
-                            color="success"
-                            style={{
-                              marginBottom: "0.7rem",
-                              width: "25% ",
-                              height: "65px",
-                            }}
-                          >
-                            <i className="ri-shopping-bag-line"></i>
-                            Get Action
-                          </Button>
-                        </a> */}
                         &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
                         <Button
                           style={{
                             marginBottom: "0.7rem",
-                            width: "25% ",
+                            width: "45% ",
                             height: "65px",
                           }}
                           onClick={handleActionStatusSync}

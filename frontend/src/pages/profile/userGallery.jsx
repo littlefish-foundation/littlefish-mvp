@@ -41,9 +41,9 @@ const UserGallery = (props) => {
                 md="4"
                 sm="6"
                 className="mb-4"
-                key={item.producerName}
+                key={item._id}
               >
-                <NftCard item={item} />
+                <NftCard item={item} key={item._id} />
               </Col>
             ))}
           </Row>

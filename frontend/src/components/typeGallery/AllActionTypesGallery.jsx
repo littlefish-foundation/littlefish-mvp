@@ -91,9 +91,9 @@ const AllActionTypesGallery = (props) => {
                     md="4"
                     sm="6"
                     className="mb-4"
-                    key={item.tokenId}
+                    key={item._id}
                   >
-                    <NftCard item={item} key={item.tokenId} index={index} />
+                    <NftCard item={item} key={item._id} index={index} />
                   </Col>
                 ))}
               </Row>

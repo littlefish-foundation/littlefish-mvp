@@ -44,8 +44,9 @@ const Littlefish = () => {
                   md="4"
                   sm="6"
                   style={{ marginTop: "15px", marginBottom: "15px" }}
+                  key={item._id}
                 >
-                  <UserProfileCard item={item} />
+                  <UserProfileCard item={item} key={item._id} />
                 </Col>
               ))}
             </Row>

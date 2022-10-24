@@ -173,6 +173,7 @@ const NftDetails = (props) => {
                         marginBottom: "40px",
                       }}
                       color="primary"
+                      key={type._id}
                       pill
                     >
                       #{type}
@@ -303,8 +304,8 @@ const NftDetails = (props) => {
                               }}
                             >
                               <CardBody>
-                                {actionData?.links.map((link) => (
-                                  <div>
+                                {actionData?.links.map((link, index) => (
+                                  <div key={index}>
                                     <a
                                       href={link.url}
                                       style={{

@@ -209,10 +209,11 @@ const ColonyDetails = () => {
                   <Container>
                     <Row>
                       {subcolonyData?.subs?.map((item) => (
-                        <Col lg="3" md="4" sm="6">
+                        <Col lg="3" md="4" sm="6" key={item._id}>
                           <SubcolonyCard
                             item={item.sub}
                             coverImage={item.sub.coverImage.src}
+                            key={item.sub.id}
                           />
                         </Col>
                       ))}

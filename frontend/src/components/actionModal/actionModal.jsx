@@ -37,7 +37,7 @@ const ActionModal = (props) => {
           <div className=" mt-3 d-flex align-items-center justify-content-between">
             <div>
               {types?.slice(0, 1)?.map((type) => (
-                <Badge color="primary" pill>
+                <Badge color="primary" pill key={type._id}>
                   #{type}
                 </Badge>
               ))}

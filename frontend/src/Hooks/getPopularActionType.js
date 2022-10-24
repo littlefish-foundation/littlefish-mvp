@@ -5,7 +5,7 @@ import { LITTLEFISH_API_URL } from "../config.json";
 function useFetchForPopularActionType() {
   const url = `${LITTLEFISH_API_URL}/action-type/popular`;
 
-  const [popularActionType, setPopularActionType] = useState({});
+  const [popularActionType, setPopularActionType] = useState([]);
   const [loadingPopularActionType, setLoadingPopularActionType] =
     useState(false);
   const [error, setError] = useState(null);

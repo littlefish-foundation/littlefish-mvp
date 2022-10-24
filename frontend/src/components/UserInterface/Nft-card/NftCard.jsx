@@ -23,6 +23,7 @@ const NftCard = (props) => {
     <Link
       to={`/action/${_id}`}
       style={{ textDecoration: "none", color: "rgb(245,243,235)" }}
+      key={_id}
     >
       <div className="single__nft__card">
         <div className="nft__img">
@@ -65,8 +66,8 @@ const NftCard = (props) => {
 
             <div className=" mt-3 d-flex align-items-center justify-content-between">
               <div>
-                {types?.map((type) => (
-                  <Badge color="primary" pill>
+                {types?.map((type, index) => (
+                  <Badge color="primary" pill key={index}>
                     #{type}
                   </Badge>
                 ))}

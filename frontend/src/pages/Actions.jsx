@@ -139,6 +139,7 @@ const Actions = () => {
                 eventKey="All Actions"
                 title="All Actions"
                 style={{ backgroundColor: "transparent !important" }}
+                key="All Actions"
               >
                 {actionStatus === null || actionStatus === "" ? (
                   <AllActionTypesGallery
@@ -172,9 +173,9 @@ const Actions = () => {
                                 md="4"
                                 sm="6"
                                 className="mb-4"
-                                key={item.type}
+                                key={item._id}
                               >
-                                <NftCard item={item} />
+                                <NftCard item={item} key={item._id} />
                               </Col>
                             ))}
                           </Row>
@@ -186,9 +187,10 @@ const Actions = () => {
               </Tab>
               {popularActionType?.actionTypes?.map((item) => (
                 <Tab
-                  eventKey={item.name}
+                  eventKey={item._id}
                   title={"#" + item.name}
                   style={{ backgroundColor: "transparent !important" }}
+                  key={item._id}
                 >
                   <ActionByTypeGallery
                     actionType={item.name}
@@ -196,6 +198,7 @@ const Actions = () => {
                     searchTerm={searchTerm}
                     actionStatus={actionStatus}
                     searchType={searchType}
+                    key={item._id}
                   />
                 </Tab>
               ))}

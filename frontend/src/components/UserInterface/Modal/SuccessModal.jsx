@@ -30,7 +30,7 @@ const SuccessModal = ({ setShowModal }) => {
         </div>
         <div className="nft__centered">
           {allActions?.slice(0, 1).map((item) => (
-            <ActionModal item={item} />
+            <ActionModal item={item} key={item._id} />
           ))}
         </div>
 

@@ -60,7 +60,9 @@ const Header = () => {
   const headerRef = useRef(null);
   const menuRef = useRef(null);
   let address = sessionStorage.length;
+  let network = sessionStorage.getItem("network");
   const [buttonStyling, setButtonStyling] = useState(null);
+  const [stylesOfButton, setStylesOfButton] = useState(null);
 
   useEffect(() => {
     window.addEventListener("scroll", () => {
@@ -107,6 +109,7 @@ const Header = () => {
                     className={(navClass) =>
                       navClass.isActive ? "active__header" : ""
                     }
+                    key={index}
                   >
                     {item.display}
                   </NavLink>
@@ -125,7 +128,11 @@ const Header = () => {
                   color: " #fff",
                   border: address !== 0 ? "none" : "2px solid white",
                   background:
-                    address !== 0 ? "rgb(205,173,72)" : " transparent",
+                    address !== 0
+                      ? network === "mainnet"
+                        ? "yellow"
+                        : "green"
+                      : "transparent",
                 }}
                 className="btn d-flex gap-2 align-items-center"
               >

@@ -27,7 +27,7 @@ const UserSuccessModal = ({ setShowModal }) => {
           {userProfileData
             ?.slice(userProfileData?.length - 1, userProfileData?.length)
             .map((item) => (
-              <UserProfileCard item={item} />
+              <UserProfileCard item={item} key={item._id} />
             ))}
         </div>
 

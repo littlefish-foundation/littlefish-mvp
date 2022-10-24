@@ -10,7 +10,7 @@ import { LITTLEFISH_API_URL } from "../../config.json";
 // import LiveAuction from "../components/ui/Live-auction/LiveAuction";
 
 const ActionByTypeGallery = (props) => {
-  const [typeActions, setTypeActions] = useState(null);
+  const [typeActions, setTypeActions] = useState([]);
   const [loadingTypeActions, setLoadingTypeActions] = useState(false);
   const [error, setError] = useState(null);
   let type = props.actionType;
@@ -66,8 +66,8 @@ const ActionByTypeGallery = (props) => {
           <Container style={{ backgroundColor: "transparent !important" }}>
             <Row>
               {typeActions?.map((item) => (
-                <Col lg="3" md="4" sm="6" className="mb-4" key={item.type}>
-                  <NftCard item={item} />
+                <Col lg="3" md="4" sm="6" className="mb-4" key={item._id}>
+                  <NftCard item={item} key={item._id} />
                 </Col>
               ))}
             </Row>

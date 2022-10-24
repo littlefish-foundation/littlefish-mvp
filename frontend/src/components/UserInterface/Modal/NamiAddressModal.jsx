@@ -8,6 +8,7 @@ import cardanoIcon from "../../../assets/cardano-ada-icon.png";
 import Wallet from "../../../pages/Wallet";
 import { useSlotProps } from "@mui/base";
 
+
 const NamiAddressModal = ({ account, setShowModal, sumBalance }) => {
   //const account = account;
   const walletID = account;

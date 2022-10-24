@@ -104,20 +104,21 @@ const NftDetails = (props) => {
     setShowSyncModal(true);
   };
 
-  useEffect(() => {
-    // set a function inside this hool to handle the status of the post
-    fetch(`${LITTLEFISH_API_URL}/action-sale/${_id}`)
-      .then((response) => response.json())
-      .then((data) => {
-        console.log(data);
-        setPaymentLinkGet(data.paymentLink);
-        console.log(paymentLinkGet);
-      })
-      .catch((err) => {
-        console.log("Error:", err.message);
-      });
-  }, [paymentLinkGet, paymentLinks]);
+  // useEffect(() => {
+  //   // set a function inside this hool to handle the status of the post
+  //   fetch(`${LITTLEFISH_API_URL}/action-sale/${_id}`)
+  //     .then((response) => response.json())
+  //     .then((data) => {
+  //       console.log(data);
+  //       setPaymentLinkGet(data.paymentLink);
+  //       console.log(paymentLinkGet);
+  //     })
+  //     .catch((err) => {
+  //       console.log("Error:", err.message);
+  //     });
+  // }, [paymentLinkGet, paymentLinks]);
   console.log(paymentLinks);
+  console.log(paymentLinkGet);
   console.log(dataPost);
   console.log(actionData?.types);
   console.log(syncStatus);
@@ -392,19 +393,19 @@ const NftDetails = (props) => {
                           After that you can click on the "Get Action" button
                           which will redirect you to the payment page.
                         </p>
-                        {paymentLinkGet === undefined ? (
-                          <Button
-                            color="primary"
-                            onClick={() => setIsOpen(true)}
-                            style={{
-                              marginBottom: "0.7rem",
-                              width: "25%",
-                              height: "65px",
-                            }}
-                          >
-                            Reward Action
-                          </Button>
-                        ) : (
+                        {/* {paymentLinkGet === undefined ? ( */}
+                        <Button
+                          color="primary"
+                          onClick={() => setIsOpen(true)}
+                          style={{
+                            marginBottom: "0.7rem",
+                            width: "25%",
+                            height: "65px",
+                          }}
+                        >
+                          Reward Action
+                        </Button>
+                        {/* ) : (
                           <span>
                             <Button
                               id="reward"
@@ -427,13 +428,9 @@ const NftDetails = (props) => {
                               This action is reserved. Try again later!
                             </Tooltip>
                           </span>
-                        )}
+                        )} */}
                         &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
-                        <a
-                          href={paymentLinkGet}
-                          target="_blank"
-                          rel="noreferrer"
-                        >
+                        {/* <a href={paymentLinks} target="_blank" rel="noreferrer">
                           <Button
                             color="success"
                             style={{
@@ -445,7 +442,7 @@ const NftDetails = (props) => {
                             <i className="ri-shopping-bag-line"></i>
                             Get Action
                           </Button>
-                        </a>
+                        </a> */}
                         &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
                         <Button
                           style={{
@@ -510,6 +507,7 @@ const NftDetails = (props) => {
                                       setShowModal={setShowModal}
                                       paymentLinkGet={paymentLinkGet}
                                       setIsOpen={setIsOpen}
+                                      paymentLinks={paymentLinks}
                                     />
                                   ))}
                                 {postStatus === "error" && showModal && (

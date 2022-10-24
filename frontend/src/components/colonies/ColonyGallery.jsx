@@ -24,6 +24,7 @@ const ColonyGallery = (props) => {
             alignItems: "center",
             margin: "auto",
             color: "gray",
+            marginBottom: "300px",
           }}
         />
       ) : (

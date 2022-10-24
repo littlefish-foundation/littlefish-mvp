@@ -139,7 +139,7 @@ const Actions = () => {
                 title="All Actions"
                 style={{ backgroundColor: "transparent !important" }}
               >
-                {actionStatus === null ? (
+                {actionStatus === null || actionStatus === "" ? (
                   <AllActionTypesGallery
                     searchResults={searchResults}
                     searchTerm={searchTerm}

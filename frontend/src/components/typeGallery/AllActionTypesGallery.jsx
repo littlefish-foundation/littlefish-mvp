@@ -1,4 +1,4 @@
-import React, { useState, useEffect, Suspense } from "react";
+import React, { useState, useEffect } from "react";
 import NftCard from "../../components/UserInterface/Nft-card/NftCard";
 import axios from "axios";
 import { Container, Row, Col, Spinner } from "reactstrap";
@@ -9,16 +9,12 @@ import "../../components/UserInterface/Live-auction/live-auction.css";
 import InfiniteScroll from "react-infinite-scroll-component";
 import ScrollToTop from "react-scroll-to-top";
 
-// import LiveAuction from "../components/ui/Live-auction/LiveAuction";
-
 const AllActionTypesGallery = (props) => {
   const [allActionTypes, setAllActionTypes] = useState([]);
   const [loadingAllActionTypes, setLoadingAllActionTypes] = useState(false);
-  const [error, setError] = useState(null);
-  const [hasMore, setHasMore] = useState(true);
+  const [setError] = useState(null);
   const [page, setPage] = useState(0);
 
-  let type = props.actionType;
   let searchType = props.searchType;
   let status = props.actionStatus;
 

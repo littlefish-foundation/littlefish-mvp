@@ -7,12 +7,10 @@ import "../../components/UserInterface/Live-auction/live-auction.css";
 
 import { LITTLEFISH_API_URL } from "../../config.json";
 
-// import LiveAuction from "../components/ui/Live-auction/LiveAuction";
-
 const ActionByTypeGallery = (props) => {
   const [typeActions, setTypeActions] = useState([]);
   const [loadingTypeActions, setLoadingTypeActions] = useState(false);
-  const [error, setError] = useState(null);
+  const [setError] = useState(null);
   let type = props.actionType;
   let searchType = props.searchType;
   let status = props.actionStatus;
@@ -47,7 +45,7 @@ const ActionByTypeGallery = (props) => {
         setLoadingTypeActions(false);
       });
   }, [type, producerName, status, name]);
-  
+
   console.log(filtering);
 
   return (

@@ -61,8 +61,6 @@ const Header = () => {
   const menuRef = useRef(null);
   let address = sessionStorage.length;
   let network = sessionStorage.getItem("connectedNetwork");
-  const [buttonStyling, setButtonStyling] = useState(null);
-  const [stylesOfButton, setStylesOfButton] = useState(null);
 
   useEffect(() => {
     window.addEventListener("scroll", () => {
@@ -81,6 +79,26 @@ const Header = () => {
 
   const toggleMenu = () => menuRef.current.classList.toggle("active__menu");
   console.log(network);
+
+  const buttonBackground = () => {
+    if (network === "mainnet" && address !== 0) {
+      return "rgb(186,152,69)";
+    } else if (network === "testnet" && address !== 0) {
+      return "rgb(227,153,151)";
+    } else {
+      return "transparent";
+    }
+  };
+
+  const buttonLabel = () => {
+    if (network === "mainnet" && address !== 0) {
+      return "Wallet Connected (mainnet)";
+    } else if (network === "testnet" && address !== 0) {
+      return "Wallet Connected (testnet)";
+    } else {
+      return "Connect Wallet";
+    }
+  };
 
   return (
     <header className="header" ref={headerRef}>
@@ -129,12 +147,7 @@ const Header = () => {
                   color: " #fff",
                   border: address !== 0 ? "none" : "2px solid white",
 
-                  background:
-                    address !== 0
-                      ? network === "mainnet"
-                        ? "rgb(186,152,69)"
-                        : "rgb(227,153,151)"
-                      : "transparent",
+                  background: buttonBackground(),
                 }}
                 className="btn d-flex gap-2 align-items-center"
               >
@@ -149,11 +162,7 @@ const Header = () => {
                   ></i>
                 </span>
 
-                {address !== 0
-                  ? network === "mainnet"
-                    ? "Wallet Connected (Mainnet)"
-                    : "Wallet Connected (Testnet)"
-                  : "Connect Wallet"}
+                {buttonLabel()}
               </button>
             </NavLink>
 

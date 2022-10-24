@@ -2,7 +2,6 @@ import React from "react";
 import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
 import "./modal.css";
 import { Button } from "reactstrap";
-import { Link } from "react-router-dom";
 
 const SuccessfulSaleCreation = ({ setShowModal, setIsOpen, paymentLinks }) => {
   return (

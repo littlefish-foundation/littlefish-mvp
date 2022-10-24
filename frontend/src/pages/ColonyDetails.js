@@ -1,7 +1,15 @@
 import React from "react";
 import SubHeader from "../components/UserInterface/Sub-Header/SubHeader";
 import { useParams } from "react-router-dom";
-import { Container, Row, Col, Button, Card, CardText } from "reactstrap";
+import {
+  Container,
+  Row,
+  Col,
+  Button,
+  Card,
+  CardText,
+  Spinner,
+} from "reactstrap";
 import useFetch2 from "../Hooks/useFetch2";
 import "../styles/ColonyDetails.css";
 import useGetUserProfileData from "../Hooks/getUserProfileData";
@@ -20,7 +28,7 @@ import Tabs from "react-bootstrap/Tabs";
 const ColonyDetails = () => {
   const { name } = useParams();
   const { COLONY__DATA } = useFetch2();
-  const { subcolonyData } = useGetSubcolonies();
+  const { subcolonyData, loadingSubcolony } = useGetSubcolonies();
   const singleColony = COLONY__DATA?.find((item) => item.name === name);
   console.log(singleColony);
   console.log(COLONY__DATA);
@@ -36,6 +44,21 @@ const ColonyDetails = () => {
 
   return (
     <div>
+      <div
+        style={{
+          position: "absolute",
+          marginTop: "260px",
+          color: "white",
+          marginLeft: "1150px",
+          fontSize: "2rem",
+          alignItems: "center",
+        }}
+      >
+        <img src={cardanoIcon} alt="" className="cardano__icon" />
+        <Button className="wallet__id__btn">
+          {first10}......{last10}
+        </Button>
+      </div>
       <section className="common__section__colony">
         <Container>
           <div>
@@ -169,37 +192,65 @@ const ColonyDetails = () => {
             title="Subcolonies"
             style={{ backgroundColor: "transparent !important" }}
           >
-            <section>
-              <Container>
-                <Row>
-                  {subcolonyData?.subs?.map((item) => (
-                    <Col lg="3" md="4" sm="6">
-                      <SubcolonyCard
-                        item={item.sub}
-                        coverImage={item.sub.coverImage.src}
-                      />
-                    </Col>
-                  ))}
-                </Row>
-              </Container>
-            </section>
+            <div>
+              {loadingSubcolony ? (
+                <Spinner
+                  style={{
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    margin: "auto",
+                    color: "gray",
+                  }}
+                />
+              ) : (
+                <section>
+                  <Container>
+                    <Row>
+                      {subcolonyData?.subs?.map((item) => (
+                        <Col lg="3" md="4" sm="6">
+                          <SubcolonyCard
+                            item={item.sub}
+                            coverImage={item.sub.coverImage.src}
+                          />
+                        </Col>
+                      ))}
+                    </Row>
+                  </Container>
+                </section>
+              )}
+            </div>
           </Tab>
           <Tab
             eventKey="Members"
             title="Members"
             style={{ backgroundColor: "transparent !important" }}
           >
-            <section>
-              <Container>
-                <Row>
-                  {userProfileData?.map((item) => (
-                    <Col lg="2" md="4" sm="6" style={{ margin: "15px" }}>
-                      <UserProfileCard item={item} />
-                    </Col>
-                  ))}
-                </Row>
-              </Container>
-            </section>
+            <div>
+              {loadingProfileData ? (
+                <Spinner
+                  style={{
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    margin: "auto",
+                    color: "gray",
+                  }}
+                />
+              ) : (
+                <section>
+                  <Container>
+                    <Row>
+                      {userProfileData?.map((item) => (
+                        <Col lg="2" md="4" sm="6" style={{ margin: "15px" }}>
+                          <UserProfileCard item={item} />
+                        </Col>
+                      ))}
+                    </Row>
+                  </Container>
+                </section>
+              )}
+            </div>
           </Tab>
         </Tabs>
       </section>

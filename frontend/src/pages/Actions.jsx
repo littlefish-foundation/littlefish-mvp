@@ -4,21 +4,16 @@ import NftCard from "../components/UserInterface/Nft-card/NftCard";
 import { Container, Row, Col, Spinner } from "reactstrap";
 import "../styles/actions.css";
 import "../components/UserInterface/Live-auction/live-auction.css";
-import { RotatingLines } from "react-loader-spinner";
 import Tab from "react-bootstrap/Tab";
 import Tabs from "react-bootstrap/Tabs";
 import { getActions } from "../Hooks/fetchSearchDate";
 import useFetchForPopularActionType from "../Hooks/getPopularActionType";
-import useFetchActions from "../Hooks/useFetch";
 import useFetchByActionStatus from "../Hooks/getActionsByStatus";
-import useFetchByActionType from "../Hooks/getActionsByType";
 import ActionByTypeGallery from "../components/typeGallery/ActionByTypeGallery";
 import AllActionTypesGallery from "../components/typeGallery/AllActionTypesGallery";
 
 const Actions = () => {
   const [actionStatus, setActionStatus] = useState(null);
-  const [actionType, setActionType] = useState(null);
-  const [activeKey, setActiveKey] = useState(null);
   const [actions, setActions] = useState([]);
   const [searchResults, setSearchResults] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");

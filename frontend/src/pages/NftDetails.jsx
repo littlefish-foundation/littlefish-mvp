@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import SubHeader from "../components/UserInterface/Sub-Header/SubHeader";
 import { Link, useParams } from "react-router-dom";
 import {
@@ -12,7 +12,6 @@ import {
   Card,
   FormGroup,
   Input,
-  Tooltip,
   UncontrolledCollapse,
 } from "reactstrap";
 import useFetchByActionID from "../Hooks/getActionByID";
@@ -104,25 +103,6 @@ const NftDetails = (props) => {
     setShowSyncModal(true);
   };
 
-  // useEffect(() => {
-  //   // set a function inside this hool to handle the status of the post
-  //   fetch(`${LITTLEFISH_API_URL}/action-sale/${_id}`)
-  //     .then((response) => response.json())
-  //     .then((data) => {
-  //       console.log(data);
-  //       setPaymentLinkGet(data.paymentLink);
-  //       console.log(paymentLinkGet);
-  //     })
-  //     .catch((err) => {
-  //       console.log("Error:", err.message);
-  //     });
-  // }, [paymentLinkGet, paymentLinks]);
-  console.log(paymentLinks);
-  console.log(paymentLinkGet);
-  console.log(dataPost);
-  console.log(actionData?.types);
-  console.log(syncStatus);
-
   return (
     <div>
       {loadingActionData ? (
@@ -173,7 +153,6 @@ const NftDetails = (props) => {
                         marginBottom: "40px",
                       }}
                       color="primary"
-                      key={type._id}
                       pill
                     >
                       #{type}

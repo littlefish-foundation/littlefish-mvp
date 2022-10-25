@@ -4,7 +4,6 @@ import Resizer from "react-image-file-resizer";
 function useBase64ConverterAdditionalSources() {
   const [imgBase64, setImgBase64] = useState([]);
   const [singleImgBase64, setSingleImgBase64] = useState();
-  // const [filesObject, setFilesObject] = useState({ type: "", src: "" });
 
   const resizeFile = (file) =>
     new Promise((resolve) => {
@@ -45,13 +44,12 @@ function useBase64ConverterAdditionalSources() {
 
           if (base64) {
             let filesObject = {};
-            var base64Sub = base64.toString();
+            let base64Sub = base64.toString();
             filesObject.type = base64Sub
               ?.split(",")[0]
               ?.split(":")
               ?.pop()
               ?.split(";")[0];
-            // filesObject.type = "image/jpeg";
 
             filesObject.src = base64Sub?.split(",")[1];
 

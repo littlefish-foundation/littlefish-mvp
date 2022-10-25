@@ -1,5 +1,4 @@
 import React from "react";
-import SubHeader from "../components/UserInterface/Sub-Header/SubHeader";
 import { useParams } from "react-router-dom";
 import {
   Container,
@@ -15,14 +14,11 @@ import "../styles/ColonyDetails.css";
 import useGetUserProfileData from "../Hooks/getUserProfileData";
 import ColonyGallery from "../components/colonies/ColonyGallery";
 import cardanoIcon from "../assets/cardano.png";
-import { RotatingLines } from "react-loader-spinner";
 import UserProfileCard from "../components/userProfileCard/UserProfileCard";
 import SubcolonyCard from "../components/UserInterface/Sub-colony-card/SubcolonyCard";
 import useGetSubcolonies from "../Hooks/getSubcolonies";
 import { AiOutlineInfoCircle } from "react-icons/ai";
 import Tab from "react-bootstrap/Tab";
-import AllActionTypesGallery from "../components/typeGallery/AllActionTypesGallery";
-
 import Tabs from "react-bootstrap/Tabs";
 
 const ColonyDetails = () => {

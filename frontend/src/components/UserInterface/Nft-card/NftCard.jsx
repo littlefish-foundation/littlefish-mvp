@@ -13,11 +13,9 @@ const NftCard = (props) => {
     minimumPrice,
     createdAt,
     types,
-    colony,
   } = props.item;
 
   const createdat = createdAt?.substring(0, 10);
-  const [showModal, setShowModal] = useState(false);
 
   return (
     <Link

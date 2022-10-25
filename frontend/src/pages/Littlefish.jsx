@@ -2,7 +2,7 @@ import React from "react";
 import SubHeader from "../components/UserInterface/Sub-Header/SubHeader";
 import useGetUserProfileData from "../Hooks/getUserProfileData";
 import UserProfileCard from "../components/userProfileCard/UserProfileCard";
-import { Container, Row, Col, Button } from "reactstrap";
+import { Container, Row, Col} from "reactstrap";
 import { RotatingLines } from "react-loader-spinner";
 
 const Littlefish = () => {
@@ -44,8 +44,9 @@ const Littlefish = () => {
                   md="4"
                   sm="6"
                   style={{ marginTop: "15px", marginBottom: "15px" }}
+                  key={item._id}
                 >
-                  <UserProfileCard item={item} />
+                  <UserProfileCard item={item} key={item._id} />
                 </Col>
               ))}
             </Row>

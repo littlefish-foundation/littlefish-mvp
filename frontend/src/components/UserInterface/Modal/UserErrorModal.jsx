@@ -1,10 +1,8 @@
 import React from "react";
 import ErrorIcon from "@mui/icons-material/Error";
 import "./modal.css";
-import MemberForm from "../../colonies/MemberForm";
 
 const UserErrorModal = ({ setShowModal, errorMessage }) => {
-  //const errorMessage = <p> {props.errorMessage.message} </p>;
   const refreshPage = () => {
     window.location.reload();
   };

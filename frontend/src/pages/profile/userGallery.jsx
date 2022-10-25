@@ -6,12 +6,10 @@ import { LITTLEFISH_API_URL } from "../../config.json";
 import "../../styles/actions.css";
 import "../../components/UserInterface/Live-auction/live-auction.css";
 
-// import LiveAuction from "../components/ui/Live-auction/LiveAuction";
-
 const UserGallery = (props) => {
   const [userActions, setUserActions] = useState(null);
   const [loadingUserActions, setLoadingUserActions] = useState(false);
-  const [error, setError] = useState(null);
+  const [setError] = useState(null);
   let producerName = props.producerName;
 
   useEffect(() => {
@@ -36,14 +34,8 @@ const UserGallery = (props) => {
         <Container style={{ backgroundColor: "transparent !important" }}>
           <Row>
             {userActions?.map((item) => (
-              <Col
-                lg="3"
-                md="4"
-                sm="6"
-                className="mb-4"
-                key={item.producerName}
-              >
-                <NftCard item={item} />
+              <Col lg="3" md="4" sm="6" className="mb-4" key={item._id}>
+                <NftCard item={item} key={item._id} />
               </Col>
             ))}
           </Row>

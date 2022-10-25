@@ -1,30 +1,26 @@
 import React, { useEffect, useState } from "react";
 import SubHeader from "../components/UserInterface/Sub-Header/SubHeader";
 import NftCard from "../components/UserInterface/Nft-card/NftCard";
-import { Container, Row, Col } from "reactstrap";
+import { Container, Row, Col, Spinner } from "reactstrap";
 import "../styles/actions.css";
 import "../components/UserInterface/Live-auction/live-auction.css";
-import { RotatingLines } from "react-loader-spinner";
 import Tab from "react-bootstrap/Tab";
 import Tabs from "react-bootstrap/Tabs";
 import { getActions } from "../Hooks/fetchSearchDate";
 import useFetchForPopularActionType from "../Hooks/getPopularActionType";
-import useFetchActions from "../Hooks/useFetch";
 import useFetchByActionStatus from "../Hooks/getActionsByStatus";
-import useFetchByActionType from "../Hooks/getActionsByType";
 import ActionByTypeGallery from "../components/typeGallery/ActionByTypeGallery";
 import AllActionTypesGallery from "../components/typeGallery/AllActionTypesGallery";
 
 const Actions = () => {
   const [actionStatus, setActionStatus] = useState(null);
-  const [actionType, setActionType] = useState(null);
-  const [activeKey, setActiveKey] = useState(null);
   const [actions, setActions] = useState([]);
   const [searchResults, setSearchResults] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [searchType, setSearchType] = useState("");
   const [key, setKey] = useState("All Actions");
-  const { actionsByStatus } = useFetchByActionStatus(actionStatus);
+  const { actionsByStatus, loadingActionsByStatus } =
+    useFetchByActionStatus(actionStatus);
   const { popularActionType } = useFetchForPopularActionType();
   useEffect(() => {
     getActions()
@@ -138,6 +134,7 @@ const Actions = () => {
                 eventKey="All Actions"
                 title="All Actions"
                 style={{ backgroundColor: "transparent !important" }}
+                key="All Actions"
               >
                 {actionStatus === null || actionStatus === "" ? (
                   <AllActionTypesGallery
@@ -147,32 +144,48 @@ const Actions = () => {
                     searchType={searchType}
                   />
                 ) : (
-                  <section>
-                    <Container
-                      style={{ backgroundColor: "transparent !important" }}
-                    >
-                      <Row>
-                        {actionsByStatus?.map((item) => (
-                          <Col
-                            lg="3"
-                            md="4"
-                            sm="6"
-                            className="mb-4"
-                            key={item.type}
-                          >
-                            <NftCard item={item} />
-                          </Col>
-                        ))}
-                      </Row>
-                    </Container>
-                  </section>
+                  <div>
+                    {loadingActionsByStatus ? (
+                      <Spinner
+                        style={{
+                          display: "flex",
+                          justifyContent: "center",
+                          alignItems: "center",
+                          margin: "auto",
+                          color: "gray",
+                          marginBottom: "300px",
+                        }}
+                      />
+                    ) : (
+                      <section>
+                        <Container
+                          style={{ backgroundColor: "transparent !important" }}
+                        >
+                          <Row>
+                            {actionsByStatus?.map((item) => (
+                              <Col
+                                lg="3"
+                                md="4"
+                                sm="6"
+                                className="mb-4"
+                                key={item._id}
+                              >
+                                <NftCard item={item} key={item._id} />
+                              </Col>
+                            ))}
+                          </Row>
+                        </Container>
+                      </section>
+                    )}
+                  </div>
                 )}
               </Tab>
               {popularActionType?.actionTypes?.map((item) => (
                 <Tab
-                  eventKey={item.name}
+                  eventKey={item._id}
                   title={"#" + item.name}
                   style={{ backgroundColor: "transparent !important" }}
+                  key={item._id}
                 >
                   <ActionByTypeGallery
                     actionType={item.name}
@@ -180,6 +193,7 @@ const Actions = () => {
                     searchTerm={searchTerm}
                     actionStatus={actionStatus}
                     searchType={searchType}
+                    key={item._id}
                   />
                 </Tab>
               ))}

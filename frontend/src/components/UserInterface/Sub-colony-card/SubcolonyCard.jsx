@@ -1,10 +1,10 @@
 import React from "react";
 import "./subcolonyCard.css";
-import { Container, Button, Card, CardText, CardBody } from "reactstrap";
+import { Card, CardText } from "reactstrap";
 import { Link } from "react-router-dom";
 
 const SubcolonyCard = (props) => {
-  const { name, description } = props.item;
+  const { name } = props.item;
   const coverImage = props.coverImage;
   return (
     <div>

@@ -121,7 +121,9 @@ const Wallet = () => {
   const namiClickHandler = (e) => {
     e.preventDefault();
     sessionStorage.setItem("walletID", account);
+    sessionStorage.setItem("connectedNetwork", namiNetwork.network);
     window.walletIDStored = sessionStorage.getItem("walletID");
+    window.connectedNetworkStored = sessionStorage.getItem("connectedNetwork");
 
     axios
       .post(`${LITTLEFISH_API_URL}/login/`, walletAssetsObject)
@@ -151,6 +153,7 @@ const Wallet = () => {
 
   const namiCancelHandler = () => {
     sessionStorage.removeItem("walletID");
+    sessionStorage.removeItem("connectedNetwork");
 
     setNamiAddr(false);
     setShowModalDisconnect(true);

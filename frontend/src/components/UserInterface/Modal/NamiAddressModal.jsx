@@ -1,16 +1,10 @@
 import React from "react";
-import { TbPlugConnected } from "react-icons/tb";
-import { useNavigate } from "react-router-dom";
 import LockOpenIcon from "@mui/icons-material/LockOpen";
 import { Button } from "reactstrap";
 import "./modal.css";
 import cardanoIcon from "../../../assets/cardano-ada-icon.png";
-import Wallet from "../../../pages/Wallet";
-import { useSlotProps } from "@mui/base";
-
 
 const NamiAddressModal = ({ account, setShowModal, sumBalance }) => {
-  //const account = account;
   const walletID = account;
   const first6 = walletID.substring(0, 8);
   let lengthOfID = walletID.length;

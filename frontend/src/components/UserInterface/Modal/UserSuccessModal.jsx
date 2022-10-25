@@ -8,7 +8,7 @@ import UserProfileCard from "../../userProfileCard/UserProfileCard";
 const UserSuccessModal = ({ setShowModal }) => {
   const navigate = useNavigate();
 
-  const { userProfileData, loadingProfileData } = useGetUserProfileData();
+  const { userProfileData } = useGetUserProfileData();
   const navigateActions = () => {
     navigate("/colony/Littlefish%20Foundation");
   };
@@ -27,7 +27,7 @@ const UserSuccessModal = ({ setShowModal }) => {
           {userProfileData
             ?.slice(userProfileData?.length - 1, userProfileData?.length)
             .map((item) => (
-              <UserProfileCard item={item} />
+              <UserProfileCard item={item} key={item._id} />
             ))}
         </div>
 

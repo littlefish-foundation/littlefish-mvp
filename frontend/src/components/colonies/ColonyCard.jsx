@@ -1,7 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import "./ColonyCard.css";
-//import "../../components/ui/Live-auction/live-auction.css";
 
 const ColonyCard = (props) => {
   const { coverImage, name } = props.item;

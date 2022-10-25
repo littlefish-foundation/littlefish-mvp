@@ -1,6 +1,4 @@
 import React from "react";
-import { RiShareLine } from "react-icons/ri";
-import { BsThreeDots } from "react-icons/bs";
 import NavBar from "./NavBar";
 import { Container, Button } from "reactstrap";
 import cardanoIcon from "../../assets/cardano.png";

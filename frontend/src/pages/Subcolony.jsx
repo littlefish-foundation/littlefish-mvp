@@ -1,30 +1,24 @@
 import React from "react";
-import { RiShareLine } from "react-icons/ri";
 import { useParams } from "react-router-dom";
+import ColonyGallery from "../components/colonies/ColonyGallery";
 
-import { BsThreeDots } from "react-icons/bs";
 import { Container, Button, Card, CardText, Col } from "reactstrap";
+import useFetch2 from "../Hooks/useFetch2";
 
 import "../styles/subcolony.css";
 import Tab from "react-bootstrap/Tab";
 import Tabs from "react-bootstrap/Tabs";
 import { AiOutlineInfoCircle } from "react-icons/ai";
 import useGetSubcolonies from "../Hooks/getSubcolonies";
-import AllActionTypesGallery from "../components/typeGallery/AllActionTypesGallery";
 const Subcolony = (props) => {
   const { name } = useParams();
-  const { subcolonyData, loadingSubcolony } = useGetSubcolonies();
+  const { subcolonyData } = useGetSubcolonies();
   const singleSubcolony = subcolonyData?.subs?.find(
     (item) => item.sub.name === name
   );
+  const { COLONY__DATA } = useFetch2();
+  const singleColony = COLONY__DATA?.find((item) => item.name === name);
 
-  const walletID =
-    "addr_test1qz2c339gtrsdsmec5e6ywjmqt6r44ns5t4efa3e46peufuksrpulhkjws34q7jn9xcfn7zj6jghuq43xeyah8plg4mgsxzu2n0";
-  const first6 = walletID?.substring(0, 8);
-  const lengthOfID = walletID?.length;
-  const last6 = walletID?.substring(lengthOfID - 9, lengthOfID - 1);
-  console.log(singleSubcolony?.sub?.coverImage);
-  console.log(subcolonyData);
   return (
     <div>
       <div>
@@ -156,14 +150,16 @@ const Subcolony = (props) => {
               title="All Actions"
               style={{ backgroundColor: "transparent !important" }}
             >
-              <AllActionTypesGallery />
+              <ColonyGallery colony={singleColony?.name} />
             </Tab>
             <Tab
+              disabled
               eventKey="Created Actions"
               title="Created Actions"
               style={{ backgroundColor: "transparent !important" }}
             ></Tab>
             <Tab
+              disabled
               eventKey="Members"
               title="Members"
               style={{ backgroundColor: "transparent !important" }}

@@ -32,8 +32,8 @@ const ColonyGallery = (props) => {
           <Container>
             <Row>
               {allActions?.map((item) => (
-                <Col lg="3" md="4" sm="6">
-                  <NftCard item={item} />
+                <Col lg="3" md="4" sm="6" key={item._id}>
+                  <NftCard item={item} key={item._id} />
                 </Col>
               ))}
             </Row>

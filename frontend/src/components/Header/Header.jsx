@@ -147,8 +147,7 @@ const Header = () => {
               <button
                 style={{
                   color: " #fff",
-                  border: address !== 0 ? "none" : "2px solid white",
-
+                  border:  "2px solid white",
                   background: buttonBackground(),
                 }}
                 className="btn d-flex gap-2 align-items-center"

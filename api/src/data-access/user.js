@@ -30,4 +30,8 @@ module.exports = class UserDataAccess {
       .lean()
       .exec();
   }
+
+  static getNumberOfUsersInColony(colonyID) {
+    return UserModel.find({ colony: colonyID }).countDocuments().lean().exec();
+  }
 };

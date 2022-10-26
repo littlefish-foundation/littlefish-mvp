@@ -1,3 +1,5 @@
+/* eslint-disable max-len */
+
 const express = require('express');
 const validator = require('./middlewares/validator');
 const authenticator = require('./middlewares/authenticator');
@@ -7,9 +9,10 @@ const colonyController = require('./controllers/colony');
 const userController = require('./controllers/user');
 const actionSaleController = require('./controllers/action-sale');
 const actionTypeController = require('./controllers/action-type');
+const colonyShowcaseActionController = require('./controllers/colony-showcase-action');
 const authController = require('./controllers/auth');
 const {
-  actionSchemas, colonySchemas, userSchemas, actionTypeSchemas, actionSaleSchemas, authSchemas,
+  actionSchemas, colonySchemas, userSchemas, actionTypeSchemas, actionSaleSchemas, authSchemas, colonyShowcaseActionSchemas,
 } = require('./schemas');
 
 const router = express.Router();
@@ -58,5 +61,11 @@ actionTypeRouter.route('/:name').delete(validator(actionTypeSchemas.deleteAction
 actionTypeRouter.route('/').get(validator(actionTypeSchemas.getActionTypes), actionTypeController.getActionTypes);
 actionTypeRouter.route('/').post(validator(actionTypeSchemas.createActionType), actionTypeController.createActionType);
 router.use('/action-type', actionTypeRouter);
+
+const colonyShowcaseActionRouter = express.Router();
+colonyShowcaseActionRouter.route('/:colonyName').get(validator(colonyShowcaseActionSchemas.getShowcase), colonyShowcaseActionController.getShowcase);
+colonyShowcaseActionRouter.route('/:colonyName/action').delete(validator(colonyShowcaseActionSchemas.deleteActionFromShowcase), colonyShowcaseActionController.deleteActionFromShowcase);
+colonyShowcaseActionRouter.route('/:colonyName').delete(validator(colonyShowcaseActionSchemas.deleteShowcaseByColony), colonyShowcaseActionController.deleteShowcaseByColony);
+colonyShowcaseActionRouter.route('/:colonyName').post(validator(colonyShowcaseActionSchemas.addActionToShowcase), colonyShowcaseActionController.addActionToShowcase);
 
 module.exports = router;

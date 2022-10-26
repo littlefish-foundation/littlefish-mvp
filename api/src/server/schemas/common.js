@@ -1,6 +1,14 @@
 const Joi = require('joi');
 
 module.exports = {
+  idParams: {
+    params: Joi.object(
+      {
+        id: Joi.string().required(),
+      },
+    ),
+  },
+
   actionQuerySchema: {
     query: Joi.object(
       {
@@ -24,4 +32,10 @@ module.exports = {
       },
     ),
   },
+  actionIDQuery: {
+    query: Joi.object({
+      actionID: Joi.string().required(),
+    }),
+  },
+
 };

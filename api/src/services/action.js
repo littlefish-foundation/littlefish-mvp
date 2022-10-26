@@ -151,4 +151,8 @@ module.exports = class ActionService {
       success: true,
     };
   }
+
+  static getNumberOfActionsInColony(colonyName) {
+    return actionDataAccess.getNumberOfActionsInColony(colonyName);
+  }
 };

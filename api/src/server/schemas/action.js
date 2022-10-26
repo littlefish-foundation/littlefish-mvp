@@ -1,14 +1,6 @@
 const Joi = require('joi');
 const { ACTION_MAX_ALLOWED_LENGTH } = require('../../constants');
-const { actionQuerySchema } = require('./common');
-
-const idParams = {
-  params: Joi.object(
-    {
-      id: Joi.string().required(),
-    },
-  ),
-};
+const { actionQuerySchema, idParams } = require('./common');
 
 module.exports = {
   getAction: {

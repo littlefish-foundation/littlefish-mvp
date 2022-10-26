@@ -52,4 +52,8 @@ module.exports = class ActionDataAccess {
       .lean()
       .exec();
   }
+
+  static getNumberOfActionsInColony(colonyName) {
+    return ActionModel.find({ colony: colonyName }).countDocuments().lean().exec();
+  }
 };

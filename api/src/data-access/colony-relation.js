@@ -6,7 +6,7 @@ module.exports = class ColonyRelationDataAccess {
   }
 
   static async getSubColonies(parent) {
-    return ColonyRelationModel.find({ parent }).populate('sub', 'name description coverImage').lean().exec();
+    return ColonyRelationModel.find({ parent }).populate('sub', '_id name description coverImage').lean().exec();
   }
 
   static async getParentColony(sub) {

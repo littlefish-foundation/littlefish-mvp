@@ -1,6 +1,7 @@
 const actionService = require('./action');
 const colonyDataAccess = require('../data-access/colony');
 const colonyRelationDataAccess = require('../data-access/colony-relation');
+const userDataAccess = require('../data-access/user');
 const { NotFoundError } = require('../errors');
 
 module.exports = class ColonyService {
@@ -9,7 +10,39 @@ module.exports = class ColonyService {
     if (!colony) {
       throw new NotFoundError(`The colony with name: ${name} is not found.`);
     }
+
+    colony.stats = await this.getColonyStatsWithSubColonies(name, colony._id);
     return colony;
+  }
+
+  static async getColonyStats(name, colonyID) {
+    const [numberOfUsers, numberOfActions] = await Promise.all([
+      userDataAccess.getNumberOfUsersInColony(colonyID),
+      actionService.getNumberOfActionsInColony(name),
+    ]);
+    return {
+      numberOfUsers,
+      numberOfActions,
+    };
+  }
+
+  static async getColonyStatsWithSubColonies(name, colonyID) {
+    const [stats, subs] = await Promise.all([this.getColonyStats(name, colonyID),
+      colonyRelationDataAccess.getSubColonies(colonyID),
+    ]);
+
+    if (subs?.length === 0) {
+      return stats;
+    }
+    const promises = [];
+    subs.forEach((sub) => promises.push(this.getColonyStats(sub.name, sub._id)));
+    const subStats = await Promise.all(promises);
+
+    subStats.forEach((subStat) => {
+      stats.numberOfUsers += subStat.numberOfUsers;
+      stats.numberOfActions += subStat.numberOfActions;
+    });
+    return stats;
   }
 
   static async deleteColony(name) {

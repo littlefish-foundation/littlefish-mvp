@@ -13,28 +13,28 @@ jobs:
         with:
           host: ${{ secrets.API_HOST }}
           username: ${{ secrets.API_USERNAME }}
-          key: ${{ secrets.API_PRIVATE_KEY }}
+          password: ${{ secrets.API_PASSWORD }}
           port: 22
           script: |
             cd ~/littlefish-mvp
             git pull origin dev
             git status
-            npm install --only=prod
+            npm install
       - name: deploy frontend app
         uses: appleboy/ssh-action@master
         with:
           host: ${{ secrets.APP_HOST }}
           username: ${{ secrets.APP_USERNAME }}
-          key: ${{ secrets.APP_PRIVATE_KEY }}
+          password: ${{ secrets.APP_PASSWORD }}
           port: 22
           script: |
             cd ~/littlefish-mvp
             git pull origin dev
             git status
             cd ./frontend
-            npm install --only=prod
+            npm install
             npm build
-            rm -rf /var/www/app.littlefish.foundation
-            mkdir /var/www/app.littlefish.foundation
-            cp  -r ./build/*  /var/www/app.littlefish.foundation
+            rm -rf /var/www/dev.littlefish.foundation
+            mkdir /var/www/dev.littlefish.foundation
+            cp  -r ./build/*  /var/www/dev.littlefish.foundation
   

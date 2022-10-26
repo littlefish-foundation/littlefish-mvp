@@ -1,11 +1,51 @@
-.subcolony__card__img {
+.single__subcolony__card {
+  background: transparent;
+  border: 1px solid #32373c;
+  border-radius: 10px;
+  height: 250px;
+  margin: 1em;
+  overflow: hidden;
+  cursor: pointer;
+  position: relative;
+  transition: all ease 200ms;
+}
+
+.single__subcolony__card:hover {
+  transform: scale(1.05);
+  box-shadow: 0 13px 40px -5px rgba(145, 145, 192, 0.12),
+    0 8px 32px -8px hsla(0, 1%, 59%, 0.14),
+    0 -6px 32px -6px hsla(0, 0%, 0%, 0.02);
+  background: #32373c;
+}
+
+.subcolony__img {
   border-radius: 5px;
+  border-bottom-left-radius: 0px;
+  border-bottom-right-radius: 0px;
   margin-bottom: 15px;
-  height: 123px;
+  height: 180px;
   background: #000000;
   display: flex;
   justify-content: center;
   align-items: center;
+  width: 100%;
+}
+
+.subcolony__img img {
+  max-height: 100%;
+  width: 100%;
+}
+
+.subcolony__content {
+  padding: 0 20px;
+  margin-left: 5px;
+}
+
+.subcolony__info h6 {
+  font-size: 1rem;
+  color: rgba(255, 255, 255, 0.772);
+  margin-top: 10px;
+  font-weight: 300;
 }
 
 .subcolony__card__img img {

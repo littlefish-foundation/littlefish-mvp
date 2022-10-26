@@ -192,7 +192,9 @@ const MemberProfile = (props) => {
           </section>
 
           <section>
-            <NavBar producerName={userData?.name} />
+            <Container>
+              <NavBar producerName={userData?.name} />
+            </Container>
           </section>
         </div>
       )}

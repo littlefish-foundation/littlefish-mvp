@@ -7,8 +7,13 @@
 }
 
 body {
-  background: rgb(20, 23, 26) !important;
-  font-family: "Roboto", sans-serif;
+  background: #110f1c !important;
+  font-family: "Roboto", "PingFangSC-Regular", "Microsoft YaHei", "Arial",
+    "sans-serif" !important;
+  -webkit-font-smoothing: antialiased;
+  -moz-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -o-font-smoothing: antialiased;
 }
 
 h1,

@@ -8,7 +8,7 @@ const StausSyncModal = ({ setShowSyncModal }) => {
       <div className="single__modal__success">
         <span className="close__modal">
           <i
-            class="ri-close-line"
+            className="ri-close-line"
             onClick={() => {
               setShowSyncModal(false);
               window.location.reload();

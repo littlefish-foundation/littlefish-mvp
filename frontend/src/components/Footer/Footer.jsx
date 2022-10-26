@@ -9,7 +9,7 @@ const Footer = () => {
     <footer className="footer">
       <Container>
         <Row>
-          <Col lg="12" md="6" sm="6" className="mb-4">
+          <Col lg="12" md="6" sm="6">
             <div className="logo">
               <h2 className=" d-flex gap-2 align-items-center ">
                 <span>
@@ -54,9 +54,9 @@ const Footer = () => {
             </div>
           </Col>
 
-          <Col lg="12" className=" mt-4 text-center">
+          <div>
             <p className="copyright"> Copyrights 2022, All Rights Reserved. </p>
-          </Col>
+          </div>
         </Row>
       </Container>
     </footer>

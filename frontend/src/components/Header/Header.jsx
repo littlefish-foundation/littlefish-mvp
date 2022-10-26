@@ -1,9 +1,10 @@
-import React, { useRef, useEffect, useState } from "react";
+import React, { useRef, useEffect } from "react";
 import { Container } from "reactstrap";
 import abstract from "../../assets/abstract.png";
 import Dropdown from "react-bootstrap/Dropdown";
 import NavItem from "react-bootstrap/NavItem";
 import NavLinkBootstrap from "react-bootstrap/NavLink";
+import cardanoIcon from "../../assets/cardano.png";
 import { NavLink } from "react-router-dom";
 import "./header.css";
 
@@ -61,6 +62,7 @@ const Header = () => {
   const menuRef = useRef(null);
   let address = sessionStorage.length;
   let network = sessionStorage.getItem("connectedNetwork");
+  let walletID = sessionStorage.getItem("walletID");
 
   useEffect(() => {
     window.addEventListener("scroll", () => {
@@ -81,9 +83,9 @@ const Header = () => {
   console.log(network);
 
   const buttonBackground = () => {
-    if (network === "mainnet" && address !== 0) {
+    if (network === "1" && address !== 0) {
       return "rgb(186,152,69)";
-    } else if (network === "testnet" && address !== 0) {
+    } else if (network === "0" && address !== 0) {
       return "rgb(227,153,151)";
     } else {
       return "transparent";
@@ -91,12 +93,32 @@ const Header = () => {
   };
 
   const buttonLabel = () => {
-    if (network === "mainnet" && address !== 0) {
-      return "Wallet Connected (mainnet)";
-    } else if (network === "testnet" && address !== 0) {
-      return "Wallet Connected (testnet)";
+    if (network === "1" && address !== 0) {
+      let first6 = walletID.slice(0, 6);
+      let last4 = walletID.slice(-4);
+      return (
+        <div style={{ fontSize: "0.9rem" }}>
+          Connected (mainnet)
+          <div style={{ fontSize: "0.6rem" }}>
+            {first6}...{last4}
+            <img src={cardanoIcon} alt="" className="cardano__icon__address" />
+          </div>
+        </div>
+      );
+    } else if (network === "0" && address !== 0) {
+      let first6 = walletID.slice(0, 6);
+      let last4 = walletID.slice(-4);
+      return (
+        <div style={{ fontSize: "0.9rem" }}>
+          Connected (testnet)
+          <div style={{ fontSize: "0.6rem" }}>
+            {first6}...{last4}
+            <img src={cardanoIcon} alt="" className="cardano__icon__address" />
+          </div>
+        </div>
+      );
     } else {
-      return "Connect Wallet";
+      return <div style={{ fontSize: "0.9rem" }}>Connect Wallet</div>;
     }
   };
 
@@ -147,8 +169,9 @@ const Header = () => {
               <button
                 style={{
                   color: " #fff",
-                  border:  "2px solid white",
+                  border: "2px solid white",
                   background: buttonBackground(),
+                  fontSize: "0.6rem",
                 }}
                 className="btn d-flex gap-2 align-items-center"
               >
@@ -162,7 +185,6 @@ const Header = () => {
                     }}
                   ></i>
                 </span>
-
                 {buttonLabel()}
               </button>
             </NavLink>

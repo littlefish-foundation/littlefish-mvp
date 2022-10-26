@@ -3,6 +3,7 @@ import Tab from "react-bootstrap/Tab";
 import Tabs from "react-bootstrap/Tabs";
 import UserGallery from "./userGallery";
 import "./navbar.css";
+import { Container } from "reactstrap";
 
 function NavBar(props) {
   const [key, setKey] = useState("created");

@@ -136,35 +136,37 @@ const Subcolony = (props) => {
         </section>
 
         <section>
-          <Tabs
-            id="controlled-tab-example"
-            className="mb-3"
-            style={{
-              marginLeft: "30px",
-              marginTop: "10px",
-              backgroundColor: "transparent !important",
-            }}
-          >
-            <Tab
-              eventKey="Contributors"
-              title="All Actions"
-              style={{ backgroundColor: "transparent !important" }}
+          <Container>
+            <Tabs
+              id="controlled-tab-example"
+              className="mb-3"
+              style={{
+                marginLeft: "30px",
+                marginTop: "10px",
+                backgroundColor: "transparent !important",
+              }}
             >
-              <ColonyGallery colony={singleColony?.name} />
-            </Tab>
-            <Tab
-              disabled
-              eventKey="Created Actions"
-              title="Created Actions"
-              style={{ backgroundColor: "transparent !important" }}
-            ></Tab>
-            <Tab
-              disabled
-              eventKey="Members"
-              title="Members"
-              style={{ backgroundColor: "transparent !important" }}
-            ></Tab>
-          </Tabs>
+              <Tab
+                eventKey="All Actions"
+                title="All Actions"
+                style={{ backgroundColor: "transparent !important" }}
+              >
+                <ColonyGallery colony={singleColony?.name} />
+              </Tab>
+              <Tab
+                disabled
+                eventKey="subcolonies"
+                title="Sub-Colonies"
+                style={{ backgroundColor: "transparent !important" }}
+              ></Tab>
+              <Tab
+                disabled
+                eventKey="Members"
+                title="Members"
+                style={{ backgroundColor: "transparent !important" }}
+              ></Tab>
+            </Tabs>
+          </Container>
         </section>
       </div>
     </div>

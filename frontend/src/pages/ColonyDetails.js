@@ -166,92 +166,94 @@ const ColonyDetails = () => {
         </Container>
       </section>
       <section>
-        <Tabs
-          id="controlled-tab-example"
-          className="mb-3"
-          style={{
-            marginLeft: "30px",
-            marginTop: "10px",
-            backgroundColor: "transparent !important",
-          }}
-        >
-          <Tab
-            eventKey="Contributors"
-            title="All Actions"
-            style={{ backgroundColor: "transparent !important" }}
+        <Container>
+          <Tabs
+            id="controlled-tab-example"
+            className="mb-3"
+            style={{
+              marginLeft: "30px",
+              marginTop: "10px",
+              backgroundColor: "transparent !important",
+            }}
           >
-            <ColonyGallery colony={singleColony?.name} />
-          </Tab>
+            <Tab
+              eventKey="Contributors"
+              title="All Actions"
+              style={{ backgroundColor: "transparent !important" }}
+            >
+              <ColonyGallery colony={singleColony?.name} />
+            </Tab>
 
-          <Tab
-            eventKey="Subcolonies"
-            title="Subcolonies"
-            style={{ backgroundColor: "transparent !important" }}
-          >
-            <div>
-              {loadingSubcolony ? (
-                <Spinner
-                  style={{
-                    display: "flex",
-                    justifyContent: "center",
-                    alignItems: "center",
-                    margin: "auto",
-                    color: "gray",
-                    marginBottom: "300px",
-                  }}
-                />
-              ) : (
-                <section>
-                  <Container>
-                    <Row>
-                      {subcolonyData?.subs?.map((item) => (
-                        <Col lg="3" md="4" sm="6" key={item._id}>
-                          <SubcolonyCard
-                            item={item.sub}
-                            coverImage={item.sub.coverImage.src}
-                            key={item.sub.id}
-                          />
-                        </Col>
-                      ))}
-                    </Row>
-                  </Container>
-                </section>
-              )}
-            </div>
-          </Tab>
-          <Tab
-            eventKey="Members"
-            title="Members"
-            style={{ backgroundColor: "transparent !important" }}
-          >
-            <div>
-              {loadingProfileData ? (
-                <Spinner
-                  style={{
-                    display: "flex",
-                    justifyContent: "center",
-                    alignItems: "center",
-                    margin: "auto",
-                    color: "gray",
-                    marginBottom: "300px",
-                  }}
-                />
-              ) : (
-                <section>
-                  <Container>
-                    <Row>
-                      {userProfileData?.map((item) => (
-                        <Col lg="2" md="4" sm="6" style={{ margin: "15px" }}>
-                          <UserProfileCard item={item} />
-                        </Col>
-                      ))}
-                    </Row>
-                  </Container>
-                </section>
-              )}
-            </div>
-          </Tab>
-        </Tabs>
+            <Tab
+              eventKey="Subcolonies"
+              title="Sub-Colonies"
+              style={{ backgroundColor: "transparent !important" }}
+            >
+              <div>
+                {loadingSubcolony ? (
+                  <Spinner
+                    style={{
+                      display: "flex",
+                      justifyContent: "center",
+                      alignItems: "center",
+                      margin: "auto",
+                      color: "gray",
+                      marginBottom: "300px",
+                    }}
+                  />
+                ) : (
+                  <section>
+                    <Container>
+                      <Row>
+                        {subcolonyData?.subs?.map((item) => (
+                          <Col lg="3" md="4" sm="6" key={item._id}>
+                            <SubcolonyCard
+                              item={item.sub}
+                              coverImage={item.sub.coverImage.src}
+                              key={item.sub.id}
+                            />
+                          </Col>
+                        ))}
+                      </Row>
+                    </Container>
+                  </section>
+                )}
+              </div>
+            </Tab>
+            <Tab
+              eventKey="Members"
+              title="Members"
+              style={{ backgroundColor: "transparent !important" }}
+            >
+              <div>
+                {loadingProfileData ? (
+                  <Spinner
+                    style={{
+                      display: "flex",
+                      justifyContent: "center",
+                      alignItems: "center",
+                      margin: "auto",
+                      color: "gray",
+                      marginBottom: "300px",
+                    }}
+                  />
+                ) : (
+                  <section>
+                    <Container>
+                      <Row>
+                        {userProfileData?.map((item) => (
+                          <Col lg="2" md="4" sm="6" style={{ margin: "15px" }}>
+                            <UserProfileCard item={item} />
+                          </Col>
+                        ))}
+                      </Row>
+                    </Container>
+                  </section>
+                )}
+              </div>
+            </Tab>
+          </Tabs>
+        </Container>
       </section>
     </div>
   );

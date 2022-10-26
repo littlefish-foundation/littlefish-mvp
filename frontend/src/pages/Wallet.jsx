@@ -189,11 +189,16 @@ const Wallet = () => {
                   <img src={Typhon} alt="" />
                 </span>
                 <h5>Typhon Wallet</h5>
-                <Button id="UncontrolledPopover" className="wallet_disconnect">
+                <Button
+                  id="UncontrolledPopover"
+                  className="wallet_disconnect"
+                  disabled={account ? false : true}
+                >
                   Disconnect
                 </Button>
                 &nbsp; &nbsp; &nbsp;
                 <Button
+                  disabled={account ? false : true}
                   id="UncontrolledPopover"
                   type="button"
                   className="wallet_connect"
@@ -226,6 +231,7 @@ const Wallet = () => {
                   <Button
                     className="wallet_disconnect"
                     onClick={namiCancelHandler}
+                    disabled={account ? false : true}
                   >
                     Disconnect
                   </Button>

@@ -15,19 +15,11 @@ const AllActionTypesGallery = (props) => {
   const [setError] = useState(null);
   const [page, setPage] = useState(0);
 
-  let searchType = props.searchType;
   let status = props.actionStatus;
-
-  let name, producerName;
-  if (searchType === "name") {
-    name = props.searchTerm;
-  } else if (searchType === "producerName") {
-    producerName = props.searchTerm;
-  }
 
   const filtering = {
     params: {
-      limit: 8,
+      limit: 12,
       page: page,
     },
   };
@@ -48,7 +40,7 @@ const AllActionTypesGallery = (props) => {
       .finally(() => {
         setLoadingAllActionTypes(false);
       });
-  }, [producerName, status, name, page]);
+  }, [status, page]);
   console.log(allActionTypes.length);
 
   return (
@@ -58,8 +50,9 @@ const AllActionTypesGallery = (props) => {
           <Container style={{ backgroundColor: "transparent !important" }}>
             <InfiniteScroll
               dataLength={allActionTypes.length}
+              scrollThreshold={0.5}
               next={() => setPage(page + 1)}
-              hasMore={allActionTypes.length % 8 !== 0 ? false : true}
+              hasMore={allActionTypes.length % 12 !== 0 ? false : true}
               loader={
                 <Spinner
                   style={{

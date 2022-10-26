@@ -8,7 +8,7 @@ const ErrorSaleCreation = ({ setShowModal, errorMessage, setIsOpen }) => {
       <div className="single__modal__success">
         <span className="close__modal">
           <i
-            class="ri-close-line"
+            className="ri-close-line"
             onClick={() => {
               setShowModal(false);
               setIsOpen(false);

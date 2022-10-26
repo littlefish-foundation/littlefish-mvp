@@ -15,7 +15,7 @@ const NamiAddressModal = ({ account, setShowModal, sumBalance }) => {
       <div className="single__modal">
         <span className="close__modal">
           <i
-            class="ri-close-line"
+            className="ri-close-line"
             onClick={() => {
               setShowModal(false);
               window.location.reload();

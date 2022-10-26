@@ -73,11 +73,10 @@ const Wallet = () => {
         setAccount(addr);
         setNfts(assets);
         setWalletBalance(balance);
-        setNamiNetwork(network);
+        setNamiNetwork(network.id);
       }
     }
     t();
-
     setNamiAddr(true);
   }, [namiAddr]);
 
@@ -121,7 +120,7 @@ const Wallet = () => {
   const namiClickHandler = (e) => {
     e.preventDefault();
     sessionStorage.setItem("walletID", account);
-    sessionStorage.setItem("connectedNetwork", namiNetwork.network);
+    sessionStorage.setItem("connectedNetwork", namiNetwork);
     window.walletIDStored = sessionStorage.getItem("walletID");
     window.connectedNetworkStored = sessionStorage.getItem("connectedNetwork");
 
@@ -236,7 +235,11 @@ const Wallet = () => {
                     />
                   )}
                   &nbsp; &nbsp; &nbsp;
-                  <Button className="wallet_connect" onClick={namiClickHandler}>
+                  <Button
+                    className="wallet_connect"
+                    onClick={namiClickHandler}
+                    disabled={account ? false : true}
+                  >
                     Connect
                   </Button>
                   {namiCheck === null && showModal && (

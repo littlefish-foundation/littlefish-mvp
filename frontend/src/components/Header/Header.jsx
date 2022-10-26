@@ -81,9 +81,9 @@ const Header = () => {
   console.log(network);
 
   const buttonBackground = () => {
-    if (network === "mainnet" && address !== 0) {
+    if (network === "1" && address !== 0) {
       return "rgb(186,152,69)";
-    } else if (network === "testnet" && address !== 0) {
+    } else if (network === "0" && address !== 0) {
       return "rgb(227,153,151)";
     } else {
       return "transparent";
@@ -91,9 +91,9 @@ const Header = () => {
   };
 
   const buttonLabel = () => {
-    if (network === "mainnet" && address !== 0) {
+    if (network === "1" && address !== 0) {
       return "Wallet Connected (mainnet)";
-    } else if (network === "testnet" && address !== 0) {
+    } else if (network === "0" && address !== 0) {
       return "Wallet Connected (testnet)";
     } else {
       return "Connect Wallet";

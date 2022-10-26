@@ -7,7 +7,7 @@ const LoadingStatusSyncModal = ({ setShowSyncModal }) => {
     <div className="modal__wrapper">
       <div className="single__modal">
         <span className="close__modal">
-          <i class="ri-close-line" onClick={() => setShowSyncModal(false)}></i>
+          <i className="ri-close-line" onClick={() => setShowSyncModal(false)}></i>
         </span>
         <div>
           <Spinner color="success">Loading...</Spinner>

@@ -28,6 +28,9 @@ const Create = (props) => {
     image: img,
     producerName: "Littlefish DAO",
     minimumPrice: "20",
+    colony: "Littlefish Foundation",
+    types: ["DAO", "Cardano"],
+    description: "This is a whitepaper",
   };
 
   const initialInputState = {

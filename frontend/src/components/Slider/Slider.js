@@ -57,7 +57,11 @@ export default function Slider() {
     <div className="container-slider">
       {displayDataArray?.map((obj, index) => {
         return (
-          <a href={displayDataArray[slideIndex - 1].src}>
+          <a
+            href={displayDataArray[slideIndex - 1].src}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
             <div
               className={
                 slideIndex === index + 1 ? "slide active-anim" : "slide"

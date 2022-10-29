@@ -51,9 +51,15 @@ const ColonyDetails = () => {
         }}
       >
         <img src={cardanoIcon} alt="" className="cardano__icon" />
-        <Button className="wallet__id__btn">
-          {first10}......{last10}
-        </Button>
+        <a
+          href={`https://preprod.cardanoscan.io/address/${singleColony?.walletAddress}`}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <Button className="wallet__id__btn">
+            {first10}......{last10}
+          </Button>
+        </a>
       </div>
       <section className="common__section__colony">
         <Container>

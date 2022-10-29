@@ -30,9 +30,9 @@ const MemberProfile = (props) => {
   const { userData, loadingUserData } = useGetOneUserData(name);
 
   const walletID = userData?.walletAddress;
-  const first6 = walletID?.substring(0, 8);
+  const first8 = walletID?.substring(0, 8);
   const lengthOfID = walletID?.length;
-  const last6 = walletID?.substring(lengthOfID - 9, lengthOfID - 1);
+  const last8 = walletID?.substring(lengthOfID - 9, lengthOfID);
 
   const year = userData?.createdAt?.substring(0, 4);
   const month = userData?.createdAt?.substring(5, 7);
@@ -95,13 +95,16 @@ const MemberProfile = (props) => {
             }}
           >
             <img src={cardanoIcon} alt="" className="cardano__icon" />
-            <Button
-              className="wallet__id__btn"
-              value={walletID}
-              onClick={copyToClipboard}
+
+            <a
+              href={`https://preprod.cardanoscan.io/address/${walletID}`}
+              target="_blank"
+              rel="noopener noreferrer"
             >
-              {first6}......{last6}
-            </Button>
+              <Button className="wallet__id__btn">
+                {first8}......{last8}
+              </Button>
+            </a>
           </div>
           <div
             style={{

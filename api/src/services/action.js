@@ -1,6 +1,7 @@
 const tangocryptoClient = require('../external-api/tangocrypto-client');
 const actionDataAccess = require('../data-access/action');
 const actionTypeDataAccess = require('../data-access/action-type');
+const colonyActionTypeDataAccess = require('../data-access/colony-action-type');
 const actionLogic = require('../logics/action');
 const uploadImage = require('../utils/upload-image');
 const { formatActions } = require('../formatters/action');
@@ -52,8 +53,8 @@ module.exports = class ActionService {
     };
   }
 
-  static async getActions(colonyName, filter, sorter, page, limit) {
-    const actions = await actionDataAccess.getActions(colonyName, filter, sorter, page, limit);
+  static async getActions(colony, filter, sorter, page, limit) {
+    const actions = await actionDataAccess.getActions(colony, filter, sorter, page, limit);
 
     return formatActions(actions);
   }
@@ -63,14 +64,22 @@ module.exports = class ActionService {
     return collectionID;
   }
 
-  static async handleMintActionTypes(type) {
+  static async handleMintActionTypes(type, colony) {
     const actionType = await actionTypeDataAccess.getActionType(type);
+    const colonyActionType = await colonyActionTypeDataAccess.getColonyActionType(colony, type);
 
-    if (actionType) {
+    if (actionType && colonyActionType) {
       await actionTypeDataAccess.incrementActionType(actionType.name);
-      return;
+      await colonyActionTypeDataAccess.incrementColonyActionType(colonyActionType.colony, colonyActionType.name);
     }
-    await actionTypeDataAccess.createActionType(type);
+    else if (actionType && !colonyActionType) {
+      await actionTypeDataAccess.incrementActionType(actionType.name);
+      await colonyActionTypeDataAccess.createColonyActionType(colony, type);
+    }
+    else {
+      await actionTypeDataAccess.createActionType(type);
+      await colonyActionTypeDataAccess.createColonyActionType(colony, type);
+    }
   }
 
   static async uploadAllImages(coverImage, files) {
@@ -152,7 +161,7 @@ module.exports = class ActionService {
     };
   }
 
-  static getNumberOfActionsInColony(colonyName) {
-    return actionDataAccess.getNumberOfActionsInColony(colonyName);
+  static getNumberOfActionsInColony(colony) {
+    return actionDataAccess.getNumberOfActionsInColony(colony);
   }
 };

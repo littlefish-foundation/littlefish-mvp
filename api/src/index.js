@@ -55,5 +55,5 @@ if (config.runningEnvironment === 'dev') {
     console.log(e);
     process.exit(1);
   }
-  https.createServer(httpsOptions, app).listen(8000);
+  https.createServer(httpsOptions, app).listen(443);
 }

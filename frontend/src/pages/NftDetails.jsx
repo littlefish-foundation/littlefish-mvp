@@ -103,6 +103,18 @@ const NftDetails = (props) => {
     setShowSyncModal(true);
   };
 
+  const handleActionStatusLabel = () => {
+    if (actionData?.status === "UPLOADING_CONTENT") {
+      return "Uploading Content";
+    } else if (actionData?.status === "FOR_SALE") {
+      return "Ready to Mint";
+    } else if (actionData?.status === "RESERVED") {
+      return "Reserved";
+    } else {
+      return "Minted";
+    }
+  };
+
   return (
     <div>
       {loadingActionData ? (
@@ -208,7 +220,7 @@ const NftDetails = (props) => {
                         <div className="creator__detail">
                           <p>Minimum Price: {actionData?.minimumPrice} ADA</p>
 
-                          <p>Status: {actionData?.status}</p>
+                          <p>Status: {handleActionStatusLabel()}</p>
                         </div>
                       </div>
                       <br />

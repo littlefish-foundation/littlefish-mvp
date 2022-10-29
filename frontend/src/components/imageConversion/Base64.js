@@ -16,7 +16,7 @@ class Base64 extends React.Component {
       reader.onload = () => {
         baseURL = reader.result;
         resolve(baseURL);
-        var baseData = baseURL;
+        const baseData = baseURL;
         return baseData;
       };
     });
@@ -29,7 +29,7 @@ class Base64 extends React.Component {
     this.getBase64(file)
       .then((result) => {
         file["base64"] = result;
-        var arr = Object.values(file);
+        const arr = Object.values(file);
         this.props.parentCallback(arr[0]);
         window.bas64Data = arr[0];
         console.log(window.bas64Data);

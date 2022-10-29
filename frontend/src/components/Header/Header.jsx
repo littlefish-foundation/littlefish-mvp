@@ -4,6 +4,7 @@ import abstract from "../../assets/abstract.png";
 import Dropdown from "react-bootstrap/Dropdown";
 import NavItem from "react-bootstrap/NavItem";
 import NavLinkBootstrap from "react-bootstrap/NavLink";
+import cardanoIcon from "../../assets/cardano.png";
 import { NavLink } from "react-router-dom";
 import "./header.css";
 
@@ -60,6 +61,8 @@ const Header = () => {
   const headerRef = useRef(null);
   const menuRef = useRef(null);
   let address = sessionStorage.length;
+  let network = sessionStorage.getItem("connectedNetwork");
+  let walletID = sessionStorage.getItem("walletID");
 
   useEffect(() => {
     window.addEventListener("scroll", () => {
@@ -77,25 +80,68 @@ const Header = () => {
   }, []);
 
   const toggleMenu = () => menuRef.current.classList.toggle("active__menu");
+  console.log(network);
+
+  const buttonBackground = () => {
+    if (network === "1" && address !== 0) {
+      return "rgb(186,152,69)";
+    } else if (network === "0" && address !== 0) {
+      return "rgb(227,153,151)";
+    } else {
+      return "transparent";
+    }
+  };
+
+  const buttonLabel = () => {
+    if (network === "1" && address !== 0) {
+      let first6 = walletID.slice(0, 6);
+      let last4 = walletID.slice(-4);
+      return (
+        <div style={{ fontSize: "0.9rem" }}>
+          Connected (mainnet)
+          <div style={{ fontSize: "0.6rem" }}>
+            {first6}...{last4}
+            <img src={cardanoIcon} alt="" className="cardano__icon__address" />
+          </div>
+        </div>
+      );
+    } else if (network === "0" && address !== 0) {
+      let first6 = walletID.slice(0, 6);
+      let last4 = walletID.slice(-4);
+      return (
+        <div style={{ fontSize: "0.9rem" }}>
+          Connected (testnet)
+          <div style={{ fontSize: "0.6rem" }}>
+            {first6}...{last4}
+            <img src={cardanoIcon} alt="" className="cardano__icon__address" />
+          </div>
+        </div>
+      );
+    } else {
+      return <div style={{ fontSize: "0.9rem" }}>Connect Wallet</div>;
+    }
+  };
 
   return (
     <header className="header" ref={headerRef}>
       <Container>
         <div className="navigation">
-          <div className="logo">
-            <h2 className=" d-flex gap-2 align-items-center ">
-              <span>
-                <div className="abstractLogo">
-                  <img
-                    src={abstract}
-                    className="abstractLogo"
-                    alt="Abstract Collection Logo"
-                  />
-                </div>
-              </span>
-              | littlefish
-            </h2>
-          </div>
+          <NavLink to="/action" style={{ textDecoration: "none" }}>
+            <div className="logo">
+              <h2 className=" d-flex gap-2 align-items-center ">
+                <span>
+                  <div className="abstractLogo">
+                    <img
+                      src={abstract}
+                      className="abstractLogo"
+                      alt="Abstract Collection Logo"
+                    />
+                  </div>
+                </span>
+                | littlefish
+              </h2>
+            </div>
+          </NavLink>
 
           <div className="nav__menu" ref={menuRef} onClick={toggleMenu}>
             <ul className="nav__list">
@@ -106,6 +152,7 @@ const Header = () => {
                     className={(navClass) =>
                       navClass.isActive ? "active__header" : ""
                     }
+                    key={index}
                   >
                     {item.display}
                   </NavLink>
@@ -122,9 +169,9 @@ const Header = () => {
               <button
                 style={{
                   color: " #fff",
-                  border: address !== 0 ? "none" : "2px solid white",
-                  background:
-                    address !== 0 ? "rgb(205,173,72)" : " transparent",
+                  border: "2px solid white",
+                  background: buttonBackground(),
+                  fontSize: "0.6rem",
                 }}
                 className="btn d-flex gap-2 align-items-center"
               >
@@ -138,8 +185,7 @@ const Header = () => {
                     }}
                   ></i>
                 </span>
-
-                {address !== 0 ? "Wallet Connected" : "Connect Wallet"}
+                {buttonLabel()}
               </button>
             </NavLink>
 

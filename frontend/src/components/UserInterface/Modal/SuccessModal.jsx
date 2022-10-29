@@ -19,7 +19,7 @@ const SuccessModal = ({ setShowModal }) => {
     <div className="modal__wrapper">
       <div className="single__modal__success">
         <span className="close__modal">
-          <i class="ri-close-line" onClick={() => setShowModal(false)}></i>
+          <i className="ri-close-line" onClick={() => setShowModal(false)}></i>
         </span>
         <div>
           <CheckCircleOutlineIcon color="success" sx={{ fontSize: 50 }} />
@@ -30,7 +30,7 @@ const SuccessModal = ({ setShowModal }) => {
         </div>
         <div className="nft__centered">
           {allActions?.slice(0, 1).map((item) => (
-            <ActionModal item={item} />
+            <ActionModal item={item} key={item._id} />
           ))}
         </div>
 

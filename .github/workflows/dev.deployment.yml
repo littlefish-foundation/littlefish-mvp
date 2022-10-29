@@ -1,0 +1,42 @@
+name: Dev deployment
+
+on:
+  push:
+    branches: [ dev ]
+jobs:
+  build:
+    environment: dev
+    runs-on: ubuntu-latest
+    steps:
+      - name: deploy api
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.API_HOST }}
+          username: ${{ secrets.API_USERNAME }}
+          password: ${{ secrets.API_PASSWORD }}
+          port: 22
+          script: |
+            cd ~/littlefish-mvp
+            git pull origin dev
+            git status
+            cd ./api/
+            npm install --omit=dev
+      - name: deploy frontend app
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.APP_HOST }}
+          username: ${{ secrets.APP_USERNAME }}
+          password: ${{ secrets.APP_PASSWORD }}
+          port: 22
+          script: |
+            cd ~/littlefish-mvp
+            git pull origin dev
+            git status
+            cd ./frontend/
+            npm install --omit=dev
+            export node_options=--max_old_space_size=8192
+            npm run build
+            rm -rf /var/www/dev.littlefish.foundation
+            mkdir /var/www/dev.littlefish.foundation
+            cp  -r ./build/*  /var/www/dev.littlefish.foundation
+  

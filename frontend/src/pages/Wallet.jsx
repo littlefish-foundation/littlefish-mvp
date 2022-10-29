@@ -46,7 +46,6 @@ const Wallet = () => {
       } else {
         const enableResponse = await typhon.enable();
         if (enableResponse.status === true) {
-        } else {
         }
       }
     }
@@ -74,11 +73,10 @@ const Wallet = () => {
         setAccount(addr);
         setNfts(assets);
         setWalletBalance(balance);
-        setNamiNetwork(network);
+        setNamiNetwork(network.id);
       }
     }
     t();
-
     setNamiAddr(true);
   }, [namiAddr]);
 
@@ -122,7 +120,9 @@ const Wallet = () => {
   const namiClickHandler = (e) => {
     e.preventDefault();
     sessionStorage.setItem("walletID", account);
+    sessionStorage.setItem("connectedNetwork", namiNetwork);
     window.walletIDStored = sessionStorage.getItem("walletID");
+    window.connectedNetworkStored = sessionStorage.getItem("connectedNetwork");
 
     axios
       .post(`${LITTLEFISH_API_URL}/login/`, walletAssetsObject)
@@ -152,17 +152,19 @@ const Wallet = () => {
 
   const namiCancelHandler = () => {
     sessionStorage.removeItem("walletID");
+    sessionStorage.removeItem("connectedNetwork");
 
     setNamiAddr(false);
     setShowModalDisconnect(true);
   };
 
+  console.log(sessionStorage.walletID);
   return (
     <div
-      onClick={() => {
-        showModal && setShowModal(false);
-        showModalDisconnect && setShowModalDisconnect(false);
-      }}
+    // onClick={() => {
+    //   showModal && setShowModal(false);
+    //   showModalDisconnect && setShowModalDisconnect(false);
+    // }}
     >
       <SubHeader />
       <section>
@@ -187,11 +189,16 @@ const Wallet = () => {
                   <img src={Typhon} alt="" />
                 </span>
                 <h5>Typhon Wallet</h5>
-                <Button id="UncontrolledPopover" className="wallet_disconnect">
+                <Button
+                  id="UncontrolledPopover"
+                  className="wallet_disconnect"
+                  disabled={account ? false : true}
+                >
                   Disconnect
                 </Button>
                 &nbsp; &nbsp; &nbsp;
                 <Button
+                  disabled={account ? false : true}
                   id="UncontrolledPopover"
                   type="button"
                   className="wallet_connect"
@@ -224,6 +231,7 @@ const Wallet = () => {
                   <Button
                     className="wallet_disconnect"
                     onClick={namiCancelHandler}
+                    disabled={account ? false : true}
                   >
                     Disconnect
                   </Button>
@@ -233,7 +241,11 @@ const Wallet = () => {
                     />
                   )}
                   &nbsp; &nbsp; &nbsp;
-                  <Button className="wallet_connect" onClick={namiClickHandler}>
+                  <Button
+                    className="wallet_connect"
+                    onClick={namiClickHandler}
+                    disabled={account ? false : true}
+                  >
                     Connect
                   </Button>
                   {namiCheck === null && showModal && (

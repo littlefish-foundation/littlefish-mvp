@@ -28,6 +28,9 @@ const Create = (props) => {
     image: img,
     producerName: "Littlefish DAO",
     minimumPrice: "20",
+    colony: "Littlefish Foundation",
+    types: ["DAO", "Cardano"],
+    description: "This is a whitepaper",
   };
 
   const initialInputState = {
@@ -51,7 +54,6 @@ const Create = (props) => {
   const { imgBase64, onChangeImgFile } = useBase64ConverterAdditionalSources();
 
   const maxCount = 256;
-  const maxAssetNameCount = 31;
   const walletid = sessionStorage.getItem("walletID");
   const [errorMessage, setErrorMessage] = useState("");
 

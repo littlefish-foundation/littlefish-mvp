@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import SubHeader from "../components/UserInterface/Sub-Header/SubHeader";
 import { Link, useParams } from "react-router-dom";
 import {
@@ -12,7 +12,6 @@ import {
   Card,
   FormGroup,
   Input,
-  Tooltip,
   UncontrolledCollapse,
 } from "reactstrap";
 import useFetchByActionID from "../Hooks/getActionByID";
@@ -103,24 +102,6 @@ const NftDetails = (props) => {
 
     setShowSyncModal(true);
   };
-
-  useEffect(() => {
-    // set a function inside this hool to handle the status of the post
-    fetch(`${LITTLEFISH_API_URL}/action-sale/${_id}`)
-      .then((response) => response.json())
-      .then((data) => {
-        console.log(data);
-        setPaymentLinkGet(data.paymentLink);
-        console.log(paymentLinkGet);
-      })
-      .catch((err) => {
-        console.log("Error:", err.message);
-      });
-  }, [paymentLinkGet, paymentLinks]);
-  console.log(paymentLinks);
-  console.log(dataPost);
-  console.log(actionData?.types);
-  console.log(syncStatus);
 
   return (
     <div>
@@ -302,8 +283,8 @@ const NftDetails = (props) => {
                               }}
                             >
                               <CardBody>
-                                {actionData?.links.map((link) => (
-                                  <div>
+                                {actionData?.links.map((link, index) => (
+                                  <div key={index}>
                                     <a
                                       href={link.url}
                                       style={{
@@ -377,7 +358,7 @@ const NftDetails = (props) => {
                         </div>
                       )}
 
-                      <div style={{ marginLeft: "30px" }}>
+                      <div style={{ marginLeft: "0px" }}>
                         <p
                           style={{
                             fontSize: "0.5rem",
@@ -392,65 +373,22 @@ const NftDetails = (props) => {
                           After that you can click on the "Get Action" button
                           which will redirect you to the payment page.
                         </p>
-                        {paymentLinkGet === undefined ? (
-                          <Button
-                            color="primary"
-                            onClick={() => setIsOpen(true)}
-                            style={{
-                              marginBottom: "0.7rem",
-                              width: "25%",
-                              height: "65px",
-                            }}
-                          >
-                            Reward Action
-                          </Button>
-                        ) : (
-                          <span>
-                            <Button
-                              id="reward"
-                              style={{
-                                background: "rgb(37,77,168)",
-                                marginBottom: "0.7rem",
-                                width: "25%",
-                                height: "65px",
-                              }}
-                            >
-                              Reward Action
-                            </Button>
-
-                            <Tooltip
-                              placement="left"
-                              isOpen={tooltipOpen}
-                              target="reward"
-                              toggle={toggleTip}
-                            >
-                              This action is reserved. Try again later!
-                            </Tooltip>
-                          </span>
-                        )}
-                        &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
-                        <a
-                          href={paymentLinkGet}
-                          target="_blank"
-                          rel="noreferrer"
+                        <Button
+                          color="primary"
+                          onClick={() => setIsOpen(true)}
+                          style={{
+                            marginBottom: "0.7rem",
+                            width: "45%",
+                            height: "65px",
+                          }}
                         >
-                          <Button
-                            color="success"
-                            style={{
-                              marginBottom: "0.7rem",
-                              width: "25% ",
-                              height: "65px",
-                            }}
-                          >
-                            <i className="ri-shopping-bag-line"></i>
-                            Get Action
-                          </Button>
-                        </a>
+                          Reward Action
+                        </Button>
                         &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
                         <Button
                           style={{
                             marginBottom: "0.7rem",
-                            width: "25% ",
+                            width: "45% ",
                             height: "65px",
                           }}
                           onClick={handleActionStatusSync}
@@ -510,6 +448,7 @@ const NftDetails = (props) => {
                                       setShowModal={setShowModal}
                                       paymentLinkGet={paymentLinkGet}
                                       setIsOpen={setIsOpen}
+                                      paymentLinks={paymentLinks}
                                     />
                                   ))}
                                 {postStatus === "error" && showModal && (

@@ -5,9 +5,9 @@
   font-size: 0.9rem;
   color: #fff;
   cursor: pointer;
-  border: none;
+  border: 1px solid #32373c;
   outline: none;
-  background: #343444;
+  background: transparent;
   border-radius: 5px;
 }
 
@@ -16,15 +16,14 @@
   border-radius: 5px;
   cursor: pointer;
   outline: none;
-  background: #343444;
-  border: none;
+  background: transparent;
+  border: 1px solid #32373c;
   padding: 8px 25px;
   height: inherit;
   color: #fff;
   font-size: 0.9rem;
   padding-left: 30px;
 }
-
 
 .loader-container {
   width: 100%;

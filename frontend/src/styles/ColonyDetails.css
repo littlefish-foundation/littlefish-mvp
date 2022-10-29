@@ -1,7 +1,82 @@
+.common__section__colony {
+  background: url("../assets/colonyCommonSection.jpg");
+  resize: inherit;
+  /* background-position: center center; */
+  background-repeat: no-repeat;
+  /* background-size: cover; */
+  background-size: 100% 100%;
+
+  padding-top: 250px;
+}
+
 .single__colony-img {
   border-radius: 8px;
   width: 90%;
   height: 400px;
+}
+
+.main__colony__image {
+  position: absolute;
+  margin-top: -150px;
+  margin-left: 473px;
+  height: 250px;
+  width: 350px;
+  border: 3px solid #fff;
+  border-radius: 5%;
+  background: #000000;
+}
+
+.main__colony__image img {
+  object-fit: contain;
+}
+
+.colony__name h3 {
+  font-size: 2rem;
+  font-weight: 500;
+  margin-top: 100px;
+  /* margin-left: 320px; */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-bottom: 5px;
+  color: #fff;
+  border-radius: 7px;
+}
+
+.colony__description {
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 25px;
+  border: 1px solid #fff;
+  border-radius: 7px;
+  padding: 10px;
+  width: 1196px;
+  display: flex;
+  justify-content: center;
+}
+
+.colony__description h1 {
+  font-size: 1rem;
+  font-weight: 500;
+
+  color: #fff;
+}
+
+.colony__description p {
+  font-size: 1rem;
+  display: flex;
+  justify-content: center;
+  font-weight: 500;
+  margin-bottom: 0 !important;
+  color: #fff;
+}
+
+.social__links__colony span a {
+  text-decoration: none;
+  color: rgba(255, 255, 255, 0.772);
+  font-size: 2rem;
+  font-weight: 400;
+  transition: 0.3s;
 }
 
 .single__colony-seen span i {
@@ -36,7 +111,6 @@
   color: #fff;
   background-color: transparent !important;
   float: left;
-  box-shadow: none !important;
   font-size: 0.7rem !important;
   font-weight: 400;
   margin-right: 38px;

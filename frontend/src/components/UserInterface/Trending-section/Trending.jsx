@@ -20,8 +20,8 @@ const Trending = () => {
           </Col>
 
           {NFT__DATA?.slice(8, 16).map((item) => (
-            <Col lg="3" md="4" sm="6" key={item.tokenId} className="mb-4">
-              <NftCard item={item} />
+            <Col lg="3" md="4" sm="6" key={item._id} className="mb-4">
+              <NftCard item={item} key={item._id} />
             </Col>
           ))}
         </Row>

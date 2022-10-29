@@ -8,7 +8,7 @@ import UserProfileCard from "../../userProfileCard/UserProfileCard";
 const UserSuccessModal = ({ setShowModal }) => {
   const navigate = useNavigate();
 
-  const { userProfileData, loadingProfileData } = useGetUserProfileData();
+  const { userProfileData } = useGetUserProfileData();
   const navigateActions = () => {
     navigate("/colony/Littlefish%20Foundation");
   };
@@ -17,7 +17,7 @@ const UserSuccessModal = ({ setShowModal }) => {
     <div className="modal__wrapper">
       <div className="single__modal__success">
         <span className="close__modal">
-          <i class="ri-close-line" onClick={() => setShowModal(false)}></i>
+          <i className="ri-close-line" onClick={() => setShowModal(false)}></i>
         </span>
         <div>
           <CheckCircleOutlineIcon color="success" sx={{ fontSize: 50 }} />
@@ -27,7 +27,7 @@ const UserSuccessModal = ({ setShowModal }) => {
           {userProfileData
             ?.slice(userProfileData?.length - 1, userProfileData?.length)
             .map((item) => (
-              <UserProfileCard item={item} />
+              <UserProfileCard item={item} key={item._id} />
             ))}
         </div>
 

@@ -8,7 +8,7 @@ const DisconnectedModal = ({ setShowModalDisconnect }) => {
       <div className="single__modal">
         <span className="close__modal">
           <i
-            class="ri-close-line"
+            className="ri-close-line"
             onClick={() => {
               setShowModalDisconnect(false);
               window.location.reload();

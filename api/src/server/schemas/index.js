@@ -4,6 +4,7 @@ const actionSaleSchemas = require('./action-sale');
 const colonySchemas = require('./colony');
 const userSchemas = require('./user');
 const authSchemas = require('./auth');
+const colonyShowcaseActionSchemas = require('./colony-showcase-action');
 
 module.exports = {
   actionSchemas,
@@ -12,4 +13,5 @@ module.exports = {
   colonySchemas,
   userSchemas,
   authSchemas,
+  colonyShowcaseActionSchemas,
 };

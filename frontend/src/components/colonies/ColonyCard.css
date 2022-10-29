@@ -39,11 +39,8 @@
 }
 
 .explore__btn {
-  border: none;
   outline: none;
   padding: 5px 22px;
-  background: transparent;
-  border: none;
   font-size: 0.9rem;
   color: #fff;
   border-radius: 50px;

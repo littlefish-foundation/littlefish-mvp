@@ -25,13 +25,13 @@ module.exports = class ColonyController {
     res.status(200).send(data);
   });
 
-  static getAllInfo = catchAsync(async (req, res) => {
+  static getParentSubColonies = catchAsync(async (req, res) => {
     const { colonyName } = req.params;
     const {
       name, producerName, status, minDate, maxDate, sortingOrder, sortingField, page, limit, type,
     } = req.query;
 
-    const data = await colonyService.getAllInfo(colonyName, {
+    const data = await colonyService.getParentSubColonies(colonyName, {
       name, producerName, status, minDate, maxDate, type,
     }, { sortingOrder, sortingField }, page, limit);
     res.status(200).send(data);
@@ -56,13 +56,5 @@ module.exports = class ColonyController {
     res.status(500).send({
       message: 'Colonies will not be created at this point. Littlefish Foundation is the only colony available.',
     });
-
-    // const {
-    //   colony,
-    // } = req.body;
-    //
-    // const data = await colonyService.createColony(colony);
-    //
-    // res.status(201).send(data);
   });
 };

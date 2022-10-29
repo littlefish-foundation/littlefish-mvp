@@ -5,7 +5,7 @@
 
 .footer {
   padding-bottom: 30px;
-  background: #000;
+  background: #14151e;
 }
 .abstractLogo {
   width: 50px;
@@ -51,7 +51,7 @@
 
   color: rgba(255, 255, 255, 0.772);
 
-  font-size: 3rem;
+  font-size: 2rem;
   font-weight: 400;
   transition: 0.3s;
 }
@@ -62,4 +62,7 @@
 
 .copyright {
   font-size: 0.8rem;
+  display: flex;
+  justify-content: center;
+  padding-bottom: 0%;
 }

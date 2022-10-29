@@ -22,6 +22,10 @@ module.exports = class ActionDataAccess {
     return ActionModel.findByIdAndUpdate(id, { status });
   }
 
+  static async setActionSoldWithCollectionID(collectionID) {
+    return ActionModel.findOneAndUpdate({ actionCollection: collectionID }, { status: 'SOLD' });
+  }
+
   static async getActions(colony, filter, sorter, page, limit, fields = '-__v') {
     const {
       name, producerName, minDate, maxDate, status, type,
@@ -32,12 +36,8 @@ module.exports = class ActionDataAccess {
     } = sorter;
 
     return ActionModel.find({
-      ...(producerName || name ? {
-        $or: [
-          { producerName: { $regex: producerName, $options: 'i' } },
-          { name: { $regex: name, $options: 'i' } },
-        ],
-      } : undefined),
+      ...(producerName ? { producerName: { $regex: producerName, $options: 'i' } } : undefined),
+      ...(name ? { name: { $regex: name, $options: 'i' } } : undefined),
       ...(colony ? { colony } : undefined),
       ...(minDate ? { createdAt: { $gte: minDate } } : undefined),
       ...(maxDate ? { createdAt: { $lte: maxDate } } : undefined),
@@ -51,5 +51,9 @@ module.exports = class ActionDataAccess {
       .select(fields)
       .lean()
       .exec();
+  }
+
+  static getNumberOfActionsInColony(colonyName) {
+    return ActionModel.find({ colony: colonyName }).countDocuments().lean().exec();
   }
 };

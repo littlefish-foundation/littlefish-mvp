@@ -37,6 +37,7 @@ const Colony = (props) => {
             <ColonyCard
               style={{ leftMargin: "auto", rightMargin: "auto" }}
               item={item}
+              key={item._id}
             />
           ))}
           <br />

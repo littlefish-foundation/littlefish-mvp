@@ -3,7 +3,7 @@ import axios from "axios";
 import { LITTLEFISH_API_URL } from "../config.json";
 
 function useFetchByActionStatus(actionStatus) {
-  const [actionsByStatus, setActionsByStatus] = useState(null);
+  const [actionsByStatus, setActionsByStatus] = useState([]);
   const [loadingActionsByStatus, setLoadingActionsByStatus] = useState(false);
   const [error, setError] = useState(null);
 

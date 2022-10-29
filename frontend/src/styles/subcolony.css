@@ -1,0 +1,99 @@
+.common__section__subcolony {
+  background: url("../assets/subcolbcg.jpg");
+  resize: inherit;
+  /* background-position: center center; */
+  background-repeat: no-repeat;
+  /* background-size: cover; */
+  background-size: 100% 100%;
+  padding-top: 250px;
+}
+
+.main__image {
+  position: absolute;
+  margin-top: -150px;
+  margin-left: 473px;
+  height: 250px;
+  width: 350px;
+  border: 3px solid #fff;
+  border-radius: 5%;
+  background: #000000;
+}
+
+.main__image img {
+  object-fit: contain;
+}
+
+.subcolony__name h3 {
+  font-size: 2rem;
+  font-weight: 500;
+  margin-top: 100px;
+  /* margin-left: 320px; */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-bottom: 5px;
+  color: #fff;
+  border-radius: 7px;
+}
+
+.subcolony__bio {
+  margin-left: 5px;
+  margin-bottom: 25px;
+}
+
+.subcolony__bio h1 {
+  font-size: 1rem;
+  font-weight: 500;
+
+  color: #fff;
+}
+
+.subcolony__bio p {
+  font-size: 1rem;
+  display: flex;
+  justify-content: center;
+  font-weight: 500;
+  margin-bottom: 0 !important;
+  color: #fff;
+}
+
+.wallet__id__btn {
+  color: #fff;
+  background-color: transparent !important;
+  float: left;
+  font-size: 0.7rem !important;
+  font-weight: 400;
+  margin-right: 38px;
+  overflow: hidden;
+  cursor: pointer;
+  box-shadow: 0 13px 27px -5px hsla(240, 30.1%, 28%, 0.25),
+    0 8px 16px -8px hsla(0, 0%, 0%, 0.3), 0 -6px 16px -6px hsla(0, 0%, 0%, 0.03);
+  transition: all ease 200ms;
+}
+
+.wallet__id__btn:hover {
+  transform: scale(1.03);
+  box-shadow: 0 13px 40px -5px hsla(240, 30.1%, 28%, 0.12),
+    0 8px 32px -8px hsla(0, 0%, 0%, 0.14),
+    0 -6px 32px -6px hsla(0, 0%, 0%, 0.02);
+}
+.cardano__icon {
+  height: 30px;
+  width: 30px;
+  float: left;
+  margin-left: 5px;
+
+  margin-right: 8px;
+}
+
+.social__links__subcolony span a {
+  text-decoration: none;
+  color: rgba(255, 255, 255, 0.772);
+  font-size: 2rem;
+  font-weight: 400;
+  transition: 0.3s;
+}
+
+.social__links__subcolony span a:hover {
+  color: rgb(193, 150, 50);
+}

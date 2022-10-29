@@ -2,16 +2,23 @@
   width: 100%;
   height: 70px;
   line-height: 70px;
-  background: rgb(20, 20, 30);
+  background: #14151e;
   position: fixed;
   top: 0;
   left: 0;
   z-index: 111111;
 }
 
+.cardano__icon__address {
+  height: 17px;
+  width: 17px;
+  margin-left: 7px
+}
+
 .header__shrink {
   background: #14141f;
-  box-shadow: 2px 2px 4px -2px #2037e4 #8df68d;
+  backdrop-filter: blur(10px);
+  opacity: 0.9;
 }
 
 .navigation {
@@ -132,4 +139,3 @@
     font-size: 0.7rem !important;
   }
 }
-

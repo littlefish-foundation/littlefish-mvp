@@ -7,8 +7,13 @@
 }
 
 body {
-  background: #14141f !important;
-  font-family: "Roboto", sans-serif;
+  background: #110f1c !important;
+  font-family: "Roboto", "PingFangSC-Regular", "Microsoft YaHei", "Arial",
+    "sans-serif" !important;
+  -webkit-font-smoothing: antialiased;
+  -moz-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -o-font-smoothing: antialiased;
 }
 
 h1,
@@ -53,7 +58,6 @@ footer {
 
 ::-webkit-scrollbar {
   width: 10px;
-  
 }
 
 ::-webkit-scrollbar-thumb {

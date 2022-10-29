@@ -1,20 +1,27 @@
 .profile__image {
   position: absolute;
-  margin-top: -70px;
-
-  height: 200px;
-  width: 200px;
+  margin-top: -150px;
+  margin-left: 473px;
+  height: 250px;
+  width: 350px;
   border: 3px solid #fff;
-  border-radius: 50%;
+  border-radius: 5%;
+  background: #000000;
+}
+
+.profile__image img {
+  object-fit: contain;
 }
 
 .profile__name h3 {
   font-size: 2rem;
   font-weight: 500;
-  margin-top: 30px;
-  margin-left: 5px;
+  margin-top: 100px;
+  /* margin-left: 320px; */
+  display: flex;
+  justify-content: center;
+  align-items: center;
   padding-bottom: 5px;
-
   color: #fff;
   border-radius: 7px;
 }
@@ -23,7 +30,6 @@
   color: #fff;
   background-color: transparent !important;
   float: left;
-  box-shadow: none !important;
   font-size: 0.7rem !important;
   font-weight: 400;
   margin-right: 38px;
@@ -68,8 +74,9 @@
 }
 
 .user__bio p {
-  font-size: 0.6rem;
-  font-style: italic;
+  font-size: 1rem;
+  display: flex;
+  justify-content: center;
   font-weight: 500;
   margin-bottom: 0 !important;
   color: #fff;
@@ -93,6 +100,17 @@
   border-color: #3d5af1 transparent #3d5af1 transparent;
   border-radius: 50%;
   animation: spin-anim 1.2s linear infinite;
+}
+.social__links__user span a {
+  text-decoration: none;
+  color: rgba(255, 255, 255, 0.772);
+  font-size: 2rem;
+  font-weight: 400;
+  transition: 0.3s;
+}
+
+.social__links__user span a:hover {
+  color: rgb(193, 150, 50);
 }
 
 @keyframes spin-anim {

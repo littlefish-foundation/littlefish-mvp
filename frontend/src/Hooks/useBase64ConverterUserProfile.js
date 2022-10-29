@@ -42,7 +42,7 @@ function useBase64ConverterUserProfile() {
           const base64 = reader.result;
 
           if (base64) {
-            var base64Sub = base64.toString();
+            let base64Sub = base64.toString();
 
             setImgBase64((imgBase64) => [...imgBase64, base64Sub]);
           }

@@ -1,6 +1,7 @@
 const tangocryptoClient = require('../external-api/tangocrypto-client');
 const actionDataAccess = require('../data-access/action');
 const actionTypeDataAccess = require('../data-access/action-type');
+const colonyActionTypeDataAccess = require('../data-access/colony-action-type');
 const actionLogic = require('../logics/action');
 const uploadImage = require('../utils/upload-image');
 const { formatActions } = require('../formatters/action');
@@ -32,9 +33,7 @@ module.exports = class ActionService {
   static async deleteAction(id) {
     const { actionID, actionCollection } = await this.getActionById(id);
 
-    // TODO action response obj
     await tangocryptoClient.deleteAction(actionID, actionCollection);
-
     const success = await actionDataAccess.deleteActionById(id);
 
     return {
@@ -54,8 +53,8 @@ module.exports = class ActionService {
     };
   }
 
-  static async getActions(colonyName, filter, sorter, page, limit) {
-    const actions = await actionDataAccess.getActions(colonyName, filter, sorter, page, limit);
+  static async getActions(colony, filter, sorter, page, limit) {
+    const actions = await actionDataAccess.getActions(colony, filter, sorter, page, limit);
 
     return formatActions(actions);
   }
@@ -65,22 +64,30 @@ module.exports = class ActionService {
     return collectionID;
   }
 
-  static async handleMintActionTypes(type) {
+  static async handleMintActionTypes(type, colony) {
     const actionType = await actionTypeDataAccess.getActionType(type);
+    const colonyActionType = await colonyActionTypeDataAccess.getColonyActionType(colony, type);
 
-    if (actionType) {
+    if (actionType && colonyActionType) {
       await actionTypeDataAccess.incrementActionType(actionType.name);
-      return;
+      await colonyActionTypeDataAccess.incrementColonyActionType(colonyActionType.colony, colonyActionType.name);
     }
-    await actionTypeDataAccess.createActionType(type);
+    else if (actionType && !colonyActionType) {
+      await actionTypeDataAccess.incrementActionType(actionType.name);
+      await colonyActionTypeDataAccess.createColonyActionType(colony, type);
+    }
+    else {
+      await actionTypeDataAccess.createActionType(type);
+      await colonyActionTypeDataAccess.createColonyActionType(colony, type);
+    }
   }
 
   static async uploadAllImages(coverImage, files) {
     const promises = [];
     promises.push(uploadImage(coverImage));
 
-    for (let i = 0; i < files.length; i++) {
-      promises.push(uploadImage(files[i].src));
+    for (const file of files) {
+      promises.push(uploadImage(file.src));
     }
     const fileNames = await Promise.all(promises);
     return fileNames.map((f) => API_IMAGES_LINK + f);
@@ -90,13 +97,11 @@ module.exports = class ActionService {
     const promises = [];
     if (!links) return links;
 
-    for (let i = 0; i < links.length; i++) {
-      if (links[i].url.length > ACTION_MAX_ALLOWED_LENGTH) {
-        promises.push(shortenUrl(links[i].url));
+    for (const link of links) {
+      if (link.url.length > ACTION_MAX_ALLOWED_LENGTH) {
+        promises.push(shortenUrl(link.url));
       } else {
-        promises.push(new Promise((resolve) => {
-          resolve(links[i].url);
-        }));
+        promises.push(Promise.resolve(link.url));
       }
     }
 
@@ -115,7 +120,6 @@ module.exports = class ActionService {
 
     const promises = [];
     action.types?.forEach((t) => promises.push(this.handleMintActionTypes(t)));
-    // const fileNames = await this.uploadAllImages(action.image, action.files);
 
     promises.push(actionDataAccess.createAction({
       chainID: mintedAction.id,
@@ -137,13 +141,27 @@ module.exports = class ActionService {
       links,
       ulid,
       mintDate,
-      // dbImage: fileNames?.[0],
-      // dbFiles: fileNames?.slice(1),
     }));
 
     await Promise.all(promises);
     return {
       success: true,
     };
+  }
+
+  static async syncActionWebhook(hook) {
+    const collectionID = hook?.data?.collectionId;
+    if (!collectionID) {
+      throw new NotFoundError('Action could not be found.');
+    }
+
+    await actionDataAccess.setActionSoldWithCollectionID(collectionID);
+    return {
+      success: true,
+    };
+  }
+
+  static getNumberOfActionsInColony(colony) {
+    return actionDataAccess.getNumberOfActionsInColony(colony);
   }
 };

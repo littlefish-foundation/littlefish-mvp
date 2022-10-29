@@ -1,3 +1,5 @@
+/* eslint-disable max-len */
+
 const express = require('express');
 const validator = require('./middlewares/validator');
 const authenticator = require('./middlewares/authenticator');
@@ -7,9 +9,10 @@ const colonyController = require('./controllers/colony');
 const userController = require('./controllers/user');
 const actionSaleController = require('./controllers/action-sale');
 const actionTypeController = require('./controllers/action-type');
+const colonyShowcaseActionController = require('./controllers/colony-showcase-action');
 const authController = require('./controllers/auth');
 const {
-  actionSchemas, colonySchemas, userSchemas, actionTypeSchemas, actionSaleSchemas, authSchemas,
+  actionSchemas, colonySchemas, userSchemas, actionTypeSchemas, actionSaleSchemas, authSchemas, colonyShowcaseActionSchemas,
 } = require('./schemas');
 
 const router = express.Router();
@@ -24,11 +27,12 @@ actionRouter.route('/').post(authenticator, validator(actionSchemas.mintAction),
 actionRouter.route('/:id/sync-status').patch(validator(actionSchemas.syncActionStatus), actionController.syncActionStatus);
 actionRouter.route('/:id').get(validator(actionSchemas.getAction), actionController.getAction);
 actionRouter.route('/:id').delete(validator(actionSchemas.deleteAction), actionController.deleteAction);
+actionRouter.route('/hook').post(actionController.syncActionWebhook);
 router.use('/action', actionRouter);
 
 const colonyRouter = express.Router();
 colonyRouter.route('/').get(validator(colonySchemas.getColonies), colonyController.getColonies);
-colonyRouter.route('/:colonyName/all-info').get(validator(colonySchemas.getAllInfo), colonyController.getAllInfo);
+colonyRouter.route('/:colonyName/parent-and-subs').get(validator(colonySchemas.getParentSubColonies), colonyController.getParentSubColonies);
 colonyRouter.route('/').post(validator(colonySchemas.createColony), colonyController.createColony);
 colonyRouter.route('/:colonyName').get(validator(colonySchemas.getColony), colonyController.getColony);
 colonyRouter.route('/:colonyName').delete(validator(colonySchemas.deleteColony), colonyController.deleteColony);
@@ -57,5 +61,11 @@ actionTypeRouter.route('/:name').delete(validator(actionTypeSchemas.deleteAction
 actionTypeRouter.route('/').get(validator(actionTypeSchemas.getActionTypes), actionTypeController.getActionTypes);
 actionTypeRouter.route('/').post(validator(actionTypeSchemas.createActionType), actionTypeController.createActionType);
 router.use('/action-type', actionTypeRouter);
+
+const colonyShowcaseActionRouter = express.Router();
+colonyShowcaseActionRouter.route('/:colonyName').get(validator(colonyShowcaseActionSchemas.getShowcase), colonyShowcaseActionController.getShowcase);
+colonyShowcaseActionRouter.route('/:colonyName/action').delete(validator(colonyShowcaseActionSchemas.deleteActionFromShowcase), colonyShowcaseActionController.deleteActionFromShowcase);
+colonyShowcaseActionRouter.route('/:colonyName').delete(validator(colonyShowcaseActionSchemas.deleteShowcaseByColony), colonyShowcaseActionController.deleteShowcaseByColony);
+colonyShowcaseActionRouter.route('/:colonyName').post(validator(colonyShowcaseActionSchemas.addActionToShowcase), colonyShowcaseActionController.addActionToShowcase);
 
 module.exports = router;

@@ -18,16 +18,16 @@ const UserProfileCard = (props) => {
         <CardBody>
           <br />
 
-          <div className="user__info-wrapper d-flex gap-3">
+          <div className="user__title">
             <FaUserAlt
               style={{
                 color: "white",
-                fontSize: "1rem",
+                fontSize: "1.3rem",
                 alignItems: "center",
               }}
             />
-
-            <h5 className="user__title">{name}</h5>
+            &nbsp;&nbsp;
+            <h5>{name}</h5>
           </div>
         </CardBody>
       </div>

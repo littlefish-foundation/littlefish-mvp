@@ -19,7 +19,8 @@ jobs:
             cd ~/littlefish-mvp
             git pull origin main
             git status
-            npm install --only=prod
+            cd ./api/
+            npm install --omit=dev
       - name: deploy frontend app
         uses: appleboy/ssh-action@master
         with:
@@ -31,9 +32,10 @@ jobs:
             cd ~/littlefish-mvp
             git pull origin main
             git status
-            cd ./frontend
-            npm install --only=prod
-            npm build
+            cd ./frontend/
+            npm install --omit=dev
+            export node_options=--max_old_space_size=8192
+            npm run build
             rm -rf /var/www/app.littlefish.foundation
             mkdir /var/www/app.littlefish.foundation
             cp  -r ./build/*  /var/www/app.littlefish.foundation

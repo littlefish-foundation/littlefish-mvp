@@ -3,6 +3,7 @@ const colonyDataAccess = require('../data-access/colony');
 const colonyRelationDataAccess = require('../data-access/colony-relation');
 const userDataAccess = require('../data-access/user');
 const { NotFoundError } = require('../errors');
+const colonyActionTypeDataAccess = require('../data-access/colony-action-type');
 
 module.exports = class ColonyService {
   static async getColony(name) {
@@ -12,6 +13,7 @@ module.exports = class ColonyService {
     }
 
     colony.stats = await this.getColonyStatsWithSubColonies(name, colony._id);
+    colony.popularTypes = await colonyActionTypeDataAccess.getPopularColonyActionTypes(name);
     return colony;
   }
 

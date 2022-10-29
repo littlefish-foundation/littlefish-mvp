@@ -5,13 +5,13 @@ module.exports = class ActionTypeAccess {
     return ActionTypeModel.findOne({ name }).select(fields).lean().exec();
   }
 
-  static async getPopularActionTypes(limit, fields = '-_id, -__v') {
+  static async getPopularActionTypes(limit=10, fields = '-_id, -__v') {
     return ActionTypeModel.find().sort({ count: 'desc' }).limit(limit).select(fields)
       .lean()
       .exec();
   }
 
-  static async getActionTypes(page, limit, fields = '-__v') {
+  static async getActionTypes(page, limit=10, fields = '-__v') {
     return ActionTypeModel.find().skip(page * limit).limit(limit).select(fields)
       .lean()
       .exec();

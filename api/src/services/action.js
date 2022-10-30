@@ -2,6 +2,7 @@ const tangocryptoClient = require('../external-api/tangocrypto-client');
 const actionDataAccess = require('../data-access/action');
 const actionTypeDataAccess = require('../data-access/action-type');
 const colonyActionTypeDataAccess = require('../data-access/colony-action-type');
+const colonyRelationDataAccess = require('../data-access/colony-relation');
 const actionLogic = require('../logics/action');
 const uploadImage = require('../utils/upload-image');
 const { formatActions } = require('../formatters/action');
@@ -65,21 +66,41 @@ module.exports = class ActionService {
   }
 
   static async handleMintActionTypes(type, colony) {
-    const actionType = await actionTypeDataAccess.getActionType(type);
-    const colonyActionType = await colonyActionTypeDataAccess.getColonyActionType(colony, type);
+    const colonyRelation = await colonyRelationDataAccess.getParentColony(colony);
+    const [actionType, colonyActionType, parentActionType] = await Promise.all([
+      actionTypeDataAccess.getActionType(type),
+      colonyActionTypeDataAccess.getColonyActionType(colony, type),
+      colonyActionTypeDataAccess.getColonyActionType(colonyRelation.parent.name, type),
+    ]);
 
-    if (actionType && colonyActionType) {
-      await actionTypeDataAccess.incrementActionType(actionType.name);
-      await colonyActionTypeDataAccess.incrementColonyActionType(colonyActionType.colony, colonyActionType.name);
+    if (colonyActionType) {
+      await Promise.all([
+        actionTypeDataAccess.incrementActionType(actionType.name),
+        colonyActionTypeDataAccess.incrementColonyActionType(colonyActionType.colony, colonyActionType.name),
+        colonyActionTypeDataAccess.incrementColonyActionType(parentActionType.colony, colonyActionType.name)]);
+      return;
     }
-    else if (actionType && !colonyActionType) {
-      await actionTypeDataAccess.incrementActionType(actionType.name);
-      await colonyActionTypeDataAccess.createColonyActionType(colony, type);
+
+    if (parentActionType) {
+      await Promise.all([
+        actionTypeDataAccess.incrementActionType(actionType.name),
+        colonyActionTypeDataAccess.createColonyActionType(colonyActionType.colony, colonyActionType.name),
+        colonyActionTypeDataAccess.incrementColonyActionType(parentActionType.colony, colonyActionType.name)]);
+      return;
     }
-    else {
-      await actionTypeDataAccess.createActionType(type);
-      await colonyActionTypeDataAccess.createColonyActionType(colony, type);
+
+    if (actionType) {
+      await Promise.all([
+        actionTypeDataAccess.incrementActionType(actionType.name),
+        colonyActionTypeDataAccess.createColonyActionType(colonyActionType.colony, colonyActionType.name),
+        colonyActionTypeDataAccess.createColonyActionType(parentActionType.colony, colonyActionType.name)]);
+      return;
     }
+
+    await Promise.all([
+      actionTypeDataAccess.createActionType(actionType.name),
+      colonyActionTypeDataAccess.createColonyActionType(colonyActionType.colony, colonyActionType.name),
+      colonyActionTypeDataAccess.createColonyActionType(parentActionType.colony, colonyActionType.name)]);
   }
 
   static async uploadAllImages(coverImage, files) {

@@ -5,6 +5,10 @@ const colony = new mongoose.Schema({
   description: { type: String, required: true },
   coverImage: { type: String, required: true },
   walletAddress: { type: String, required: true },
+  rewardSharing: {
+    colony: { type: Number, required: true },
+    members: { type: Number, required: true },
+  },
   files: { type: Array },
   links: { type: Object },
   createdAt: { type: Date, default: Date.now },

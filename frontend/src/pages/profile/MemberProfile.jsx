@@ -97,7 +97,7 @@ const MemberProfile = (props) => {
             <img src={cardanoIcon} alt="" className="cardano__icon" />
 
             <a
-              href={`https://preprod.cardanoscan.io/address/${walletID}`}
+              href={`https://preprod.cexplorer.io/address/${walletID}`}
               target="_blank"
               rel="noopener noreferrer"
             >

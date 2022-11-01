@@ -1,6 +1,7 @@
 name: Prod deployment
 
 on:
+  workflow_dispatch:
   push:
     branches: [ main ]
 jobs:

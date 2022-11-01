@@ -16,6 +16,7 @@ jobs:
           password: ${{ secrets.API_PASSWORD }}
           port: 22
           script: |
+            which npm
             cd ~/littlefish-mvp
             git pull origin main
             git status

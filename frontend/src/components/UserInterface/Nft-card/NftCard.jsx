@@ -18,9 +18,55 @@ const NftCard = (props) => {
     types,
     colony,
     description,
+    status,
   } = props.item;
 
   const createdat = createdAt?.substring(0, 10);
+
+  const handleActionStatusLabel = () => {
+    if (status === "UPLOADING_CONTENT") {
+      return "Uploading Content";
+    } else if (status === "FOR_SALE") {
+      return "Ready to Mint";
+    } else if (status === "RESERVED") {
+      return "Reserved";
+    } else {
+      return "Minted";
+    }
+  };
+
+  const typeRenderingLogic = () => {
+    if (types.length <= 3) {
+      return types?.map((type, index) => (
+        <Badge
+          color="primary"
+          pill
+          style={{ fontSize: "0.7rem", marginTop: "5px" }}
+          key={index}
+        >
+          #{type} <br />
+        </Badge>
+      ));
+    } else {
+      return (
+        <div>
+          {types?.slice(0, 3)?.map((type, index) => (
+            <Badge
+              color="primary"
+              pill
+              style={{ fontSize: "0.7rem", marginTop: "5px" }}
+              key={index}
+            >
+              #{type} <br />
+            </Badge>
+          ))}
+          <Badge color="primary" pill style={{ fontSize: "0.7rem" }} index={3}>
+            ...
+          </Badge>
+        </div>
+      );
+    }
+  };
 
   return (
     <Link
@@ -34,22 +80,10 @@ const NftCard = (props) => {
         </div>
 
         <div className="nft__content">
-          {/* <div className="details"> */}
           <div>
-            <h5>{name.length <= 20 ? name : name.slice(0, 20) + "..."}</h5>
+            <h6>{name}</h6>
 
             <div className="creator__info">
-              <h6>
-                <FaUserAlt
-                  style={{
-                    color: "white",
-                    fontSize: "0.7rem",
-                  }}
-                />
-                &nbsp;&nbsp;
-                {producerName}
-              </h6>
-
               <h6>
                 <FaFish
                   style={{
@@ -63,23 +97,8 @@ const NftCard = (props) => {
             </div>
 
             <div>
-              <Badge color="primary" pill style={{ fontSize: "0.7rem" }}>
-                {types[0].length > 15
-                  ? types[0].slice(0, 15) + "..."
-                  : types[0]}
-              </Badge>
-              <Badge color="primary" pill style={{ fontSize: "0.7rem" }}>
-                ...
-              </Badge>
+              {typeRenderingLogic()}
 
-              <Badge color="gold" style={{ marginLeft: "10px" }}>
-                <img
-                  src={cardanoIcon}
-                  alt=""
-                  className="cardano__icon__price"
-                />
-                {minimumPrice} ₳
-              </Badge>
               <br />
             </div>
           </div>
@@ -87,15 +106,25 @@ const NftCard = (props) => {
 
         <div className="details">
           <div className="center">
-            <p
-              style={{
-                display: "flex",
-                justifyContent: "center",
-                marginBottom: "1px",
-              }}
-            >
-              Action Types:
-            </p>
+            <div className="creator__info">
+              <Col
+                style={{
+                  display: "flex",
+                  justifyContent: "center",
+                }}
+              >
+                <h6>
+                  <FaUserAlt
+                    style={{
+                      color: "white",
+                      fontSize: "0.7rem",
+                    }}
+                  />
+                  &nbsp;&nbsp;
+                  {producerName}
+                </h6>
+              </Col>
+            </div>
             {types?.map((type, index) => (
               <Col
                 key={index}
@@ -128,7 +157,35 @@ const NftCard = (props) => {
                   style={{ height: "25px", width: "25px", marginRight: "8px" }}
                 />{" "}
               </div>
-              <div>{description}</div>
+              <div style={{ marginRight: "8px" }}>{description}</div>
+            </div>
+            <br />
+            <div style={{ display: "inline-flex" }}>
+              <Badge
+                color="gold"
+                style={{
+                  marginLeft: "10px",
+                  display: "flex",
+                  justifyContent: "start",
+                }}
+              >
+                {handleActionStatusLabel()}
+              </Badge>
+              <Badge
+                color="gold"
+                style={{
+                  marginLeft: "10px",
+                  display: "flex",
+                  justifyContent: "end",
+                }}
+              >
+                <img
+                  src={cardanoIcon}
+                  alt=""
+                  className="cardano__icon__price"
+                />
+                {minimumPrice} ₳
+              </Badge>
             </div>
           </div>
         </div>

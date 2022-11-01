@@ -22,6 +22,7 @@
 
   width: 100%;
   height: 100%;
+  margin-right: "8px";
 
   background: transparent;
   transition: 0.3s;
@@ -83,17 +84,18 @@
 } */
 
 .creator__info h6 {
-  font-size: 0.7rem;
+  font-size: 0.9rem;
   color: rgba(255, 255, 255, 0.772);
   margin-top: 10px;
-  font-weight: 300;
 }
 
 .creator__info p {
   font-size: 0.9rem;
   color: #fff;
   margin-bottom: 0;
-  font-weight: 500;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .bid__btn {
@@ -149,4 +151,3 @@
   width: 15px;
   margin-right: 5px;
 }
-

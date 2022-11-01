@@ -23,7 +23,7 @@ const Routers = () => {
         element={<Navigate to="/colony/Littlefish%20Foundation" />}
       />
 
-      <Route path="/action" element={<Actions />} />
+      {/* <Route path="/action" element={<Actions />} /> */}
       <Route path="/wallet" element={<Wallet />} />
       <Route path="/create" element={<Create />} />
       <Route path="/about" element={<About />} />

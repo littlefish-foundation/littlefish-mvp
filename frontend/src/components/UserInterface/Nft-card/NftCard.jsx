@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { Badge, Col } from "reactstrap";
+import { Badge, Col, Card } from "reactstrap";
 import { FaUserAlt } from "react-icons/fa";
 import "./nft-card.css";
 import { FaFish } from "react-icons/fa";
@@ -118,6 +118,7 @@ const NftCard = (props) => {
                     style={{
                       color: "white",
                       fontSize: "0.7rem",
+                      display: "relative",
                     }}
                   />
                   &nbsp;&nbsp;
@@ -154,13 +155,24 @@ const NftCard = (props) => {
             >
               <div>
                 <MdDescription
-                  style={{ height: "25px", width: "25px", marginRight: "8px" }}
+                  style={{
+                    height: "25px",
+                    width: "25px",
+                    marginRight: "8px",
+                    display: "relative",
+                  }}
                 />{" "}
               </div>
               <div style={{ marginRight: "8px" }}>{description}</div>
             </div>
             <br />
-            <div style={{ display: "inline-flex" }}>
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+            >
               <Badge
                 color="gold"
                 style={{

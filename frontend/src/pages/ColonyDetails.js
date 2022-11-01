@@ -41,27 +41,33 @@ const ColonyDetails = () => {
 
   return (
     <div>
-      <div
-        style={{
-          position: "absolute",
-          marginTop: "260px",
-          color: "white",
-          marginLeft: "1150px",
-          fontSize: "2rem",
-          alignItems: "center",
-        }}
-      >
-        <img src={cardanoIcon} alt="" className="cardano__icon" />
-        <a
-          href={`https://preprod.cexplorer.io/address/${singleColony?.walletAddress}`}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Button className="wallet__id__btn">
-            {first10}......{last10}
-          </Button>
-        </a>
-      </div>
+      <section>
+        <Container>
+          <div
+            style={{
+              position: "absolute",
+              marginTop: "260px",
+              color: "white",
+              fontSize: "2rem",
+              alignItems: "center",
+            }}
+          >
+            <div style={{ marginLeft: "1100px" }}>
+              <img src={cardanoIcon} alt="" className="cardano__icon" />
+              <a
+                href={`https://preprod.cexplorer.io/address/${singleColony?.walletAddress}`}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <Button className="wallet__id__btn">
+                  {first10}......{last10}
+                </Button>
+              </a>
+            </div>
+          </div>
+        </Container>
+      </section>
+
       <section className="common__section__colony">
         <Container>
           <div>
@@ -73,36 +79,40 @@ const ColonyDetails = () => {
           </div>
         </Container>
       </section>
-      <div
-        className="social__links__colony d-flex gap-3 align-items-center"
-        style={{ marginLeft: "15px" }}
-      >
-        <span>
-          <a href="https://github.com/littlefish-foundation">
-            <i className="ri-github-line"></i>
-          </a>
-        </span>
-        <span>
-          <a href="https://www.youtube.com/channel/UCqST3YotsWuc0faaqsLjdKQ/videos">
-            <i className="ri-youtube-line"></i>
-          </a>
-        </span>
-        <span>
-          <a href="https://twitter.com/LittleFishDAO">
-            <i className="ri-twitter-line"></i>
-          </a>
-        </span>
-        <span>
-          <a href="https://linktr.ee/littlefish.foundation">
-            <i className="ri-global-line"></i>
-          </a>
-        </span>
-        <span>
-          <a href="https://discord.gg/tBKZd5AGUS">
-            <i className="ri-discord-line"></i>
-          </a>
-        </span>
-      </div>
+      <section>
+        <Container>
+          <div
+            className="social__links__colony d-flex gap-3 align-items-center"
+            style={{ marginLeft: "15px" }}
+          >
+            <span>
+              <a href="https://github.com/littlefish-foundation">
+                <i className="ri-github-line"></i>
+              </a>
+            </span>
+            <span>
+              <a href="https://www.youtube.com/channel/UCqST3YotsWuc0faaqsLjdKQ/videos">
+                <i className="ri-youtube-line"></i>
+              </a>
+            </span>
+            <span>
+              <a href="https://twitter.com/LittleFishDAO">
+                <i className="ri-twitter-line"></i>
+              </a>
+            </span>
+            <span>
+              <a href="https://linktr.ee/littlefish.foundation">
+                <i className="ri-global-line"></i>
+              </a>
+            </span>
+            <span>
+              <a href="https://discord.gg/tBKZd5AGUS">
+                <i className="ri-discord-line"></i>
+              </a>
+            </span>
+          </div>
+        </Container>
+      </section>
       <br />
       <section>
         <Container>

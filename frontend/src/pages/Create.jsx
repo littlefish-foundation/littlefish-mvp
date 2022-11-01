@@ -429,9 +429,20 @@ const Create = (props) => {
                         value={colony}
                       >
                         <option>Choose your Colony</option>
-                        <option value="Littlefish Foundation">
+                        <option value="Littlefish Foundation" disabled>
                           Littlefish Foundation
                         </option>
+                        <option value="dream engine"> - Dream Engine</option>
+                        <option value={"love house"}> - Love House</option>
+                        <option value={"organization labs"}>
+                          {" "}
+                          - Organization Labs
+                        </option>
+                        <option value={"tech help collective"}>
+                          {" "}
+                          - Tech Help Collective
+                        </option>
+                        <option value={"the forge"}> - The Forge</option>
                       </Input>
                       <PopOvers />
                     </FormGroup>

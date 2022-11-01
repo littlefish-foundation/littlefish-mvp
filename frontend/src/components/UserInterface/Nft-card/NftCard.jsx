@@ -6,6 +6,22 @@ import "./nft-card.css";
 import { FaFish } from "react-icons/fa";
 import cardanoIcon from "../../../assets/cardano.png";
 import { MdDescription } from "react-icons/md";
+import { BsCalendarDateFill } from "react-icons/bs";
+
+let months = [
+  "January",
+  "February",
+  "March",
+  "April",
+  "May",
+  "June",
+  "July",
+  "August",
+  "September",
+  "October",
+  "November",
+  "December",
+];
 
 const NftCard = (props) => {
   const {
@@ -21,11 +37,15 @@ const NftCard = (props) => {
     status,
   } = props.item;
 
-  const createdat = createdAt?.substring(0, 10);
+  const year = createdAt?.substring(0, 4);
+  const month = createdAt?.substring(5, 7);
+  const days = createdAt?.substring(8, 10);
+  let monthName = months[month - 1];
+  let dateFormat = monthName + " " + days + ", " + year;
 
   const handleActionStatusLabel = () => {
     if (status === "UPLOADING_CONTENT") {
-      return "Uploading Content";
+      return "Uploaded";
     } else if (status === "FOR_SALE") {
       return "Ready to Mint";
     } else if (status === "RESERVED") {
@@ -129,11 +149,13 @@ const NftCard = (props) => {
 
         <div className="details">
           <div className="center">
+            {actionTypesOnMouseOver()}
+            <br />
             <div className="creator__info">
               <Col
                 style={{
                   display: "flex",
-                  justifyContent: "center",
+                  justifyContent: "start",
                 }}
               >
                 <h6>
@@ -141,7 +163,7 @@ const NftCard = (props) => {
                     style={{
                       color: "white",
                       fontSize: "0.7rem",
-                      display: "relative",
+                      marginLeft: "2px",
                     }}
                   />
                   &nbsp;&nbsp;
@@ -149,32 +171,21 @@ const NftCard = (props) => {
                 </h6>
               </Col>
             </div>
-            {actionTypesOnMouseOver()}
             <br />
 
             <div
               style={{
                 display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
+                justifyContent: "start",
               }}
             >
               <Badge
                 color="gold"
                 style={{
-                  marginLeft: "10px",
                   display: "flex",
                   justifyContent: "start",
-                }}
-              >
-                {handleActionStatusLabel()}
-              </Badge>
-              <Badge
-                color="gold"
-                style={{
-                  marginLeft: "10px",
-                  display: "flex",
-                  justifyContent: "end",
+                  marginLeft: "0px",
+                  paddingLeft: "0px",
                 }}
               >
                 <img
@@ -182,29 +193,72 @@ const NftCard = (props) => {
                   alt=""
                   className="cardano__icon__price"
                 />
+                &nbsp;&nbsp;
                 {minimumPrice} ₳
+              </Badge>
+              <Badge
+                color="gold"
+                style={{
+                  marginLeft: "0px",
+                  display: "flex",
+                  justifyContent: "end",
+                }}
+              >
+                {handleActionStatusLabel()}
+              </Badge>
+            </div>
+            <br />
+
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "start",
+                alignItems: "center",
+              }}
+            >
+              <Badge
+                color="gold"
+                style={{
+                  marginLeft: "2px",
+                  display: "flex",
+                  justifyContent: "end",
+                  paddingLeft: "0px",
+                }}
+              >
+                <BsCalendarDateFill
+                  style={{
+                    color: "white",
+                    fontSize: "0.7rem",
+                    marginLeft: "0px",
+                  }}
+                />
+                &nbsp;&nbsp;
+                {dateFormat}
               </Badge>
             </div>
 
             <br />
-            <div
-              style={{
-                display: "flex",
-                justifyContent: "center",
-                fontSize: "0.7rem",
-              }}
-            >
-              <div>
-                {" "}
-                <MdDescription
-                  style={{
-                    height: "22px",
-                    width: "22px",
-                    marginRight: "8px",
-                  }}
-                />
-                {description}
-              </div>
+            <div className="creator__info">
+              <Col
+                style={{
+                  display: "flex",
+                  justifyContent: "start",
+                  marginLeft: "2px",
+                }}
+              >
+                <div style={{ fontSize: "0.8rem" }}>
+                  {" "}
+                  <MdDescription
+                    style={{
+                      justifyContent: "start",
+                      fontSize: "0.9rem",
+                      marginLeft: "0px",
+                    }}
+                  />
+                  &nbsp;&nbsp;
+                  {description}
+                </div>
+              </Col>
             </div>
           </div>
         </div>

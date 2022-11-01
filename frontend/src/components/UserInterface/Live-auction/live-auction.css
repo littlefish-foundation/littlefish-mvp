@@ -73,7 +73,7 @@
 }
 
 .creator__info p {
-  font-size: 0.9rem;
+  font-size: 0.6rem;
   color: #fff;
   margin-bottom: 0;
   display: flex;
@@ -136,7 +136,7 @@
 .cardano__icon__price {
   height: 15px;
   width: 15px;
-  margin-right: 5px;
+  margin-left: 0px;
 }
 
 .single__nft__card .details .center::-webkit-scrollbar {

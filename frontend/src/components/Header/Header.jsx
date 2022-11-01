@@ -39,8 +39,8 @@ const NAV__LINKS = [
     url: "/action",
   },
   {
-    display: "Colonies",
-    url: "/colony",
+    display: "Colony",
+    url: "/colony/Littlefish%20Foundation",
   },
   {
     display: "littlefish",

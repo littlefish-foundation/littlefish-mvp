@@ -27,7 +27,7 @@ const Routers = () => {
       <Route path="/littlefish" element={<Littlefish />} />
       <Route path="/MemberForm" element={<MemberForm />} />
 
-      <Route path="/colony" element={<Colony />} />
+      {/* <Route path="/colony" element={<ColonyDetails />} /> */}
       <Route path="/colony/:name" element={<ColonyDetails />} />
       <Route path="/user/:name" element={<MemberProfile />} />
       <Route path="/subcolony/:name" element={<Subcolony />} />

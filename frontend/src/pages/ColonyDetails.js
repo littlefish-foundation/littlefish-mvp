@@ -52,7 +52,7 @@ const ColonyDetails = () => {
       >
         <img src={cardanoIcon} alt="" className="cardano__icon" />
         <a
-          href={`https://preprod.cardanoscan.io/address/${singleColony?.walletAddress}`}
+          href={`https://preprod.cexplorer.io/address/${singleColony?.walletAddress}`}
           target="_blank"
           rel="noopener noreferrer"
         >

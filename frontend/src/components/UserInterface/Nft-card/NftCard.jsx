@@ -68,6 +68,29 @@ const NftCard = (props) => {
     }
   };
 
+  const actionTypesOnMouseOver = () => {
+    if (types.length > 3) {
+      return (
+        <div>
+          <Badge color="primary" pill style={{ fontSize: "0.7rem" }}>
+            ...
+          </Badge>
+
+          {types?.slice(3, types.length)?.map((type, index) => (
+            <Badge
+              color="primary"
+              pill
+              style={{ fontSize: "0.7rem", marginTop: "5px" }}
+              key={index}
+            >
+              #{type} <br />
+            </Badge>
+          ))}
+        </div>
+      );
+    }
+  };
+
   return (
     <Link
       to={`/action/${_id}`}
@@ -126,46 +149,9 @@ const NftCard = (props) => {
                 </h6>
               </Col>
             </div>
-            {types?.map((type, index) => (
-              <Col
-                key={index}
-                style={{
-                  display: "flex",
-                  justifyContent: "center",
-                }}
-              >
-                <Badge
-                  color="primary"
-                  pill
-                  style={{ fontSize: "0.7rem", marginTop: "5px" }}
-                  key={index}
-                >
-                  #{type} <br />
-                </Badge>
-              </Col>
-            ))}
+            {actionTypesOnMouseOver()}
             <br />
 
-            <div
-              style={{
-                display: "flex",
-                justifyContent: "center",
-                fontSize: "0.7rem",
-              }}
-            >
-              <div>
-                <MdDescription
-                  style={{
-                    height: "25px",
-                    width: "25px",
-                    marginRight: "8px",
-                    display: "relative",
-                  }}
-                />{" "}
-              </div>
-              <div style={{ marginRight: "8px" }}>{description}</div>
-            </div>
-            <br />
             <div
               style={{
                 display: "flex",
@@ -198,6 +184,27 @@ const NftCard = (props) => {
                 />
                 {minimumPrice} ₳
               </Badge>
+            </div>
+
+            <br />
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "center",
+                fontSize: "0.7rem",
+              }}
+            >
+              <div>
+                {" "}
+                <MdDescription
+                  style={{
+                    height: "22px",
+                    width: "22px",
+                    marginRight: "8px",
+                  }}
+                />
+                {description}
+              </div>
             </div>
           </div>
         </div>

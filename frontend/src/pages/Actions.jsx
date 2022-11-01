@@ -11,6 +11,8 @@ import useFetchForPopularActionType from "../Hooks/getPopularActionType";
 import useFetchByActionStatus from "../Hooks/getActionsByStatus";
 import ActionByTypeGallery from "../components/typeGallery/ActionByTypeGallery";
 import AllActionTypesGallery from "../components/typeGallery/AllActionTypesGallery";
+import Button from "react-bootstrap/Button";
+import Offcanvas from "react-bootstrap/Offcanvas";
 
 const Actions = () => {
   const [actionStatus, setActionStatus] = useState(null);
@@ -21,6 +23,12 @@ const Actions = () => {
   const [key, setKey] = useState("All Actions");
   const { actionsByStatus, loadingActionsByStatus } =
     useFetchByActionStatus(actionStatus);
+
+  const [show, setShow] = useState(false);
+
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+
   const { popularActionType } = useFetchForPopularActionType();
   useEffect(() => {
     getActions()
@@ -45,7 +53,7 @@ const Actions = () => {
 
   return (
     <div>
-      <SubHeader />
+      {/* <SubHeader /> */}
       <section>
         <Container>
           <Row>
@@ -66,6 +74,7 @@ const Actions = () => {
                       ))}
                     </select>
                   </div> */}
+
                   <div className="all__category__filter">
                     <select
                       onChange={(e) => setSearchType(e.target.value)}
@@ -76,6 +85,7 @@ const Actions = () => {
                       <option value="producerName">By Producer Name</option>
                     </select>
                   </div>
+
                   <form onSubmit={handleSubmit}>
                     <i
                       style={{
@@ -108,7 +118,8 @@ const Actions = () => {
                 </div>
               </div>
             </Col>
-            <h2
+
+            {/* <h2
               style={{
                 color: "white",
                 display: "flex",
@@ -118,22 +129,22 @@ const Actions = () => {
               }}
             >
               Actions
-            </h2>
+            </h2> */}
             <Tabs
               id="controlled-tab-example"
               activeKey={key}
               onSelect={(k) => setKey(k)}
-              className="mb-3"
               style={{
                 marginLeft: "30px",
                 marginTop: "10px",
-                backgroundColor: "transparent !important",
+                background: "transparent",
               }}
+              className="navBar__menu"
             >
               <Tab
                 eventKey="All Actions"
                 title="All Actions"
-                style={{ backgroundColor: "transparent !important" }}
+                style={{ background: "transparent !important" }}
                 key="All Actions"
               >
                 {actionStatus === null || actionStatus === "" ? (

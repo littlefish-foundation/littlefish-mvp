@@ -20,6 +20,7 @@ import useGetSubcolonies from "../Hooks/getSubcolonies";
 import { AiOutlineInfoCircle } from "react-icons/ai";
 import Tab from "react-bootstrap/Tab";
 import Tabs from "react-bootstrap/Tabs";
+import Actions from "./Actions";
 
 const ColonyDetails = () => {
   const { name } = useParams();
@@ -130,7 +131,7 @@ const ColonyDetails = () => {
               style={{
                 width: "18rem",
                 background: "inherit",
-                border: "1px solid #fff",
+                border: "1px solid #32373c",
                 margin: "50px",
               }}
             >
@@ -144,7 +145,7 @@ const ColonyDetails = () => {
               style={{
                 width: "18rem",
                 background: "inherit",
-                border: "1px solid #fff",
+                border: "1px solid #32373c",
                 margin: "50px",
               }}
             >
@@ -159,7 +160,7 @@ const ColonyDetails = () => {
               style={{
                 width: "18rem",
                 background: "inherit",
-                border: "1px solid #fff",
+                border: "1px solid #32373c",
                 margin: "50px",
               }}
             >
@@ -184,10 +185,12 @@ const ColonyDetails = () => {
           >
             <Tab
               eventKey="Contributors"
-              title="All Actions"
+              title="Actions"
               style={{ backgroundColor: "transparent !important" }}
             >
-              <ColonyGallery colony={singleColony?.name} />
+              <br />
+              {/* <ColonyGallery colony={singleColony?.name} /> */}
+              <Actions />
             </Tab>
 
             <Tab

@@ -36,6 +36,23 @@
   z-index: 1;
 }
 
+.navBar__menu {
+  --bs-nav-tabs-link-active-bg: transparent !important;
+  --bs-nav-tabs-link-active-color: #fff !important;
+  --bs-nav-tabs-link-active-border-color: transparent transparent #fff !important;
+  --bs-nav-tabs-border-color: transparent !important;
+  --bs-nav-tabs-link-hover-border-color: transparent transparent #dee2e6 !important;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 30px;
+  height: 100%;
+}
+
+.navBar__menu.active {
+  background: transparent;
+}
+
 @keyframes spin-anim {
   0% {
     transform: rotate(0deg);

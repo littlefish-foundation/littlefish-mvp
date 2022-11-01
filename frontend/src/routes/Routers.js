@@ -18,7 +18,10 @@ import Littlefish from "../pages/Littlefish";
 const Routers = () => {
   return (
     <Routes>
-      <Route path="/" element={<Navigate to="/action" />} />
+      <Route
+        path="/"
+        element={<Navigate to="/colony/Littlefish%20Foundation" />}
+      />
 
       <Route path="/action" element={<Actions />} />
       <Route path="/wallet" element={<Wallet />} />

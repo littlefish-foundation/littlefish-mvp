@@ -34,10 +34,7 @@ const DropDownElement = (
 );
 
 const NAV__LINKS = [
-  {
-    display: "Actions",
-    url: "/action",
-  },
+ 
   {
     display: "Colony",
     url: "/colony/Littlefish%20Foundation",

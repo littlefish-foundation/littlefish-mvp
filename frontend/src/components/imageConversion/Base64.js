@@ -50,7 +50,7 @@ class Base64 extends React.Component {
   render() {
     return (
       <FormGroup className="form__input">
-        <Label for="image">Upload Cover Image</Label>
+        <Label for="image">Upload Cover Image*</Label>
 
         <Input
           id="image"

@@ -59,7 +59,11 @@ const Actions = () => {
           <Row>
             <Col lg="12">
               <div
-                style={{ marginTop: "7px", marginBottom: "10px" }}
+                style={{
+                  marginTop: "7px",
+                  marginBottom: "10px",
+                  marginLeft: "18px",
+                }}
                 className="market__product__filter d-flex align-items-center justify-content-between"
               >
                 <div className="filter__left d-flex align-items-center gap-5">

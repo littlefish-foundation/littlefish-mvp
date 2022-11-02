@@ -7,6 +7,7 @@ import { FaFish } from "react-icons/fa";
 import cardanoIcon from "../../../assets/cardano.png";
 import { MdDescription } from "react-icons/md";
 import { BsCalendarDateFill } from "react-icons/bs";
+import { MdOutlineUpdate } from "react-icons/md";
 import AdaConverter from "../../adaConverter/adaConverter";
 
 let months = [
@@ -51,9 +52,9 @@ const NftCard = (props) => {
     if (status === "UPLOADING_CONTENT") {
       return "Uploaded";
     } else if (status === "FOR_SALE") {
-      return "Ready to Mint";
+      return "Ready To Mint";
     } else if (status === "RESERVED") {
-      return "Reserved";
+      return " Reserved";
     } else {
       return "Minted";
     }
@@ -198,16 +199,33 @@ const NftCard = (props) => {
                   className="cardano__icon__price"
                 />
                 &nbsp;&nbsp;
-                {minimumPrice} ₳ (≈{Math.round(price * minimumPrice)} $)
+                {minimumPrice} ₳ (≈{(price * minimumPrice)?.toFixed(2)} $)
               </Badge>
+            </div>
+            <br />
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "start",
+              }}
+            >
               <Badge
                 color="gold"
                 style={{
-                  marginLeft: "0px",
                   display: "flex",
-                  justifyContent: "end",
+                  justifyContent: "start",
+                  marginLeft: "0px",
+                  paddingLeft: "0px",
                 }}
               >
+                <MdOutlineUpdate
+                  style={{
+                    color: "#fff ",
+                    fontSize: "0.9rem",
+                    marginLeft: "0px",
+                  }}
+                />{" "}
+                &nbsp;&nbsp;
                 {handleActionStatusLabel()}
               </Badge>
             </div>

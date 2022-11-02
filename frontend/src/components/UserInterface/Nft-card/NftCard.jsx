@@ -7,6 +7,7 @@ import { FaFish } from "react-icons/fa";
 import cardanoIcon from "../../../assets/cardano.png";
 import { MdDescription } from "react-icons/md";
 import { BsCalendarDateFill } from "react-icons/bs";
+import AdaConverter from "../../adaConverter/adaConverter";
 
 let months = [
   "January",
@@ -36,6 +37,9 @@ const NftCard = (props) => {
     description,
     status,
   } = props.item;
+
+  const { price } = AdaConverter();
+  console.log(price);
 
   const year = createdAt?.substring(0, 4);
   const month = createdAt?.substring(5, 7);
@@ -194,7 +198,7 @@ const NftCard = (props) => {
                   className="cardano__icon__price"
                 />
                 &nbsp;&nbsp;
-                {minimumPrice} ₳
+                {minimumPrice} ₳ (≈{Math.round(price * minimumPrice)} $)
               </Badge>
               <Badge
                 color="gold"

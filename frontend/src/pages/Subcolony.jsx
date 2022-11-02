@@ -33,36 +33,40 @@ const Subcolony = (props) => {
             </div>
           </Container>
         </section>
-        <div
-          className="social__links__subcolony d-flex gap-3 align-items-center "
-          style={{ marginLeft: "15px" }}
-        >
-          <span>
-            <a href="#">
-              <i className="ri-github-line"></i>
-            </a>
-          </span>
-          <span>
-            <a href="#">
-              <i className="ri-youtube-line"></i>
-            </a>
-          </span>
-          <span>
-            <a href="#">
-              <i className="ri-twitter-line"></i>
-            </a>
-          </span>
-          <span>
-            <a href="#">
-              <i className="ri-global-line"></i>
-            </a>
-          </span>
-          <span>
-            <a href="#">
-              <i className="ri-discord-line"></i>
-            </a>
-          </span>
-        </div>
+        <section>
+          <Container>
+            <div
+              className="social__links__subcolony d-flex gap-3 align-items-center "
+              style={{ marginLeft: "15px" }}
+            >
+              <span>
+                <a href="#">
+                  <i className="ri-github-line"></i>
+                </a>
+              </span>
+              <span>
+                <a href="#">
+                  <i className="ri-youtube-line"></i>
+                </a>
+              </span>
+              <span>
+                <a href="#">
+                  <i className="ri-twitter-line"></i>
+                </a>
+              </span>
+              <span>
+                <a href="#">
+                  <i className="ri-global-line"></i>
+                </a>
+              </span>
+              <span>
+                <a href="#">
+                  <i className="ri-discord-line"></i>
+                </a>
+              </span>
+            </div>
+          </Container>
+        </section>
 
         <br />
         <section>

@@ -47,7 +47,8 @@
   margin-left: auto;
   margin-right: auto;
   margin-bottom: 25px;
-  border: 1px solid #fff;
+  border: 1px solid #32373c;
+
   border-radius: 7px;
   padding: 10px;
   width: 1196px;
@@ -132,7 +133,6 @@
   width: 30px;
   float: left;
   margin-left: 5px;
-
   margin-right: 8px;
 }
 

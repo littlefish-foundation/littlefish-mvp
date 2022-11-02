@@ -35,7 +35,7 @@ const Create = (props) => {
 
   const initialInputState = {
     walletAddress: "",
-    name: "",
+    name: null,
     description: "",
     producerName: "",
     image: "",
@@ -226,14 +226,14 @@ const Create = (props) => {
 
             <Col lg="8" md="8" sm="6">
               <div className="create__item">
-                <Form>
+                <Form onSubmit>
                   <h2>Basic Information</h2>
                   <FormGroup className="metadata_basic_section">
                     <FormGroup className="form__input">
                       <Label for="walletAddress">Wallet Address*</Label>
 
                       <Input
-                        required="true"
+                        required={true}
                         id="walletAddress"
                         name="walletAddress"
                         type="text"
@@ -255,6 +255,7 @@ const Create = (props) => {
                           placeholder="Enter the full Name of the Action"
                           onChange={handleInputChange}
                           value={name}
+                          required={true}
                         />
                         <PopOvers />
                       </FormGroup>
@@ -262,13 +263,13 @@ const Create = (props) => {
                       <FormGroup className="form__input">
                         <Label for="producerName">Action Producer*</Label>
                         <Input
-                          required
                           id="producerName"
                           name="producerName"
                           type="text"
                           placeholder="Enter the Name of the Producer"
                           onChange={handleInputChange}
                           value={producerName}
+                          required={true}
                         />
                         <PopOvers />
                       </FormGroup>
@@ -276,7 +277,6 @@ const Create = (props) => {
                       <FormGroup className="form__input">
                         <Label for="description">Description*</Label>
                         <Input
-                          required
                           id="description"
                           type="textarea"
                           name="description"
@@ -286,6 +286,7 @@ const Create = (props) => {
                           onChange={handleInputChange}
                           value={description}
                           className="w-90"
+                          required
                         ></Input>
                         <div className="Char__counter">
                           {description.length}/ {maxCount}
@@ -429,9 +430,20 @@ const Create = (props) => {
                         value={colony}
                       >
                         <option>Choose your Colony</option>
-                        <option value="Littlefish Foundation">
+                        <option value="Littlefish Foundation" disabled>
                           Littlefish Foundation
                         </option>
+                        <option value="dream engine"> - Dream Engine</option>
+                        <option value={"love house"}> - Love House</option>
+                        <option value={"organization labs"}>
+                          {" "}
+                          - Organization Labs
+                        </option>
+                        <option value={"tech help collective"}>
+                          {" "}
+                          - Tech Help Collective
+                        </option>
+                        <option value={"the forge"}> - The Forge</option>
                       </Input>
                       <PopOvers />
                     </FormGroup>

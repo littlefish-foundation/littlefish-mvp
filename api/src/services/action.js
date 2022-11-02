@@ -2,6 +2,9 @@ const tangocryptoClient = require('../external-api/tangocrypto-client');
 const actionDataAccess = require('../data-access/action');
 const actionTypeDataAccess = require('../data-access/action-type');
 const colonyActionTypeDataAccess = require('../data-access/colony-action-type');
+const colonyRelationDataAccess = require('../data-access/colony-relation');
+const userDataAccess = require('../data-access/user');
+const colonyDataAccess = require('../data-access/colony');
 const actionLogic = require('../logics/action');
 const uploadImage = require('../utils/upload-image');
 const { formatActions } = require('../formatters/action');
@@ -59,27 +62,86 @@ module.exports = class ActionService {
     return formatActions(actions);
   }
 
-  static async createActionCollection(walletAddress, name) {
-    const { collectionID } = await tangocryptoClient.createCollection(walletAddress, name);
+  static async handleRewardSharing(producerWalletAddress, colonyName) {
+    const colony = await colonyDataAccess.getColonyByName(colonyName);
+    if (!colony) {
+      throw new NotFoundError('Colony could not be found.');
+    }
+    const users = await userDataAccess.getUsersByColony(colonyName);
+
+    const colonyShare = colony.rewardSharing.colony;
+    const eachMemberShare = colony.rewardSharing.members / (users.length - 1);
+    const producerShare = 1 - colonyShare - colony.rewardSharing.members;
+    if (colony.rewardSharing.members === 0 && colonyShare === 0) {
+      return producerWalletAddress;
+    }
+
+    const payoutAddresses = [{
+      addr: producerWalletAddress,
+      name: 'producer',
+      ratio: producerShare,
+    },
+    {
+      addr: colony.walletAddress,
+      name: 'colony',
+      ratio: colonyShare,
+    }];
+
+    users.filter((user) => user.walletAddress !== producerWalletAddress).forEach((user) => {
+      payoutAddresses.push(
+        {
+          addr: user.walletAddress,
+          name: `wallet of ${user.name}`,
+          ratio: eachMemberShare,
+        },
+      );
+    });
+
+    return payoutAddresses.filter((a) => a.ratio !== 0);
+  }
+
+  static async createActionCollection(walletAddress, name, colony) {
+    const payoutAddresses = await this.handleRewardSharing(walletAddress, colony);
+    const { collectionID } = await tangocryptoClient.createCollection(payoutAddresses, name);
     return collectionID;
   }
 
   static async handleMintActionTypes(type, colony) {
-    const actionType = await actionTypeDataAccess.getActionType(type);
-    const colonyActionType = await colonyActionTypeDataAccess.getColonyActionType(colony, type);
+    const colonyRelation = await colonyRelationDataAccess.getParentColony(colony);
+    const [actionType, colonyActionType, parentActionType] = await Promise.all([
+      actionTypeDataAccess.getActionType(type),
+      colonyActionTypeDataAccess.getColonyActionType(colony, type),
+      colonyActionTypeDataAccess.getColonyActionType(colonyRelation.parent.name, type),
+    ]);
 
-    if (actionType && colonyActionType) {
-      await actionTypeDataAccess.incrementActionType(actionType.name);
-      await colonyActionTypeDataAccess.incrementColonyActionType(colonyActionType.colony, colonyActionType.name);
+    if (colonyActionType) {
+      await Promise.all([
+        actionTypeDataAccess.incrementActionType(actionType.name),
+        colonyActionTypeDataAccess.incrementColonyActionType(colonyActionType.colony, colonyActionType.name),
+        colonyActionTypeDataAccess.incrementColonyActionType(parentActionType.colony, colonyActionType.name)]);
+      return;
     }
-    else if (actionType && !colonyActionType) {
-      await actionTypeDataAccess.incrementActionType(actionType.name);
-      await colonyActionTypeDataAccess.createColonyActionType(colony, type);
+
+    if (parentActionType) {
+      await Promise.all([
+        actionTypeDataAccess.incrementActionType(actionType.name),
+        colonyActionTypeDataAccess.createColonyActionType(colonyActionType.colony, colonyActionType.name),
+        colonyActionTypeDataAccess.incrementColonyActionType(parentActionType.colony, colonyActionType.name)]);
+      return;
     }
-    else {
-      await actionTypeDataAccess.createActionType(type);
-      await colonyActionTypeDataAccess.createColonyActionType(colony, type);
+
+    if (actionType) {
+      await Promise.all([
+        actionTypeDataAccess.incrementActionType(actionType.name),
+        colonyActionTypeDataAccess.createColonyActionType(colonyActionType.colony, colonyActionType.name),
+        colonyActionTypeDataAccess.createColonyActionType(parentActionType.colony, colonyActionType.name)]);
+      return;
     }
+
+    await Promise.all([
+      actionTypeDataAccess.createActionType(actionType.name),
+      colonyActionTypeDataAccess.createColonyActionType(colonyActionType.colony, colonyActionType.name),
+      colonyActionTypeDataAccess.createColonyActionType(parentActionType.colony, colonyActionType.name)]);
   }
 
   static async uploadAllImages(coverImage, files) {
@@ -114,7 +176,7 @@ module.exports = class ActionService {
     const ulid = actionLogic.generateUlid();
     const links = await this.shortenURLsThatLongerThanLimit(action.links);
     const toMint = actionLogic.prepareActionToMint(action, links, ulid, mintDate);
-    const collectionID = await this.createActionCollection(action.walletAddress, action.name);
+    const collectionID = await this.createActionCollection(action.walletAddress, action.name, action.colony);
     const { mintedAction } = await tangocryptoClient.mintAction(toMint, collectionID);
     const preparedFiles = actionLogic.prepareAllImageURLsInFile(mintedAction.files);
 

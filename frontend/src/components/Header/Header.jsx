@@ -35,12 +35,8 @@ const DropDownElement = (
 
 const NAV__LINKS = [
   {
-    display: "Actions",
-    url: "/action",
-  },
-  {
-    display: "Colonies",
-    url: "/colony",
+    display: "Colony",
+    url: "/colony/Littlefish%20Foundation",
   },
   {
     display: "littlefish",
@@ -126,7 +122,10 @@ const Header = () => {
     <header className="header" ref={headerRef}>
       <Container>
         <div className="navigation">
-          <NavLink to="/action" style={{ textDecoration: "none" }}>
+          <NavLink
+            to="/colony/Littlefish%20Foundation"
+            style={{ textDecoration: "none" }}
+          >
             <div className="logo">
               <h2 className=" d-flex gap-2 align-items-center ">
                 <span>

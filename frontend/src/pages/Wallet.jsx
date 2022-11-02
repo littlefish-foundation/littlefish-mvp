@@ -66,6 +66,7 @@ const Wallet = () => {
       if (namiAddr) {
         await Nami.enable();
         let addr = await Nami.getAddress();
+
         let assets = await Nami.getAssets();
         let balance = await Nami.getUtxos();
         let network = await Nami.getNetworkId();
@@ -121,6 +122,7 @@ const Wallet = () => {
     e.preventDefault();
     sessionStorage.setItem("walletID", account);
     sessionStorage.setItem("connectedNetwork", namiNetwork);
+
     window.walletIDStored = sessionStorage.getItem("walletID");
     window.connectedNetworkStored = sessionStorage.getItem("connectedNetwork");
 

@@ -8,4 +8,4 @@ The frontend/ folder includes the user interface of the project using React.
 ### Current Situation
 Swagger documentation for the API: https://api.littlefish.foundation/documentation/index.html/
 
-Frontend: https://dev.littlefish.foundation/
+Frontend: https://app.littlefish.foundation/

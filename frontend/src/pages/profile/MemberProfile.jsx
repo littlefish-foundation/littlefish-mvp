@@ -30,9 +30,9 @@ const MemberProfile = (props) => {
   const { userData, loadingUserData } = useGetOneUserData(name);
 
   const walletID = userData?.walletAddress;
-  const first6 = walletID?.substring(0, 8);
+  const first8 = walletID?.substring(0, 8);
   const lengthOfID = walletID?.length;
-  const last6 = walletID?.substring(lengthOfID - 9, lengthOfID - 1);
+  const last8 = walletID?.substring(lengthOfID - 9, lengthOfID);
 
   const year = userData?.createdAt?.substring(0, 4);
   const month = userData?.createdAt?.substring(5, 7);
@@ -84,39 +84,47 @@ const MemberProfile = (props) => {
               }}
             />
           </button> */}
-          <div
-            style={{
-              position: "absolute",
-              marginTop: "260px",
-              color: "white",
-              marginLeft: "900px",
-              fontSize: "2rem",
-              alignItems: "center",
-            }}
-          >
-            <img src={cardanoIcon} alt="" className="cardano__icon" />
-            <Button
-              className="wallet__id__btn"
-              value={walletID}
-              onClick={copyToClipboard}
-            >
-              {first6}......{last6}
-            </Button>
-          </div>
-          <div
-            style={{
-              position: "absolute",
-              marginTop: "260px",
-              color: "white",
-              marginLeft: "1150px",
-              fontSize: "2rem",
-              alignItems: "center",
-            }}
-          >
-            <div className="date__joined">
-              <p>Member since {dateFormat}</p>
-            </div>
-          </div>
+          <section>
+            <Container>
+              <div
+                style={{
+                  position: "absolute",
+                  marginTop: "260px",
+                  color: "white",
+                  fontSize: "2rem",
+                  alignItems: "center",
+                }}
+              >
+                <div style={{ marginLeft: "900px" }}>
+                  <img src={cardanoIcon} alt="" className="cardano__icon" />
+
+                  <a
+                    href={`https://preprod.cexplorer.io/address/${walletID}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <Button className="wallet__id__btn">
+                      {first8}......{last8}
+                    </Button>
+                  </a>
+                </div>
+              </div>
+              <div
+                style={{
+                  position: "absolute",
+                  marginTop: "260px",
+                  color: "white",
+                  marginLeft: "1150px",
+                  fontSize: "2rem",
+                  alignItems: "center",
+                }}
+              >
+                <div className="date__joined">
+                  <p>Member since {dateFormat}</p>
+                </div>
+              </div>
+            </Container>
+          </section>
 
           <section className="common__section">
             <Container>
@@ -125,36 +133,40 @@ const MemberProfile = (props) => {
               </div>
             </Container>
           </section>
-          <div
-            className="social__links__user d-flex gap-3 align-items-center "
-            style={{ marginLeft: "15px" }}
-          >
-            <span>
-              <a href="#">
-                <i className="ri-github-line"></i>
-              </a>
-            </span>
-            <span>
-              <a href="#">
-                <i className="ri-youtube-line"></i>
-              </a>
-            </span>
-            <span>
-              <a href="#">
-                <i className="ri-twitter-line"></i>
-              </a>
-            </span>
-            <span>
-              <a href="#">
-                <i className="ri-global-line"></i>
-              </a>
-            </span>
-            <span>
-              <a href="#">
-                <i className="ri-discord-line"></i>
-              </a>
-            </span>
-          </div>
+          <section>
+            <Container>
+              <div
+                className="social__links__user d-flex gap-3 align-items-center "
+                style={{ marginLeft: "15px" }}
+              >
+                <span>
+                  <a href="#">
+                    <i className="ri-github-line"></i>
+                  </a>
+                </span>
+                <span>
+                  <a href="#">
+                    <i className="ri-youtube-line"></i>
+                  </a>
+                </span>
+                <span>
+                  <a href="#">
+                    <i className="ri-twitter-line"></i>
+                  </a>
+                </span>
+                <span>
+                  <a href="#">
+                    <i className="ri-global-line"></i>
+                  </a>
+                </span>
+                <span>
+                  <a href="#">
+                    <i className="ri-discord-line"></i>
+                  </a>
+                </span>
+              </div>
+            </Container>
+          </section>
           <br></br>
           <section>
             <Container>

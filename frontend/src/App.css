@@ -57,10 +57,10 @@ footer {
 /* =========== custom scroll-bar ========= */
 
 ::-webkit-scrollbar {
-  width: 10px;
+  width: 2px;
 }
 
 ::-webkit-scrollbar-thumb {
-  border-radius: 2em;
+  border-radius: 5px;
   background: #fff;
 }

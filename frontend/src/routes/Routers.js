@@ -18,16 +18,19 @@ import Littlefish from "../pages/Littlefish";
 const Routers = () => {
   return (
     <Routes>
-      <Route path="/" element={<Navigate to="/action" />} />
+      <Route
+        path="/"
+        element={<Navigate to="/colony/Littlefish%20Foundation" />}
+      />
 
-      <Route path="/action" element={<Actions />} />
+      {/* <Route path="/action" element={<Actions />} /> */}
       <Route path="/wallet" element={<Wallet />} />
       <Route path="/create" element={<Create />} />
       <Route path="/about" element={<About />} />
       <Route path="/littlefish" element={<Littlefish />} />
       <Route path="/MemberForm" element={<MemberForm />} />
 
-      <Route path="/colony" element={<Colony />} />
+      {/* <Route path="/colony" element={<ColonyDetails />} /> */}
       <Route path="/colony/:name" element={<ColonyDetails />} />
       <Route path="/user/:name" element={<MemberProfile />} />
       <Route path="/subcolony/:name" element={<Subcolony />} />

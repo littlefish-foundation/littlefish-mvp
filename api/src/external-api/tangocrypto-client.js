@@ -4,7 +4,7 @@ const config = require('../config');
 const { ACTION_METADATA_ATTRIBUTES } = require('../constants');
 
 module.exports = class TangocryptoClient {
-  static async createCollection(walletAddress, name) {
+  static async createCollection(walletAddresses, name) {
     const options = {
       method: 'POST',
       url: `${config.actionServiceClient.url}v1/nft/collections`,
@@ -16,7 +16,7 @@ module.exports = class TangocryptoClient {
         name: `${name}Collection`,
         url: 'https://linktr.ee/littlefish.foundation',
         description: 'This is a collection for an action in the Littlefish colony',
-        payout_address: walletAddress,
+        payout_address: walletAddresses,
         policy: { lock: false },
         metadata: {
           name: ACTION_METADATA_ATTRIBUTES.NAME,

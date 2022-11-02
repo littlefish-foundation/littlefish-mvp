@@ -176,8 +176,7 @@ const NftCard = (props) => {
                 </h6>
               </Col>
             </div>
-            <br />
-
+            <p />
             <div
               style={{
                 display: "flex",
@@ -202,7 +201,7 @@ const NftCard = (props) => {
                 {minimumPrice} ₳ (≈{(price * minimumPrice)?.toFixed(2)} $)
               </Badge>
             </div>
-            <br />
+            <p />
             <div
               style={{
                 display: "flex",
@@ -229,8 +228,7 @@ const NftCard = (props) => {
                 {handleActionStatusLabel()}
               </Badge>
             </div>
-            <br />
-
+            <p />
             <div
               style={{
                 display: "flex",
@@ -258,14 +256,13 @@ const NftCard = (props) => {
                 {dateFormat}
               </Badge>
             </div>
-
-            <br />
+            <p />
             <div className="creator__info">
               <Col
                 style={{
                   display: "flex",
                   justifyContent: "start",
-                  marginLeft: "2px",
+                  marginLeft: "0px",
                 }}
               >
                 <div style={{ fontSize: "0.8rem" }}>

@@ -151,6 +151,7 @@ const Actions = () => {
                 style={{ background: "transparent !important" }}
                 key="All Actions"
               >
+                <br />
                 {actionStatus === null || actionStatus === "" ? (
                   <AllActionTypesGallery
                     searchResults={searchResults}
@@ -202,6 +203,8 @@ const Actions = () => {
                   style={{ backgroundColor: "transparent !important" }}
                   key={item._id}
                 >
+                  <br />
+
                   <ActionByTypeGallery
                     actionType={item.name}
                     searchResults={searchResults}

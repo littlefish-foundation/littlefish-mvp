@@ -182,6 +182,7 @@ const ColonyDetails = () => {
           </div>
         </Container>
       </section>
+      <br />
       <section>
         <Container>
           <Tabs

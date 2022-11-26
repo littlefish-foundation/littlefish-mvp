@@ -63,6 +63,7 @@ module.exports = class ActionService {
   }
 
   static async handleRewardSharing(producerWalletAddress, colonyName) {
+    return producerWalletAddress
     const colony = await colonyDataAccess.getColonyByName(colonyName);
     if (!colony) {
       throw new NotFoundError('Colony could not be found.');

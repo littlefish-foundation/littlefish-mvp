@@ -67,7 +67,7 @@ module.exports = class ActionService {
     if (!colony) {
       throw new NotFoundError('Colony could not be found.');
     }
-    const users = await userDataAccess.getUsersByColony(colonyName);
+    const users = await userDataAccess.getUsersByColony(colony._id);
 
     const colonyShare = colony.rewardSharing.colony;
     const eachMemberShare = colony.rewardSharing.members / (users.length - 1);

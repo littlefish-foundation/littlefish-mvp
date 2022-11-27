@@ -63,42 +63,42 @@ module.exports = class ActionService {
   }
 
   static async handleRewardSharing(producerWalletAddress, colonyName) {
-    return producerWalletAddress
-    const colony = await colonyDataAccess.getColonyByName(colonyName);
-    if (!colony) {
-      throw new NotFoundError('Colony could not be found.');
-    }
-    const users = await userDataAccess.getUsersByColony(colony._id);
-
-    const colonyShare = colony.rewardSharing.colony;
-    const eachMemberShare = colony.rewardSharing.members / (users.length - 1);
-    const producerShare = 1 - colonyShare - colony.rewardSharing.members;
-    if (colony.rewardSharing.members === 0 && colonyShare === 0) {
-      return producerWalletAddress;
-    }
-
-    const payoutAddresses = [{
-      addr: producerWalletAddress,
-      name: 'producer',
-      ratio: producerShare,
-    },
-    {
-      addr: colony.walletAddress,
-      name: 'colony',
-      ratio: colonyShare,
-    }];
-
-    users.filter((user) => user.walletAddress !== producerWalletAddress).forEach((user) => {
-      payoutAddresses.push(
-        {
-          addr: user.walletAddress,
-          name: `wallet of ${user.name}`,
-          ratio: eachMemberShare,
-        },
-      );
-    });
-
-    return payoutAddresses.filter((a) => a.ratio !== 0);
+    return producerWalletAddress;
+    // const colony = await colonyDataAccess.getColonyByName(colonyName);
+    // if (!colony) {
+    //   throw new NotFoundError('Colony could not be found.');
+    // }
+    // const users = await userDataAccess.getUsersByColony(colony._id);
+    //
+    // const colonyShare = colony.rewardSharing.colony;
+    // const eachMemberShare = colony.rewardSharing.members / (users.length - 1);
+    // const producerShare = 1 - colonyShare - colony.rewardSharing.members;
+    // if (colony.rewardSharing.members === 0 && colonyShare === 0) {
+    //   return producerWalletAddress;
+    // }
+    //
+    // const payoutAddresses = [{
+    //   addr: producerWalletAddress,
+    //   name: 'producer',
+    //   ratio: producerShare,
+    // },
+    // {
+    //   addr: colony.walletAddress,
+    //   name: 'colony',
+    //   ratio: colonyShare,
+    // }];
+    //
+    // users.filter((user) => user.walletAddress !== producerWalletAddress).forEach((user) => {
+    //   payoutAddresses.push(
+    //     {
+    //       addr: user.walletAddress,
+    //       name: `wallet of ${user.name}`,
+    //       ratio: eachMemberShare,
+    //     },
+    //   );
+    // });
+    //
+    // return payoutAddresses.filter((a) => a.ratio !== 0);
   }
 
   static async createActionCollection(walletAddress, name, colony) {
@@ -108,41 +108,48 @@ module.exports = class ActionService {
   }
 
   static async handleMintActionTypes(type, colony) {
-    const colonyRelation = await colonyRelationDataAccess.getParentColony(colony);
-    const [actionType, colonyActionType, parentActionType] = await Promise.all([
-      actionTypeDataAccess.getActionType(type),
-      colonyActionTypeDataAccess.getColonyActionType(colony, type),
-      colonyActionTypeDataAccess.getColonyActionType(colonyRelation.parent.name, type),
-    ]);
-
-    if (colonyActionType) {
-      await Promise.all([
-        actionTypeDataAccess.incrementActionType(actionType.name),
-        colonyActionTypeDataAccess.incrementColonyActionType(colonyActionType.colony, colonyActionType.name),
-        colonyActionTypeDataAccess.incrementColonyActionType(parentActionType.colony, colonyActionType.name)]);
-      return;
+    const t = await actionTypeDataAccess.getActionType(type);
+    if (t) {
+      await actionTypeDataAccess.incrementActionType(type);
+    } else {
+      await actionTypeDataAccess.createActionType(type);
     }
 
-    if (parentActionType) {
-      await Promise.all([
-        actionTypeDataAccess.incrementActionType(actionType.name),
-        colonyActionTypeDataAccess.createColonyActionType(colonyActionType.colony, colonyActionType.name),
-        colonyActionTypeDataAccess.incrementColonyActionType(parentActionType.colony, colonyActionType.name)]);
-      return;
-    }
-
-    if (actionType) {
-      await Promise.all([
-        actionTypeDataAccess.incrementActionType(actionType.name),
-        colonyActionTypeDataAccess.createColonyActionType(colonyActionType.colony, colonyActionType.name),
-        colonyActionTypeDataAccess.createColonyActionType(parentActionType.colony, colonyActionType.name)]);
-      return;
-    }
-
-    await Promise.all([
-      actionTypeDataAccess.createActionType(actionType.name),
-      colonyActionTypeDataAccess.createColonyActionType(colonyActionType.colony, colonyActionType.name),
-      colonyActionTypeDataAccess.createColonyActionType(parentActionType.colony, colonyActionType.name)]);
+    // const colonyRelation = await colonyRelationDataAccess.getParentColony(colony);
+    // const [actionType, colonyActionType, parentActionType] = await Promise.all([
+    //   actionTypeDataAccess.getActionType(type),
+    //   colonyActionTypeDataAccess.getColonyActionType(colony, type),
+    //   colonyActionTypeDataAccess.getColonyActionType(colonyRelation.parent?.name, type),
+    // ]);
+    //
+    // if (colonyActionType) {
+    //   await Promise.all([
+    //     actionTypeDataAccess.incrementActionType(actionType.name),
+    //     colonyActionTypeDataAccess.incrementColonyActionType(colonyActionType.colony, colonyActionType.name),
+    //     colonyActionTypeDataAccess.incrementColonyActionType(parentActionType.colony, colonyActionType.name)]);
+    //   return;
+    // }
+    //
+    // if (parentActionType) {
+    //   await Promise.all([
+    //     actionTypeDataAccess.incrementActionType(actionType.name),
+    //     colonyActionTypeDataAccess.createColonyActionType(colonyActionType.colony, colonyActionType.name),
+    //     colonyActionTypeDataAccess.incrementColonyActionType(parentActionType.colony, colonyActionType.name)]);
+    //   return;
+    // }
+    //
+    // if (actionType) {
+    //   await Promise.all([
+    //     actionTypeDataAccess.incrementActionType(actionType.name),
+    //     colonyActionTypeDataAccess.createColonyActionType(colonyActionType.colony, colonyActionType.name),
+    //     colonyActionTypeDataAccess.createColonyActionType(parentActionType.colony, colonyActionType.name)]);
+    //   return;
+    // }
+    //
+    // await Promise.all([
+    //   actionTypeDataAccess.createActionType(actionType.name),
+    //   colonyActionTypeDataAccess.createColonyActionType(colonyActionType.colony, colonyActionType.name),
+    //   colonyActionTypeDataAccess.createColonyActionType(parentActionType.colony, colonyActionType.name)]);
   }
 
   static async uploadAllImages(coverImage, files) {
